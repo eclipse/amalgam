@@ -107,6 +107,11 @@
       id="org.eclipse.emf"
       version="latest">
     </feature>
+    
+    <feature
+      id="org.eclipse.emf.ecore.sdo.sdk"
+      version="latest">
+    </feature>
 
     <feature
       id="org.eclipse.uml2.sdk"
