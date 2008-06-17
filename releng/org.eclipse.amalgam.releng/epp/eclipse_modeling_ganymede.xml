@@ -29,6 +29,9 @@
     url="http://wiki.eclipse.org/GMF_New_and_Noteworthy"
     project="Graphical Modeling Framework" />
   <NewAndNoteworthy
+    url="http://wiki.eclipse.org/MDT_1.1_New_and_Noteworthy"
+    project="Model Development Tools" />
+  <NewAndNoteworthy
     url="http://download.eclipse.org/eclipse/downloads/drops/S-3.4M7-200805020100/eclipse-news-M7.html"
     project="Eclipse Platform" />
   <NewAndNoteworthy
