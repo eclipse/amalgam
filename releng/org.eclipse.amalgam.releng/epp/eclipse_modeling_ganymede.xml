@@ -32,6 +32,9 @@
     url="http://wiki.eclipse.org/MDT_1.1_New_and_Noteworthy"
     project="Model Development Tools" />
   <NewAndNoteworthy
+    url="http://wiki.eclipse.org/ATL_2.0.0_New_and_Noteworthy"
+    project="M2M ATL" />
+  <NewAndNoteworthy
     url="http://wiki.eclipse.org/EcoreTools_New_Noteworthy"
     project="Ecore Tools" />
   <NewAndNoteworthy
