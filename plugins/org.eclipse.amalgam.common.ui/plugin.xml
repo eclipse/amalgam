@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <!-- A base set of wizard categories-->
+   <extension point="org.eclipse.ui.newWizards">
+	  <category
+            id="org.eclipse.amalgam.dsl.wizardCategory"
+            name="%dsl.wizard.category"/>
+      <category
+            id="org.eclipse.amalgam.dsl.diagram.wizardCategory"
+            name="%dsl.diagram.wizard.category"
+            parentCategory="org.eclipse.amalgam.dsl.wizardCategory"/>
+      <category
+            id="org.eclipse.amalgam.transformation.wizardCategory"
+            name="%model.transformation.wizard.category"/>
+      <category
+            id="org.eclipse.amalgam.uml2.wizardCategory"
+            name="%uml.wizard.category"/>
+   </extension>
+
+   <!-- DSL Toolkit activity category definition -->
+   <extension
+       point="org.eclipse.ui.activities">
+    <category
+          description="%activity.cat.dsl.development.desc"
+          id="org.eclipse.amalgam.dsl.Category"
+          name="%activity.cat.dsl.development">
+    </category>
+  </extension>
+  
+  <!-- Model Transformation activity category definition -->
+   <extension
+       point="org.eclipse.ui.activities">
+    <category
+          description="%activity.cat.model.transformation.desc"
+          id="org.eclipse.amalgam.mt.Category"
+          name="%activity.cat.model.transformation">
+    </category>
+ </extension>
+ 
+ <!-- UML modeling activity category definition -->
+   <extension
+       point="org.eclipse.ui.activities">
+    <category
+          description="%activity.cat.uml.modeling.desc"
+          id="org.eclipse.amalgam.uml.Category"
+          name="%activity.cat.uml.modeling">
+    </category>
+  </extension>
+
+</plugin>
