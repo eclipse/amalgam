@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Generating code">
+   <intro href="/org.eclipse.platform.doc.user/reference/ref-cheatsheets.htm">
+      <description>
+         This cheat sheet will demonstrate how to author templates for code generation from a DSL.
+         <br/>
+         <br/>
+         To learn more about using cheat sheets, click the help button
+         in the top right corner (?).
+      </description>
+   </intro>
+   <item title="Create a new template" dialog="false" skip="true" href="/org.eclipse.amalgam.dsl.doc.user/guide/template.html">
+      <description>
+         To create a new template...
+         <br/>
+         <br/>
+         Alternatively, click the following button to perform the task.
+      </description>
+      <command serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.amalgam.dsl.mt.wizard.NewTemplateFileWizard)" confirm="false">
+      </command>
+   </item>
+</cheatsheet>
