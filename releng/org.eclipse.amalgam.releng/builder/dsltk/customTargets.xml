@@ -1,0 +1,434 @@
+<project name="Build specific targets and properties" default="noDefault">
+
+	<!-- ===================================================================== -->
+	<!-- Run a given ${target} on all elements being built -->
+	<!-- Add on <ant> task for each top level element being built. -->
+	<!-- ===================================================================== -->
+	<available property="allElementsFile" file="${builder}/allElements.xml" value="${builder}/allElements.xml"/>
+	<property name="allElementsFile" location="${eclipse.pdebuild.templates}/headless-build/allElements.xml"/>
+
+	<import file="${allElementsFile}" />
+	<target name="allElements">
+				<antcall target="allElementsDelegator" /> 
+		<!--		<ant antfile="${genericTargets}" target="${target}">
+			<property name="type" value="feature" />
+			<property name="id" value="org.eclipse.amalgam.dsltk" />
+		</ant> -->
+	</target>
+	
+	<!-- ===================================================================== -->
+	<!-- Targets to assemble the built elements for particular configurations  -->
+	<!-- These generally call the generated assemble scripts (named in -->
+	<!-- ${assembleScriptName}) but may also add pre and post processing -->
+	<!-- Add one target for each root element and each configuration -->
+	<!-- ===================================================================== -->
+<!--
+	<target name="assemble.org.eclipse.amalgam.dsltk">
+		<ant antfile="${assembleScriptName}" /> 
+	</target>
+	-->
+	<!-- ===================================================================== -->
+	<!-- ===================================================================== -->
+	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
+		<!-- TODO replace zip usage with director install from update site after 241596 resolved -->
+		<!-- with that, just download the director app, as it's not included in the basebuilder -->
+		<get src="${eclipseBaseURL}" dest="${buildDirectory}/base.tar.gz" verbose="true" usetimestamp="true"/>
+		<mkdir dir="${base}"/>
+		<exec executable="tar">
+			<arg line="-xzf"/>
+			<arg line="${buildDirectory}/base.tar.gz"/>
+			<arg line="-C ${base}"/>
+		</exec>
+		<!--  
+		<get src="${directorURL}" dest="${buildDirectory}/director.tar.gz" verbose="true" usetimestamp="true"/>
+		<mkdir dir="${buildDirectory}/director"/>
+		<exec executable="tar">
+			<arg line="-xzf"/>
+			<arg line="${buildDirectory}/director.tar.gz"/>
+			<arg line="-C ${buildDirectory}/director"/>
+		</exec> -->
+<!--
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${base}/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.IU" value="org.eclipse.sdk.feature.group"/>
+			<param name="p2.version" value="3.4.0.v20080522-7O7S-CHEp2gcsFfkNFookz0nAcPft_XotnAnrD4csxYej"/>
+			<param name="p2.metadata.repo" value="file:${buildDirectory}/sdk/eclipse"/>
+			<param name="p2.artifact.repo" value="file:${buildDirectory}/sdk/eclipse"/>
+		</antcall> -->
+<!--	<antcall target="run.director">
+			<param name="p2.director.install.path" value="${base}/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.IU" value="org.eclipse.equinox.executable.feature.group"/>
+			<param name="p2.version" value="3.3.100.v20080606-7H-ELQEDdVv0SVkW65GwAA"/>
+			<param name="p2.metadata.repo" value="file:${buildDirectory}/delta/eclipse"/>
+			<param name="p2.artifact.repo" value="file:${buildDirectory}/delta/eclipse"/>
+		</antcall> -->
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${base}/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.IU" value="org.eclipse.emf.sdk.feature.group"/>
+			<param name="p2.version" value="2.4.0.v200806091234"/>
+			<param name="p2.metadata.repo" value="${dependencyMetadataRepo}"/>
+			<param name="p2.artifact.repo" value="${dependencyArtifactRepo}"/>
+		</antcall>
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${base}/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.IU" value="org.eclipse.uml2.sdk.feature.group"/>
+			<param name="p2.version" value="2.2.0.v200805201126"/>
+			<param name="p2.metadata.repo" value="${dependencyMetadataRepo}"/>
+			<param name="p2.artifact.repo" value="${dependencyArtifactRepo}"/>
+		</antcall>
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${base}/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.IU" value="org.eclipse.emf.emfqtv.all.sdk.feature.group"/>
+			<param name="p2.version" value="1.2.0.v200805130238-35-9-FF4TAdDtyhfiKaEtz0gsQQT"/>
+			<param name="p2.metadata.repo" value="${dependencyMetadataRepo}"/>
+			<param name="p2.artifact.repo" value="${dependencyArtifactRepo}"/>
+		</antcall>
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${base}/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.IU" value="org.eclipse.gef.sdk.feature.group"/>
+			<param name="p2.version" value="3.4.0.v20080115-7B7E-97OK5c7PDdDMPMcHNPTM3CD"/>
+			<param name="p2.metadata.repo" value="${dependencyMetadataRepo}"/>
+			<param name="p2.artifact.repo" value="${dependencyArtifactRepo}"/>
+		</antcall>
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${base}/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.IU" value="org.eclipse.ocl.all.sdk.feature.group"/>
+			<param name="p2.version" value="1.2.0.v200805130238-67_8Y_-NQOdLfTWFhivwhwxdBhdq"/>
+			<param name="p2.metadata.repo" value="${dependencyMetadataRepo}"/>
+			<param name="p2.artifact.repo" value="${dependencyArtifactRepo}"/>
+		</antcall>
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${base}/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.IU" value="org.eclipse.m2m.qvt.oml.sdk.feature.group"/>
+			<param name="p2.version" value="1.0.0.v20080611-1330-7_--AAKDAeC4okgF98SvgNel8wUW"/>
+			<param name="p2.metadata.repo" value="${dependencyMetadataRepo}"/>
+			<param name="p2.artifact.repo" value="${dependencyArtifactRepo}"/>
+		</antcall>
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${base}/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.IU" value="org.eclipse.gmf.sdk.feature.group"/>
+			<param name="p2.version" value="2.1.0.v20080501-1739-7_77-A9Tdn-VSYbUc0oz-hiY5gdz"/>
+			<param name="p2.metadata.repo" value="${dependencyMetadataRepo}"/>
+			<param name="p2.artifact.repo" value="${dependencyArtifactRepo}"/>
+		</antcall>
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${base}/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.IU" value="org.eclipse.uml2tools.sdk.feature.group"/>
+			<param name="p2.version" value="0.8.0.v200806112132"/>
+			<param name="p2.metadata.repo" value="${dependencyMetadataRepo}"/>
+			<param name="p2.artifact.repo" value="${dependencyArtifactRepo}"/>
+		</antcall> 
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${base}/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.IU" value="org.eclipse.emf.teneo.sdk.feature.group"/>
+			<param name="p2.version" value="1.0.0.v200806111928-3--87D3BKcgLUKa6ESidYXUVVFGE"/>
+			<param name="p2.metadata.repo" value="${dependencyMetadataRepo}"/>
+			<param name="p2.artifact.repo" value="${dependencyArtifactRepo}"/>
+		</antcall>
+
+		<antcall target="installDeltaPack"/>
+		<!-- workaround for out of date xpand and mwe update sites -->
+		<copy todir="${base}/eclipse/plugins">
+		    <fileset dir="${buildDirectory}/temphack" includes="**/*.jar"/>
+		</copy>
+		<unzip src="${buildDirectory}/temphack/emft-mwe-SDK-incubation-I200801100355.zip" dest="${base}"/>
+		<unzip src="${buildDirectory}/temphack/m2t-xpand-SDK-I200801101356.zip" dest="${base}"/>
+		<antcall target="generate.base.metadata"/>
+	</target>
+	
+	<target name="generate.base.metadata" >
+		<p2.generator source="${buildDirectory}/base/eclipse" 
+			append="true" 
+			mode="incremental" 
+			metadataRepository="file:${buildDirectory}/base/eclipse" 
+			artifactRepository="file:${buildDirectory}/base/eclipse" 
+			publishArtifacts="false"/>
+	</target>
+	
+	<target name="checkLocalBase">
+		<available file="${base}" property="skipBase" />
+	</target>
+	
+	<target name="installDeltaPack">
+		<available file="${buildDirectory}/deltapack.zip" property="deltaPackExists" />
+		<antcall target="getDeltaPack"/>
+		<unzip src="${buildDirectory}/deltapack.zip" dest="${base}"/>
+	</target>
+	
+	<target name="getDeltaPack" unless="deltaPackExists">
+		<get src="${deltaPackURL}" dest="${buildDirectory}/deltapack.zip" verbose="true" usetimestamp="true" />
+	</target>
+	
+	<!-- ===================================================================== -->
+	<!-- Check out map files from correct repository -->
+	<!-- Replace values for mapsCheckoutTag as desired. -->
+	<!-- ===================================================================== -->
+	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
+		<property name="mapsCheckoutTag" value="HEAD" />
+		<cvs cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
+		<copy todir="${buildDirectory}/maps" overwrite="true">
+			<fileset dir="${buildDirectory}/maps/org.eclipse.amalgam/releng/org.eclipse.amalgam.releng/maps">
+				<include name="**/*.map"/>
+			</fileset>
+		</copy>
+		<delete dir="${buildDirectory}/maps/org.eclipse.amalgam" />
+		<!--tag the map files project-->
+		<antcall target="tagMapFiles" />
+	</target>
+
+	<target name="checkLocalMaps">
+		<available property="skipMaps" file="${buildDirectory}/maps" />
+	</target>
+
+	<target name="tagMapFiles" if="tagMaps">
+		<cvs dest="${buildDirectory}/maps/${mapsRoot}" command="tag ${mapsTagTag}" />
+	</target>
+
+	<!-- ===================================================================== -->
+
+	<target name="clean" unless="noclean">
+		<antcall target="allElements">
+			<param name="target" value="cleanElement" />
+		</antcall>
+	</target>
+
+	<target name="gatherLogs">
+		<mkdir dir="${buildDirectory}/${buildLabel}/compilelogs" />
+		<antcall target="allElements">
+			<param name="target" value="gatherLogs" />
+		</antcall>
+		<unzip dest="${buildDirectory}/${buildLabel}/compilelogs" overwrite="true">
+			<fileset dir="${buildDirectory}/features">
+				<include name="**/*.log.zip" />
+			</fileset>
+		</unzip>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before setup -->
+	<!-- ===================================================================== -->
+	<target name="preSetup">
+		<tstamp/>
+		<property name="productVersion" value="1.0.0.v${timestamp}"/>
+		<copy file="${builder}/dsltk.product" tofile="${buildDirectory}/dsltk.product" overwrite="true"/>
+		<replace file="${buildDirectory}/dsltk.product" token="1.0.0.qualifier" value="${productVersion}" />
+		<delete file="${buildDirectory}/product.version" failonerror="false"/>
+		<concat destfile="${buildDirectory}/product.version">productVersion=${productVersion}</concat>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after setup but before starting the build proper -->
+	<!-- ===================================================================== -->
+	<target name="postSetup">
+		<antcall target="getBaseComponents" />
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before fetching the build elements -->
+	<!-- ===================================================================== -->
+	<target name="preFetch">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after fetching the build elements -->
+	<!-- ===================================================================== -->
+	<target name="postFetch">
+		<replace dir="${buildDirectory}/plugins" value="${timestamp}" token="@buildId@">
+			<include name="**/about.mappings" />
+		</replace>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before generating the build scripts. -->
+	<!-- ===================================================================== -->
+	<target name="preGenerate">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after generating the build scripts. -->
+	<!-- ===================================================================== -->
+	<target name="postGenerate">
+		<antcall target="clean" />
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running the build.xmls for the elements being built. -->
+	<!-- ===================================================================== -->
+	<target name="preProcess">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after running the build.xmls for the elements being built. -->
+	<!-- ===================================================================== -->
+	<target name="postProcess">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running assemble. -->
+	<!-- ===================================================================== -->
+	<target name="preAssemble">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after  running assemble. -->
+	<!-- ===================================================================== -->
+	<target name="postAssemble">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running package. -->
+	<!-- ===================================================================== -->
+	<target name="prePackage">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after  running package. -->
+	<!-- ===================================================================== -->
+	<target name="postPackage">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after the build is done. -->
+	<!-- ===================================================================== -->
+	<target name="postBuild">
+		<antcall target="gatherLogs" />
+		<property file="${buildDirectory}/product.version"/> <!--
+		<mkdir dir="${buildDirectory}/p2.build.artifacts/tmp/win32.win32.x86/eclipse" />
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${buildDirectory}/p2.build.artifacts/tmp/win32.win32.x86/eclipse"/>
+			<param name="p2.os" value="win32"/>
+			<param name="p2.ws" value="win32"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.version" value="${productVersion}"/>
+		</antcall>
+		<zip destfile="${buildDirectory}/p2.build.artifacts/dsltk.win32.win32.x86.zip" basedir="${buildDirectory}/p2.build.artifacts/tmp/win32.win32.x86/eclipse"/>
+		<mkdir dir="${buildDirectory}/p2.build.artifacts/tmp/linux.gtk.x86/eclipse" />
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${buildDirectory}/p2.build.artifacts/tmp/linux.gtk.x86/eclipse"/>
+			<param name="p2.os" value="linux"/>
+			<param name="p2.ws" value="gtk"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.version" value="${productVersion}"/>
+		</antcall>
+		<exec executable="tar" dir="${buildDirectory}/p2.build.artifacts/tmp/linux.gtk.x86/">
+			<arg line="${tarargs}-cvf ${buildDirectory}/p2.build.artifacts/dsltk.linux.gtk.x86.tar ${archivePrefix}"/>
+		</exec>
+		<gzip src="${buildDirectory}/p2.build.artifacts/dsltk.linux.gtk.x86.tar" zipfile="${buildDirectory}/p2.build.artifacts/dsltk.linux.gtk.x86.tar.gz"/>
+		<delete file="${buildDirectory}/p2.build.artifacts/dsltk.linux.gtk.x86.tar" /> -->
+		<mkdir dir="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse" />
+		<antcall target="run.director">
+			<param name="p2.director.install.path" value="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse"/>
+			<param name="p2.os" value="macosx"/>
+			<param name="p2.ws" value="carbon"/>
+			<param name="p2.arch" value="x86"/>
+			<param name="p2.version" value="${productVersion}"/>
+		</antcall>
+		
+		<!-- FIXME: replace dsltoolkit.ini with Eclipse.app/../Eclipse.ini and then concat with another
+		           that has the missing vmargs - workaround -->
+		<copy file="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse/Eclipse.app/Contents/MacOS/eclipse.ini" 
+			  tofile="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini" overwrite="true"/>
+		<concat append="true" destfile="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini">-Xdock:icon=../Resources/Eclipse.icns
+-Xms128m
+-Xmx1024m
+-XX:MaxPermSize=256m
+		</concat>
+		<!-- FIXME: workaround for missing doc icon -->
+		<copy file="${buildDirectory}/plugins/org.eclipse.amalgam.dsltk/Eclipse.icns" tofile="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/Resources/Eclipse.icns" overwrite="true"/>
+				
+		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default -->
+		<delete dir="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse/Eclipse.app" />
+		
+<!-- for now, don't zip up 
+		<exec executable="tar" dir="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/">
+			<arg line="${tarargs}-cvf ${buildDirectory}/p2.build.artifacts/dsltk.macosx.carbon.x86.tar ${archivePrefix}"/>
+		</exec>
+		<gzip src="${buildDirectory}/p2.build.artifacts/dsltk.macosx.carbon.x86.tar" zipfile="${buildDirectory}/p2.build.artifacts/dsltk.macosx.carbon.x86.tar.gz"/>
+		<delete file="${buildDirectory}/p2.build.artifacts/dsltk.macosx.carbon.x86.tar" />
+		<delete dir="${buildDirectory}/p2.build.artifacts/tmp"/>
+-->
+		
+	</target>
+			
+	<target name="run.director">
+		<exec executable="${buildDirectory}/sdk/eclipse/eclipse" failonerror="false">
+			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
+			<arg line="-nosplash" />
+			<arg line="--launcher.suppressErrors" />
+			<arg line="-consoleLog" />
+			<arg line="-flavor ${p2.flavor}" />
+			<arg line="-installIU ${p2.IU}" />
+			<arg line="-version ${p2.version}" />
+			<arg line="-p2.os ${p2.os}" />
+			<arg line="-p2.ws ${p2.ws}" />
+			<arg line="-p2.arch ${p2.arch}" />
+			<arg line="-roaming" />
+			<arg line="-profile ${p2.profile}" />
+			<arg line="-profileProperties org.eclipse.update.install.features=true" />
+			<arg line="${p2.director.extraArgs}" />
+			<arg line="-metadataRepository ${p2.metadata.repo}" />
+			<arg line="-artifactRepository ${p2.artifact.repo}" />
+			<arg line="-destination ${p2.director.install.path}" />
+			<arg line="-bundlepool ${p2.director.install.path}" />
+			<arg line="-vmargs -Dosgi.os=macosx -Dosgi.ws=carbon -Dosgi.arch=x86" />
+			<arg line="-Declipse.p2.data.area=${p2.director.install.path}/p2" />
+		<!--	<arg line="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8888" />-->
+		</exec>
+		
+		<!-- delete the metadata cache as well as the artifacts for unzipped bundles -->
+		<delete failonerror="false" includeEmptyDirs="true" dir="${p2.director.install.path}/p2/org.eclipse.equinox.p2.core/cache" />
+	</target>
+		
+	<!-- ===================================================================== -->
+	<!-- Steps to do to test the build results -->
+	<!-- ===================================================================== -->
+	<target name="test">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do to publish the build results -->
+	<!-- ===================================================================== -->
+	<target name="publish">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Default target                                                        -->
+	<!-- ===================================================================== -->
+	<target name="noDefault">
+		<echo message="You must specify a target when invoking this file" />
+	</target>
+
+</project>
