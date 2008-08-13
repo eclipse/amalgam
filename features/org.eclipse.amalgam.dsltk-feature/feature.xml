@@ -60,7 +60,6 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.equinox.p2.metadata"/>
       <import plugin="org.eclipse.equinox.p2.artifact.repository"/>
       <import plugin="org.eclipse.equinox.p2.metadata.generator"/>
-      <import plugin="org.eclipse.equinox.p2.ui"/>
       <import plugin="org.eclipse.equinox.p2.updatechecker"/>
       <import plugin="org.eclipse.equinox.frameworkadmin"/>
       <import plugin="org.eclipse.ecf"/>
