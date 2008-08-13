@@ -60,6 +60,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.equinox.p2.metadata"/>
       <import plugin="org.eclipse.equinox.p2.artifact.repository"/>
       <import plugin="org.eclipse.equinox.p2.metadata.generator"/>
+      <import plugin="org.eclipse.equinox.p2.ui"/>
       <import plugin="org.eclipse.equinox.p2.updatechecker"/>
       <import plugin="org.eclipse.equinox.frameworkadmin"/>
       <import plugin="org.eclipse.ecf"/>
@@ -167,6 +168,55 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.jdt.core" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.team.core" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.ltk.core.refactoring" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.equinox.simpleconfigurator.manipulator"/>
+      <import plugin="org.eclipse.ui.cheatsheets" version="3.2.0" match="compatible"/>
+      <import plugin="org.apache.ant" version="1.6.5"/>
+      <import plugin="org.eclipse.jdt.apt.core" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.core" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.text" version="3.1.0" match="compatible"/>
+      <import plugin="org.eclipse.core.filebuffers" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.debug.ui" version="3.3.100" match="compatible"/>
+      <import plugin="org.eclipse.jdt.debug" version="3.4.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.launching" version="3.4.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.ui" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.ltk.core.refactoring" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.core.manipulation" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.search" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.editors" version="3.4.0" match="compatible"/>
+      <import plugin="org.eclipse.debug.ui" version="3.4.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.core" version="3.4.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.ui" version="3.4.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.launching" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.junit.runtime" version="3.3.0" match="compatible"/>
+      <import plugin="org.junit" version="3.8.2" match="equivalent"/>
+      <import plugin="org.junit4" version="4.2.0"/>
+      <import plugin="org.eclipse.search" version="3.4.0" match="compatible"/>
+      <import plugin="org.eclipse.debug.core" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.debug.ui" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.core.manipulation" version="1.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ant.core" version="3.1.100" match="compatible"/>
+      <import plugin="org.eclipse.osgi" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.pde.build" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.junit.runtime" version="3.2.0" match="compatible"/>
+      <import plugin="org.junit" version="3.8.1" match="equivalent"/>
+      <import plugin="org.eclipse.pde.core" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.editors" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.search" version="3.1.0" match="compatible"/>
+      <import plugin="org.eclipse.ant.ui" version="3.1.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.junit" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.views.log" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.compare" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ltk.ui.refactoring" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.navigator.resources" version="3.3.100" match="compatible"/>
+      <import plugin="org.eclipse.pde.ui" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.osgi" version="3.4.0" match="compatible"/>
+      <import plugin="org.eclipse.pde.core" version="3.3.102" match="compatible"/>
+      <import plugin="org.eclipse.update.configurator" version="3.2.200" match="compatible"/>
+      <import plugin="org.eclipse.ant.core" version="3.1.300" match="compatible"/>
+      <import plugin="org.objectweb.asm" version="3.1.0" match="compatible"/>
+      <import plugin="org.eclipse.pde.ui" version="3.4.0" match="compatible"/>
+      <import plugin="org.eclipse.pde.api.tools" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.forms" version="3.3.100" match="compatible"/>
    </requires>
 
    <plugin
@@ -763,6 +813,230 @@ http://www.eclipse.org/legal/epl-v10.html
 
    <plugin
          id="org.eclipse.ant.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ant.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.apt.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.apt.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.apt.pluggable.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.compiler.apt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.compiler.tool"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.core.manipulation"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.debug.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.debug"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.jdt.junit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.junit.runtime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.junit4.runtime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.launching"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.junit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.junit4"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.jdt.doc.user"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jdt.launching.macosx"
+         os="macosx"
+         ws="carbon"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.pde"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.pde.build"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.pde.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.pde.junit.runtime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.pde.runtime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.pde.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.pde.doc.user"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.pde.ui.templates"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ui.views.log"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.objectweb.asm"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.pde.api.tools"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.pde.api.tools.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
