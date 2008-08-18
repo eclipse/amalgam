@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<project default="main" basedir=".">
+	<tstamp/>
+	<property name="date" value="${DSTAMP}"/>
+	<property name="time" value="${TSTAMP}"/>
+	<property name="timestamp" value="${date}${time}"/>
+	<property file="build.properties"/>
+	<property name="buildType" value="I"/>
+	<property name="buildLabel" value="${buildType}${timestamp}"/>
+	<property name="buildId" value="dsltk-${buildType}${date}-${time}"/>
+
+	<target name="main">
+		<antcall target="fetchBuilder"/>
+		<antcall target="buildProduct"/>
+	</target>
+	
+	<target name="fetchBuilder"> 
+		<cvs command="checkout -d eclipse" cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/eclipse"
+		     package="org.eclipse.releng.basebuilder" dest="${buildDirectory}/basebuilder" tag="${basebuilderTag}" />
+	</target>
+
+	<target name="buildProduct">		
+		<!-- invoke product build -->
+		<java jar="${buildDirectory}/basebuilder/eclipse/plugins/org.eclipse.equinox.launcher.jar" 
+			fork="true" 
+			timeout="10800000" 
+			failonerror="true" 
+			maxmemory="1024m" 
+			dir="${buildDirectory}/builder">
+			<jvmarg value="-Dbuilder=${buildDirectory}/builder"/>
+			<jvmarg value="-DbuildDirectory=${buildDirectory}"/>
+			<jvmarg value="-Dbase=${base}"/>
+			<jvmarg value="-DbaseLocation=${baseLocation}"/>
+			<jvmarg value="-Dpde.build.version=${pde.build.version}"/>
+			<jvmarg value="-Dtimestamp=${timestamp}"/>
+			<jvmarg value="-DbuildType=${buildType}"/>
+			<jvmarg value="-DbuildId=${buildId}"/>
+			<jvmarg value="-DbuildLabel=${buildLabel}"/>
+			<arg line="-consolelog -application org.eclipse.ant.core.antRunner" />
+			<arg line="-buildfile ${basebuilder}/eclipse/plugins/org.eclipse.pde.build_${pde.build.version}/scripts/productBuild/productBuild.xml" />
+		</java> 
+	</target>
+	
+</project>

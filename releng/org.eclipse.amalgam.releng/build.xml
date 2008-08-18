@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project default="main" basedir=".">
+		
+	<property name="buildRoot" value="${user.home}/build"/>
+	<property name="mirrorRoot" value="${buildRoot}/mirror"/>
+	<property name="builderTag" value="HEAD"/>
+	
+	<target name="main" depends="">
+		<antcall target="build.product">
+			<param name="target" value="dsltk"/>
+		</antcall>
+	</target>
+	
+	<target name="build.product">
+		<!-- Use defaults as found in each product build.properties file, or override here -->
+		<cvs command="checkout" cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/modeling"
+			 package="org.eclipse.amalgam/releng/org.eclipse.amalgam.releng/builder/${target}" dest="${buildRoot}/${target}/builder" tag="${builderTag}" />
+		<copy todir="${buildRoot}/${target}/builder"> 
+			<fileset dir="${buildRoot}/${target}/builder/org.eclipse.amalgam/releng/org.eclipse.amalgam.releng/builder/${target}"/>
+		</copy>
+		<delete dir="${buildRoot}/${target}/builder/org.eclipse.amalgam" />
+		<ant antfile="${buildRoot}/${target}/builder/build.xml" dir="${buildRoot}/${target}/builder">
+			<property name="builderTag" value="${builderTag}"/>
+			<property name="buildRoot" value="${buildRoot}"/>
+			<property name="buildDirectory" value="${buildRoot}/${target}"/>
+		</ant>
+	</target>
+
+</project>
