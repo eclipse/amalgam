@@ -77,14 +77,13 @@
 		<!-- workaround for out of date xpand and mwe update sites -->
 		<antcall target="installXpandWorkflow"/>
 		
+		<antcall target="installDeltaPack"/>
 		<p2.generator source="${baseLocation}" 
 			append="true" 
-			mode="incremental" 
+			mode="final" 
 			metadataRepository="file:${baseLocation}" 
 			artifactRepository="file:${baseLocation}" 
 			publishArtifacts="false"/>
-		
-		<antcall target="installDeltaPack"/>
 	</target>
 	
 	<!-- Extract a second base to serve as director until small download available -->
@@ -326,7 +325,7 @@
 	</target>
 			
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task -->
-		<exec executable="${buildDirectory}/director/eclipse/eclipse" failonerror="false">
+		<exec executable="${baseLocation}/eclipse" failonerror="false">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
@@ -340,8 +339,8 @@
 			<arg line="-profile ${p2.profile}" />
 			<arg line="-profileProperties org.eclipse.update.install.features=true" />
 			<arg line="${p2.director.extraArgs}" />
-			<arg line="-metadataRepository ${p2.metadata.repo}" />
-			<arg line="-artifactRepository ${p2.artifact.repo}" />
+			<arg line="-metadataRepository ${p2.metadata.repo},${platform.metadata.url}" />
+			<arg line="-artifactRepository ${p2.artifact.repo},${platform.artifact.url}" />
 			<arg line="-destination ${p2.director.install.path}" />
 			<arg line="-bundlepool ${p2.director.install.path}" />
 			<arg line="-vmargs -Xmx1024m" />
