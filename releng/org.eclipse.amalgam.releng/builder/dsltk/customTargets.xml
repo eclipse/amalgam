@@ -340,8 +340,8 @@
 			<arg line="-profile ${p2.profile}" />
 			<arg line="-profileProperties org.eclipse.update.install.features=true" />
 			<arg line="${p2.director.extraArgs}" />
-			<arg line="-metadataRepository ${p2.metadata.repo}" />
-			<arg line="-artifactRepository ${p2.artifact.repo}" />
+			<arg line="-metadataRepository ${p2.metadata.repo},file:${baseLocation}" />
+			<arg line="-artifactRepository ${p2.artifact.repo},file:${baseLocation}" />
 			<arg line="-destination ${p2.director.install.path}" />
 			<arg line="-bundlepool ${p2.director.install.path}" />
 			<arg line="-vmargs -Xmx1024m" />
