@@ -77,13 +77,14 @@
 		<!-- workaround for out of date xpand and mwe update sites -->
 		<antcall target="installXpandWorkflow"/>
 		
-		<antcall target="installDeltaPack"/>
 		<p2.generator source="${baseLocation}" 
 			append="true" 
 			mode="final" 
 			metadataRepository="file:${baseLocation}" 
 			artifactRepository="file:${baseLocation}" 
 			publishArtifacts="false"/>
+		
+		<antcall target="installDeltaPack"/>
 	</target>
 	
 	<!-- Extract a second base to serve as director until small download available -->
@@ -325,7 +326,7 @@
 	</target>
 			
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task -->
-		<exec executable="${baseLocation}/eclipse" failonerror="false">
+		<exec executable="${buildDirectory}/director/eclipse/eclipse" failonerror="false">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
