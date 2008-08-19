@@ -312,7 +312,7 @@
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app" />
 		
 		<available property="skipBundleInfo" file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" />
-		<antcall target="fix237662"/>
+<!--		<antcall target="fix237662"/> -->
 		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/">
 			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar ${archivePrefix}"/>
