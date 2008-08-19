@@ -100,7 +100,7 @@
 	<target name="installDeltaPack">
 		<available file="${buildDirectory}/deltapack.zip" property="skipDeltaPack" />
 		<antcall target="getDeltaPack"/>
-		<unzip src="${buildDirectory}/deltapack.zip" dest="${buildDirectory}/director"/>
+		<unzip src="${buildDirectory}/deltapack.zip" dest="${base}"/>
 	</target>
 	
 	<target name="getDeltaPack" unless="skipDeltaPack">
