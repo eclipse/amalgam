@@ -24,12 +24,10 @@
 			<arg line="${buildDirectory}/base.tar.gz"/>
 			<arg line="-C ${base}"/>
 		</exec>
+		
+		<available file="${buildDirectory}/director/eclipse" property="skipDirector" />
+		<antcall target="extractDirector"/>
 
- 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.equinox.executable"/>
-			<param name="metadata.repo" value="${delta.pack.metadata.url}"/>
-			<param name="artifact.repo" value="${delta.pack.artifact.url}"/>
-		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.sdk"/>
 			<param name="metadata.repo" value="${emf.metadata.url}"/>
@@ -85,6 +83,28 @@
 			metadataRepository="file:${baseLocation}" 
 			artifactRepository="file:${baseLocation}" 
 			publishArtifacts="false"/>
+		
+		<antcall target="installDeltaPack"/>
+	</target>
+	
+	<!-- Extract a second base to serve as director until small download available -->
+	<target name="extractDirector" unless="skipDirector">
+		<mkdir dir="${buildDirectory}/director"/>
+		<exec executable="tar">
+			<arg line="-xzf"/>
+			<arg line="${buildDirectory}/base.tar.gz"/>
+			<arg line="-C ${buildDirectory}/director"/>
+		</exec>
+	</target>
+	
+	<target name="installDeltaPack">
+		<available file="${buildDirectory}/deltapack.zip" property="skipDeltaPack" />
+		<antcall target="getDeltaPack"/>
+		<unzip src="${buildDirectory}/deltapack.zip" dest="${base}"/>
+	</target>
+	
+	<target name="getDeltaPack" unless="skipDeltaPack">
+		<get src="${deltaPackURL}" dest="${buildDirectory}/deltapack.zip" verbose="true" usetimestamp="true" />
 	</target>
 	
 	<target name="installXpandWorkflow">
@@ -245,31 +265,31 @@
 	<target name="postBuild">
 		<antcall target="gatherLogs" />
 		<property file="${buildDirectory}/product.version"/>
-		<mkdir dir="${buildDirectory}/p2.build.artifacts/tmp/win32.win32.x86/eclipse" />
+		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse" />
 		<antcall target="run.director">
-			<param name="p2.director.install.path" value="${buildDirectory}/p2.build.artifacts/tmp/win32.win32.x86/eclipse"/>
+			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse"/>
 			<param name="p2.os" value="win32"/>
 			<param name="p2.ws" value="win32"/>
 			<param name="p2.arch" value="x86"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
-		<zip destfile="${buildDirectory}/p2.build.artifacts/dsltk.win32.win32.x86.zip" basedir="${buildDirectory}/p2.build.artifacts/tmp/win32.win32.x86/eclipse"/>
-		<mkdir dir="${buildDirectory}/p2.build.artifacts/tmp/linux.gtk.x86/eclipse" />
+		<zip destfile="${buildDirectory}/${buildLabel}/p2/dsltk.win32.win32.x86.zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse"/>
+		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse" />
 		<antcall target="run.director">
-			<param name="p2.director.install.path" value="${buildDirectory}/p2.build.artifacts/tmp/linux.gtk.x86/eclipse"/>
+			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse"/>
 			<param name="p2.os" value="linux"/>
 			<param name="p2.ws" value="gtk"/>
 			<param name="p2.arch" value="x86"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
-		<exec executable="tar" dir="${buildDirectory}/p2.build.artifacts/tmp/linux.gtk.x86/">
-			<arg line="${tarargs}-cvf ${buildDirectory}/p2.build.artifacts/dsltk.linux.gtk.x86.tar ${archivePrefix}"/>
+		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/">
+			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/dsltk.linux.gtk.x86.tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/p2.build.artifacts/dsltk.linux.gtk.x86.tar" zipfile="${buildDirectory}/p2.build.artifacts/dsltk.linux.gtk.x86.tar.gz"/>
-		<delete file="${buildDirectory}/p2.build.artifacts/dsltk.linux.gtk.x86.tar" />
-		<mkdir dir="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse" />
+		<gzip src="${buildDirectory}/${buildLabel}/p2/dsltk.linux.gtk.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/dsltk.linux.gtk.x86.tar.gz"/>
+		<delete file="${buildDirectory}/${buildLabel}/p2/dsltk.linux.gtk.x86.tar" />
+		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse" />
 		<antcall target="run.director">
-			<param name="p2.director.install.path" value="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse"/>
+			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse"/>
 			<param name="p2.os" value="macosx"/>
 			<param name="p2.ws" value="carbon"/>
 			<param name="p2.arch" value="x86"/>
@@ -278,35 +298,35 @@
 		
 		<!-- FIXME: replace dsltoolkit.ini with Eclipse.app/../Eclipse.ini and then concat with another
 		           that has the missing vmargs - workaround -->
-		<copy file="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse/Eclipse.app/Contents/MacOS/eclipse.ini" 
-			  tofile="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini" overwrite="true"/>
-		<concat append="true" destfile="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini">-Xdock:icon=../Resources/Eclipse.icns
+		<copy file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app/Contents/MacOS/eclipse.ini" 
+			  tofile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini" overwrite="true"/>
+		<concat append="true" destfile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini">-Xdock:icon=../Resources/Eclipse.icns
 -Xms128m
 -Xmx1024m
 -XX:MaxPermSize=256m
 		</concat>
 		<!-- FIXME: workaround for missing doc icon -->
-		<copy file="${buildDirectory}/plugins/org.eclipse.amalgam.dsltk/Eclipse.icns" tofile="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/Resources/Eclipse.icns" overwrite="true"/>
+		<copy file="${buildDirectory}/plugins/org.eclipse.amalgam.dsltk/Eclipse.icns" tofile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/Resources/Eclipse.icns" overwrite="true"/>
 				
 		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default -->
-		<delete dir="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse/Eclipse.app" />
+		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app" />
 		
 		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
-		<replace file="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
+		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
 			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
 			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
 		
-		<exec executable="tar" dir="${buildDirectory}/p2.build.artifacts/tmp/macosx.carbon.x86/">
-			<arg line="${tarargs}-cvf ${buildDirectory}/p2.build.artifacts/dsltk.macosx.carbon.x86.tar ${archivePrefix}"/>
+		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/">
+			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/p2.build.artifacts/dsltk.macosx.carbon.x86.tar" zipfile="${buildDirectory}/p2.build.artifacts/dsltk.macosx.carbon.x86.tar.gz"/>
-		<delete file="${buildDirectory}/p2.build.artifacts/dsltk.macosx.carbon.x86.tar" />
-		<delete dir="${buildDirectory}/p2.build.artifacts/tmp"/>
+		<gzip src="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar.gz"/>
+		<delete file="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar" />
+		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp"/>
 		
 	</target>
 			
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task -->
-		<exec executable="${baseLocation}/eclipse" failonerror="false">
+		<exec executable="${buildDirectory}/director/eclipse/eclipse" failonerror="false">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
