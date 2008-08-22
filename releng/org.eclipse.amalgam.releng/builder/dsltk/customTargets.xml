@@ -24,70 +24,80 @@
 			<arg line="${buildDirectory}/base.tar.gz"/>
 			<arg line="-C ${base}"/>
 		</exec>
-		
+		<!--
 		<available file="${buildDirectory}/director/eclipse" property="skipDirector" />
-		<antcall target="extractDirector"/>
+		<antcall target="extractDirector"/> -->
 
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.sdk"/>
+			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${emf.metadata.url}"/>
 			<param name="artifact.repo" value="${emf.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2.sdk"/>
+			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${uml.metadata.url}"/>
 			<param name="artifact.repo" value="${uml.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.emfqtv.all.sdk"/>
+			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${qtv.metadata.url}"/>
 			<param name="artifact.repo" value="${qtv.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gef.sdk"/>
+			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${gef.metadata.url}"/>
 			<param name="artifact.repo" value="${gef.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.ocl.all.sdk"/>
+			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${ocl.metadata.url}"/>
 			<param name="artifact.repo" value="${ocl.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.m2m.qvt.oml.sdk"/>
+			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${qvt.metadata.url}"/>
 			<param name="artifact.repo" value="${qvt.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gmf.sdk"/>
+			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${gmf.metadata.url}"/>
 			<param name="artifact.repo" value="${gmf.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2tools.sdk"/>
+			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${umlt.metadata.url}"/>
 			<param name="artifact.repo" value="${umlt.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.teneo.sdk"/>
+			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${teneo.metadata.url}"/>
 			<param name="artifact.repo" value="${teneo.artifact.url}"/>
 		</antcall>
 		
 		<!-- workaround for out of date xpand and mwe update sites -->
-		<antcall target="installXpandWorkflow"/>
-		
+		<antcall target="workaround.xpand.mwe"/>
+<!-- TODO:remove?		<antcall target="installDeltaPack"/> -->
 		<p2.generator source="${baseLocation}" 
 			append="true" 
-			mode="final" 
+			mode="incremental" 
 			metadataRepository="file:${baseLocation}" 
 			artifactRepository="file:${baseLocation}" 
 			publishArtifacts="false"/>
-		
-		<antcall target="installDeltaPack"/>
+
 	</target>
 	
-	<!-- Extract a second base to serve as director until small download available -->
+	<!-- No need for director? just install deltapack into basebuilder in build.xml?
+	
+		Extract a second base to serve as director until small download available 
 	<target name="extractDirector" unless="skipDirector">
 		<mkdir dir="${buildDirectory}/director"/>
 		<exec executable="tar">
@@ -105,9 +115,9 @@
 	
 	<target name="getDeltaPack" unless="skipDeltaPack">
 		<get src="${deltaPackURL}" dest="${buildDirectory}/deltapack.zip" verbose="true" usetimestamp="true" />
-	</target>
+	</target>-->
 	
-	<target name="installXpandWorkflow">
+	<target name="workaround.xpand.mwe">
 		<available file="${buildDirectory}/temphack" property="temphackExists" />
 		<antcall target="get.xpand.mwe"/>
 		<copy todir="${base}/eclipse/plugins">
@@ -180,12 +190,8 @@
 	<!-- Steps to do before setup -->
 	<!-- ===================================================================== -->
 	<target name="preSetup">
-		<tstamp/>
-		<property name="productVersion" value="1.0.0.v${timestamp}"/>
 		<copy file="${builder}/dsltk.product" tofile="${buildDirectory}/dsltk.product" overwrite="true"/>
-		<replace file="${buildDirectory}/dsltk.product" token="1.0.0.qualifier" value="${productVersion}" />
-		<delete file="${buildDirectory}/product.version" failonerror="false"/>
-		<concat destfile="${buildDirectory}/product.version">productVersion=${productVersion}</concat>
+		<replace file="${buildDirectory}/dsltk.product" token="qualifier" value="v${timestamp}" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -264,100 +270,18 @@
 	<!-- ===================================================================== -->
 	<target name="postBuild">
 		<antcall target="gatherLogs" />
-		<property file="${buildDirectory}/product.version"/>
-		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse" />
-		<antcall target="run.director">
-			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse"/>
-			<param name="p2.os" value="win32"/>
-			<param name="p2.ws" value="win32"/>
-			<param name="p2.arch" value="x86"/>
-			<param name="p2.version" value="${productVersion}"/>
-		</antcall>
-		<zip destfile="${buildDirectory}/${buildLabel}/p2/dsltk.win32.win32.x86.zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse"/>
-		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse" />
-		<antcall target="run.director">
-			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse"/>
-			<param name="p2.os" value="linux"/>
-			<param name="p2.ws" value="gtk"/>
-			<param name="p2.arch" value="x86"/>
-			<param name="p2.version" value="${productVersion}"/>
-		</antcall>
-		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/">
-			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/dsltk.linux.gtk.x86.tar ${archivePrefix}"/>
-		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/dsltk.linux.gtk.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/dsltk.linux.gtk.x86.tar.gz"/>
-		<delete file="${buildDirectory}/${buildLabel}/p2/dsltk.linux.gtk.x86.tar" />
-		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse" />
-		<antcall target="run.director">
-			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse"/>
-			<param name="p2.os" value="macosx"/>
-			<param name="p2.ws" value="carbon"/>
-			<param name="p2.arch" value="x86"/>
-			<param name="p2.version" value="${productVersion}"/>
-		</antcall>
-		
-		<!-- FIXME: replace dsltoolkit.ini with Eclipse.app/../Eclipse.ini and then concat with another
-		           that has the missing vmargs - workaround -->
-		<copy file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app/Contents/MacOS/eclipse.ini" 
-			  tofile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini" overwrite="true"/>
-		<concat append="true" destfile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini">-Xdock:icon=../Resources/Eclipse.icns
--Xms128m
--Xmx1024m
--XX:MaxPermSize=256m
-		</concat>
-		<!-- FIXME: workaround for missing doc icon -->
-		<copy file="${buildDirectory}/plugins/org.eclipse.amalgam.dsltk/Eclipse.icns" tofile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/Resources/Eclipse.icns" overwrite="true"/>
-				
-		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default -->
-		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app" />
-		
-		<available property="skipBundleInfo" file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" />
-<!--		<antcall target="fix237662"/> -->
-		
-		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/">
-			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar ${archivePrefix}"/>
-		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar.gz"/>
-		<delete file="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar" />
-		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp"/>
-		
 	</target>
 	
-	<target name="fix237662" unless="skipBundleInfo">
-		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
-		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
-			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
-			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
-	</target>
-			
-	<target name="run.director"> <!-- Note, there is a p2.director Ant task -->
-		<exec executable="${buildDirectory}/director/eclipse/eclipse" failonerror="false">
-			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
-			<arg line="-nosplash" />
-			<arg line="--launcher.suppressErrors" />
-			<arg line="-consoleLog" />
-			<arg line="-installIU ${p2.IU}" />
-			<arg line="-version ${p2.version}" />
-			<arg line="-p2.os ${p2.os}" />
-			<arg line="-p2.ws ${p2.ws}" />
-			<arg line="-p2.arch ${p2.arch}" />
-			<arg line="-roaming" />
-			<arg line="-profile ${p2.profile}" />
-			<arg line="-profileProperties org.eclipse.update.install.features=true" />
-			<arg line="${p2.director.extraArgs}" />
-			<arg line="-metadataRepository ${p2.metadata.repo},${platform.metadata.url}" />
-			<arg line="-artifactRepository ${p2.artifact.repo},${platform.artifact.url}" />
-			<arg line="-destination ${p2.director.install.path}" />
-			<arg line="-bundlepool ${p2.director.install.path}" />
-			<arg line="-vmargs -Xmx1024m" />
-			<arg line="-Declipse.p2.data.area=${p2.director.install.path}/p2" />
-		</exec>
+	<target name="install.feature"> 
+		<!-- TODO: use if/when profileProperties is available to allow installation of features
+				   verify that version with no arg behaves like no -version at all using command line 
+		<p2.director
+			installiu="${feature.id}.feature.group"
+			version="${p2.version}"  
+			artifactrepository="${artifact.repo}"
+			metadatarepository="${metadata.repo}"
+		/> -->		
 		
-		<!-- delete the metadata cache as well as the artifacts for unzipped bundles -->
-		<delete failonerror="false" includeEmptyDirs="true" dir="${p2.director.install.path}/p2/org.eclipse.equinox.p2.core/cache" />
-	</target>
-	
-	<target name="install.feature">
 		<exec executable="${baseLocation}/eclipse" failonerror="false">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
@@ -365,29 +289,15 @@
 			<arg line="-consoleLog" />
 			<arg line="-installIU ${feature.id}.feature.group" />
 			<!-- NOTE: using no version parameter seems to install the latest (first? arbitrary?) version of the feature 
-			<arg line="-version ${p2.version}" /> -->
+					   to use a version, be sure to set ${p2.version} to something like "-version 1.0.0" (including -version)
+					   as having no value after -version is not the same as no switch at all, and 0.0.0 doesn't behave as expected -->
+			<arg line="${feature.version}" /> 
 			<arg line="-profileProperties org.eclipse.update.install.features=true" />
 			<arg line="-metadataRepository ${metadata.repo}" />
 			<arg line="-artifactRepository ${artifact.repo}" />
 			<arg line="-vmargs -Xmx1024m" />
 		</exec>
-		<delete failonerror="false" includeEmptyDirs="true" dir="${buildDirectory}/base/eclipse/p2/org.eclipse.equinox.p2.core/cache" />
-	</target>
-	
-	<target name="install.versioned.feature">
-		<exec executable="${baseLocation}/eclipse" failonerror="false">
-			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
-			<arg line="-nosplash" />
-			<arg line="--launcher.suppressErrors" />
-			<arg line="-consoleLog" />
-			<arg line="-installIU ${feature.id}.feature.group" />
-			<arg line="-version ${feature.version}" /> 
-			<arg line="-profileProperties org.eclipse.update.install.features=true" />
-			<arg line="-metadataRepository ${metadata.repo}" />
-			<arg line="-artifactRepository ${artifact.repo}" />
-			<arg line="-vmargs -Xmx1024m" />
-		</exec>
-		<delete failonerror="false" includeEmptyDirs="true" dir="${buildDirectory}/base/eclipse/p2/org.eclipse.equinox.p2.core/cache" />
+		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache" />
 	</target>
 		
 	<!-- ===================================================================== -->

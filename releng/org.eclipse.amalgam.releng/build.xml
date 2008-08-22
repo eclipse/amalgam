@@ -18,7 +18,7 @@
 		<copy todir="${buildRoot}/${target}/builder"> 
 			<fileset dir="${buildRoot}/${target}/builder/org.eclipse.amalgam/releng/org.eclipse.amalgam.releng/builder/${target}"/>
 		</copy>
-		<delete dir="${buildRoot}/${target}/builder/org.eclipse.amalgam" />
+		<delete dir="${buildRoot}/${target}/builder/org.eclipse.amalgam" /> 
 		<ant antfile="${buildRoot}/${target}/builder/build.xml" dir="${buildRoot}/${target}/builder">
 			<property name="builderTag" value="${builderTag}"/>
 			<property name="buildRoot" value="${buildRoot}"/>
