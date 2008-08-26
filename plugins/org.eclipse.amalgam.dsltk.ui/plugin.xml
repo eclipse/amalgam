@@ -88,6 +88,15 @@
   	     id="org.eclipse.amalgam.dsl.domain.DomainGeneratorModelWizard">
   	  	 <description>%dsl.domain.generator.wizard.desc</description>  
       </wizard>
+      <!-- Diagram Definition Model Wizard -->
+  	  <wizard
+  	     name="%dsl.diagram.definition.wizard"
+  	     icon="icons/full/obj16/NewMappingDefinitionModelWizard.gif"
+  	     category="org.eclipse.amalgam.dsl.wizardCategory"
+  	     class="org.eclipse.gmf.internal.bridge.wizards.GMFMapGuideModelWizard"
+  	     id="org.eclipse.amalgam.dsl.diagram.MappingDefinitionModelWizard">
+  	  	 <description>%dsl.diagram.definition.wizard.desc</description>  
+      </wizard>
    </extension>
    
    <!-- Xpand Template Wizard -->
@@ -172,12 +181,13 @@
 		</wizard>
 	</extension>
 	
+   <!-- General Model Wizards -->
    <extension point="org.eclipse.ui.newWizards">
-      <!-- Diagram Graphical Model Wizard -->
+      <!-- Diagram Graphical Definition Model Wizard -->
   	  <wizard
   	     name="%dsl.diagram.graphical.wizard"
   	     icon="icons/full/obj16/NewGraphicalDefinitionModelWizard.gif"
-  	     category="org.eclipse.amalgam.dsl.wizardCategory/org.eclipse.amalgam.dsl.diagram.wizardCategory"
+  	     category="org.eclipse.amalgam.models.wizardCategory"
   	     class="org.eclipse.gmf.internal.bridge.wizards.GMFGraphSimpleModelWizard"
   	     id="org.eclipse.amalgam.dsl.diagram.GraphicalDefinitionModelWizard">
   	  	 <description>%dsl.diagram.graphical.wizard.desc</description>  
@@ -186,19 +196,10 @@
   	  <wizard
   	     name="%dsl.diagram.tooling.wizard"
   	     icon="icons/full/obj16/NewToolingDefinitionModelWizard.gif"
-  	     category="org.eclipse.amalgam.dsl.wizardCategory/org.eclipse.amalgam.dsl.diagram.wizardCategory"
+  	     category="org.eclipse.amalgam.models.wizardCategory"
   	     class="org.eclipse.gmf.internal.bridge.wizards.GMFToolSimpleModelWizard"
   	     id="org.eclipse.amalgam.dsl.diagram.ToolingDefinitionModelWizard">
   	  	 <description>%dsl.diagram.tooling.wizard.desc</description>  
-      </wizard>
-      <!-- Diagram Mapping Model Wizard -->
-  	  <wizard
-  	     name="%dsl.diagram.mapping.wizard"
-  	     icon="icons/full/obj16/NewMappingDefinitionModelWizard.gif"
-  	     category="org.eclipse.amalgam.dsl.wizardCategory/org.eclipse.amalgam.dsl.diagram.wizardCategory"
-  	     class="org.eclipse.gmf.internal.bridge.wizards.GMFMapGuideModelWizard"
-  	     id="org.eclipse.amalgam.dsl.diagram.MappingDefinitionModelWizard">
-  	  	 <description>%dsl.diagram.mapping.wizard.desc</description>  
       </wizard>
    </extension>
    
