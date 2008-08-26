@@ -8,9 +8,8 @@
             id="org.eclipse.amalgam.dsl.wizardCategory"
             name="%dsl.wizard.category"/>
       <category
-            id="org.eclipse.amalgam.dsl.diagram.wizardCategory"
-            name="%dsl.diagram.wizard.category"
-            parentCategory="org.eclipse.amalgam.dsl.wizardCategory"/>
+            id="org.eclipse.amalgam.models.wizardCategory"
+            name="%models.wizard.category"/>
       <category
             id="org.eclipse.amalgam.transformation.wizardCategory"
             name="%model.transformation.wizard.category"/>
