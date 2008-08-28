@@ -71,6 +71,12 @@
 			<param name="artifact.repo" value="${gmf.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.gmf.sdk.experimental"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${gmfexp.metadata.url}"/>
+			<param name="artifact.repo" value="${gmfexp.artifact.url}"/>
+		</antcall>
+		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2tools.sdk"/>
 			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${umlt.metadata.url}"/>
