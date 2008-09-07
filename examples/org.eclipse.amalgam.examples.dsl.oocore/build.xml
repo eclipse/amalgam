@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="org.eclipse.amalgam.examples.dsl.oocore" default="main" basedir=".">
+	<target name="init">
+		<available file="../org.eclipse.amalgam.examples.oocore.model.edit/plugin.xml" type="file" property="generated" />
+	</target>
+		
+	<target name="main" depends="init" if="generated">
+		<copy todir="../org.eclipse.amalgam.examples.oocore.model.edit/icons" overwrite="true">
+			<fileset dir="./icons/edit/icons"/>
+		</copy>
+	</target>
+
+</project>
