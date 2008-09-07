@@ -1,0 +1,85 @@
+«IMPORT tooltip»
+«IMPORT gmfgen»
+«IMPORT ecore»
+«IMPORT genmodel»
+
+«EXTENSION Utils»
+
+«DEFINE Main FOR Model»
+«FOREACH tooltips AS tooltip»
+«EXPAND EditPolicy FOR tooltip»
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE EditPolicy FOR tooltip::Tooltip»
+«FILE editpolicy.editPolicyQualifiedClassName.replaceAll("\\.", "/") + ".java"-»
+package «packageName(editpolicy.editPolicyQualifiedClassName)»;
+
+import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.draw2d.RoundedRectangle;
+import org.eclipse.draw2d.Shape;
+import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.text.FlowPage;
+import org.eclipse.draw2d.text.ParagraphTextLayout;
+import org.eclipse.draw2d.text.TextFlow;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
+import org.eclipse.gef.requests.LocationRequest;
+import «subject.genPackage.basePackage».«subject.genPackage.ecorePackage.name».«subject.ecoreClass.name»;
+import «editpolicy.subject.getEditPartQualifiedClassName()»;
+
+public class «className(editpolicy.editPolicyQualifiedClassName)» extends GraphicalEditPolicy {
+
+	Shape tooltip;
+	«editpolicy.subject.editPartClassName» editPart;
+
+	@Override
+	public void showTargetFeedback(Request request) {
+		if (tooltip == null && request instanceof LocationRequest) {
+			editPart = («editpolicy.subject.getEditPartQualifiedClassName()») getHost();
+			«subject.ecoreClass.name» element = («subject.ecoreClass.name») editPart.resolveSemanticElement();
+			
+			tooltip = new RoundedRectangle();
+			tooltip.setBackgroundColor(ColorConstants.titleGradient);
+			tooltip.setLayoutManager(new StackLayout());
+			tooltip.setBounds(new Rectangle(getHostFigure().getBounds().getBottomRight().x,
+					getHostFigure().getBounds().getBottomRight().y, 200, 100));
+			tooltip.setBorder(new MarginBorder(3));
+			
+			FlowPage flowPage = new FlowPage();
+			TextFlow textFlow = new TextFlow();
+			textFlow.setLayoutManager(new ParagraphTextLayout(textFlow,
+					ParagraphTextLayout.WORD_WRAP_TRUNCATE));
+			flowPage.add(textFlow);
+			tooltip.add(flowPage);
+			textFlow.setText(buildText(element));
+
+			addFeedback(tooltip);
+		}
+	}
+
+	private String buildText(«subject.ecoreClass.name» element) {
+		StringBuilder sb = new StringBuilder();
+		«FOREACH elements AS element»
+		sb.append("«element.label»");
+		sb.append(": ");
+		sb.append(element.get«element.feature.ecoreFeature.name.toFirstUpper()»());
+		sb.append("\n\n");
+		«ENDFOREACH»
+		return sb.toString();
+	}
+
+	@Override
+	public void eraseTargetFeedback(Request request) {
+		if (tooltip != null) {
+			removeFeedback(tooltip);
+			tooltip = null;
+			editPart = null;
+		}
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»

@@ -1,0 +1,100 @@
+modeltype old 'strict' uses 'http://www.eclipse.org/2008/requirements';
+modeltype new 'strict' uses 'http://www.eclipse.org/2008a/requirements';
+
+transformation migrate(in oldModel : old, out newModel : new);
+
+main() {
+	oldModel.rootObjects()[Model]->map toNew();
+}
+
+mapping old::Model::toNew() : new::Model {
+	title := self.title;
+	elements += self.groups.map toGroup();
+}
+
+mapping old::RequirementGroup::toGroup() : new::RequirementGroup {
+	name := self.name;
+	id := self.id;
+	description := self.description;
+	children += self.children.map toGroup();
+	children += self.requirements.map toRequirement();
+}
+
+mapping old::Requirement::toRequirement() : new::Requirement {
+	id := self.id;
+	name := self.title;
+	description := self.description;
+	type := self.type.toType();
+	children += self.children.map toRequirement();
+	priority := self.priority.toPriority();
+	author := self.author;
+	created := self.created;
+	comments += self.comments.map toComment();
+	version := self.version.map toVersion();
+	dependencies += self.dependencies.late resolve(new::Requirement);
+	scenario := self.scenario;
+	state := self.state.toState();
+	resolution := self.resolution.toResolution();
+}
+
+
+mapping old::Comment::toComment() : new::Comment {
+	subject := self.subject;
+	body := self.body;
+	author := self.author;
+	created := self.created;
+	children += self.children.map toComment();
+}
+
+mapping old::Version::toVersion() : new::Version {
+	major := self.major;
+	minor := self.minor;
+	service := self.service;
+}
+
+query old::State::toState() : new::State {
+	var state : new::State := null;
+	switch {
+	       (self = old::State::NEW) ? state := new::State::NEW;
+	       (self = old::State::REVIEWED) ? state := new::State::REVIEWED;
+	       (self = old::State::APPROVED) ? state := new::State::APPROVED;
+	       (self = old::State::RESOLVED) ? state := new::State::RESOLVED;
+	       else ? assert fatal (false) with log('State unsupported', self);
+	};
+	return state;
+}
+
+query old::Type::toType() : new::Type {
+	var type : new::Type := null;
+	switch {
+	       (self = old::Type::FUNCTIONAL) ? type := new::Type::FUNCTIONAL;
+	       (self = old::Type::NONFUNCTIONAL) ? type := new::Type::NONFUNCTIONAL;
+	       else ? assert fatal (false) with log('Type unsupported', self);
+	};
+	return type;
+}
+
+query old::Priority::toPriority() : new::Priority {
+	var priority : new::Priority := null;
+	switch {
+	       (self = old::Priority::HIGH) ? priority := new::Priority::HIGH;
+	       (self = old::Priority::MEDIUM) ? priority := new::Priority::MEDIUM;
+	       (self = old::Priority::LOW) ? priority := new::Priority::LOW;
+	       else ? assert fatal (false) with log('Priority unsupported', self);
+	};
+	return priority;
+}
+
+query old::Resolution::toResolution() : new::Resolution {
+	var resolution : new::Resolution := null;
+	switch {
+	       (self = old::Resolution::INVALID) ? resolution := new::Resolution::INVALID;
+	       (self = old::Resolution::ACCEPTED) ? resolution := new::Resolution::ACCEPTED;
+	       (self = old::Resolution::IMPLEMENTED) ? resolution := new::Resolution::IMPLEMENTED;
+	       (self = old::Resolution::LATER) ? resolution := new::Resolution::LATER;
+	       else ? assert fatal (false) with log('Resolution unsupported', self);
+	};
+	return resolution;
+}
+
+

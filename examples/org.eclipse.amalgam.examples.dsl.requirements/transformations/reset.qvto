@@ -1,0 +1,28 @@
+modeltype requirements 'strict' uses 'http://www.eclipse.org/2008/requirements';
+
+transformation reset(inout model : requirements);
+
+property groupCounter : Integer = 0;
+property reqCounter : Integer = 0;
+
+main() {
+	model.rootObjects()[Model].groups.map resetValues();
+}
+
+mapping inout requirements::RequirementGroup::resetValues() {
+	init {
+		self.id := 'G' + this.groupCounter.toString();
+		this.groupCounter := this.groupCounter + 1;
+		self.requirements.map resetValues();
+		self.children.map resetValues();
+	}
+}
+
+mapping inout requirements::Requirement::resetValues() {
+	init {
+		self.type := Type::NONFUNCTIONAL;
+		self.id := 'R' + this.reqCounter.toString();
+		this.reqCounter := this.reqCounter + 1;
+		self.children.map resetValues();
+	}
+}
