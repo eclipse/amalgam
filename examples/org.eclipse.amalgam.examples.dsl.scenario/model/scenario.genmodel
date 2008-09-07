@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.amalgam.examples.scenario.model/src"
+    modelPluginID="org.eclipse.amalgam.examples.scenario.model" modelName="scenario"
+    editPluginClass="org.eclipse.amalgam.examples.scenario.provider.ScenarioEditPlugin"
+    editorPluginClass="org.eclipse.amalgam.examples.scenario.presentation.ScenarioEditorPlugin"
+    complianceLevel="5.0" copyrightFields="false">
+  <foreignModel>platform:/resource/org.eclipse.amalgam.examples.dsl.scenario/model/scenario.ecore#/</foreignModel>
+  <genPackages prefix="Scenario" basePackage="org.eclipse.amalgam.examples" disposableProviderFactory="true"
+      ecorePackage="scenario.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="scenario.ecore#//EventType">
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//EventType/START"/>
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//EventType/END"/>
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//EventType/INTERMEDIATE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="scenario.ecore#//GatewayType">
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//GatewayType/XOR"/>
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//GatewayType/OR"/>
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//GatewayType/COMPLEX"/>
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//GatewayType/AND"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="scenario.ecore#//TriggerType">
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//TriggerType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//TriggerType/MESSAGE"/>
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//TriggerType/TIMER"/>
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//TriggerType/RULE"/>
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//TriggerType/LINK"/>
+      <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//TriggerType/MULTIPLE"/>
+    </genEnums>
+    <genClasses ecoreClass="scenario.ecore#//Process">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference scenario.ecore#//Process/elements"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//Process/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//Process/author"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//Process/creationDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//Process/modificationDate"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="scenario.ecore#//Element">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//Element/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//Element/documentation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//Element/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference scenario.ecore#//Element/incoming"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference scenario.ecore#//Element/outgoing"/>
+    </genClasses>
+    <genClasses ecoreClass="scenario.ecore#//Event">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//Event/eventType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//Event/triggerType"/>
+    </genClasses>
+    <genClasses ecoreClass="scenario.ecore#//Task">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference scenario.ecore#//Task/events"/>
+    </genClasses>
+    <genClasses ecoreClass="scenario.ecore#//Gateway">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//Gateway/gatewayType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="scenario.ecore#//Connection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference scenario.ecore#//Connection/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference scenario.ecore#//Connection/target"/>
+    </genClasses>
+    <genClasses ecoreClass="scenario.ecore#//SequenceFlow">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//SequenceFlow/quantity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//SequenceFlow/isDefault"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="scenario.ecore#//Artifact"/>
+    <genClasses ecoreClass="scenario.ecore#//DataObject">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//DataObject/state"/>
+    </genClasses>
+    <genClasses ecoreClass="scenario.ecore#//MessageFlow"/>
+    <genClasses ecoreClass="scenario.ecore#//Association">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scenario.ecore#//Association/isDirected"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

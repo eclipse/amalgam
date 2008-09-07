@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Common_Testprofile:TPFTestSuite xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Common_Behavior_Fragments="http://www.eclipse.org/hyades/models/common/behavior/fragments.xmi" xmlns:Common_Behavior_Interactions="http://www.eclipse.org/hyades/models/common/behavior/interactions.xmi" xmlns:Common_Testprofile="http://www.eclipse.org/hyades/models/common/testprofile.xmi" id="EF34ACD98DD289000CF812F0D4D111DC" description="Developing a DSL" name="Developing a DSL" instantiations="EF34ACD98DD289000CFC0A90D4D111DC EF34ACD98DD289009DDD4651D4D111DC EF34ACD98DD28900A56D7661D4D111DC" type="org.eclipse.hyades.test.manual.testSuite" persistenceId="HyadesFacadeResource">
+  <instances id="EF34ACD98DD289000CFC0A90D4D111DC" lifeline="EF34ACD98DD289000CFCCDE0D4D111DC" classType="EF34ACD98DD289000CF812F0D4D111DC"/>
+  <instances id="EF34ACD98DD289009DDD4651D4D111DC" lifeline="EF34ACD98DD289009DDD4652D4D111DC" classType="EF34ACD98DD289000CF812F0D4D111DC"/>
+  <instances id="EF34ACD98DD28900A56D7661D4D111DC" lifeline="EF34ACD98DD28900A56D7662D4D111DC" classType="EF34ACD98DD289000CF812F0D4D111DC"/>
+  <behavior id="EF34ACD98DD289000CFBBC70D4D111DC" name="Developing a DSL_behavior" resource="test.Sample">
+    <interaction>
+      <lifelines id="EF34ACD98DD289000CFCCDE0D4D111DC" name="_selfLifeline" instances="EF34ACD98DD289000CFC0A90D4D111DC"/>
+      <interactionFragments xsi:type="Common_Behavior_Fragments:BVRCombinedFragment" id="EF34ACD98DD28900BC5F5550D4D111DC" name="Iterate" interactionOperator="loop">
+        <interactionOperands id="EF34ACD98DD28900BC5F5551D4D111DC">
+          <interactionFragments xsi:type="Common_Behavior_Interactions:BVRExecutionOccurrence" id="EF34ACD98DD28900C7E7E8B0D4D111DC" name="Develop the Domain Model - invocation" otherBehavior="EF34ACD98DD289009DDD4650D4D111DC"/>
+          <interactionFragments xsi:type="Common_Behavior_Interactions:BVRExecutionOccurrence" id="EF34ACD98DD28900CC2CE560D4D111DC" name="Develop the Diagram - invocation" otherBehavior="EF34ACD98DD28900A56D7660D4D111DC"/>
+          <interactionConstraint constraint="1"/>
+        </interactionOperands>
+      </interactionFragments>
+    </interaction>
+  </behavior>
+  <testCases id="EF34ACD98DD289009DDB98A0D4D111DC" name="Develop the Domain Model" type="org.eclipse.hyades.test.manual.testCase">
+    <behavior id="EF34ACD98DD289009DDD4650D4D111DC" name="test 1_behavior">
+      <interaction>
+        <lifelines id="EF34ACD98DD289009DDD4652D4D111DC" name="_selfLifeline" instances="EF34ACD98DD289009DDD4651D4D111DC"/>
+      </interaction>
+    </behavior>
+  </testCases>
+  <testCases id="EF34ACD98DD28900A56B5380D4D111DC" name="Develop the Diagram" type="org.eclipse.hyades.test.manual.testCase">
+    <behavior id="EF34ACD98DD28900A56D7660D4D111DC" name="test 2_behavior">
+      <interaction>
+        <lifelines id="EF34ACD98DD28900A56D7662D4D111DC" name="_selfLifeline" instances="EF34ACD98DD28900A56D7661D4D111DC"/>
+      </interaction>
+    </behavior>
+  </testCases>
+</Common_Testprofile:TPFTestSuite>

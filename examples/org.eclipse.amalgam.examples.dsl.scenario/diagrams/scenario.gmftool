@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette
+      title="ScenarioPalette">
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Nodes">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Task"
+          description="Create new Task">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Process"
+          description="Create new SubProcess">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Data Object"
+          description="Create new DataObject">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Gateways"
+          stack="true"
+          active="//@palette/@tools.0/@tools.3/@tools.1">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Exclusive"
+            description="Create new Exclusive Gateway">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Parallel"
+            description="Create new Parallel Gateway">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Inclusive"
+            description="Create new Inclusive Gateway">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+      </tools>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Events">
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Start Events"
+          stack="true"
+          active="//@palette/@tools.1/@tools.0/@tools.0">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Start"
+            description="Create new Start Event">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Message Start"
+            description="Create new Message Start Event">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+      </tools>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Intermediate Events"
+          stack="true"
+          active="//@palette/@tools.1/@tools.1/@tools.0">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Intermediate"
+            description="Create new Intermediate Event">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Message Intermediate"
+            description="Create new Message Intermediate Event">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+      </tools>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="End Events"
+          stack="true"
+          active="//@palette/@tools.1/@tools.2/@tools.0">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="End"
+            description="Create new End Event">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Message End"
+            description="Create new Message Intermediate Event">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+      </tools>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Links">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Message"
+          description="Create new Message Flow Link">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Sequence Flow Links"
+          stack="true">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Sequence"
+            description="Create new Sequence Flow Link">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Default Sequence"
+            description="Create new Default Sequence Flow Link">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+      </tools>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Associations"
+          stack="true">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Association"
+            description="Create new Association Link">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Directed Association"
+            description="Create new Directed Association Link">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+      </tools>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>
