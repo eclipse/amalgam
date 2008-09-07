@@ -1,0 +1,72 @@
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
+
+«EXTENSION Utils»
+
+«AROUND additions FOR gmfgen::GenNode-»
+«EXPAND fieldPreferencePropertyChangeListener FOR this-»
+«EXPAND PreferencePropertyChangeListener FOR this-»
+«EXPAND addNotationalListeners FOR this-»
+«EXPAND updateArchetypeColor FOR this-»
+«EXPAND getPreferenceColor FOR this-»
+«EXPAND initPreferenceStoreListener FOR this-»
+«EXPAND setForegroundColorMethod FOR this-»
+«ENDAROUND»
+
+«DEFINE fieldPreferencePropertyChangeListener FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment»-»
+	private PreferencePropertyChangeListener preferenceListener;
+«ENDDEFINE»
+	
+«DEFINE PreferencePropertyChangeListener FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedClassComment-»
+	protected class PreferencePropertyChangeListener implements org.eclipse.jface.util.IPropertyChangeListener {
+		public void propertyChange(org.eclipse.jface.util.PropertyChangeEvent event) {
+			if (event.getProperty().equals(«EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName FOR diagram».«modelFacet.metaClass.ecoreClass.toPreferenceConstant()»)) {
+				updateArchetypeColor();
+			}
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE addNotationalListeners FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment-»
+	@Override
+	protected void addNotationalListeners() {
+		super.addNotationalListeners();
+		initPreferenceStoreListener();
+	}
+«ENDDEFINE»
+
+«DEFINE initPreferenceStoreListener FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment-»
+	private void initPreferenceStoreListener() {
+		preferenceListener = new PreferencePropertyChangeListener();
+		org.eclipse.jface.preference.IPreferenceStore preferenceStore = (org.eclipse.jface.preference.IPreferenceStore) getDiagramPreferencesHint().getPreferenceStore();
+		preferenceStore.addPropertyChangeListener(preferenceListener);
+	}
+«ENDDEFINE»
+
+«DEFINE updateArchetypeColor FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment-»
+	protected void updateArchetypeColor() {
+		getFigure().setForegroundColor(getPreferenceColor());
+		getFigure().repaint();
+	}
+«ENDDEFINE»
+	
+«DEFINE getPreferenceColor FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment-»
+	private org.eclipse.swt.graphics.Color getPreferenceColor() {
+		org.eclipse.jface.preference.IPreferenceStore preferenceStore = (org.eclipse.jface.preference.IPreferenceStore) getDiagramPreferencesHint().getPreferenceStore();
+		org.eclipse.swt.graphics.RGB archetypeColorPreference = org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, «EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName FOR diagram».«modelFacet.metaClass.ecoreClass.toPreferenceConstant()»);
+		return new org.eclipse.swt.graphics.Color(null, archetypeColorPreference);
+	}
+«ENDDEFINE»
+
+«DEFINE setForegroundColorMethod FOR gmfgen::GenNode-»
+	«EXPAND xpt::Common::generatedMemberComment-»
+	@Override
+	protected void setForegroundColor(org.eclipse.swt.graphics.Color color) {
+		super.setForegroundColor(getPreferenceColor());
+	}
+«ENDDEFINE»

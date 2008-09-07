@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.amalgam.examples.dnc.model/src"
+    modelPluginID="org.eclipse.amalgam.examples.dnc.model" templateDirectory="/org.eclipse.amalgam.examples.dsl.dnc/templates-domain"
+    modelName="dnc" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" editPluginID="org.eclipse.amalgam.examples.dnc.model.edit"
+    editorPluginID="org.eclipse.amalgam.examples.dnc.model.editor" testsPluginID="org.eclipse.amalgam.examples.dnc.model.tests"
+    usedGenPackages="../../org.eclipse.amalgam.examples.dsl.oocore/model/oocore.genmodel#//oocore">
+  <foreignModel>dnc.ecore</foreignModel>
+  <genPackages prefix="Dnc" basePackage="org.eclipse.amalgam.examples" disposableProviderFactory="true"
+      ecorePackage="dnc.ecore#/">
+    <genClasses image="false" ecoreClass="dnc.ecore#//Archetype">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dnc.ecore#//Archetype/description"/>
+    </genClasses>
+    <genClasses ecoreClass="dnc.ecore#//Association">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dnc.ecore#//Association/aggregation"/>
+    </genClasses>
+    <genClasses ecoreClass="dnc.ecore#//MomentInterval"/>
+    <genClasses ecoreClass="dnc.ecore#//MIDetail"/>
+    <genClasses ecoreClass="dnc.ecore#//Role"/>
+    <genClasses ecoreClass="dnc.ecore#//Description"/>
+    <genClasses ecoreClass="dnc.ecore#//Party"/>
+    <genClasses ecoreClass="dnc.ecore#//Place"/>
+    <genClasses ecoreClass="dnc.ecore#//Thing"/>
+    <genClasses ecoreClass="dnc.ecore#//PluginPoint"/>
+  </genPackages>
+</genmodel:GenModel>

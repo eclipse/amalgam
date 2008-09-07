@@ -1,0 +1,5 @@
+transformation dnc2ecore();
+
+mapping main() {
+
+}

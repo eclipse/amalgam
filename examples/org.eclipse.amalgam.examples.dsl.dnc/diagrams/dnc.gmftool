@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette
+      title="DNC Palette">
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Nodes">
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Moment-Intervals"
+          stack="true"
+          active="//@palette/@tools.0/@tools.0/@tools.0">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Moment-Interval"
+            description="Create a new Moment-Interval archetype">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="MI Detail"
+            description="Create a new Moment-Interval Detail archetype">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Role"
+          description="Create a new Role archetype">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:ToolGroup"
+          title="Party, Place, Thing"
+          stack="true"
+          active="//@palette/@tools.0/@tools.2/@tools.0">
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Party"
+            description="Create a new Party archetype">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Place"
+            description="Create a new Place archetype">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+        <tools
+            xsi:type="gmftool:CreationTool"
+            title="Thing"
+            description="Create a new Thing archetype">
+          <smallIcon
+              xsi:type="gmftool:DefaultImage"/>
+          <largeIcon
+              xsi:type="gmftool:DefaultImage"/>
+        </tools>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Description"
+          description="Create a new Description archetype">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Plugin Point"
+          description="Create a new Plugin Point">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Package"
+          description="Create a new Package">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Features">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Attribute">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Operation">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Links">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Association"
+          description="Create a new Association link">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Aggregation"
+          description="Create a new Aggregation link">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/Aggregation.gif"
+            bundle="org.eclipse.amalgam.examples.dnc.model.edit"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Generalization"
+          description="Create a new Generalization link">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/Generalization.gif"
+            bundle="org.eclipse.amalgam.examples.dnc.model.edit"/>
+      </tools>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Annotations">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Annotation"
+          description="Create a new Annotation">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Annotation Link"
+          description="Create a new Annotation link">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/AnnotationLink.gif"
+            bundle="org.eclipse.amalgam.examples.dnc.model.edit"/>
+      </tools>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>

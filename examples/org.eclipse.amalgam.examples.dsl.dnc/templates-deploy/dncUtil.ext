@@ -1,0 +1,98 @@
+import dnc;
+import oocore;
+import ecore;
+
+String fullyQualifiedName(Package p) : 
+	p.package == null ? p.name : fullyQualifiedName(p.package) + '.' + p.name
+;
+
+String fullyQualifiedName(Classifier c) : 
+	let p = fullyQualifiedName(c.package) :  p != '' && p != "java.lang" ? p + '.' + c.name : c.name
+;
+
+String fullyQualifiedName(EObject v) : '';
+
+String fullyQualifiedPath(Class c) :
+	fullyQualifiedName(c.package).replaceAll('\\.', '/') + "/" + c.name + ".java"
+;
+
+String wrapIfCollection(Reference reference) : 
+	reference.upperBound == -1 ? 
+		"java.util.Collection" + "<" + fullyQualifiedName(reference.type) + ">" :
+		fullyQualifiedName(reference.type)
+;
+
+String wrapIfCollection(Parameter param) : 
+	param.upperBound == -1 ? 
+		"java.util.Collection" + "<" + fullyQualifiedName(param.type) + ">" :
+		fullyQualifiedName(param.type)
+;
+
+String wrapIfCollection(Operation oper) : 
+	oper.upperBound == -1 ? 
+		"java.util.Collection" + "<" + fullyQualifiedName(oper.type) + ">" :
+		fullyQualifiedName(oper.type)
+;
+
+Boolean isValid(Package package) :
+	package != null && package.name.length > 0
+;
+
+String asColumnNameChar(String s) :
+	s.toLowerCase() == s ? s.toUpperCase() : '_' + s.toUpperCase()
+;
+
+Boolean isEntity(Classifier c) : 
+	false
+;
+
+Boolean isEntity(Class c) : 
+	false
+;
+
+Boolean isEntity(MomentInterval c) : 
+	true
+;
+
+Boolean isEntity(MIDetail c) : 
+	true
+;
+
+Boolean isEntity(Party c) : 
+	true
+;
+
+Boolean isEntity(Place c) : 
+	true
+;
+
+Boolean isEntity(Thing c) : 
+	true
+;
+
+Boolean isEntity(Description c) : 
+	true
+;
+
+Boolean isAssociation(Reference c) : 
+	false
+;
+
+Boolean isAssociation(Association c) : 
+	true
+;
+
+// Currently, we only create backward reference for ManyToOne relationships
+Boolean generateReference(oocore::Reference ref) :
+	ref.type.isEntity() && ref.opposite.isAssociation() && ref.opposite.upperBound == -1
+;
+
+List[oocore::Package] gatherPackages(oocore::Package pkg) :
+	let p = {pkg} : p.addAll(pkg.contents.typeSelect(oocore::Package).gatherPackages().flatten())
+;
+
+List[dnc::Archetype] gatherArchetypes(oocore::Package root) :
+	let p = root.gatherPackages() : p.contents.typeSelect(dnc::Archetype).select(e | e.isEntity())
+;
+
+

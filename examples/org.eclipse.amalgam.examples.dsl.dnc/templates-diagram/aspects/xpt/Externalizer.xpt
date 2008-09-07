@@ -1,0 +1,15 @@
+«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«EXTENSION xpt::ExternalizerUtils»
+
+«AROUND Fields FOR gmfgen::GenEditorGenerator»
+«EXPAND xpt::diagram::preferences::AppearancePreferencePage::i18nAccessors FOR diagram-»
+«targetDef.proceed()-»
+«ENDAROUND»
+
+«AROUND Values FOR gmfgen::GenEditorGenerator»
+«EXPAND xpt::diagram::preferences::AppearancePreferencePage::i18nValues FOR diagram-»
+«targetDef.proceed()-»
+«ENDAROUND»
+

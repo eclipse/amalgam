@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ASCII"?>
+<oocore:Package xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dnc="http://www.eclipse.org/2008/dnc" xmlns:oocore="http://www.eclipse.org/2008/oocore" xsi:schemaLocation="http://www.eclipse.org/2008/dnc dnc.ecore http://www.eclipse.org/2008/oocore ../../org.eclipse.amalgam.examples.dsl.oocore/model/oocore.ecore" name="org">
+  <contents xsi:type="oocore:Package" name="eclipse">
+    <contents xsi:type="oocore:Package" name="example">
+      <contents xsi:type="dnc:Role" name="Cashier" description="This is the Cashier class.">
+        <features xsi:type="oocore:Operation" name="calculateTotalSales" visibility="PUBLIC">
+          <type xsi:type="oocore:Datatype" href="types.xmi#//@contents.1/@contents.0"/>
+        </features>
+        <features xsi:type="oocore:Reference" name="person" type="//@contents.0/@contents.0/@contents.1" bidirectional="true" opposite="//@contents.0/@contents.0/@contents.1/@features.2"/>
+      </contents>
+      <contents xsi:type="dnc:Party" name="Person" description="The Person class.">
+        <features xsi:type="oocore:Attribute" name="firstName">
+          <dataType href="types.xmi#//@contents.0/@contents.0"/>
+        </features>
+        <features xsi:type="oocore:Attribute" name="lastName">
+          <dataType href="types.xmi#//@contents.0/@contents.0"/>
+        </features>
+        <features xsi:type="dnc:Association" name="cashierRole" type="//@contents.0/@contents.0/@contents.0" bidirectional="true" opposite="//@contents.0/@contents.0/@contents.0/@features.1"/>
+        <features xsi:type="dnc:Association" name="address" type="//@contents.0/@contents.0/@contents.2" bidirectional="true" opposite="//@contents.0/@contents.0/@contents.2/@features.0"/>
+        <features xsi:type="dnc:Association" name="phones" upperBound="-1" type="//@contents.0/@contents.0/@contents.3" bidirectional="true" opposite="//@contents.0/@contents.0/@contents.3/@features.0"/>
+      </contents>
+      <contents xsi:type="dnc:Place" name="Address">
+        <features xsi:type="oocore:Reference" name="person" type="//@contents.0/@contents.0/@contents.1" bidirectional="true" opposite="//@contents.0/@contents.0/@contents.1/@features.3"/>
+        <features xsi:type="oocore:Attribute" name="street">
+          <dataType href="types.xmi#//@contents.0/@contents.0"/>
+        </features>
+        <features xsi:type="oocore:Attribute" name="city">
+          <dataType href="types.xmi#//@contents.0/@contents.0"/>
+        </features>
+        <features xsi:type="oocore:Attribute" name="province">
+          <dataType href="types.xmi#//@contents.0/@contents.0"/>
+        </features>
+        <features xsi:type="oocore:Attribute" name="country">
+          <dataType href="types.xmi#//@contents.0/@contents.0"/>
+        </features>
+        <features xsi:type="oocore:Attribute" name="postalCode">
+          <dataType href="types.xmi#//@contents.0/@contents.0"/>
+        </features>
+      </contents>
+      <contents xsi:type="dnc:Thing" name="Phone">
+        <features xsi:type="oocore:Reference" name="owner" type="//@contents.0/@contents.0/@contents.1" bidirectional="true" opposite="//@contents.0/@contents.0/@contents.1/@features.4"/>
+        <features xsi:type="oocore:Attribute" name="type">
+          <dataType href="types.xmi#//@contents.0/@contents.0"/>
+        </features>
+        <features xsi:type="oocore:Attribute" name="countryCode">
+          <dataType href="types.xmi#//@contents.0/@contents.0"/>
+        </features>
+        <features xsi:type="oocore:Attribute" name="areaCode">
+          <dataType href="types.xmi#//@contents.0/@contents.0"/>
+        </features>
+        <features xsi:type="oocore:Attribute" name="number">
+          <dataType href="types.xmi#//@contents.0/@contents.0"/>
+        </features>
+      </contents>
+    </contents>
+  </contents>
+</oocore:Package>

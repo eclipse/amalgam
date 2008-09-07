@@ -1,0 +1,403 @@
+modeltype dnc uses "http://www.eclipse.org/2008/dnc";
+modeltype oocore uses "http://www.eclipse.org/2008/oocore";
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+modeltype java uses "java.xmi";
+
+transformation dnc2jee(in modelIn : dnc, out modelOut : java);
+
+import library Strings;
+
+mapping main(in dncModel : oocore::Package, out javaModel : java::JavaPackage) {
+	init {
+		javaModel := dncModel.map toPackage();
+	}
+}
+
+/**
+ * Map color model package to Java package.
+ */
+mapping oocore::Package::toPackage() : java::JavaPackage {
+	name := self.name;
+	eClassifiers += self.contents[MomentInterval].map toEntity();
+	eClassifiers += self.contents[MIDetail].map toEntity();
+	eClassifiers += self.contents[Role].map toStateful();
+	eClassifiers += self.contents[Party].map toEntity();
+	eClassifiers += self.contents[Place].map toEntity();
+	eClassifiers += self.contents[Thing].map toEntity();
+	eClassifiers += self.contents[Description].map toEntity();
+	eSubpackages += self.contents[Package].map toPackage();
+}
+
+mapping dnc::Archetype::toClass() : java::JavaClass {
+	name := self.name;
+	fields += self.features[Attribute].map toField(result);
+	methods += self.features[Operation].map toMethod();
+}
+
+mapping dnc::Archetype::toSerializableClass() : java::JavaClass {
+	implementsInterfaces += 'java.io.Serializable'.map toClass();
+}
+
+/**
+ * Map an Archetype to a @Stateful session bean
+ */
+mapping dnc::Archetype::toStateful() : java::JavaClass 
+	inherits dnc::Archetype::toClass 
+	merges dnc::Archetype::toSerializableClass {
+	
+	eAnnotations += toAnnotation('description', self.description, null);
+	eAnnotations += toAnnotation('annotation', '@Stateful', null);
+	classImport += 'javax.ejb.Stateful'.map toClass(); 
+}
+
+/**
+ * Map an Archetype to an @Entity
+ */
+mapping dnc::Archetype::toEntity() : java::JavaClass 
+	inherits dnc::Archetype::toClass 
+	merges dnc::Archetype::toSerializableClass {
+	
+	eStructuralFeatures += self.features[Association].map toReference(result);
+	eStructuralFeatures += self.features[Reference].map toReference(result);
+	
+	eAnnotations += toAnnotation('description', self.description, null);
+	eAnnotations += toAnnotation('annotation', '@Entity', null);
+	eAnnotations += toAnnotation('annotation', '@Table(name="' + self.name.toUpperCase() + '")', null);
+	
+	-- Add id field with getter, no setter
+	fields += object java::Field {
+		name := self.name.toLowerCase() + 'Id';
+		eType := 'int'.map toClass();
+		javaVisibility := java::JavaVisibilityKind::PRIVATE;
+		eAnnotations += toAnnotation('annotation', '@Id', null);
+		eAnnotations += toAnnotation('annotation', '@Column(name="' + self.name.toUpperCase() + '_ID")', null);
+		eAnnotations += toAnnotation('annotation', '@GeneratedValue(strategy=GenerationType.AUTO)', null);
+	};
+	methods += object java::Method {
+		name := 'get' + self.name.firstToUpper() + 'Id';
+		eType := 'int'.map toClass();
+		javaVisibility := java::JavaVisibilityKind::PUBLIC;
+		source := object java::Statement {
+			source := 'return ' + self.name.toLowerCase() + 'Id;';
+		};
+	};
+	end {
+		result.classImport += 'javax.persistence.Entity'.map toClass();
+		result.classImport += 'javax.persistence.Table'.map toClass();
+		result.classImport += 'javax.persistence.Column'.map toClass();
+		result.classImport += 'javax.persistence.Id'.map toClass();
+		result.classImport += 'javax.persistence.GeneratedValue'.map toClass();
+		result.classImport += 'javax.persistence.GenerationType'.map toClass();
+	}
+}
+
+/**
+ * Creates reference from association with annotations
+ */
+mapping dnc::Association::toReference(inout class : java::JavaClass) : ecore::EReference 
+	when {
+		not self.opposite.oclIsUndefined() and self.opposite.owner.isEntity()
+	} {
+	name := self.name;
+	eType := self.type.oclAsType(dnc::Archetype).late resolveone(java::JavaClass);
+	lowerBound := self.lowerBound;
+	upperBound := self.upperBound;
+	end {
+		if (not self.opposite.oclIsUndefined() and self.opposite.owner.isEntity()) then {
+			if (self.upperBound = 1  and (self.opposite.upperBound = 1 or self.opposite.upperBound = 0)) then {
+				result.eAnnotations += toAnnotation('annotation', '@OneToOne(targetEntity=' + self.opposite.owner.fullyQualifiedName() + '.class)', null);
+				class.classImport += 'javax.persistence.OneToOne'.map toClass();	
+			} endif; 
+			
+			if (self.upperBound = -1  and (self.opposite.upperBound = 1 or self.opposite.upperBound = 0)) then {
+				result.eAnnotations += toAnnotation('annotation', '@OneToMany(mappedBy="' + self.owner.name.toLowerCase() + 'Id")', null);	
+				result.eAnnotations += toAnnotation('collection', 'type', 'java.util.Collection');
+				class.classImport += 'javax.persistence.OneToMany'.map toClass();
+			} endif;
+			
+			var columnName : String := null;
+			if self.name.toLowerCase() <> self.name then {
+				columnName := self.name.toColumnName();
+				result.eAnnotations += toAnnotation('annotation', '@Column(name="' + columnName  + '")', null)
+			} endif;
+		} endif;
+		class.methods += self.map toGetter();
+		class.methods += self.map toSetter();
+	}
+}
+
+/**
+ * Creates reference/getter/setter from opposite reference with annotations
+ */
+mapping oocore::Reference::toReference(inout class : java::JavaClass) : ecore::EReference
+	when {
+		not self.opposite.oclIsUndefined() and self.opposite.owner.isEntity() and self.opposite.upperBound = -1
+	} {
+	name := self.name;
+	eType := self.type.oclAsType(dnc::Archetype).late resolveone(java::JavaClass);
+	lowerBound := self.lowerBound;
+	upperBound := self.upperBound;
+	end {
+		if self.opposite.upperBound = -1 then {
+			result.eAnnotations += toAnnotation('annotation', '@ManyToOne', null);	
+			result.eAnnotations += toAnnotation('annotation', '@JoinColumn(name="' + self.opposite.owner.name.toUpperCase()  + '_ID")', null);
+			class.classImport += 'javax.persistence.ManyToOne'.map toClass();
+			class.classImport += 'javax.persistence.JoinColumn'.map toClass();
+		} endif;
+		
+		var columnName : String := null;
+		if self.name.toLowerCase() <> self.name then {
+			columnName := self.name.toColumnName();
+			result.eAnnotations += toAnnotation('annotation', '@Column(name="' + columnName  + '")', null)
+		} endif;
+		class.methods += self.map toGetter();
+		class.methods += self.map toSetter();
+	}
+}
+
+/**
+ * Creates getter method for Reference
+ */
+mapping oocore::Reference::toGetter() : java::Method {
+	init {
+		result := object java::Method {
+			name := 'get' + self.name.firstToUpper();
+			eType := self.type.late resolveone(java::JavaClass);
+			javaVisibility := java::JavaVisibilityKind::PUBLIC;
+			source := object java::Statement {
+				source := 'return ' + self.name + ';';
+			};
+		};
+		if (self.lowerBound = 0 or self.lowerBound = 1) and self.upperBound = -1 then {
+			result.eAnnotations += toAnnotation('collection', 'type', 'java.util.Collection');
+		} endif;
+	}
+}
+
+/**
+ * Creates setter method for Reference
+ */
+mapping oocore::Reference::toSetter() : java::Method {
+	init {
+		var parameter := object java::JavaParameter {
+			eType := self.type.late resolveone(java::JavaClass);
+			name := self.name;
+		};
+		if self.lowerBound = 0 and self.upperBound = -1 then {
+			parameter.eAnnotations += toAnnotation('collection', 'type', 'java.util.Collection');
+		} endif;
+	}
+	name := 'set' + self.name.firstToUpper();
+	eType := 'void'.map toClass();
+	javaVisibility := java::JavaVisibilityKind::PUBLIC;
+	source := object java::Statement {
+		source := 'this.' + self.name + ' = ' + self.name + ';';
+	};
+	parameters += parameter;
+}
+
+/**
+ * Creates field/getter/setter for attribute, with @Column annotation if required
+ */
+mapping oocore::Attribute::toField(inout class : java::JavaClass) : java::Field {
+	name := self.name;
+	eType := self.dataType.map toClass();
+	javaVisibility := self.visibility.toVisibility();
+	end {
+		var columnName : String := null;
+		if self.name.toLowerCase() <> self.name then {
+			columnName := self.name.toColumnName();
+			result.eAnnotations += toAnnotation('annotation', '@Column(name = "' + columnName  + '")', null)
+		} endif;
+		class.methods += self.map toGetter();
+		class.methods += self.map toSetter();
+	}
+}
+
+/**
+ * Creates getter method for field
+ */
+mapping oocore::Attribute::toGetter() : java::Method {
+	name := 'get' + self.name.firstToUpper();
+	eType := self.dataType.map toClass();
+	javaVisibility := java::JavaVisibilityKind::PUBLIC;
+	source := object java::Statement {
+		source := 'return ' + self.name + ';';
+	};
+}
+
+/**
+ * Creates setter method for field
+ */
+mapping oocore::Attribute::toSetter() : java::Method {
+	name := 'set' + self.name.firstToUpper();
+	eType := 'void'.map toClass();
+	javaVisibility := java::JavaVisibilityKind::PUBLIC;
+	parameters += object java::JavaParameter {
+		eType := self.dataType.map toClass();
+		name := self.name;
+	};
+	source := object java::Statement {
+		source := 'this.' + self.name + ' = ' + self.name + ';';
+	};
+}
+
+/**
+ * Creates Method from Operation
+ * TODO: handle parameters
+ */
+mapping oocore::Operation::toMethod() : java::Method {
+	name := self.name;
+	eType := self.type.map toClass();
+	javaVisibility := self.visibility.toVisibility();
+	source := object java::Block {
+		contents += object java::Comment {
+			source := 'TODO: Implement this method';
+		};
+		contents += self.type.map toReturnStatement();
+	};
+}
+
+/**
+ * Creates default return statement for Method
+ */
+mapping oocore::Classifier::toReturnStatement() : java::Statement {
+	init {
+		var statement : String := null;
+		switch {
+			(self.oclIsUndefined()) ? statement := '';
+			(self.oclIsKindOf(oocore::Class)) ? statement := 'return null;';
+			(self.oclIsTypeOf(oocore::Datatype)) ? statement := 'return ' + self.oclAsType(oocore::Datatype).defaultLiteral + ';';
+			else ? assert fatal (false) with log('No return type found', self);
+		};
+	}
+	source := statement;
+}
+
+/**
+ * Creates class and packaging with 'library' annotation
+ */
+mapping String::toClass() : java::JavaClass {
+	init {
+		var segment : String := null;
+		var pkg : java::JavaPackage := null;
+		var parentPkg : java::JavaPackage := null;
+		var pos : Integer := 1;
+		while (self.indexOf('.', pos) <> -1) {
+			segment := self.substring(pos, self.indexOf('.', pos));
+			pos := self.indexOf('.', pos) + 2;
+			pkg := segment.map toPackage();
+			if parentPkg = null then {
+				parentPkg := pkg;
+			} else {
+				parentPkg.eSubpackages += pkg;
+				parentPkg := pkg;
+			} endif;
+		};
+	}
+	name := self.substring(self.lastIndexOf('.')+2, self.size());
+	eAnnotations += toAnnotation('library', null, null);
+	end {
+		parentPkg.eClassifiers += result;
+	}
+}
+
+/**
+ * Creates library class from Java type
+ */
+mapping oocore::Classifier::toClass() : java::JavaClass {
+	name := self.name;
+	-- Datatypes are marked as 'library'
+	eAnnotations += toAnnotation('library', null, null);
+	end {
+		var pack : java::JavaPackage := self._package.map toPackage(null);
+		pack.eClassifiers += result;
+	}
+}
+
+/**
+ * Creates JavaPackage from String
+ */
+mapping String::toPackage() : java::JavaPackage {
+	name := self;
+}
+
+/**
+ * Creates JavaPackage and adds passed child
+ */
+mapping oocore::Package::toPackage(child : java::JavaPackage) : java::JavaPackage {
+	init {
+		result := self.name.map toPackage();
+		result.eSubpackages += child;
+
+		if self._package <> null then
+			self._package.map toPackage(result) endif;
+	}
+}
+
+/**
+ * Creates ECore annotation for use by template
+ */
+query toAnnotation(type:String, key:String, value:String) : ecore::EAnnotation {
+	return object ecore::EAnnotation {
+		source := type;
+		details += object ecore::EStringToStringMapEntry {
+			key := key;
+			value := value;
+		}
+	}
+}
+
+/**
+ * Maps visibility to Java types
+ */
+query oocore::Visibility::toVisibility() : java::JavaVisibilityKind {
+	if self = oocore::Visibility::PRIVATE then {return java::JavaVisibilityKind::PRIVATE} else 
+		if self = oocore::Visibility::PUBLIC then {return java::JavaVisibilityKind::PUBLIC} else 
+			if self = oocore::Visibility::PROTECTED then {return java::JavaVisibilityKind::PROTECTED}
+			endif
+		endif
+	endif;
+	return java::JavaVisibilityKind::PACKAGE
+}
+
+/**
+ * Replaces camel case with underscore, e.g. firstName -> FIRST_NAME
+ */
+query String::toColumnName() : String {
+	var name : String := '';
+	var digit : String := '';
+	var pos : Integer := 1;
+	while (pos <= self.size()) {
+		digit := self.substring(pos, pos);
+		if digit.toLowerCase() <> digit then {
+			name := name + '_' + digit;
+		} else {
+			name := name + digit;
+		} endif;
+		pos := pos + 1;
+	};
+	return name.toUpperCase();
+}
+
+query oocore::Class::isEntity() : Boolean {
+	return self.oclIsTypeOf(dnc::MomentInterval) or
+	self.oclIsTypeOf(dnc::MIDetail) or
+	self.oclIsTypeOf(dnc::Party) or
+	self.oclIsTypeOf(dnc::Place) or
+	self.oclIsTypeOf(dnc::Thing) or
+	self.oclIsTypeOf(dnc::Description);
+}
+
+/**
+ * Returns dot '.' delimited package.Class string
+ */
+query oocore::Class::fullyQualifiedName() : String {
+	var fqn : String := self.name;
+	var pkg : oocore::Package := self._package;
+	while (not pkg.oclIsUndefined()) {
+		fqn := pkg.name + '.' + fqn;
+		pkg := pkg._package;
+	};
+	return fqn;
+}
