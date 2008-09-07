@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmi:id="_iADMsHT7Ed2GcbLEtN0GLg" type="GMFGraph" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_iqG2UHT7Ed2GcbLEtN0GLg" type="2006">
+    <children xmi:type="notation:Node" xmi:id="_iqIrgHT7Ed2GcbLEtN0GLg" type="5006"/>
+    <children xmi:type="notation:Node" xmi:id="_iqLHwHT7Ed2GcbLEtN0GLg" type="7006">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_iqLHwXT7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_iqLHwnT7Ed2GcbLEtN0GLg" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_iqLHw3T7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_iqLHxHT7Ed2GcbLEtN0GLg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_iqG2UXT7Ed2GcbLEtN0GLg" fontName="Lucida Grande"/>
+    <element xmi:type="gmfgraph:Node" href="mindmap.gmfgraph#Topic"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iqG2UnT7Ed2GcbLEtN0GLg" x="288" y="135"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_iqMV4HT7Ed2GcbLEtN0GLg" type="2006">
+    <children xmi:type="notation:Node" xmi:id="_iqM88HT7Ed2GcbLEtN0GLg" type="5006"/>
+    <children xmi:type="notation:Node" xmi:id="_iqM88XT7Ed2GcbLEtN0GLg" type="7006">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_iqM88nT7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_iqM883T7Ed2GcbLEtN0GLg" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_iqM89HT7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_iqM89XT7Ed2GcbLEtN0GLg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_iqMV4XT7Ed2GcbLEtN0GLg" fontName="Lucida Grande"/>
+    <element xmi:type="gmfgraph:Node" href="mindmap.gmfgraph#Subtopic"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iqMV4nT7Ed2GcbLEtN0GLg" x="288" y="297"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_iqNkAHT7Ed2GcbLEtN0GLg" type="2007">
+    <children xmi:type="notation:Node" xmi:id="_iqOyIHT7Ed2GcbLEtN0GLg" type="5007"/>
+    <children xmi:type="notation:Node" xmi:id="_iqPZMHT7Ed2GcbLEtN0GLg" type="7007">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_iqPZMXT7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_iqPZMnT7Ed2GcbLEtN0GLg" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_iqPZM3T7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_iqPZNHT7Ed2GcbLEtN0GLg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_iqNkAXT7Ed2GcbLEtN0GLg" fontName="Lucida Grande"/>
+    <element xmi:type="gmfgraph:Connection" href="mindmap.gmfgraph#TopicSubtopics"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iqNkAnT7Ed2GcbLEtN0GLg" x="1017" y="171"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_iqPZNXT7Ed2GcbLEtN0GLg" type="2007">
+    <children xmi:type="notation:Node" xmi:id="_iqQAQHT7Ed2GcbLEtN0GLg" type="5007"/>
+    <children xmi:type="notation:Node" xmi:id="_iqQAQXT7Ed2GcbLEtN0GLg" type="7007">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_iqQAQnT7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_iqQAQ3T7Ed2GcbLEtN0GLg" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_iqQARHT7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_iqQARXT7Ed2GcbLEtN0GLg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_iqPZNnT7Ed2GcbLEtN0GLg" fontName="Lucida Grande"/>
+    <element xmi:type="gmfgraph:Connection" href="mindmap.gmfgraph#Relationship"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iqPZN3T7Ed2GcbLEtN0GLg" x="1017" y="234"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_iqQnUHT7Ed2GcbLEtN0GLg" type="2008">
+    <children xmi:type="notation:Node" xmi:id="_iqROYHT7Ed2GcbLEtN0GLg" type="5009"/>
+    <children xmi:type="notation:Node" xmi:id="_iqR1cHT7Ed2GcbLEtN0GLg" type="7008">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_iqR1cXT7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_iqR1cnT7Ed2GcbLEtN0GLg" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_iqR1c3T7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_iqR1dHT7Ed2GcbLEtN0GLg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_iqQnUXT7Ed2GcbLEtN0GLg" fontName="Lucida Grande"/>
+    <element xmi:type="gmfgraph:FigureGallery" href="mindmap.gmfgraph#BPMN Figures"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iqQnUnT7Ed2GcbLEtN0GLg" x="90" y="117"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_iqTDkHT7Ed2GcbLEtN0GLg" type="2008">
+    <children xmi:type="notation:Node" xmi:id="_iqTqoHT7Ed2GcbLEtN0GLg" type="5009"/>
+    <children xmi:type="notation:Node" xmi:id="_iqTqoXT7Ed2GcbLEtN0GLg" type="7008">
+      <children xmi:type="notation:Node" xmi:id="_i77mIHT7Ed2GcbLEtN0GLg" type="3009">
+        <children xmi:type="notation:Node" xmi:id="_i780QHT7Ed2GcbLEtN0GLg" type="5008"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_i77mIXT7Ed2GcbLEtN0GLg" fontName="Lucida Grande"/>
+        <element xmi:type="gmfgraph:FigureDescriptor" href="mindmap.gmfgraph#TopicSubtopicsFigure"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i77mInT7Ed2GcbLEtN0GLg" x="364" y="22"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_i7-CYHT7Ed2GcbLEtN0GLg" type="3009">
+        <children xmi:type="notation:Node" xmi:id="_i7_QgHT7Ed2GcbLEtN0GLg" type="5008"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_i7-CYXT7Ed2GcbLEtN0GLg" fontName="Lucida Grande"/>
+        <element xmi:type="gmfgraph:FigureDescriptor" href="mindmap.gmfgraph#RelationshipFigure"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i7-CYnT7Ed2GcbLEtN0GLg" x="364" y="85"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_i8AeoHT7Ed2GcbLEtN0GLg" type="3009">
+        <children xmi:type="notation:Node" xmi:id="_i8BswHT7Ed2GcbLEtN0GLg" type="5008"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_i8AeoXT7Ed2GcbLEtN0GLg" fontName="Lucida Grande"/>
+        <element xmi:type="gmfgraph:FigureDescriptor" href="mindmap.gmfgraph#TopicFigure"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i8AeonT7Ed2GcbLEtN0GLg" x="76" y="22"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_i8C64HT7Ed2GcbLEtN0GLg" type="3009">
+        <children xmi:type="notation:Node" xmi:id="_i8EJAHT7Ed2GcbLEtN0GLg" type="5008"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_i8C64XT7Ed2GcbLEtN0GLg" fontName="Lucida Grande"/>
+        <element xmi:type="gmfgraph:FigureDescriptor" href="mindmap.gmfgraph#SubtopicFigure"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i8C64nT7Ed2GcbLEtN0GLg" x="67" y="94"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_i8GlQHT7Ed2GcbLEtN0GLg" type="3021">
+        <element xmi:type="gmfgraph:PolylineDecoration" href="mindmap.gmfgraph#//@figures.1/@figures.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i8GlQXT7Ed2GcbLEtN0GLg" x="40" y="40"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_iqTqonT7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_iqTqo3T7Ed2GcbLEtN0GLg" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_iqTqpHT7Ed2GcbLEtN0GLg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_iqURsHT7Ed2GcbLEtN0GLg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_iqTDkXT7Ed2GcbLEtN0GLg" fontName="Lucida Grande"/>
+    <element xmi:type="gmfgraph:FigureGallery" href="mindmap.gmfgraph#Default"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iqTDknT7Ed2GcbLEtN0GLg" x="405" y="117" width="559" height="352"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_iADMsXT7Ed2GcbLEtN0GLg"/>
+  <element xmi:type="gmfgraph:Canvas" href="mindmap.gmfgraph#mindmap"/>
+</notation:Diagram>

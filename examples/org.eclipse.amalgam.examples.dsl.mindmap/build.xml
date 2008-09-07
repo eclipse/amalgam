@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="org.eclipse.amalgam.examples.dsl.mindmap" default="main" basedir=".">
+	<target name="init">
+		<available file="../org.eclipse.amalgam.examples.mindmap.diagram/plugin.xml" type="file" property="generated" />
+	</target>
+		
+	<target name="main" depends="init" if="generated">
+		<copy todir="../org.eclipse.amalgam.examples.mindmap.diagram/icons" overwrite="true">
+			<fileset dir="./icons/diagram/icons"/>
+		</copy>
+		<copy todir="../org.eclipse.amalgam.examples.mindmap.model.edit/icons" overwrite="true">
+			<fileset dir="./icons/edit/icons"/>
+		</copy>
+	</target>
+
+</project>
