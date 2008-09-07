@@ -43,6 +43,7 @@
    <features>
       <feature id="org.eclipse.jdt" version="0.0.0"/>
       <feature id="org.eclipse.pde" version="0.0.0"/>
+      <feature id="org.eclipse.cvs" version="0.0.0"/>
       <feature id="org.eclipse.emf.sdk" version="0.0.0"/>
       <feature id="org.eclipse.gef.sdk" version="0.0.0"/>
       <feature id="org.eclipse.gmf.sdk" version="0.0.0"/>
