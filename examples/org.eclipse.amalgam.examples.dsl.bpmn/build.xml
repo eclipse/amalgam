@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="org.eclipse.amalgam.examples.dsl.scenario" default="main" basedir=".">
+	<target name="init">
+		<available file="../org.eclipse.amalgam.examples.bpmn.figures/plugin.properties" type="file" property="generated" />
+	</target>
+		
+	<target name="main" depends="init" if="generated">
+		<copy todir="../org.eclipse.amalgam.examples.bpmn.figures/src" overwrite="true">
+			<fileset dir="./src-custom"/>
+		</copy>
+		<eclipse.refreshLocal resource="org.eclipse.amalgam.examples.bpmn.figures"/>
+	</target>
+
+</project>
