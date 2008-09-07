@@ -754,6 +754,7 @@
             id="org.eclipse.plugInDevelopment">
       </defaultEnablement>
       
+<!-- Don't enable by default, as the SDK does
       <defaultEnablement
             id="org.eclipse.team">
       </defaultEnablement>     
@@ -761,7 +762,7 @@
       <defaultEnablement
             id="org.eclipse.team.cvs">
       </defaultEnablement>
-       
+-->       
    </extension>
    
 
