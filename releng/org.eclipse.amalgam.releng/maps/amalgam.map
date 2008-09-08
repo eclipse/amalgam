@@ -2,9 +2,20 @@
 
 !*** Amalgam features *******************************************************************
 feature@org.eclipse.amalgam.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.dsltk-feature
+feature@org.eclipse.amalgam.examples.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.examples.dsltk-feature
 
 !*** Amalgam plug-ins *******************************************************************
 plugin@org.eclipse.amalgam.common.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/plugins/org.eclipse.amalgam.common.ui
 plugin@org.eclipse.amalgam.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/plugins/org.eclipse.amalgam.dsltk
 plugin@org.eclipse.amalgam.dsltk.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/plugins/org.eclipse.amalgam.dsltk.ui
 plugin@org.eclipse.amalgam.dsltk.doc=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/docs/org.eclipse.amalgam.dsltk.doc
+
+!*** Amalgam examples *******************************************************************
+plugin@org.eclipse.amalgam.examples.dsl.mindmap=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.mindmap
+plugin@org.eclipse.amalgam.examples.dsl.requirements=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.requirements
+plugin@org.eclipse.amalgam.examples.dsl.oocore=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.oocore
+plugin@org.eclipse.amalgam.examples.dsl.dnc=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.dnc
+plugin@org.eclipse.amalgam.examples.dsl.scenario=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.scenario
+plugin@org.eclipse.amalgam.examples.dsl.bpmn=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.bpmn
+
+

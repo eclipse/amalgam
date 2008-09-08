@@ -55,6 +55,7 @@
       <feature id="org.eclipse.emf.teneo.sdk" version="0.0.0"/>
       <feature id="org.eclipse.emf.emfqtv.all.sdk" version="0.0.0"/>
       <feature id="org.eclipse.amalgam.dsltk" version="0.0.0"/>
+      <feature id="org.eclipse.amalgam.examples.dsltk" version="0.0.0"/>
       <feature id="org.eclipse.uml2tools.sdk" version="0.0.0"/>
       <feature id="org.eclipse.gmf.sdk.experimental" version="0.0.0"/>
    </features>
