@@ -3,16 +3,16 @@
   <extensionContent id="org.eclipse.amalgam.dsl.samples" name="DSL Toolkit" alt-style="css/samples.properties" style="css/samples.css" path="samples/@">
     <group label="DSL" id="content-group" style-id="content-group">
        <text style-id="group-description">The following samples demonstrate how to create a product line from a collection of DSLs and associated artifacts.</text>
-       <link label="Mindmap domain" url="http://org.eclipse.ui.intro/runAction?pluginId=org.eclipse.amalgam.common.ui&amp;class=org.eclipse.amalgam.common.ui.actions.ShowSampleAction&amp;id=org.eclipse.amalgam.examples.dsl.mindmap&amp;feature=org.eclipse.amalgam.examples&amp;version=1.0.0" id="mindmap" style-id="content-link">
+       <link label="Mindmap domain" url="http://org.eclipse.ui.intro/runAction?pluginId=org.eclipse.amalgam.common.ui&amp;class=org.eclipse.amalgam.common.ui.actions.ShowSampleAction&amp;id=org.eclipse.amalgam.examples.dsl.mindmap&amp;feature=org.eclipse.amalgam.examples.dsltk&amp;version=1.0.0" id="mindmap" style-id="content-link">
           <text>An introductory mindmap domain-specific language.</text>
        </link>
-       <link label="Requirements domain" url="http://org.eclipse.ui.intro/runAction?pluginId=org.eclipse.amalgam.common.ui&amp;class=org.eclipse.amalgam.common.ui.actions.ShowSampleAction&amp;id=org.eclipse.amalgam.examples.dsl.requirements&amp;feature=org.eclipse.amalgam.examples&amp;version=1.0.0" id="requirements" style-id="content-link">
+       <link label="Requirements domain" url="http://org.eclipse.ui.intro/runAction?pluginId=org.eclipse.amalgam.common.ui&amp;class=org.eclipse.amalgam.common.ui.actions.ShowSampleAction&amp;id=org.eclipse.amalgam.examples.dsl.requirements&amp;feature=org.eclipse.amalgam.examples.dsltk&amp;version=1.0.0" id="requirements" style-id="content-link">
           <text>A basic requirements domain-specific language</text>
        </link>
-       <link label="Color modeling domain" url="http://org.eclipse.ui.intro/runAction?pluginId=org.eclipse.amalgam.common.ui&amp;class=org.eclipse.amalgam.common.ui.actions.ShowSampleAction&amp;id=org.eclipse.amalgam.examples.dsl.dnc&amp;feature=org.eclipse.amalgam.examples&amp;version=1.0.0" id="color" style-id="content-link">
+       <link label="Color modeling domain" url="http://org.eclipse.ui.intro/runAction?pluginId=org.eclipse.amalgam.common.ui&amp;class=org.eclipse.amalgam.common.ui.actions.ShowSampleAction&amp;id=org.eclipse.amalgam.examples.dsl.dnc&amp;feature=org.eclipse.amalgam.examples.dsltk&amp;version=1.0.0" id="color" style-id="content-link">
           <text>A domain-specific language for defining domains using a color modeling technique</text>
        </link>
-       <link label="Scenario domain" url="http://org.eclipse.ui.intro/runAction?pluginId=org.eclipse.amalgam.common.ui&amp;class=org.eclipse.amalgam.common.ui.actions.ShowSampleAction&amp;id=org.eclipse.amalgam.examples.dsl.scenario&amp;feature=org.eclipse.amalgam.examples&amp;version=1.0.0" id="scenario" style-id="content-link">
+       <link label="Scenario domain" url="http://org.eclipse.ui.intro/runAction?pluginId=org.eclipse.amalgam.common.ui&amp;class=org.eclipse.amalgam.common.ui.actions.ShowSampleAction&amp;id=org.eclipse.amalgam.examples.dsl.scenario&amp;feature=org.eclipse.amalgam.examples.dsltk&amp;version=1.0.0" id="scenario" style-id="content-link">
           <text>A scenario domain-specific language used to describe behavior</text>
        </link>
     </group>
