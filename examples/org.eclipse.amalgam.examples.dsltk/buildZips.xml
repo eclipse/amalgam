@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="main" basedir=".">
+
+	<target name="main">
+		<zip destfile="./samples/mindmap.zip"
+			basedir="../org.eclipse.amalgam.examples.dsl.mindmap"
+  		/>
+	</target>
+	
+</project>

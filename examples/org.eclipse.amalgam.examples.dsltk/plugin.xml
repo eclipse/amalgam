@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+  <extension
+         point="org.eclipse.pde.ui.samples">
+      <sample
+            name="%sample.mindmap.name"
+            perspectiveId="org.eclipse.amalgam.dsl.ui.dslPerspective"
+            targetViewId="org.eclipse.jdt.ui.PackageExplorer"
+            id="org.eclipse.amalgam.dsltk.samples.mindmap">
+         <description
+               helpHref="/org.eclipse.amalgam.dsltk.doc/html/samples/mindmap.html">
+           %sample.mindmap.desc
+         </description>
+         <activity id="org.eclipse.javaDevelopment"/>
+         <activity id="org.eclipse.plugInDevelopment"/>
+         <activity id="org.eclipse.amalgam.dsl.domainModelingActivity"/>
+         <activity id="org.eclipse.amalgam.dsl.diagramDefinitionActivity"/>
+         <activity id="org.eclipse.amalgam.mt.templateDefinitionActivity"/>
+         <activity id="org.eclipse.amalgam.m2m.qvto.activity"/>
+         <project
+               name="org.eclipse.amalgam.examples.dsl.mindmap"
+               selectReveal="Eclipse UI Examples Readme Tool/org/eclipse/ui/examples/readmetool/AdaptableList.java"
+               archive="samples/mindmap.zip">
+         </project>
+      </sample>
+   </extension>
+</plugin>
