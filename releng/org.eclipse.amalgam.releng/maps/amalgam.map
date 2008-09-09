@@ -17,5 +17,6 @@ plugin@org.eclipse.amalgam.examples.dsl.oocore=HEAD,:pserver:anonymous@dev.eclip
 plugin@org.eclipse.amalgam.examples.dsl.dnc=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.dnc
 plugin@org.eclipse.amalgam.examples.dsl.scenario=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.scenario
 plugin@org.eclipse.amalgam.examples.dsl.bpmn=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.bpmn
+plugin@org.eclipse.amalgam.examples.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsltk
 
 
