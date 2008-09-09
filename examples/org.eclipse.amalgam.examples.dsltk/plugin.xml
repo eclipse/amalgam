@@ -21,7 +21,7 @@
          <activity id="org.eclipse.amalgam.m2m.qvto.activity"/>
          <project
                name="org.eclipse.amalgam.examples.dsl.mindmap"
-               selectReveal="Eclipse UI Examples Readme Tool/org/eclipse/ui/examples/readmetool/AdaptableList.java"
+               selectReveal="model/mindmap.ecore_diagram"
                archive="samples/mindmap.zip">
          </project>
       </sample>
