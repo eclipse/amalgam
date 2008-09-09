@@ -37,7 +37,7 @@
    	  <wizard
             name="%sample.mindmap.name"
             category="org.eclipse.ui.Examples/org.eclipse.amalgam.examples.dsltk"
-            class="org.eclipse.pde.ui.internal.samples.SampleWizard:org.eclipse.amalgam.examples.dsl.mindmap"
+            class="org.eclipse.amalgam.common.ui.wizards.SampleWizard:org.eclipse.amalgam.examples.dsl.mindmap"
             project="true"
             id="org.eclipse.amalgam.examples.dsl.mindmap">
          <description>%sample.mindmap.desc
