@@ -3,7 +3,7 @@
 !*** Amalgam features *******************************************************************
 feature@org.eclipse.amalgam.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.dsltk-feature
 feature@org.eclipse.amalgam.examples.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.examples.dsltk-feature
-feature@org.eclipse.amalgam.modeler=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.examples.modeler-feature
+feature@org.eclipse.amalgam.modeler=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.modeler-feature
 
 !*** Amalgam plug-ins *******************************************************************
 plugin@org.eclipse.amalgam.common.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/plugins/org.eclipse.amalgam.common.ui
