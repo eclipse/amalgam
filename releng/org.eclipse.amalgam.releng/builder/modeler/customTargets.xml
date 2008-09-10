@@ -1,0 +1,316 @@
+<project name="Build specific targets and properties" default="noDefault">
+
+	<!-- ===================================================================== -->
+	<!-- Run a given ${target} on all elements being built -->
+	<!-- Add on <ant> task for each top level element being built. -->
+	<!-- ===================================================================== -->
+	<available property="allElementsFile" file="${builder}/allElements.xml" value="${builder}/allElements.xml"/>
+	<property name="allElementsFile" location="${eclipse.pdebuild.templates}/headless-build/allElements.xml"/>
+
+	<import file="${allElementsFile}" />
+	<target name="allElements">
+		<antcall target="allElementsDelegator" />
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- ===================================================================== -->
+	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
+		<!-- TODO replace zip usage with director install from update site after 241596 resolved -->
+		<!-- with that, just download the director app, as it's not included in the basebuilder -->
+		<get src="${eclipseBaseURL}" dest="${buildDirectory}/base.tar.gz" verbose="true" usetimestamp="true"/>
+		<mkdir dir="${base}"/>
+		<exec executable="tar">
+			<arg line="-xzf"/>
+			<arg line="${buildDirectory}/base.tar.gz"/>
+			<arg line="-C ${base}"/>
+		</exec>
+		<!--
+		<available file="${buildDirectory}/director/eclipse" property="skipDirector" />
+		<antcall target="extractDirector"/> -->
+
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.emf.sdk"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${emf.metadata.url}"/>
+			<param name="artifact.repo" value="${emf.artifact.url}"/>
+		</antcall>
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.uml2.sdk"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${uml.metadata.url}"/>
+			<param name="artifact.repo" value="${uml.artifact.url}"/>
+		</antcall>
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.emf.emfqtv.all.sdk"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${qtv.metadata.url}"/>
+			<param name="artifact.repo" value="${qtv.artifact.url}"/>
+		</antcall>
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.gef.sdk"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${gef.metadata.url}"/>
+			<param name="artifact.repo" value="${gef.artifact.url}"/>
+		</antcall>
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.ocl.all.sdk"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${ocl.metadata.url}"/>
+			<param name="artifact.repo" value="${ocl.artifact.url}"/>
+		</antcall>
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.m2m.qvt.oml.sdk"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${qvt.metadata.url}"/>
+			<param name="artifact.repo" value="${qvt.artifact.url}"/>
+		</antcall>
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.gmf.sdk"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${gmf.metadata.url}"/>
+			<param name="artifact.repo" value="${gmf.artifact.url}"/>
+		</antcall>
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.uml2tools.sdk"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${umlt.metadata.url}"/>
+			<param name="artifact.repo" value="${umlt.artifact.url}"/>
+		</antcall>
+		
+		<!-- workaround for out of date xpand and mwe update sites -->
+		<antcall target="workaround.xpand.mwe"/>
+<!-- TODO:remove?		<antcall target="installDeltaPack"/> -->
+		<p2.generator source="${baseLocation}" 
+			append="true" 
+			mode="incremental" 
+			metadataRepository="file:${baseLocation}" 
+			artifactRepository="file:${baseLocation}" 
+			publishArtifacts="false"/>
+
+	</target>
+	
+	<!-- No need for director? just install deltapack into basebuilder in build.xml?
+	
+		Extract a second base to serve as director until small download available 
+	<target name="extractDirector" unless="skipDirector">
+		<mkdir dir="${buildDirectory}/director"/>
+		<exec executable="tar">
+			<arg line="-xzf"/>
+			<arg line="${buildDirectory}/base.tar.gz"/>
+			<arg line="-C ${buildDirectory}/director"/>
+		</exec>
+	</target>
+	
+	<target name="installDeltaPack">
+		<available file="${buildDirectory}/deltapack.zip" property="skipDeltaPack" />
+		<antcall target="getDeltaPack"/>
+		<unzip src="${buildDirectory}/deltapack.zip" dest="${base}"/>
+	</target>
+	
+	<target name="getDeltaPack" unless="skipDeltaPack">
+		<get src="${deltaPackURL}" dest="${buildDirectory}/deltapack.zip" verbose="true" usetimestamp="true" />
+	</target>-->
+	
+	<target name="workaround.xpand.mwe">
+		<available file="${buildDirectory}/temphack" property="temphackExists" />
+		<antcall target="get.xpand.mwe"/>
+		<copy todir="${base}/eclipse/plugins">
+		    <fileset dir="${buildDirectory}/temphack" includes="**/*.jar"/>
+		</copy>
+		<unzip src="${buildDirectory}/temphack/emft-mwe-SDK-incubation-I200801100355.zip" dest="${base}"/>
+		<unzip src="${buildDirectory}/temphack/m2t-xpand-SDK-I200801101356.zip" dest="${base}"/>
+	</target>
+	
+	<target name="get.xpand.mwe" unless="temphackExists">
+		<mkdir dir="${buildDirectory}/temphack"/>
+		<get src="http://download1.eclipse.org/modeling/amalgam/temp/emft-mwe-SDK-incubation-I200801100355.zip" dest="${buildDirectory}/temphack/emft-mwe-SDK-incubation-I200801100355.zip" usetimestamp="true"/>
+		<get src="http://download1.eclipse.org/modeling/amalgam/temp/m2t-xpand-SDK-I200801101356.zip" dest="${buildDirectory}/temphack/m2t-xpand-SDK-I200801101356.zip" usetimestamp="true"/>
+		<get src="http://download1.eclipse.org/modeling/amalgam/temp/org.antlr.runtime_3.0.0.200801082321.jar" dest="${buildDirectory}/temphack/org.antlr.runtime_3.0.0.200801082321.jar" usetimestamp="true"/>
+		<get src="http://download1.eclipse.org/modeling/amalgam/temp/org.apache.commons.cli_1.0.0.v200711021015.jar" dest="${buildDirectory}/temphack/org.apache.commons.cli_1.0.0.v200711021015.jar" usetimestamp="true"/>
+		<get src="http://download1.eclipse.org/modeling/amalgam/temp/org.apache.commons.lang_2.1.0.v200711021015.jar" dest="${buildDirectory}/temphack/org.apache.commons.lang_2.1.0.v200711021015.jar" usetimestamp="true"/>
+		<get src="http://download1.eclipse.org/modeling/amalgam/temp/org.apache.commons.logging_1.0.4.v200711021015.jar" dest="${buildDirectory}/temphack/org.apache.commons.logging_1.0.4.v200711021015.jar" usetimestamp="true"/>
+	</target>
+	
+	<target name="checkLocalBase">
+		<available file="${base}" property="skipBase" />
+	</target>
+	
+	<!-- ===================================================================== -->
+	<!-- Check out map files from correct repository -->
+	<!-- Replace values for mapsCheckoutTag as desired. -->
+	<!-- ===================================================================== -->
+	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
+		<property name="mapsCheckoutTag" value="HEAD" />
+		<cvs cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
+		<copy todir="${buildDirectory}/maps" overwrite="true">
+			<fileset dir="${buildDirectory}/maps/org.eclipse.amalgam/releng/org.eclipse.amalgam.releng/maps">
+				<include name="**/*.map"/>
+			</fileset>
+		</copy>
+		<delete dir="${buildDirectory}/maps/org.eclipse.amalgam" />
+		<!--tag the map files project-->
+		<antcall target="tagMapFiles" />
+	</target>
+
+	<target name="checkLocalMaps">
+		<available property="skipMaps" file="${buildDirectory}/maps" />
+	</target>
+
+	<target name="tagMapFiles" if="tagMaps">
+		<cvs dest="${buildDirectory}/maps/${mapsRoot}" command="tag ${mapsTagTag}" />
+	</target>
+
+	<!-- ===================================================================== -->
+
+	<target name="clean" unless="noclean">
+		<antcall target="allElements">
+			<param name="target" value="cleanElement" />
+		</antcall>
+	</target>
+
+	<target name="gatherLogs">
+		<mkdir dir="${buildDirectory}/${buildLabel}/compilelogs" />
+		<antcall target="allElements">
+			<param name="target" value="gatherLogs" />
+		</antcall>
+		<unzip dest="${buildDirectory}/${buildLabel}/compilelogs" overwrite="true">
+			<fileset dir="${buildDirectory}/features">
+				<include name="**/*.log.zip" />
+			</fileset>
+		</unzip>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before setup -->
+	<!-- ===================================================================== -->
+	<target name="preSetup">
+		<copy file="${builder}/modeler.product" tofile="${buildDirectory}/modeler.product" overwrite="true"/>
+		<replace file="${buildDirectory}/modeler.product" token="qualifier" value="v${timestamp}" />
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after setup but before starting the build proper -->
+	<!-- ===================================================================== -->
+	<target name="postSetup">
+		<antcall target="getBaseComponents" />
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before fetching the build elements -->
+	<!-- ===================================================================== -->
+	<target name="preFetch">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after fetching the build elements -->
+	<!-- ===================================================================== -->
+	<target name="postFetch">
+		<replace dir="${buildDirectory}/plugins" value="${timestamp}" token="@buildId@">
+			<include name="**/about.mappings" />
+		</replace>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before generating the build scripts. -->
+	<!-- ===================================================================== -->
+	<target name="preGenerate">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after generating the build scripts. -->
+	<!-- ===================================================================== -->
+	<target name="postGenerate">
+		<antcall target="clean" />
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running the build.xmls for the elements being built. -->
+	<!-- ===================================================================== -->
+	<target name="preProcess">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after running the build.xmls for the elements being built. -->
+	<!-- ===================================================================== -->
+	<target name="postProcess">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running assemble. -->
+	<!-- ===================================================================== -->
+	<target name="preAssemble">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after  running assemble. -->
+	<!-- ===================================================================== -->
+	<target name="postAssemble">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running package. -->
+	<!-- ===================================================================== -->
+	<target name="prePackage">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after  running package. -->
+	<!-- ===================================================================== -->
+	<target name="postPackage">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after the build is done. -->
+	<!-- ===================================================================== -->
+	<target name="postBuild">
+		<antcall target="gatherLogs" />
+	</target>
+	
+	<target name="install.feature"> 
+		<!-- TODO: use if/when profileProperties is available to allow installation of features
+				   verify that version with no arg behaves like no -version at all using command line 
+		<p2.director
+			installiu="${feature.id}.feature.group"
+			version="${p2.version}"  
+			artifactrepository="${artifact.repo}"
+			metadatarepository="${metadata.repo}"
+		/> -->		
+		
+		<exec executable="${baseLocation}/eclipse" failonerror="false">
+			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
+			<arg line="-nosplash" />
+			<arg line="--launcher.suppressErrors" />
+			<arg line="-consoleLog" />
+			<arg line="-installIU ${feature.id}.feature.group" />
+			<!-- NOTE: using no version parameter seems to install the latest (first? arbitrary?) version of the feature 
+					   to use a version, be sure to set ${p2.version} to something like "-version 1.0.0" (including -version)
+					   as having no value after -version is not the same as no switch at all, and 0.0.0 doesn't behave as expected -->
+			<arg line="${feature.version}" /> 
+			<arg line="-profileProperties org.eclipse.update.install.features=true" />
+			<arg line="-metadataRepository ${metadata.repo}" />
+			<arg line="-artifactRepository ${artifact.repo}" />
+			<arg line="-vmargs -Xmx1024m" />
+		</exec>
+		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache" />
+	</target>
+		
+	<!-- ===================================================================== -->
+	<!-- Steps to do to test the build results -->
+	<!-- ===================================================================== -->
+	<target name="test">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do to publish the build results -->
+	<!-- ===================================================================== -->
+	<target name="publish">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Default target                                                        -->
+	<!-- ===================================================================== -->
+	<target name="noDefault">
+		<echo message="You must specify a target when invoking this file" />
+	</target>
+
+</project>
