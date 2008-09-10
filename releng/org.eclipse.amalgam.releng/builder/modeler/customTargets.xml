@@ -29,57 +29,48 @@
 		<antcall target="extractDirector"/> -->
 
 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.emf.sdk"/>
+			<param name="feature.id" value="org.eclipse.emf"/>
 			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${emf.metadata.url}"/>
 			<param name="artifact.repo" value="${emf.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.uml2.sdk"/>
+			<param name="feature.id" value="org.eclipse.uml2"/>
 			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${uml.metadata.url}"/>
 			<param name="artifact.repo" value="${uml.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.emf.emfqtv.all.sdk"/>
+			<param name="feature.id" value="org.eclipse.emf.emfqtv.all"/>
 			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${qtv.metadata.url}"/>
 			<param name="artifact.repo" value="${qtv.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.gef.sdk"/>
+			<param name="feature.id" value="org.eclipse.gef"/>
 			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${gef.metadata.url}"/>
 			<param name="artifact.repo" value="${gef.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.ocl.all.sdk"/>
+			<param name="feature.id" value="org.eclipse.ocl.all"/>
 			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${ocl.metadata.url}"/>
 			<param name="artifact.repo" value="${ocl.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.m2m.qvt.oml.sdk"/>
-			<param name="feature.version" value=""/>
-			<param name="metadata.repo" value="${qvt.metadata.url}"/>
-			<param name="artifact.repo" value="${qvt.artifact.url}"/>
-		</antcall>
-		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.gmf.sdk"/>
+			<param name="feature.id" value="org.eclipse.gmf"/>
 			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${gmf.metadata.url}"/>
 			<param name="artifact.repo" value="${gmf.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.uml2tools.sdk"/>
+			<param name="feature.id" value="org.eclipse.uml2tools"/>
 			<param name="feature.version" value=""/>
 			<param name="metadata.repo" value="${umlt.metadata.url}"/>
 			<param name="artifact.repo" value="${umlt.artifact.url}"/>
 		</antcall>
-		
-		<!-- workaround for out of date xpand and mwe update sites -->
-		<antcall target="workaround.xpand.mwe"/>
-<!-- TODO:remove?		<antcall target="installDeltaPack"/> -->
+
 		<p2.generator source="${baseLocation}" 
 			append="true" 
 			mode="incremental" 
@@ -87,48 +78,6 @@
 			artifactRepository="file:${baseLocation}" 
 			publishArtifacts="false"/>
 
-	</target>
-	
-	<!-- No need for director? just install deltapack into basebuilder in build.xml?
-	
-		Extract a second base to serve as director until small download available 
-	<target name="extractDirector" unless="skipDirector">
-		<mkdir dir="${buildDirectory}/director"/>
-		<exec executable="tar">
-			<arg line="-xzf"/>
-			<arg line="${buildDirectory}/base.tar.gz"/>
-			<arg line="-C ${buildDirectory}/director"/>
-		</exec>
-	</target>
-	
-	<target name="installDeltaPack">
-		<available file="${buildDirectory}/deltapack.zip" property="skipDeltaPack" />
-		<antcall target="getDeltaPack"/>
-		<unzip src="${buildDirectory}/deltapack.zip" dest="${base}"/>
-	</target>
-	
-	<target name="getDeltaPack" unless="skipDeltaPack">
-		<get src="${deltaPackURL}" dest="${buildDirectory}/deltapack.zip" verbose="true" usetimestamp="true" />
-	</target>-->
-	
-	<target name="workaround.xpand.mwe">
-		<available file="${buildDirectory}/temphack" property="temphackExists" />
-		<antcall target="get.xpand.mwe"/>
-		<copy todir="${base}/eclipse/plugins">
-		    <fileset dir="${buildDirectory}/temphack" includes="**/*.jar"/>
-		</copy>
-		<unzip src="${buildDirectory}/temphack/emft-mwe-SDK-incubation-I200801100355.zip" dest="${base}"/>
-		<unzip src="${buildDirectory}/temphack/m2t-xpand-SDK-I200801101356.zip" dest="${base}"/>
-	</target>
-	
-	<target name="get.xpand.mwe" unless="temphackExists">
-		<mkdir dir="${buildDirectory}/temphack"/>
-		<get src="http://download1.eclipse.org/modeling/amalgam/temp/emft-mwe-SDK-incubation-I200801100355.zip" dest="${buildDirectory}/temphack/emft-mwe-SDK-incubation-I200801100355.zip" usetimestamp="true"/>
-		<get src="http://download1.eclipse.org/modeling/amalgam/temp/m2t-xpand-SDK-I200801101356.zip" dest="${buildDirectory}/temphack/m2t-xpand-SDK-I200801101356.zip" usetimestamp="true"/>
-		<get src="http://download1.eclipse.org/modeling/amalgam/temp/org.antlr.runtime_3.0.0.200801082321.jar" dest="${buildDirectory}/temphack/org.antlr.runtime_3.0.0.200801082321.jar" usetimestamp="true"/>
-		<get src="http://download1.eclipse.org/modeling/amalgam/temp/org.apache.commons.cli_1.0.0.v200711021015.jar" dest="${buildDirectory}/temphack/org.apache.commons.cli_1.0.0.v200711021015.jar" usetimestamp="true"/>
-		<get src="http://download1.eclipse.org/modeling/amalgam/temp/org.apache.commons.lang_2.1.0.v200711021015.jar" dest="${buildDirectory}/temphack/org.apache.commons.lang_2.1.0.v200711021015.jar" usetimestamp="true"/>
-		<get src="http://download1.eclipse.org/modeling/amalgam/temp/org.apache.commons.logging_1.0.4.v200711021015.jar" dest="${buildDirectory}/temphack/org.apache.commons.logging_1.0.4.v200711021015.jar" usetimestamp="true"/>
 	</target>
 	
 	<target name="checkLocalBase">
