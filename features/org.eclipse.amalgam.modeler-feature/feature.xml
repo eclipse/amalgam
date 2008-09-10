@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.amalgam.modeler"
+      label="%featureName"
+      version="1.0.0.qualifier"
+      provider-name="%providerName"
+      image="eclipse_update_120.jpg">
+
+   <description url="http://www.eclipse.org/modeling/amalgam">
+      %description
+   </description>
+
+   <copyright url="http://www.eclipse.org/legal/epl-v10.html">
+      Copyright (c) 2008 Borland Software Corporation and others.
+All rights reserved.   This program and the accompanying materials
+are made available under the terms of the Eclipse Public License
+v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://download.eclipse.org/modeling/amalgam/updates/site.xml"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.ecore.editor"/>
+      <import plugin="org.eclipse.emf.importer"/>
+      <import plugin="org.eclipse.uml2.diagram.clazz"/>
+      <import plugin="org.eclipse.uml2.diagram.activity"/>
+      <import plugin="org.eclipse.uml2.diagram.component"/>
+      <import plugin="org.eclipse.uml2.diagram.profile"/>
+      <import plugin="org.eclipse.uml2.diagram.statemachine"/>
+      <import plugin="org.eclipse.search" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.codegen.ecore.ui"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.common"/>
+      <import plugin="org.eclipse.debug.ui" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.uml2.uml.editor" version="2.2.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.uml2.diagram.usecase" version="0.8.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.uml2.diagram.csd" version="0.8.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.uml2.diagram.deploy" version="0.8.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.core" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.m2m.qvt.oml" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.ui" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtend.shared.ui" version="0.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.pde.ui" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.intro" version="3.2.200" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.update.configurator" version="3.2.200" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.update.core" version="3.2.200" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.forms" version="3.3.100" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.lang" version="2.0.0" match="compatible"/>
+      <import plugin="org.apache.commons.logging" version="1.0.0" match="compatible"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.amalgam.modeler"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.amalgam.modeler.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.amalgam.common.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.amalgam.modeler.doc"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.commons.cli"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.lang"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
