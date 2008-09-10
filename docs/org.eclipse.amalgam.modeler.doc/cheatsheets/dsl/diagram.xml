@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Create a diagram for the DSL">
+   <intro href="/org.eclipse.platform.doc.user/reference/ref-cheatsheets.htm">
+      <description>
+         This cheat sheet will demonstrate how to create a diagram for a DSL.
+         <br/>
+         <br/>
+         To learn more about using cheat sheets, click the help button
+         in the top right corner (?).
+      </description>
+   </intro>
+   <item title="Create diagram definition" dialog="false" skip="true" href="/org.eclipse.amalgam.dsl.doc.user/guide/diagram.html">
+      <description>
+         To create a new diagram definition, navigate to <b>File-&gt;New...-&gt;Domain-Specific Language-&gt;Diagram Definition-&gt;Graphical Model</b>.
+         <br/>
+         <br/>
+         Alternatively, click the following button to perform the task.
+      </description>
+      <command serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.amalgam.dsl.diagram.GraphicalDefinitionModelWizard)" confirm="false">
+      </command>
+   </item>
+   <item title="Create tooling definition" dialog="false" skip="false">
+      <description>
+         To create a new diagram definition, navigate to <b>File-&gt;New...-&gt;Domain-Specific Language-&gt;Diagram Definition-&gt;Tooling Model</b>.
+         <br/>
+         <br/>
+         Alternatively, click the following button to perform the task.
+      </description>
+      <command serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.amalgam.dsl.diagram.ToolingDefinitionModelWizard)" confirm="false">
+      </command>
+   </item>
+   <item title="Create mapping" dialog="false" skip="false">
+      <description>
+         To create a new mapping definition, navigate to <b>File-&gt;New...-&gt;Domain-Specific Language-&gt;Diagram Definition-&gt;Mapping Model</b>.
+         <br/>
+         <br/>
+         Alternatively, click the following button to perform the task.
+      </description>
+      <command serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.amalgam.dsl.diagram.MappingDefinitionModelWizard)" confirm="false">
+      </command>
+   </item>
+   <item title="Create generator model" dialog="false" skip="false">
+      <description>
+         To create a generator model for the mapping definition...
+         <br/>
+         <br/>
+         Alternatively, click the following button to perform the task.
+      </description>
+   </item>
+</cheatsheet>

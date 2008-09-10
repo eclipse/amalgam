@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compositeCheatsheet name="Creating a Domain-Specific Language">
+   <taskGroup kind="set" name="Create a domain-specific language" skip="false">
+      <intro>
+         This cheat sheet will guide you through the individual steps to create a Domain-Specific Language (DSL).
+         <br/>
+         <br/>
+         To assist you along the way, wizards and commands will be available for you to launch automatically.
+      </intro>
+      <onCompletion>
+         Congratulations!  You just created a Domain-Specific Language (DSL).
+      </onCompletion>
+      <task kind="cheatsheet" name="Create a project" skip="false">
+         <intro>
+            This cheat sheet will describe how to create a new DSL Project.
+         </intro>
+         <onCompletion>
+            Now that we&apos;ve got a DSL Project, we can move on to our domain model.
+         </onCompletion>
+         <param name="path" value="dsl/project.xml">
+         </param>
+      </task>
+      <task kind="cheatsheet" name="Create a domain model" skip="false">
+         <intro>
+            This cheat sheet will demonstrate how to create and run a domain model.
+         </intro>
+         <onCompletion>
+            Congratulations!  You just created the domain model for use in your custom DSL tooling.
+         </onCompletion>
+         <param name="path" value="dsl/domain.xml">
+         </param>
+      </task>
+      <task kind="cheatsheet" name="Create a diagram" skip="true">
+         <intro>
+            This cheat sheet will demonstrate how to create a custom diagram for creating and editing instances of your domain model.
+         </intro>
+         <onCompletion>
+            Congratulations!  You just customized your product configuration!
+         </onCompletion>
+         <param name="path" value="dsl/diagram.xml">
+         </param>
+      </task>
+      <task kind="cheatsheet" name="Create a model transformation" skip="true">
+         <intro>
+            This cheat sheet will demonstrate how to add a model-to-model transformation for your DSL and how to invoke in the practitioner workspace.
+         </intro>
+         <onCompletion>
+            Congratulations!  You have transformed your model using QVT.
+         </onCompletion>
+         <param name="path" value="dsl/transformation.xml">
+         </param>
+      </task>
+      <task kind="cheatsheet" name="Create code generation templates" skip="true">
+         <intro>
+            This cheat sheet will introduce the steps for generating code from a DSL instance model using model-to-text transformation templates.
+         </intro>
+         <onCompletion>
+            Congratulations!  You have learned how to generate code from your DSL.
+         </onCompletion>
+         <param name="path" value="dsl/template.xml">
+         </param>
+      </task>
+   </taskGroup>
+</compositeCheatsheet>

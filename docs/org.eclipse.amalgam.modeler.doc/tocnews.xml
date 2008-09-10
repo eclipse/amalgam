@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="Concepts" link_to="toc.xml#news"> 
+	<topic label="Main Topic"  href="html/news/maintopic.html"> 
+		<topic label="Sub Topic" href="html/news/subtopic.html" /> 
+	</topic>
+	<topic label="Main Topic 2">
+		<topic label="Sub Topic 2" href="html/news/subtopic2.html" /> 
+	</topic> 
+</toc>

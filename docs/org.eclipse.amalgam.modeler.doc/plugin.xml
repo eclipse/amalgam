@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc.xml"
+            primary="true">
+      </toc>
+      <toc
+            file="tocconcepts.xml">
+      </toc>
+      <toc
+            file="tocgettingstarted.xml">
+      </toc>
+      <toc
+            file="tocreference.xml">
+      </toc>
+      <toc
+            file="tocsamples.xml">
+      </toc>
+      <toc
+            file="toctasks.xml">
+      </toc>
+      <toc
+            file="tocnews.xml">
+      </toc>
+   </extension>
+   
+   <extension 
+   		 point="org.eclipse.ui.cheatsheets.cheatSheetContent">
+      <category
+            id="org.eclipse.amalgam.dsl"
+            name="%cheatsheet.category.dsl"/>
+      <cheatsheet
+            category="org.eclipse.amalgam.dsl"
+            composite="true"
+            contentFile="$nl$/cheatsheets/dsl-composite.xml"
+            id="org.eclipse.amalgam.dsl.creation"
+            name="%cheatsheet.dsl.creation.name">
+         <description>
+            %cheatsheet.dsl.creation.desc
+         </description>
+      </cheatsheet>
+   </extension>
+
+</plugin>

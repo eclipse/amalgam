@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Create a DSL Project">
+   <intro href="/org.eclipse.platform.doc.user/reference/ref-cheatsheets.htm">
+      <description>
+         This cheat sheet will demonstrate how to create a new project for our DSL and associated artifacts.
+         <br/>
+         <br/>
+         To learn more about using cheat sheets, click the help button
+         in the top right corner (?).
+      </description>
+   </intro>
+   <item title="Create a new DSL Project" dialog="false" skip="true" href="/org.eclipse.amalgam.dsl.doc.user/guide/project.html">
+      <description>
+         To create a new DSL Project, navigate to <b>File-&gt;New...-&gt;Domain-Specific Language-&gt;Empty DSL Project</b>.
+         <br/>
+         <br/>
+         Alternatively, click the following button to perform the task.
+      </description>
+      <command serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.amalgam.dsl.domain.DSLProjectWizard)" confirm="false">
+      </command>
+   </item>
+</cheatsheet>

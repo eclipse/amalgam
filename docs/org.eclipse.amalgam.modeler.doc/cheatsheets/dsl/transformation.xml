@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Create a model transformation">
+   <intro href="/org.eclipse.platform.doc.user/reference/ref-cheatsheets.htm">
+      <description>
+         This cheat sheet will demonstrate how to create a new model transformation using the Query/View/Transformation (QVT) language.
+         <br/>
+         <br/>
+         To learn more about using cheat sheets, click the help button
+         in the top right corner (?).
+      </description>
+   </intro>
+   <item title="Create a transformation definition" dialog="false" skip="true" href="/org.eclipse.amalgam.dsl.doc.user/guide/transformation.html">
+      <description>
+         To create a new QVT transformation definition...
+         <br/>
+         <br/>
+         Alternatively, click the following button to perform the task.
+      </description>
+      <command serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.m2m.qvt.oml.ui.wizards.NewQVTTransformationWizard)" confirm="false">
+      </command>
+   </item>
+</cheatsheet>
