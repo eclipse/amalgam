@@ -9,6 +9,9 @@
 		<antcall target="build.product">
 			<param name="target" value="dsltk"/>
 		</antcall>
+		<antcall target="build.product">
+			<param name="target" value="modeler"/>
+		</antcall>
 	</target>
 	
 	<target name="build.product">
