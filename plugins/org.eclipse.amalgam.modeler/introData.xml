@@ -6,7 +6,7 @@
       <group path="page-content/bottom-right" default="true">
       </group>
       <group path="page-content/top-left">
-         <extension id="org.eclipse.amalgam.dsl.tutorials" importance="low"/>
+         <extension id="org.eclipse.amalgam.modeler.tutorials" importance="low"/>
       </group>
       <group path="page-content/top-right">
       	 <extension id="org.eclipse.jdt" importance="low"/>
@@ -19,7 +19,7 @@
       <group path="page-content/bottom-right" default="true">
       </group>
       <group path="page-content/top-left">
-         <extension id="org.eclipse.amalgam.dsl.news" importance="low"/>
+         <extension id="org.eclipse.amalgam.modeler.news" importance="low"/>
          <extension id="org.eclipse.ui.workbench.news" importance="low"/>
          <extension id="org.eclipse.jdt" importance="low"/>
          <extension id="org.eclipse.pde.changes" importance="low"/>
@@ -34,7 +34,7 @@
       <group path="page-content/bottom-right" default="true">
       </group>
       <group path="page-content/top-left">
-         <extension id="org.eclipse.amalgam.dsl.samples" importance="low"/>
+         <extension id="org.eclipse.amalgam.modeler.samples" importance="low"/>
       </group>
       <group path="page-content/top-right">
       </group>
@@ -45,7 +45,7 @@
       <group path="page-content/bottom-right" default="true">
       </group>
       <group path="page-content/top-left">
-         <extension id="org.eclipse.amalgam.dsl.overview" importance="low"/>
+         <extension id="org.eclipse.amalgam.modeler.overview" importance="low"/>
       </group>
       <group path="page-content/top-right">
          <extension id="org.eclipse.jdt" importance="low"/>

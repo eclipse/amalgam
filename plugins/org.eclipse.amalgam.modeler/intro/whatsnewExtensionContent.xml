@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <introContent>
-  	<extensionContent id="org.eclipse.amalgam.dsl.news" name="Eclipse Modeling" alt-style="css/whatsnew.properties" style="css/whatsnew.css" path="whatsnew/@">
+  	<extensionContent id="org.eclipse.amalgam.modeler.news" name="Eclipse Modeler" alt-style="css/whatsnew.properties" style="css/whatsnew.css" path="whatsnew/@">
 		<group style-id="content-group" id="content-group">
-       		<link label="Eclipse Modeling" url="http://org.eclipse.ui.intro/showHelpTopic?id=/org.eclipse.amalgam.dsltk.doc/html/news/maintopic.html" id="modeling-noteworthy" style-id="content-link">
-          		<text>Find out about the major new features in this release of the Modeling project</text>
+       		<link label="Eclipse Modeler" url="http://org.eclipse.ui.intro/showHelpTopic?id=/org.eclipse.amalgam.modeler.doc/html/news/maintopic.html" id="modeler-noteworthy" style-id="content-link">
+          		<text>Find out about the major new features in this release of the Eclipse Modeler.</text>
        		</link>
        	</group>
   	</extensionContent>
