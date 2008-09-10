@@ -35,9 +35,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.m2m.internal.qvt.oml.builder.QvtBuilderConfig;
-import org.eclipse.m2m.internal.qvt.oml.common.nature.TransformationNature;
-import org.eclipse.m2m.internal.qvt.oml.common.project.NatureUtils;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
@@ -45,7 +42,6 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.ide.undo.CreateFolderOperation;
 import org.eclipse.ui.part.ISetSelectionTarget;
-import org.eclipse.xtend.shared.ui.core.builder.XtendXpandNature;
 
 /**
  * A project wizard that adds the appropriate natures for DSL development. At
@@ -114,22 +110,11 @@ public class DSLProjectWizard extends EmptyProjectWizard {
 					manifest.println(genModelContainerPath.segment(0));
 					manifest.println("Bundle-Version: 1.0.0.qualifier");
 					manifest.println("Require-Bundle: org.eclipse.emf.ecore,");
-					manifest.println(" org.eclipse.xpand,");
-					manifest.println(" org.eclipse.xtend,");
-					manifest.println(" org.eclipse.xtend.typesystem.emf,");
-					manifest.println(" org.eclipse.emf.mwe.core,");
-					manifest.println(" org.eclipse.emf.mwe.utils,");
 					manifest.println(" org.apache.commons.cli,");
 					manifest.println(" org.apache.commons.lang,");
 					manifest.println(" org.eclipse.emf.ecore.xmi,");
-					manifest.println(" org.apache.commons.logging,");
-					manifest.println(" org.antlr.runtime");
 					manifest.close();
 
-					// configure additional options/natures
-					createFolder("diagrams", progressMonitor);
-					configureQVTOptions(progressMonitor);
-					configureXpandOptions(progressMonitor);
 				} catch (Exception exception) {
 					GenModelEditPlugin.INSTANCE.log(exception);
 				} finally {
@@ -159,15 +144,6 @@ public class DSLProjectWizard extends EmptyProjectWizard {
 		}
 
 		return true;
-	}
-
-	private void configureQVTOptions(IProgressMonitor monitor) throws CoreException {
-		QvtBuilderConfig.getConfig(project).setSourceContainer(createFolder("transformations", monitor));
-		NatureUtils.addNature(project, TransformationNature.ID);
-	}
-
-	private void configureXpandOptions(IProgressMonitor monitor) throws CoreException {
-		NatureUtils.addNature(project, XtendXpandNature.NATURE_ID);
 	}
 
 	private IContainer createFolder(String name, IProgressMonitor monitor) {
