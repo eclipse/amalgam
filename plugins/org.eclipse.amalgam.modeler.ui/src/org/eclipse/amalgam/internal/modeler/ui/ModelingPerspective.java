@@ -8,10 +8,8 @@
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.amalgam.internal.dsltk.ui;
+package org.eclipse.amalgam.internal.modeler.ui;
 
-import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
@@ -24,15 +22,14 @@ public class ModelingPerspective implements IPerspectiveFactory {
 		String editorArea = layout.getEditorArea();
 
 		IFolderLayout folder = layout.createFolder("left", IPageLayout.LEFT, 0.25f, editorArea); //$NON-NLS-1$
-		folder.addView(JavaUI.ID_PACKAGES);
-		folder.addPlaceholder(IPageLayout.ID_RES_NAV);
+		folder.addView(IPageLayout.ID_RES_NAV);
+//		folder.addPlaceholder();
 
 		IFolderLayout outputfolder = layout.createFolder("bottom", IPageLayout.BOTTOM, 0.75f, editorArea); //$NON-NLS-1$
 		outputfolder.addView("org.eclipse.ui.views.PropertySheet"); //$NON-NLS-1$
 		outputfolder.addView(IPageLayout.ID_PROBLEM_VIEW);
 		outputfolder.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 		outputfolder.addPlaceholder(IProgressConstants.PROGRESS_VIEW_ID);
-		outputfolder.addPlaceholder("org.eclipse.pde.runtime.LogView");
 		outputfolder.addPlaceholder("org.eclipse.ui.console.ConsoleView");
 
 		IFolderLayout bottomLeft = layout.createFolder("bottomLeft", IPageLayout.BOTTOM, 0.75f, "left"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -47,7 +44,7 @@ public class ModelingPerspective implements IPerspectiveFactory {
 		layout.addShowViewShortcut(IPageLayout.ID_TASK_LIST);
 
 		// action sets
-		layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
+//		layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
 
 	}
 

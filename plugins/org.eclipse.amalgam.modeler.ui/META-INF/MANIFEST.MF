@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.amalgam.modeler.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.eclipse.amalgam.internal.dsltk.ui.Activator
+Bundle-Activator: org.eclipse.amalgam.internal.modeler.ui.Activator
 Bundle-Localization: plugin
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.core.runtime,
@@ -24,5 +24,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.ui;bundle-version="3.4.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.eclipse.amalgam.internal.dsltk.ui;x-internal:=true,
- org.eclipse.amalgam.internal.dsltk.wizards;x-internal:=true
+Export-Package: org.eclipse.amalgam.internal.modeler.ui;x-internal:=true
