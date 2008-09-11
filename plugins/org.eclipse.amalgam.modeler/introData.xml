@@ -8,10 +8,6 @@
       <group path="page-content/top-left">
          <extension id="org.eclipse.amalgam.modeler.tutorials" importance="low"/>
       </group>
-      <group path="page-content/top-right">
-      	 <extension id="org.eclipse.jdt" importance="low"/>
-         <extension id="org.eclipse.pde" importance="low"/>
-      </group>
    </page>
    <page id="whatsnew">
       <group path="page-content/bottom-left" default="true">
@@ -21,8 +17,6 @@
       <group path="page-content/top-left">
          <extension id="org.eclipse.amalgam.modeler.news" importance="low"/>
          <extension id="org.eclipse.ui.workbench.news" importance="low"/>
-         <extension id="org.eclipse.jdt" importance="low"/>
-         <extension id="org.eclipse.pde.changes" importance="low"/>
       </group>
       <group path="page-content/top-right">
          <extension id="org.eclipse.ui.workbench" importance="low"/>
@@ -46,10 +40,6 @@
       </group>
       <group path="page-content/top-left">
          <extension id="org.eclipse.amalgam.modeler.overview" importance="low"/>
-      </group>
-      <group path="page-content/top-right">
-         <extension id="org.eclipse.jdt" importance="low"/>
-         <extension id="org.eclipse.pde" importance="low"/>
       </group>
    </page>
 </extensions>
