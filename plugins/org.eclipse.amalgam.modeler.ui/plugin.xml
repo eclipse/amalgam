@@ -157,7 +157,7 @@
     </activity>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.uml.diagramming.activity"
-          pattern="org\.eclipse\.amalgam\.dsltk\.ui/org\.eclipse\.amalgam\.uml2\.diagram.*">
+          pattern="org\.eclipse\.amalgam\.modeler\.ui/org\.eclipse\.amalgam\.uml2\.diagram.*">
     </activityPatternBinding>
     <categoryActivityBinding
           activityId="org.eclipse.amalgam.uml.activity"
@@ -170,7 +170,7 @@
     </activity>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.uml.activity"
-          pattern="org\.eclipse\.amalgam\.dsltk\.ui/org\.eclipse\.amalgam\.uml2\.UMLModelCreationWizardID">
+          pattern="org\.eclipse\.amalgam\.modeler\.ui/org\.eclipse\.amalgam\.uml2\.UMLModelCreationWizardID">
     </activityPatternBinding>
     
     <!-- Hide UML2 elements - no category binding -->
@@ -191,27 +191,10 @@
     
    <!-- New name for Ecore diagram initialization -->
    
-<!-- Begin content from org.eclipse.sdk (not included in product config) -->
+<!-- Begin content from org.eclipse.sdk (not included in product config), less java/pde-->
 
     <extension
          point="org.eclipse.ui.activities">
-  
-      <activity
-            name="%activity.java"
-            description="%activity.java.desc"
-            id="org.eclipse.javaDevelopment">
-      </activity>
-      
-      <activity
-            name="%activity.plugin"
-            description="%activity.plugin.desc"
-            id="org.eclipse.plugInDevelopment">
-      </activity>
-      
-      <activityRequirementBinding
-            activityId="org.eclipse.plugInDevelopment"
-            requiredActivityId="org.eclipse.javaDevelopment">
-      </activityRequirementBinding>
   
       <activity
             name="%activity.team.cvs"
@@ -230,41 +213,6 @@
             requiredActivityId="org.eclipse.team">
       </activityRequirementBinding>
       
-      <activityPatternBinding
-            activityId="org.eclipse.javaDevelopment"
-            pattern="org\.eclipse\.jdt\.debug/debugModel">
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.javaDevelopment"
-            pattern="org\.eclipse\.jdt\..*/.*">
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.javaDevelopment"
-            pattern="org\.eclipse\.jdt/.*">
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.javaDevelopment"
-            pattern="org\.eclipse\.jdt\.core/javanature">
-
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.plugInDevelopment"
-            pattern="org\.eclipse\.pde\..*/.*">
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.plugInDevelopment"
-            pattern="org\.eclipse\.pde/.*">
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.plugInDevelopment"
-            pattern="org\.eclipse\.pde/PluginNature">
-      </activityPatternBinding>
       <activityPatternBinding
             activityId="org.eclipse.team"
             pattern="org\.eclipse\.team\.ui/org.*">
@@ -292,18 +240,7 @@
             name="%activity.cat.team"
             description="%activity.cat.team.desc"
             id="org.eclipse.categories.teamCategory">
-
       </category>
-      
-      <categoryActivityBinding
-            activityId="org.eclipse.javaDevelopment"
-            categoryId="org.eclipse.categories.developmentCategory">
-      </categoryActivityBinding>
-      
-      <categoryActivityBinding
-            activityId="org.eclipse.plugInDevelopment"
-            categoryId="org.eclipse.categories.developmentCategory">
-      </categoryActivityBinding>
 
       <categoryActivityBinding
             activityId="org.eclipse.team"
@@ -314,49 +251,8 @@
             activityId="org.eclipse.team.cvs"
             categoryId="org.eclipse.categories.teamCategory">
       </categoryActivityBinding>
-       
-       
-      <defaultEnablement
-            id="org.eclipse.javaDevelopment">
-      </defaultEnablement>
-      
-      <defaultEnablement
-            id="org.eclipse.plugInDevelopment">
-      </defaultEnablement>
-      
-<!-- Don't enable by default, as the SDK does
-      <defaultEnablement
-            id="org.eclipse.team">
-      </defaultEnablement>     
-      
-      <defaultEnablement
-            id="org.eclipse.team.cvs">
-      </defaultEnablement>
--->       
+           
    </extension>
-   
-
-   <!--
-   <extension
-         point="org.eclipse.ui.newWizards">
-      <primaryWizard
-            id="org.eclipse.jdt.ui.wizards.JavaProjectWizard">
-      </primaryWizard>
-      <primaryWizard
-            id="org.eclipse.pde.ui.NewProjectWizard">
-      </primaryWizard>
-      <primaryWizard
-            id="org.eclipse.jdt.ui.wizards.NewClassCreationWizard">
-      </primaryWizard>
-      <primaryWizard
-            id="org.eclipse.jdt.ui.wizards.NewInterfaceCreationWizard">
-      </primaryWizard>
-      <primaryWizard
-            id="org.eclipse.ant.ui.wizards.JavaProjectWizard">
-      </primaryWizard>
-   </extension>
-   
-   --> 
    
    <extension
          point="org.eclipse.ui.preferencePages">
