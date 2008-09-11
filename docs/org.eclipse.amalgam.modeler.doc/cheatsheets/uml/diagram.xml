@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cheatsheet title="Generating code">
+<cheatsheet title="Create a Class diagram">
    <intro href="/org.eclipse.platform.doc.user/reference/ref-cheatsheets.htm">
       <description>
-         This cheat sheet will demonstrate how to author templates for code generation from a DSL.
+         This cheat sheet will demonstrate how to create a UML Class diagram.
          <br/>
          <br/>
          To learn more about using cheat sheets, click the help button
          in the top right corner (?).
       </description>
    </intro>
-   <item title="Create a new template" dialog="false" skip="true" href="/org.eclipse.amalgam.dsl.doc.user/guide/template.html">
+   <item title="Create a Class diagram" dialog="false" skip="true" href="/org.eclipse.amalgam.modeler.doc.user/guide/diagram.html">
       <description>
-         To create a new template...
+         To create a new Class diagram...
          <br/>
          <br/>
          Alternatively, click the following button to perform the task.
       </description>
-      <command serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.amalgam.dsl.mt.wizard.NewTemplateFileWizard)" confirm="false">
+      <command serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.amalgam.uml2.diagram.clazz.UMLCreationWizardID)" confirm="false">
       </command>
    </item>
 </cheatsheet>

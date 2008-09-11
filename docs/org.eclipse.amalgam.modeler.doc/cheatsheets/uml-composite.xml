@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compositeCheatsheet name="Creating a UML model">
+   <taskGroup kind="set" name="Create a UML model" skip="false">
+      <intro>
+         This cheat sheet will guide you through the individual steps to create a model using the Unified Modeling Language (UML).
+         <br/>
+         <br/>
+         To assist you along the way, wizards and commands will be available for you to launch automatically.
+      </intro>
+      <onCompletion>
+         Congratulations!  You just created a UML model.
+      </onCompletion>
+      <task kind="cheatsheet" name="Create a Class diagram" skip="true">
+         <intro>
+            This cheat sheet will demonstrate how to
+         </intro>
+         <param name="path" value="uml/diagram.xml">
+         </param>
+      </task>
+   </taskGroup>
+</compositeCheatsheet>

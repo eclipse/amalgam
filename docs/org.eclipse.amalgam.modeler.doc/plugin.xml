@@ -31,16 +31,16 @@
    <extension 
    		 point="org.eclipse.ui.cheatsheets.cheatSheetContent">
       <category
-            id="org.eclipse.amalgam.dsl"
-            name="%cheatsheet.category.dsl"/>
+            id="org.eclipse.amalgam.modeler"
+            name="%cheatsheet.category.modeler"/>
       <cheatsheet
-            category="org.eclipse.amalgam.dsl"
+            category="org.eclipse.amalgam.modeler"
             composite="true"
-            contentFile="$nl$/cheatsheets/dsl-composite.xml"
-            id="org.eclipse.amalgam.dsl.creation"
-            name="%cheatsheet.dsl.creation.name">
+            contentFile="$nl$/cheatsheets/uml-composite.xml"
+            id="org.eclipse.amalgam.uml.creation"
+            name="%cheatsheet.modeler.creation.name">
          <description>
-            %cheatsheet.dsl.creation.desc
+            %cheatsheet.modeler.creation.desc
          </description>
       </cheatsheet>
    </extension>
