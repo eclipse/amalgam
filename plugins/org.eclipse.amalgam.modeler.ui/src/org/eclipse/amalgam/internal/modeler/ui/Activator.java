@@ -28,7 +28,7 @@ public class Activator extends AbstractUIPlugin {
 
 	private static Activator plugin;
 
-	public static final String PLUGIN_ID = "org.eclipse.amalgam.dsltk.ui"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.eclipse.amalgam.modeler.ui"; //$NON-NLS-1$
 
 	public Activator() {
 	}
