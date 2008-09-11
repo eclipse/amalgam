@@ -67,6 +67,18 @@
 			<param name="metadata.repo" value="${umlt.metadata.url}"/>
 			<param name="artifact.repo" value="${umlt.artifact.url}"/>
 		</antcall>
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.uml2.search"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${uml2search.metadata.url}"/>
+			<param name="artifact.repo" value="${uml2search.artifact.url}"/>
+		</antcall>
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.uml2.diagram.clazz.search"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${uml2diagramsearch.metadata.url}"/>
+			<param name="artifact.repo" value="${uml2diagramsearch.artifact.url}"/>
+		</antcall>
 
 		<p2.generator source="${baseLocation}" 
 			append="true" 

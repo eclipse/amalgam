@@ -50,6 +50,8 @@
       <feature id="org.eclipse.ocl.all" version="0.0.0"/>
       <feature id="org.eclipse.emf.emfqtv.all" version="0.0.0"/>
       <feature id="org.eclipse.uml2tools.sdk" version="0.0.0"/>
+      <feature id="org.eclipse.uml.search" version="0.0.0"/>
+      <feature id="org.eclipse.uml2.diagram.clazz.search" version="0.0.0"/>
       <feature id="org.eclipse.amalgam.modeler" version="0.0.0"/>
    </features>
 
