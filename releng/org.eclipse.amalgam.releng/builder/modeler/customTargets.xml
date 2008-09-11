@@ -24,9 +24,6 @@
 			<arg line="${buildDirectory}/base.tar.gz"/>
 			<arg line="-C ${base}"/>
 		</exec>
-		<!--
-		<available file="${buildDirectory}/director/eclipse" property="skipDirector" />
-		<antcall target="extractDirector"/> -->
 
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf"/>

@@ -102,11 +102,11 @@
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
 		
-		<!-- FIXME: replace dsltoolkit.ini with Eclipse.app/../Eclipse.ini and then concat with another
+		<!-- FIXME: replace modeler.ini with Eclipse.app/../Eclipse.ini and then concat with another
 		           that has the missing vmargs - workaround -->
 		<copy file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app/Contents/MacOS/eclipse.ini" 
-			  tofile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini" overwrite="true"/>
-		<concat append="true" destfile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini">-Xdock:icon=../Resources/Eclipse.icns
+			  tofile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/modeler.app/Contents/MacOS/modeler.ini" overwrite="true"/>
+		<concat append="true" destfile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/modeler.app/Contents/MacOS/modeler.ini">-Xdock:icon=../Resources/Eclipse.icns
 -Xms128m
 -Xmx1024m
 -XX:MaxPermSize=256m
