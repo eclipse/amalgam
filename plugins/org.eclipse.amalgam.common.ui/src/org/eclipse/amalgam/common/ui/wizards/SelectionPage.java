@@ -10,17 +10,14 @@
  *******************************************************************************/
 package org.eclipse.amalgam.common.ui.wizards;
 
+import org.eclipse.amalgam.common.ui.Messages;
+import org.eclipse.amalgam.common.ui.elements.DefaultContentProvider;
+import org.eclipse.amalgam.common.ui.parts.TablePart;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.pde.internal.ui.IHelpContextIds;
-import org.eclipse.pde.internal.ui.PDEPlugin;
-import org.eclipse.pde.internal.ui.PDEPluginImages;
-import org.eclipse.pde.internal.ui.PDEUIMessages;
-import org.eclipse.pde.internal.ui.elements.DefaultContentProvider;
-import org.eclipse.pde.internal.ui.parts.TablePart;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -66,7 +63,7 @@ public class SelectionPage extends WizardPage {
 		private Image image;
 
 		public SampleLabelProvider() {
-			image = PDEPlugin.getDefault().getLabelProvider().get(PDEPluginImages.DESC_NEWEXP_TOOL);
+			image = null; // FIXME
 		}
 
 		@Override
@@ -87,8 +84,8 @@ public class SelectionPage extends WizardPage {
 	public SelectionPage(SampleWizard wizard) {
 		super("selection"); //$NON-NLS-1$
 		this.wizard = wizard;
-		setTitle(PDEUIMessages.SelectionPage_title);
-		setDescription(PDEUIMessages.SelectionPage_desc);
+		setTitle(Messages.SelectionPage_title);
+		setDescription(Messages.SelectionPage_desc);
 		part = new SelectionPart();
 	}
 
@@ -109,7 +106,7 @@ public class SelectionPage extends WizardPage {
 		updateSelection(null);
 		setControl(container);
 
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(container, IHelpContextIds.SELECTION);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(container, "org.eclipse.amalgam.modeler.doc.selection_page");
 	}
 
 	private void doMoreInfo() {

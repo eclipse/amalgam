@@ -20,6 +20,10 @@ public final class Messages extends NLS {
 	
 	private static final String BUNDLE_NAME= "org.eclipse.amalgam.common.ui.Messages";//$NON-NLS-1$
 
+	public static String SelectionPage_desc = null;
+
+	public static String SelectionPage_title = null;
+
 	public static String ShowSampleAction_title = null;
 	public static String SampleWizard_title = null;
 	public static String SampleWizard_overwrite = null;
