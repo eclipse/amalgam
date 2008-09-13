@@ -7,7 +7,7 @@
       <product
             application="org.eclipse.ui.ide.workbench"
             description="Eclipse Modeling technologies used to develop domain-specific languages and associated MDSD artifacts."
-            name="DSL Toolkit">
+            name="Modeler">
          <property
                name="windowImages"
                value="icons/eclipse.gif,icons/eclipse32.gif,icons/eclipse48.gif">
