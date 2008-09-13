@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.4"?>
 
-<product name="DSL Toolkit" id="org.eclipse.amalgam.modeler.product" application="org.eclipse.ui.ide.workbench" version="1.0.0.qualifier" useFeatures="true">
+<product name="Modeler" id="org.eclipse.amalgam.modeler.product" application="org.eclipse.ui.ide.workbench" version="1.0.0.qualifier" useFeatures="true">
 
    <aboutInfo>
       <image path="/org.eclipse.amalgam.modeler/about.png"/>
