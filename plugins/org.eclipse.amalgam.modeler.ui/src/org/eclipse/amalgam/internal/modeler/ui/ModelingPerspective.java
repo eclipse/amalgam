@@ -22,8 +22,8 @@ public class ModelingPerspective implements IPerspectiveFactory {
 		String editorArea = layout.getEditorArea();
 
 		IFolderLayout folder = layout.createFolder("left", IPageLayout.LEFT, 0.25f, editorArea); //$NON-NLS-1$
-		folder.addView(IPageLayout.ID_RES_NAV);
-//		folder.addPlaceholder();
+		folder.addView("org.eclipse.ui.navigator.ProjectExplorer");
+		folder.addPlaceholder(IPageLayout.ID_RES_NAV);
 
 		IFolderLayout outputfolder = layout.createFolder("bottom", IPageLayout.BOTTOM, 0.75f, editorArea); //$NON-NLS-1$
 		outputfolder.addView("org.eclipse.ui.views.PropertySheet"); //$NON-NLS-1$
