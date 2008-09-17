@@ -2,6 +2,30 @@
 <?eclipse version="3.2"?>
 <plugin>
 
+   <!-- Modeling perspective -->
+	<extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="%modeling.perspective"
+            icon="icons/full/obj16/ModelingPerspective.gif"
+            class="org.eclipse.amalgam.common.ui.ModelingPerspective"
+            id="org.eclipse.amalgam.common.ui.modelingPerspective">
+         <description>
+            %modeling.perspective.desc
+         </description>
+      </perspective>
+    </extension>
+    
+    <extension point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="org.eclipse.amalgam.common.ui.modelingPerspective">
+         <perspectiveShortcut id="org.eclipse.ui.resourcePerspective"/>
+         <newWizardShortcut id="org.eclipse.ui.wizards.new.folder"/>
+         <viewShortcut
+               id="org.eclipse.ui.console.ConsoleView">
+         </viewShortcut>
+     </perspectiveExtension>
+   </extension>
+
    <!-- A base set of wizard categories-->
    <extension point="org.eclipse.ui.newWizards">
 	  <category
@@ -18,7 +42,7 @@
             name="%uml.wizard.category"/>
    </extension>
 
-   <!-- DSL Toolkit activity category definition -->
+   <!-- DSL activity category definition -->
    <extension
        point="org.eclipse.ui.activities">
     <category
@@ -47,5 +71,320 @@
           name="%activity.cat.uml.modeling">
     </category>
   </extension>
+   
+   <!-- Hide elements of EMF - no category binding-->
+   <extension
+       point="org.eclipse.ui.activities">
+    <activity
+    	  description="%activity.emf.hide.desc"
+          id="org.eclipse.amalgam.hide.emf.activity"
+          name="%activity.emf.hide">
+    </activity>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.emf.activity"
+          pattern="org\.eclipse\.emf\.ecore\.editor/org\.eclipse\.emf\.ecore\.presentation\.EcoreModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.emf.activity"
+          pattern="org\.eclipse\.emf\.mapping\.ecore2ecore\.editor/org\.eclipse\.emf\.mapping\.ecore2ecore\.presentation\.Ecore2EcoreModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.emf.activity"
+          pattern="org\.eclipse\.emf\.mapping\.ecore2xml\.ui/org\.eclipse\.emf\.mapping\.ecore2xml\.presentation\.Ecore2XMLModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.emf.activity"
+          pattern="org\.eclipse\.emf\.importer/org\.eclipse\.emf\.importer\.ui\.EMFProjectWizard">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.emf.activity"
+          pattern="org\.eclipse\.emf\.importer/org\.eclipse\.emf\.importer\.ui\.EMFModelWizard">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.emf.activity"
+          pattern="org\.eclipse\.emf\.codegen\.ecore\.ui/org\.eclipse\.emf\.codegen\.ecore\.ui\.EmptyProjectWizard">
+    </activityPatternBinding>
+    <activityPatternBinding 
+    	  activityId="org.eclipse.amalgam.hide.emf.activity" 
+    	  pattern="org\.eclipse\.emf\.codegen\.ui/org\.eclipse\.emf\.codegen\.ui\.ConvertToJETProjectWizard">
+   	</activityPatternBinding>
+  </extension>
+  
+  <!-- UML modeling activity definition -->
+   <extension
+       point="org.eclipse.ui.activities">
+    <activity
+    	  description="%activity.uml.modeling.desc"
+          id="org.eclipse.amalgam.uml.activity"
+          name="%activity.uml.modeling">
+    </activity>
+    <categoryActivityBinding
+          activityId="org.eclipse.amalgam.uml.activity"
+          categoryId="org.eclipse.amalgam.uml.Category">
+    </categoryActivityBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.uml.activity"
+          pattern="org\.eclipse\.amalgam\.modeler\.ui/org\.eclipse\.amalgam\.uml2\.UMLModelCreationWizardID">
+    </activityPatternBinding>
+    <defaultEnablement
+          id="org.eclipse.amalgam.uml.activity">
+    </defaultEnablement>
+   
+    <activity
+    	  description="%activity.uml.diagramming.desc"
+          id="org.eclipse.amalgam.uml.diagramming.activity"
+          name="%activity.uml.diagramming">
+    </activity>
+    <categoryActivityBinding
+          activityId="org.eclipse.amalgam.uml.diagramming.activity"
+          categoryId="org.eclipse.amalgam.uml.Category">
+    </categoryActivityBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.uml.diagramming.activity"
+          pattern="org\.eclipse\.amalgam\.modeler\.ui/org\.eclipse\.amalgam\.uml2\.diagram.*">
+    </activityPatternBinding>
+    <defaultEnablement
+          id="org.eclipse.amalgam.uml.diagramming.activity">
+    </defaultEnablement>
+    
+    <!-- Hide UML2 elements - no category binding -->
+    <activity
+    	  description="%activity.uml2.hide.desc"
+          id="org.eclipse.amalgam.hide.uml2.activity"
+          name="%activity.uml2.hide">
+    </activity>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.uml2.activity"
+          pattern="org\.eclipse\.uml2\.diagram\..*/.*">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.uml2.activity"
+          pattern="org\.eclipse\.uml2\.uml\.editor/org\.eclipse\.uml2\.uml\.editor\.presentation\.UMLModelWizardID">
+    </activityPatternBinding>
+  </extension>
+  
+  <!-- UML2 diagram and model wizard redefinition -->
+    <extension point="org.eclipse.ui.newWizards">
+        <wizard
+  	     	name="%uml.model.wizard"
+  	     	icon="icons/full/obj16/NewUML.gif"
+  	     	category="org.eclipse.amalgam.uml2.wizardCategory"
+  	     	class="org.eclipse.uml2.uml.editor.presentation.UMLModelWizard"
+  	     	id="org.eclipse.amalgam.uml2.UMLModelCreationWizardID">
+  	  	 	<description>%uml.model.wizard.desc</description>  
+      	</wizard>
+  	  	<wizard
+  	     	name="%uml.class.diagram.wizard"
+  	     	icon="icons/full/obj16/NewUMLClassDiagram.gif"
+  	     	category="org.eclipse.amalgam.uml2.wizardCategory"
+  	     	class="org.eclipse.uml2.diagram.clazz.part.UMLCreationWizard"
+  	     	id="org.eclipse.amalgam.uml2.diagram.clazz.UMLCreationWizardID">
+  	  	 	<description>%uml.class.diagram.wizard.desc</description>  
+      	</wizard>
+  	  	<wizard
+  	     	name="%uml.component.diagram.wizard"
+  	     	icon="icons/full/obj16/NewUMLComponentDiagram.gif"
+  	     	category="org.eclipse.amalgam.uml2.wizardCategory"
+  	     	class="org.eclipse.uml2.diagram.component.part.UMLCreationWizard"
+  	     	id="org.eclipse.amalgam.uml2.diagram.component.UMLCreationWizardID">
+  	  	 	<description>%uml.component.diagram.wizard.desc</description>  
+      	</wizard>
+  	  	<wizard
+  	     	name="%uml.activity.diagram.wizard"
+  	     	icon="icons/full/obj16/NewUMLActivityDiagram.gif"
+  	     	category="org.eclipse.amalgam.uml2.wizardCategory"
+  	     	class="org.eclipse.uml2.diagram.activity.part.UMLCreationWizard"
+  	     	id="org.eclipse.amalgam.uml2.diagram.activity.UMLCreationWizardID">
+  	  	 	<description>%uml.activity.diagram.wizard.desc</description>  
+      	</wizard>
+  	  	<wizard
+  	     	name="%uml.state.diagram.wizard"
+  	     	icon="icons/full/obj16/NewUMLStateMachineDiagram.gif"
+  	     	category="org.eclipse.amalgam.uml2.wizardCategory"
+  	     	class="org.eclipse.uml2.diagram.statemachine.part.UMLCreationWizard"
+  	     	id="org.eclipse.amalgam.uml2.diagram.statemachine.UMLCreationWizardID">
+  	  	 	<description>%uml.state.diagram.wizard.desc</description>  
+      	</wizard>
+      	<wizard
+  	     	name="%uml.usecase.diagram.wizard"
+  	     	icon="icons/full/obj16/NewUMLUseCaseDiagram.gif"
+  	     	category="org.eclipse.amalgam.uml2.wizardCategory"
+  	     	class="org.eclipse.uml2.diagram.usecase.part.UMLCreationWizard"
+  	     	id="org.eclipse.amalgam.uml2.diagram.usecase.UMLCreationWizardID">
+  	  	 	<description>%uml.usecase.diagram.wizard.desc</description>  
+      	</wizard>
+  	  	<wizard
+  	     	name="%uml.profile.diagram.wizard"
+  	     	icon="icons/full/obj16/NewUMLProfileDiagram.gif"
+  	     	category="org.eclipse.amalgam.uml2.wizardCategory"
+  	     	class="org.eclipse.uml2.diagram.profile.part.UMLCreationWizard"
+  	     	id="org.eclipse.amalgam.uml2.diagram.profile.UMLCreationWizardID">
+  	  	 	<description>%uml.profile.diagram.wizard.desc</description>  
+      	</wizard>
+      	<wizard
+  	     	name="%uml.deployment.diagram.wizard"
+  	     	icon="icons/full/obj16/NewUMLDeploymentDiagram.gif"
+  	     	category="org.eclipse.amalgam.uml2.wizardCategory"
+  	     	class="org.eclipse.uml2.diagram.deploy.part.UMLCreationWizard"
+  	     	id="org.eclipse.amalgam.uml2.diagram.profile.UMLCreationWizardID">
+  	  	 	<description>%uml.deployment.diagram.wizard.desc</description>  
+      	</wizard>
+      	<wizard
+  	     	name="%uml.composite.diagram.wizard"
+  	     	icon="icons/full/obj16/NewUMLCompositeStructureDiagram.gif"
+  	     	category="org.eclipse.amalgam.uml2.wizardCategory"
+  	     	class="org.eclipse.uml2.diagram.csd.part.UMLCreationWizard"
+  	     	id="org.eclipse.amalgam.uml2.diagram.profile.UMLCreationWizardID">
+  	  	 	<description>%uml.composite.diagram.wizard.desc</description>  
+      	</wizard>
+   </extension>
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- Begin content from org.eclipse.sdk (not included in Amalgam product configs), less java/pde-->
+    <extension
+         point="org.eclipse.ui.activities">
+      <activity
+            name="%activity.team.cvs"
+            description="%activity.team.cvs.desc"
+            id="org.eclipse.team.cvs">
+      </activity> 
+      <activity
+            name="%activity.team"
+            description="%activity.team.desc"
+            id="org.eclipse.team">
+      </activity> 
+      <activityRequirementBinding
+            activityId="org.eclipse.team.cvs"
+            requiredActivityId="org.eclipse.team">
+      </activityRequirementBinding>
+      <activityPatternBinding
+            activityId="org.eclipse.team"
+            pattern="org\.eclipse\.team\.ui/org.*">
+      </activityPatternBinding> 
+      <activityPatternBinding
+            activityId="org.eclipse.team"
+            pattern="org\.eclipse\.compare/compareWithPatch">
+      </activityPatternBinding>           
+      <activityPatternBinding
+            activityId="org.eclipse.team.cvs"
+            pattern="org\.eclipse\.team\.cvs\.ui/.*">
+      </activityPatternBinding>
+      <activityPatternBinding
+            activityId="org.eclipse.team.cvs"
+            pattern="org\.eclipse\.team\.cvs\.core/.*cvsnature">
+      </activityPatternBinding>
+      
+      <category
+            name="%activity.cat.development"
+            description="%activity.cat.development.desc"
+            id="org.eclipse.categories.developmentCategory">
+      </category>
+
+ 	  <category
+            name="%activity.cat.team"
+            description="%activity.cat.team.desc"
+            id="org.eclipse.categories.teamCategory">
+      </category>
+
+      <categoryActivityBinding
+            activityId="org.eclipse.team"
+            categoryId="org.eclipse.categories.teamCategory">
+      </categoryActivityBinding>        
+      
+      <categoryActivityBinding
+            activityId="org.eclipse.team.cvs"
+            categoryId="org.eclipse.categories.teamCategory">
+      </categoryActivityBinding>
+           
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.preferencePages">
+	  <page            
+            category="org.eclipse.ui.preferencePages.Workbench"
+            name="%PreferencePages.Capabilities"
+            id="org.eclipse.sdk.capabilities">
+            <class class="org.eclipse.ui.activities.ActivityCategoryPreferencePage">
+                <parameter name="allowAdvanced" value="true"/>
+                <parameter name="captionMessage" value="%PreferencePages.Capabilities.captionMessage" />
+            	<parameter name="activityName" value="%PreferencePages.Capabilities.activityName" />
+                <parameter name="categoryName" value="%PreferencePages.Capabilities.categoryName" />
+            	<parameter name="activityPromptButton" value="%PreferencePages.Capabilities.activityPromptButton"/>
+            	<parameter name="activityPromptButtonTooltip" value="%PreferencePages.Capabilities.activityPromptButtonTooltip"/>
+            </class>
+      </page>   
+   </extension>
+   
+   <extension
+   		point="org.eclipse.help.base.activitySupport">
+      <support productId="org.eclipse.sdk.ide">
+         <showAllMessage>
+            %helpActivitySupport.showAllMessage
+         </showAllMessage>
+         <documentMessage
+               class="org.eclipse.help.ui.internal.ShowCapabilitiesPreferenceAction"
+               pluginId="org.eclipse.help.ui">
+            %helpActivitySupport.documentMessage
+         </documentMessage>
+      </support>
+   </extension>
+   
+      <extension
+            point="org.eclipse.ui.activitySupport">
+      <triggerPointAdvisor
+            id="org.eclipse.ui.ide.triggerPointAdvisor">
+            <class class="org.eclipse.ui.activities.WorkbenchTriggerPointAdvisor">
+            	<parameter name="proceedMulti" value="%TriggerPointAdvisor.proceedMulti" />
+            	<parameter name="proceedSingle" value="%TriggerPointAdvisor.proceedSingle" />
+            	<parameter name="dontAsk" value="%TriggerPointAdvisor.dontAsk" />
+            	<parameter name="noDetails" value="%TriggerPointAdvisor.noDetails" />
+            </class>
+      </triggerPointAdvisor>
+   </extension>   
+   
+   <extension
+         point="org.eclipse.ui.activitySupport">
+      <triggerPointAdvisorProductBinding
+            productId="org.eclipse.sdk.ide"
+            triggerPointAdvisorId="org.eclipse.ui.ide.triggerPointAdvisor"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.help.ui.searchEngine">
+      <engine
+            enabled="true"
+            engineTypeId="org.eclipse.help.ui.web"
+            id="org.eclipse.sdk.Google"
+            label="%search.Google.label">
+      		<description>
+	      		%search.Google.desc
+      		</description>
+      		<param 
+      			name="url" 
+      			value="http://www.google.com/search?hl=en&amp;q={expression}&amp;btnG=Google+Search&amp;meta=">
+      		</param>
+      </engine>
+      <engine
+            enabled="true"
+            engineTypeId="org.eclipse.help.ui.web"
+            id="org.eclipse.sdk.Eclipse"
+            label="%search.Eclipse.label">
+      		<description>
+	      		%search.Eclipse.desc
+      		</description>
+      		<param 
+      			name="url" 
+      			value="http://eclipse.org/search/search.cgi?q={expression}&amp;ul=&amp;ps=20&amp;m=all">
+      		</param>
+      </engine>
+    </extension>
+
+   <!-- end org.eclipse.sdk copy section -->
 
 </plugin>
