@@ -4,6 +4,7 @@
 feature@org.eclipse.amalgam.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.dsltk-feature
 feature@org.eclipse.amalgam.examples.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.examples.dsltk-feature
 feature@org.eclipse.amalgam.modeler=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.modeler-feature
+feature@org.eclipse.amalgam.examples.modeler=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.examples.modeler-feature
 
 !*** Amalgam plug-ins *******************************************************************
 plugin@org.eclipse.amalgam.common.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/plugins/org.eclipse.amalgam.common.ui
@@ -22,5 +23,6 @@ plugin@org.eclipse.amalgam.examples.dsl.dnc=HEAD,:pserver:anonymous@dev.eclipse.
 plugin@org.eclipse.amalgam.examples.dsl.scenario=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.scenario
 plugin@org.eclipse.amalgam.examples.dsl.bpmn=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.bpmn
 plugin@org.eclipse.amalgam.examples.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsltk
+plugin@org.eclipse.amalgam.examples.modeler=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.modeler
 
 
