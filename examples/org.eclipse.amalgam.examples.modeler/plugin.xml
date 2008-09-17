@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+  <extension
+         point="org.eclipse.pde.ui.samples">
+      <sample
+            name="%sample.uml.name"
+            perspectiveId="org.eclipse.amalgam.dsl.ui.dslPerspective"
+            targetViewId="org.eclipse.jdt.ui.PackageExplorer"
+            id="org.eclipse.amalgam.examples.modeler.uml">
+         <description
+               helpHref="/org.eclipse.amalgam.modeler.doc/html/samples/uml.html">
+           %sample.uml.desc
+         </description>
+         <activity id="org.eclipse.amalgam.uml.diagramming.activity"/>
+         <project
+               name="org.eclipse.amalgam.examples.dsl.mindmap"
+               selectReveal="diagram/06-04-02/07 Classes/7.28.Class notation - details suppressed, analysis-level details, implementation-level details.umlclass_diagram"
+               archive="samples/uml.zip">
+         </project>
+      </sample>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="%category.modeler"
+            parentCategory="org.eclipse.ui.Examples"
+            id="org.eclipse.amalgam.examples.modeler">
+      </category>
+   	  <wizard
+            name="%sample.uml.name"
+            category="org.eclipse.ui.Examples/org.eclipse.amalgam.examples.modeler"
+            class="org.eclipse.amalgam.common.ui.wizards.SampleWizard:org.eclipse.amalgam.examples.modeler.uml"
+            project="true"
+            id="org.eclipse.amalgam.examples.modeler.uml">
+         <description>%sample.uml.desc
+         </description>
+      </wizard>
+    </extension>
+</plugin>
