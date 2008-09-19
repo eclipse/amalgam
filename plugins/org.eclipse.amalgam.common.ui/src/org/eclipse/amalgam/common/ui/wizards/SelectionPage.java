@@ -84,8 +84,8 @@ public class SelectionPage extends WizardPage {
 	public SelectionPage(SampleWizard wizard) {
 		super("selection"); //$NON-NLS-1$
 		this.wizard = wizard;
-		setTitle(Messages.SelectionPage_title);
-		setDescription(Messages.SelectionPage_desc);
+		setTitle(Messages.ProjectNamesPage_title);
+		setDescription(Messages.ProjectNamesPage_desc);
 		part = new SelectionPart();
 	}
 
