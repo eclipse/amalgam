@@ -79,7 +79,13 @@
 			<param name="metadata.repo" value="${bpmn.metadata.url}"/>
 			<param name="artifact.repo" value="${bpmn.artifact.url}"/>
 		</antcall>
-
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.stp.sc.sca.feature"/>
+			<param name="feature.version" value=""/>
+			<param name="metadata.repo" value="${sca.metadata.url}"/>
+			<param name="artifact.repo" value="${sca.artifact.url}"/>
+		</antcall>
+		
 		<p2.generator source="${baseLocation}" 
 			append="true" 
 			mode="incremental" 
