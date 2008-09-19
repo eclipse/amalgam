@@ -124,7 +124,7 @@
     </categoryActivityBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.uml.activity"
-          pattern="org\.eclipse\.amalgam\.modeler\.ui/org\.eclipse\.amalgam\.uml2\.UMLModelCreationWizardID">
+          pattern="org\.eclipse\.amalgam\.common\.ui/org\.eclipse\.amalgam\.uml2\.UMLModelCreationWizardID">
     </activityPatternBinding>
     <defaultEnablement
           id="org.eclipse.amalgam.uml.activity">
@@ -141,7 +141,7 @@
     </categoryActivityBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.uml.diagramming.activity"
-          pattern="org\.eclipse\.amalgam\.modeler\.ui/org\.eclipse\.amalgam\.uml2\.diagram.*">
+          pattern="org\.eclipse\.amalgam\.common\.ui/org\.eclipse\.amalgam\.uml2\.diagram.*">
     </activityPatternBinding>
     <defaultEnablement
           id="org.eclipse.amalgam.uml.diagramming.activity">
@@ -279,12 +279,6 @@
             activityId="org.eclipse.team.cvs"
             pattern="org\.eclipse\.team\.cvs\.core/.*cvsnature">
       </activityPatternBinding>
-      
-      <category
-            name="%activity.cat.development"
-            description="%activity.cat.development.desc"
-            id="org.eclipse.categories.developmentCategory">
-      </category>
 
  	  <category
             name="%activity.cat.team"
