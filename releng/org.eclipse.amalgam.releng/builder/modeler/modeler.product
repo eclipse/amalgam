@@ -46,10 +46,10 @@
       <feature id="org.eclipse.gef" version="0.0.0"/>
       <feature id="org.eclipse.ocl.all" version="0.0.0"/>
       <feature id="org.eclipse.emf.emfqtv.all" version="0.0.0"/>
-      <!-- GMF and UML2 Tools removed until org.eclipse.emf feature dependency removed -->
+      <feature id="org.eclipse.gmf" version="0.0.0"/>
+      <!-- UML2 Tools removed until org.eclipse.emf feature dependency removed -->
       <!-- Remove until bug 247240 is resolved
       <feature id="org.eclipse.uml2.diagram.clazz.search" version="0.0.0"/> -->
-      
       <feature id="org.eclipse.uml2tools.examples" version="0.0.0"/>
       <feature id="org.eclipse.amalgam.modeler" version="0.0.0"/>
       <feature id="org.eclipse.amalgam.examples.modeler" version="0.0.0"/>
