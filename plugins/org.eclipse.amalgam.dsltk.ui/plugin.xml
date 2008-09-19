@@ -205,7 +205,7 @@
     </categoryActivityBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.dsl.domainModelingActivity"
-          pattern="org\.eclipse\.amalgam\.ui/org\.eclipse\.amalgam\.dsl\.domain\..*">
+          pattern="org\.eclipse\.amalgam\.dsltk\.ui/org\.eclipse\.amalgam\.dsl\.domain\..*">
     </activityPatternBinding>
     
     <!-- Diagram Definition activities -->
@@ -220,7 +220,7 @@
     </categoryActivityBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.dsl.diagramDefinitionActivity"
-          pattern="org\.eclipse\.amalgam\.ui/org\.eclipse\.amalgam\.dsl\.diagram\..*">
+          pattern="org\.eclipse\.amalgam\.dsltk\.ui/org\.eclipse\.amalgam\.dsl\.diagram\..*">
     </activityPatternBinding>
     
     <!-- Hide GMF elements - no category binding -->
@@ -252,6 +252,14 @@
     <activityPatternBinding
           activityId="org.eclipse.amalgam.hide.dsl.gmf.activity"
           pattern="org\.eclipse\.gmf\.graphdef\.edit/org\.eclipse\.gmf\.gmfgraph\.presentation\.GMFGraphModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.dsl.gmf.activity"
+          pattern="org\.eclipse\.gmf\.graphdef\.editor/org\.eclipse\.gmf\.graphdef\.editor\.part\.GMFGraphCreationWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.dsl.gmf.activity"
+          pattern="org\.eclipse\.gmf\.map\.editor/org\.eclipse\.gmf\.map\.editor\.part\.GMFMapCreationWizardID">
     </activityPatternBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.hide.dsl.gmf.activity"
@@ -306,7 +314,7 @@
     </categoryActivityBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.mt.templateDefinitionActivity"
-          pattern="org\.eclipse\.amalgam\.ui/org\.eclipse\.amalgam\.dsl\.mt\.wizard\.NewTemplateFileWizard">
+          pattern="org\.eclipse\.amalgam\.dsltk\.ui/org\.eclipse\.amalgam\.dsl\.mt\.wizard\.NewTemplateFileWizard">
     </activityPatternBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.mt.templateDefinitionActivity"
@@ -329,7 +337,7 @@
     </categoryActivityBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.m2m.qvto.activity"
-          pattern="org\.eclipse\.amalgam\.ui/org\.eclipse\.amalgam\.m2m\.oml\.wizards\.NewQVTTransformationWizard">
+          pattern="org\.eclipse\.amalgam\.dsltk\.ui/org\.eclipse\.amalgam\.m2m\.oml\.wizards\.NewQVTTransformationWizard">
     </activityPatternBinding>
     
     <!-- Model Workflow activity -->
@@ -344,7 +352,7 @@
     </categoryActivityBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.workflow.activity"
-          pattern="org\.eclipse\.amalgam\.ui/org\.eclipse\.amalgam\.workflow\.wizard\.NewWorkflowFileWizard">
+          pattern="org\.eclipse\.amalgam\.dsltk\.ui/org\.eclipse\.amalgam\.workflow\.wizard\.NewWorkflowFileWizard">
     </activityPatternBinding>
     
     <!-- Hide MWE elements -->
@@ -471,7 +479,6 @@
       <activityPatternBinding
             activityId="org.eclipse.javaDevelopment"
             pattern="org\.eclipse\.jdt\.core/javanature">
-
       </activityPatternBinding>
       
       <activityPatternBinding
@@ -494,7 +501,17 @@
             description="%activity.cat.development.desc"
             id="org.eclipse.categories.developmentCategory">
       </category>
-       
+      
+      <categoryActivityBinding
+            activityId="org.eclipse.plugInDevelopment"
+            categoryId="org.eclipse.categories.developmentCategory">
+      </categoryActivityBinding>
+      
+      <categoryActivityBinding
+            activityId="org.eclipse.javaDevelopment"
+            categoryId="org.eclipse.categories.developmentCategory">
+      </categoryActivityBinding>
+
       <defaultEnablement
             id="org.eclipse.javaDevelopment">
       </defaultEnablement>
@@ -505,13 +522,25 @@
    </extension>
    <!-- end org.eclipse.sdk copy section -->
    
-   <!-- hide ant wizard -->
+   <!-- hide ant wizard and User Assistance items -->
    <extension
          point="org.eclipse.ui.activities">
-   <activityPatternBinding
+      <activityPatternBinding
             activityId="org.eclipse.javaDevelopment"
             pattern="org\.eclipse\.ant\.ui/org\.eclipse\.ant\.ui\.wizards\.JavaProjectWizard">
-	</activityPatternBinding>
+	  </activityPatternBinding>
+	  <activityPatternBinding
+	  	    activityId="org.eclipse.javaDevelopment"
+	  	    pattern="org\.eclipse\.pde\.ui/org.eclipse.pde.ui.NewCheatSheetWizard">
+	  </activityPatternBinding>
+	  <activityPatternBinding
+	  	    activityId="org.eclipse.javaDevelopment"
+	  	    pattern="org\.eclipse\.pde\.ui/org.eclipse.pde.ui.NewContextHelpWizard">
+	  </activityPatternBinding>
+	  <activityPatternBinding
+	  	    activityId="org.eclipse.javaDevelopment"
+	  	    pattern="org\.eclipse\.pde\.ui/org.eclipse.pde.ui.NewTOCWizard">
+	  </activityPatternBinding>
 	</extension>
 
 </plugin>
