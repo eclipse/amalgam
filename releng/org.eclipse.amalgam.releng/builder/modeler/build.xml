@@ -115,10 +115,10 @@
 		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default -->
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app" /> 
 		
-		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
+		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) 
 		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
 			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
-			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
+			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/> -->
 		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/">
 			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/modeler.macosx.carbon.x86.tar ${archivePrefix}"/>
