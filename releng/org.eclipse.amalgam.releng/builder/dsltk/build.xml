@@ -67,6 +67,11 @@
 			<param name="p2.arch" value="x86"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
+		
+		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
+		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
+			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
+			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
 			
 		<zip destfile="${buildDirectory}/${buildLabel}/p2/dsltk.win32.win32.x86.zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse"/>
 		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse" />
@@ -77,6 +82,11 @@
 			<param name="p2.arch" value="x86"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
+		
+		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
+		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
+			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
+			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
 		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/">
 			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/dsltk.linux.gtk.x86.tar ${archivePrefix}"/>
@@ -104,6 +114,11 @@
 
 		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default -->
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app" /> 
+		
+		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
+		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
+			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
+			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
 		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/">
 			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar ${archivePrefix}"/>
