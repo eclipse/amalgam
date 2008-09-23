@@ -531,15 +531,15 @@
 	  </activityPatternBinding>
 	  <activityPatternBinding
 	  	    activityId="org.eclipse.javaDevelopment"
-	  	    pattern="org\.eclipse\.pde\.ui/org.eclipse.pde.ui.NewCheatSheetWizard">
+	  	    pattern="org\.eclipse\.pde\.ui/org\.eclipse\.pde\.ui\.NewCheatSheetWizard">
 	  </activityPatternBinding>
 	  <activityPatternBinding
 	  	    activityId="org.eclipse.javaDevelopment"
-	  	    pattern="org\.eclipse\.pde\.ui/org.eclipse.pde.ui.NewContextHelpWizard">
+	  	    pattern="org\.eclipse\.pde\.ui/org\.eclipse\.pde\.ui\.NewContextHelpWizard">
 	  </activityPatternBinding>
 	  <activityPatternBinding
 	  	    activityId="org.eclipse.javaDevelopment"
-	  	    pattern="org\.eclipse\.pde\.ui/org.eclipse.pde.ui.NewTOCWizard">
+	  	    pattern="org\.eclipse\.pde\.ui/org\.eclipse\.pde\.ui\.NewTOCWizard">
 	  </activityPatternBinding>
 	</extension>
 
