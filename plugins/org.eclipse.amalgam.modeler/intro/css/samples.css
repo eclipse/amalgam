@@ -1,11 +1,2 @@
-a#mindmap img { background-image : url('../../images/topiclabel/sa_mindmap48.gif'); }
-a#mindmap:hover img { background-image : url('../../images/topiclabel/sa_mindmap48_hov.gif'); }
-
-a#requirements img { background-image : url('../../images/topiclabel/sa_req48.gif'); }
-a#requirements:hover img { background-image : url('../../images/topiclabel/sa_req48_hov.gif'); }
-
-a#color img { background-image : url('../../images/topiclabel/sa_color48.gif'); }
-a#color:hover img { background-image : url('../../images/topiclabel/sa_color48_hov.gif'); }
-
-a#scenario img { background-image : url('../../images/topiclabel/sa_scenario48.gif'); }
-a#scenario:hover img { background-image : url('../../images/topiclabel/sa_scenario48_hov.gif'); }
+a#uml img { background-image : url('../../images/topiclabel/sa_uml48.gif'); }
+a#uml:hover img { background-image : url('../../images/topiclabel/sa_uml48_hov.gif'); }
