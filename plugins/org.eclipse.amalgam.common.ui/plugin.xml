@@ -64,13 +64,13 @@
     </category>
  </extension>
  
- <!-- UML modeling activity category definition -->
+ <!-- General modeling activity category definition -->
    <extension
        point="org.eclipse.ui.activities">
     <category
-          description="%activity.cat.uml.modeling.desc"
-          id="org.eclipse.amalgam.uml.Category"
-          name="%activity.cat.uml.modeling">
+          description="%activity.cat.modeling.desc"
+          id="org.eclipse.amalgam.modeling.Category"
+          name="%activity.cat.modeling">
     </category>
   </extension>
    
@@ -122,7 +122,7 @@
     </activity>
     <categoryActivityBinding
           activityId="org.eclipse.amalgam.uml.activity"
-          categoryId="org.eclipse.amalgam.uml.Category">
+          categoryId="org.eclipse.amalgam.modeling.Category">
     </categoryActivityBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.uml.activity"
@@ -139,7 +139,7 @@
     </activity>
     <categoryActivityBinding
           activityId="org.eclipse.amalgam.uml.diagramming.activity"
-          categoryId="org.eclipse.amalgam.uml.Category">
+          categoryId="org.eclipse.amalgam.modeling.Category">
     </categoryActivityBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.uml.diagramming.activity"
