@@ -27,6 +27,15 @@
          </viewShortcut>
      </perspectiveExtension>
    </extension>
+   
+   <extension
+         point="org.eclipse.ui.intro.configExtension">
+      <standbyContentPart
+            pluginId="org.eclipse.amalgam.common.ui"
+            class="org.eclipse.amalgam.common.ui.parts.SampleStandbyContent"
+            id="org.eclipse.amalgam.common.ui.sampleStandbyPart">
+      </standbyContentPart>
+   </extension>
 
    <!-- A base set of wizard categories-->
    <extension point="org.eclipse.ui.newWizards">
@@ -155,6 +164,10 @@
           id="org.eclipse.amalgam.hide.uml2.activity"
           name="%activity.uml2.hide">
     </activity>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.uml2.activity"
+          pattern="org\.eclipse\.uml2\.uml\.editor/org\.eclipse\.uml2\.uml\.editor\.presentation\.UMLModelWizardID">
+    </activityPatternBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.hide.uml2.activity"
           pattern="org\.eclipse\.uml2\.diagram\.clazz/org\.eclipse\.uml2\.diagram\.clazz\.part\.UMLCreationWizardID">
