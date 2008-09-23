@@ -3,7 +3,7 @@
 <plugin>
 
   <extension
-         point="org.eclipse.pde.ui.samples">
+         point="org.eclipse.amalgam.common.ui.samples">
       <sample
             name="%sample.uml.name"
             perspectiveId="org.eclipse.amalgam.common.ui.modelingPerspective"
