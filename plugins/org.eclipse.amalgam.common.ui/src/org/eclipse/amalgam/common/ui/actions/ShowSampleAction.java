@@ -91,7 +91,7 @@ public class ShowSampleAction extends Action implements IIntroAction {
 		url.append("http://org.eclipse.ui.intro/showStandby?"); //$NON-NLS-1$
 		url.append("pluginId=org.eclipse.pde.ui"); //$NON-NLS-1$
 		url.append("&"); //$NON-NLS-1$
-		url.append("partId=org.eclipse.pde.ui.sampleStandbyPart"); //$NON-NLS-1$
+		url.append("partId=org.eclipse.amalgam.common.ui.sampleStandbyPart"); //$NON-NLS-1$
 		url.append("&"); //$NON-NLS-1$
 		url.append("input="); //$NON-NLS-1$
 		url.append(sampleId);
