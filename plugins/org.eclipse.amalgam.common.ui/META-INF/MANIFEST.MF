@@ -31,4 +31,6 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.amalgam.common.ui,
  org.eclipse.amalgam.common.ui.actions,
+ org.eclipse.amalgam.common.ui.elements,
+ org.eclipse.amalgam.common.ui.parts,
  org.eclipse.amalgam.common.ui.wizards
