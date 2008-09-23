@@ -187,7 +187,7 @@ Each sample has a name, one or more project elements and a final perspective. Th
          <meta.section type="since"/>
       </appinfo>
       <documentation>
-         3.0
+         1.0
       </documentation>
    </annotation>
 
@@ -199,7 +199,7 @@ Each sample has a name, one or more project elements and a final perspective. Th
          &lt;p&gt;
 The following is an example of the extension point:
 &lt;pre&gt;
-   &lt;extension point=&quot;org.eclipse.pde.ui.samples&quot;&gt;
+   &lt;extension point=&quot;org.eclipse.amalgam.common.ui.samples&quot;&gt;
       &lt;sample
            id=&quot;com.example.xyz.sample&quot;
            name=&quot;My Sample&quot;&gt;
