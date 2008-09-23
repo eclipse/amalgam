@@ -157,11 +157,35 @@
     </activity>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.hide.uml2.activity"
-          pattern="org\.eclipse\.uml2\.diagram\..*/.*">
+          pattern="org\.eclipse\.uml2\.diagram\.clazz/org\.eclipse\.uml2\.diagram\.clazz\.part\.UMLCreationWizardID">
     </activityPatternBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.hide.uml2.activity"
-          pattern="org\.eclipse\.uml2\.uml\.editor/org\.eclipse\.uml2\.uml\.editor\.presentation\.UMLModelWizardID">
+          pattern="org\.eclipse\.uml2\.diagram\.activity/org\.eclipse\.uml2\.diagram\.activity\.part\.UMLCreationWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.uml2.activity"
+          pattern="org\.eclipse\.uml2\.diagram\.component/org\.eclipse\.uml2\.diagram\.component\.part\.UMLCreationWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.uml2.activity"
+          pattern="org\.eclipse\.uml2\.diagram\.csd/org\.eclipse\.uml2\.diagram\.csd\.part\.UMLCreationWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.uml2.activity"
+          pattern="org\.eclipse\.uml2\.diagram\.deploy/org\.eclipse\.uml2\.diagram\.deploy\.part\.UMLCreationWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.uml2.activity"
+          pattern="org\.eclipse\.uml2\.diagram\.profile/org\.eclipse\.uml2\.diagram\.profile\.part\.UMLCreationWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.uml2.activity"
+          pattern="org\.eclipse\.uml2\.diagram\.statemachine/org\.eclipse\.uml2\.diagram\.statemachine\.part\.UMLCreationWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.uml2.activity"
+          pattern="org\.eclipse\.uml2\.diagram\.usecase/org\.eclipse\.uml2\.diagram\.usecase\.part\.UMLCreationWizardID">
     </activityPatternBinding>
   </extension>
   
