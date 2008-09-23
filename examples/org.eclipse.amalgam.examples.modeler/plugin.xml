@@ -34,6 +34,7 @@
             category="org.eclipse.ui.Examples/org.eclipse.amalgam.examples.modeler"
             class="org.eclipse.amalgam.common.ui.wizards.SampleWizard:org.eclipse.amalgam.examples.modeler.uml"
             project="true"
+            icon="icons/obj16/NewUMLModel.gif"
             id="org.eclipse.amalgam.examples.modeler.uml">
          <description>%sample.uml.desc
          </description>
