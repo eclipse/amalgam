@@ -5,6 +5,21 @@
 		<zip destfile="./samples/mindmap.zip"
 			basedir="../org.eclipse.amalgam.examples.dsl.mindmap"
   		/>
+		<zip destfile="./samples/requirements.zip"
+			basedir="../org.eclipse.amalgam.examples.dsl.requirements"
+  		/>
+		<zip destfile="./samples/oocore.zip"
+			basedir="../org.eclipse.amalgam.examples.dsl.oocore"
+  		/>
+		<zip destfile="./samples/dnc.zip"
+			basedir="../org.eclipse.amalgam.examples.dsl.dnc"
+  		/>
+		<zip destfile="./samples/bpmn.zip"
+			basedir="../org.eclipse.amalgam.examples.dsl.bpmn"
+  		/>
+		<zip destfile="./samples/scenario.zip"
+			basedir="../org.eclipse.amalgam.examples.dsl.scenario"
+  		/>
 	</target>
 	
 </project>
