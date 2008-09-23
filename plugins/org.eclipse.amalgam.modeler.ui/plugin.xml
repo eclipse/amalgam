@@ -22,7 +22,7 @@
 	    </defaultEnablement>
 	    
 	    <!-- Hide default BPMN wizard - no category binding-->
-	    <activity
+	    <activity name="%activity.amalgam.hide.bpmn"
 	          id="org.eclipse.amalgam.hide.bpmn.diagramming.activity"/>
 	    <activityPatternBinding
 	          activityId="org.eclipse.amalgam.hide.bpmn.diagramming.activity"
