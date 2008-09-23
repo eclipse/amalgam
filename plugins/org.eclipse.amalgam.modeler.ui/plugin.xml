@@ -2,6 +2,53 @@
 <?eclipse version="3.2"?>
 <plugin>
 
+	<extension
+       point="org.eclipse.ui.activities">
+		<activity
+	    	  description="%activity.bpmn.diagramming.desc"
+	          id="org.eclipse.amalgam.bpmn.diagramming.activity"
+	          name="%activity.bpmn.diagramming">
+	    </activity>
+	    <categoryActivityBinding
+	          activityId="org.eclipse.amalgam.bpmn.diagramming.activity"
+	          categoryId="org.eclipse.amalgam.modeling.Category">
+	    </categoryActivityBinding>
+	    <activityPatternBinding
+	          activityId="org.eclipse.amalgam.bpmn.diagramming.activity"
+	          pattern="org\.eclipse\.amalgam\.modeler\.ui/org\.eclipse\.amalgam\.modeler\.ui\.bpmn\.CreationWizardID">
+	    </activityPatternBinding>
+	    <defaultEnablement
+	          id="org.eclipse.amalgam.bpmn.diagramming.activity">
+	    </defaultEnablement>
+	    
+	    <!-- Hide default BPMN wizard - no category binding-->
+	    <activity
+	          id="org.eclipse.amalgam.hide.bpmn.diagramming.activity"/>
+	    <activityPatternBinding
+	          activityId="org.eclipse.amalgam.hide.bpmn.diagramming.activity"
+	          pattern="org\.eclipse\.stp\.bpmn\.diagram/org\.eclipse\.stp\.bpmn\.diagram\.part\.BpmnCreationWizardID">
+	    </activityPatternBinding>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+	  <category
+            id="org.eclipse.amalgam.modeler.bp.wizardCategory"
+            name="%bp.wizard.category"/>
+   </extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+  	  <wizard
+  	     name="%bpmn.diagram.wizard"
+  	     icon="icons/obj16/BpmnDiagramFile.gif"
+  	     category="org.eclipse.amalgam.modeler.bp.wizardCategory"
+  	     class="org.eclipse.stp.bpmn.diagram.part.BpmnCreationWizard"
+  	     id="org.eclipse.amalgam.modeler.ui.bpmn.CreationWizardID">
+  	  	 <description>
+  	  		%bpmn.diagram.wizard.desc
+  	  	 </description>  
+      </wizard>
+   </extension>
+
 	<!-- Initialize diagram actions recast as new diagram wizard actions -->
    <extension
          point="org.eclipse.ui.popupMenus">
