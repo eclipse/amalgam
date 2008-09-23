@@ -75,7 +75,7 @@ public class SampleWizard extends Wizard implements INewWizard, IExecutableExten
 	public SampleWizard() {
 		// PDEPlugin.getDefault().getLabelProvider().connect(this);
 		// setDefaultPageImageDescriptor(PDEPluginImages.DESC_NEWEXP_WIZ);
-		samples = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.pde.ui.samples"); //$NON-NLS-1$
+		samples = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.amalgam.common.ui.samples"); //$NON-NLS-1$
 		namesPage = new ProjectNamesPage(this);
 		lastPage = new ReviewPage(this);
 		setNeedsProgressMonitor(true);
