@@ -6,8 +6,8 @@
          point="org.eclipse.pde.ui.samples">
       <sample
             name="%sample.uml.name"
-            perspectiveId="org.eclipse.amalgam.dsl.ui.dslPerspective"
-            targetViewId="org.eclipse.jdt.ui.PackageExplorer"
+            perspectiveId="org.eclipse.amalgam.common.ui.modelingPerspective"
+            targetViewId="org.eclipse.ui.navigator.ProjectExplorer"
             id="org.eclipse.amalgam.examples.modeler.uml">
          <description
                helpHref="/org.eclipse.amalgam.modeler.doc/html/samples/uml.html">
@@ -15,7 +15,7 @@
          </description>
          <activity id="org.eclipse.amalgam.uml.diagramming.activity"/>
          <project
-               name="org.eclipse.amalgam.examples.dsl.mindmap"
+               name="org.eclipse.amalgam.examples.modeler.uml"
                selectReveal="diagram/06-04-02/07 Classes/7.28.Class notation - details suppressed, analysis-level details, implementation-level details.umlclass_diagram"
                archive="samples/uml.zip">
          </project>
