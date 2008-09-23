@@ -123,7 +123,7 @@
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/">
 			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar.gz"/>
+		<gzip src="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/dsltk-incubation.macosx.carbon.x86.tar.gz"/>
 		<delete file="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar" />
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp"/>
 	</target>

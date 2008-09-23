@@ -79,9 +79,9 @@
 		</antcall>
 		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/">
-			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/modeler-incubation.linux.gtk.x86.tar ${archivePrefix}"/>
+			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/modeler.linux.gtk.x86.tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/modeler.linux.gtk.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/modeler.linux.gtk.x86.tar.gz"/>
+		<gzip src="${buildDirectory}/${buildLabel}/p2/modeler.linux.gtk.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/modeler-incubation.linux.gtk.x86.tar.gz"/>
 		<delete file="${buildDirectory}/${buildLabel}/p2/modeler.linux.gtk.x86.tar" />
 		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse" />
 		<antcall target="run.director">
