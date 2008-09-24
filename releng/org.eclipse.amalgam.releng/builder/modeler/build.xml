@@ -68,6 +68,12 @@
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
 			
+		<!-- workaround for missing args in generated .ini file that are declared in .product file -->
+		<concat append="true" destfile="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse/modeler.ini">-Xms128m
+-Xmx1024m
+-XX:MaxPermSize=256m
+		</concat>
+		
 		<zip destfile="${buildDirectory}/${buildLabel}/p2/modeler-incubation.win32.win32.x86.zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse"/>
 		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse" />
 		<antcall target="run.director">
@@ -77,6 +83,12 @@
 			<param name="p2.arch" value="x86"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
+		
+		<!-- workaround for missing args in generated .ini file that are declared in .product file -->
+		<concat append="true" destfile="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse/modeler.ini">-Xms128m
+-Xmx1024m
+-XX:MaxPermSize=256m
+		</concat>
 		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/">
 			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/modeler.linux.gtk.x86.tar ${archivePrefix}"/>
