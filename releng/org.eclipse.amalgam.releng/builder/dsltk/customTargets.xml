@@ -30,63 +30,76 @@
 
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.sdk"/>
-			<param name="feature.version" value=""/>
+			<param name="feature.version" value="${emf.version}"/>
 			<param name="metadata.repo" value="${emf.metadata.url}"/>
 			<param name="artifact.repo" value="${emf.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2.sdk"/>
-			<param name="feature.version" value=""/>
+			<param name="feature.version" value="${uml2.version}"/>
 			<param name="metadata.repo" value="${uml.metadata.url}"/>
 			<param name="artifact.repo" value="${uml.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.emfqtv.all.sdk"/>
-			<param name="feature.version" value=""/>
+			<param name="feature.version" value="${emfqtv.version}"/>
 			<param name="metadata.repo" value="${qtv.metadata.url}"/>
 			<param name="artifact.repo" value="${qtv.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gef.sdk"/>
-			<param name="feature.version" value=""/>
+			<param name="feature.version" value="${gef.version}"/>
 			<param name="metadata.repo" value="${gef.metadata.url}"/>
 			<param name="artifact.repo" value="${gef.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.ocl.all.sdk"/>
-			<param name="feature.version" value=""/>
+			<param name="feature.version" value="${ocl.version}"/>
 			<param name="metadata.repo" value="${ocl.metadata.url}"/>
 			<param name="artifact.repo" value="${ocl.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.m2m.qvt.oml.sdk"/>
-			<param name="feature.version" value=""/>
+			<param name="feature.version" value="${qvt.version}"/>
 			<param name="metadata.repo" value="${qvt.metadata.url}"/>
 			<param name="artifact.repo" value="${qvt.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gmf.sdk"/>
-			<param name="feature.version" value=""/>
+			<param name="feature.version" value="${gmf.version}"/>
 			<param name="metadata.repo" value="${gmf.metadata.url}"/>
 			<param name="artifact.repo" value="${gmf.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gmf.sdk.experimental"/>
-			<param name="feature.version" value=""/>
+			<param name="feature.version" value="${gmfexp.version}"/>
 			<param name="metadata.repo" value="${gmfexp.metadata.url}"/>
 			<param name="artifact.repo" value="${gmfexp.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2tools.sdk"/>
-			<param name="feature.version" value=""/>
+			<param name="feature.version" value="${umlt.version}"/>
 			<param name="metadata.repo" value="${umlt.metadata.url}"/>
 			<param name="artifact.repo" value="${umlt.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.teneo.sdk"/>
-			<param name="feature.version" value=""/>
+			<param name="feature.version" value="${teneo.version}"/>
 			<param name="metadata.repo" value="${teneo.metadata.url}"/>
 			<param name="artifact.repo" value="${teneo.artifact.url}"/>
+		</antcall>
+		
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.xpand.sdk"/>
+			<param name="feature.version" value="${xpand.version}"/>
+			<param name="metadata.repo" value="${xpand.metadata.url}"/>
+			<param name="artifact.repo" value="${xpand.artifact.url}"/>
+		</antcall>
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.emf.mwe.sdk"/>
+			<param name="feature.version" value="${mwe.version}"/>
+			<param name="metadata.repo" value="${mwe.metadata.url}"/>
+			<param name="artifact.repo" value="${mwe.artifact.url}"/>
 		</antcall>
 		
 		<!-- workaround for out of date xpand and mwe update sites -->
@@ -129,8 +142,10 @@
 		<copy todir="${base}/eclipse/plugins">
 		    <fileset dir="${buildDirectory}/temphack" includes="**/*.jar"/>
 		</copy>
+<!-- Test newly published I-builds for mwe + xpand 
 		<unzip src="${buildDirectory}/temphack/emft-mwe-SDK-incubation-I200801100355.zip" dest="${base}"/>
 		<unzip src="${buildDirectory}/temphack/m2t-xpand-SDK-I200801101356.zip" dest="${base}"/>
+-->
 	</target>
 	
 	<target name="get.xpand.mwe" unless="temphackExists">
