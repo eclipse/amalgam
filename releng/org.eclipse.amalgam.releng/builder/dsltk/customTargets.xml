@@ -81,7 +81,7 @@
 		
 		<!-- workaround for out of date xpand and mwe update sites -->
 		<antcall target="workaround.xpand.mwe"/>
-		
+<!-- sites broken
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.xpand.sdk"/>
 			<param name="feature.version" value="${xpand.version}"/>
@@ -92,7 +92,7 @@
 			<param name="feature.version" value="${mwe.version}"/>
 			<param name="repo" value="${mwe.repo.url}"/>
 		</antcall>
-		
+-->	
 <!-- TODO:remove?		<antcall target="installDeltaPack"/> -->
 		<p2.generator source="${baseLocation}" 
 			append="true" 
@@ -131,10 +131,8 @@
 		<copy todir="${base}/eclipse/plugins">
 		    <fileset dir="${buildDirectory}/temphack" includes="**/*.jar"/>
 		</copy>
-<!-- Test newly published I-builds for mwe + xpand 
 		<unzip src="${buildDirectory}/temphack/emft-mwe-SDK-incubation-I200801100355.zip" dest="${base}"/>
 		<unzip src="${buildDirectory}/temphack/m2t-xpand-SDK-I200801101356.zip" dest="${base}"/>
--->
 	</target>
 	
 	<target name="get.xpand.mwe" unless="temphackExists">
