@@ -43,8 +43,8 @@
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.emfqtv.all.sdk"/>
 			<param name="feature.version" value="${emfqtv.version}"/>
-			<param name="metadata.repo" value="${qtv.metadata.url}"/>
-			<param name="artifact.repo" value="${qtv.artifact.url}"/>
+			<param name="metadata.repo" value="${emfqtv.metadata.url}"/>
+			<param name="artifact.repo" value="${emfqtv.artifact.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gef.sdk"/>
