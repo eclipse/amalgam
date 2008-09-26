@@ -83,14 +83,14 @@
 		<antcall target="workaround.xpand.mwe"/>
 <!-- sites broken
 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.xpand.sdk"/>
-			<param name="feature.version" value="${xpand.version}"/>
-			<param name="repo" value="${xpand.repo.url}"/>
-		</antcall>
-		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.mwe.sdk"/>
 			<param name="feature.version" value="${mwe.version}"/>
 			<param name="repo" value="${mwe.repo.url}"/>
+		</antcall>
+		<antcall target="install.feature">
+			<param name="feature.id" value="org.eclipse.xpand.sdk"/>
+			<param name="feature.version" value="${xpand.version}"/>
+			<param name="repo" value="${xpand.repo.url}"/>
 		</antcall>
 -->	
 <!-- TODO:remove?		<antcall target="installDeltaPack"/> -->
