@@ -89,6 +89,9 @@
 			<param name="artifact.repo" value="${teneo.artifact.url}"/>
 		</antcall>
 		
+		<!-- workaround for out of date xpand and mwe update sites -->
+		<antcall target="workaround.xpand.mwe"/>
+		
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.xpand.sdk"/>
 			<param name="feature.version" value="${xpand.version}"/>
@@ -102,8 +105,6 @@
 			<param name="artifact.repo" value="${mwe.artifact.url}"/>
 		</antcall>
 		
-		<!-- workaround for out of date xpand and mwe update sites -->
-		<antcall target="workaround.xpand.mwe"/>
 <!-- TODO:remove?		<antcall target="installDeltaPack"/> -->
 		<p2.generator source="${baseLocation}" 
 			append="true" 
@@ -310,7 +311,7 @@
 			<arg line="-consoleLog" />
 			<arg line="-installIU ${feature.id}.feature.group" />
 			<!-- NOTE: using no version parameter seems to install the latest (first? arbitrary?) version of the feature 
-					   to use a version, be sure to set ${p2.version} to something like "-version 1.0.0" (including -version)
+					   to use a version, be sure to set ${feature.version} to something like "-version 1.0.0" (including -version)
 					   as having no value after -version is not the same as no switch at all, and 0.0.0 doesn't behave as expected -->
 			<arg line="${feature.version}" /> 
 			<arg line="-profileProperties org.eclipse.update.install.features=true" />
