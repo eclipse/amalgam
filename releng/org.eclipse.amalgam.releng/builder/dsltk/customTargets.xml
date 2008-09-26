@@ -299,7 +299,7 @@
 			<arg line="-consoleLog" />
 			<arg line="-installIU ${feature.id}.feature.group" />
 			<!-- NOTE: using no version parameter seems to install the latest (first? arbitrary?) version of the feature. 
-					   note: having no value after -version is not the same as no argument at all, and 0.0.0 doesn't behave as expected -->
+					   note: having no value after -version is not the same as 0.0.0, unfortunately -->
 			<arg line="-version ${feature.version}" /> 
 			<arg line="-profileProperties org.eclipse.update.install.features=true" />
 			<!-- Until someone splits the two, assume metadata and artifact repo are the same -->
