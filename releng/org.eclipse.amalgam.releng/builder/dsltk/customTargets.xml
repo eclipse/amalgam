@@ -31,62 +31,52 @@
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.sdk"/>
 			<param name="feature.version" value="${emf.version}"/>
-			<param name="metadata.repo" value="${emf.metadata.url}"/>
-			<param name="artifact.repo" value="${emf.artifact.url}"/>
+			<param name="repo" value="${emf.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2.sdk"/>
 			<param name="feature.version" value="${uml.version}"/>
-			<param name="metadata.repo" value="${uml.metadata.url}"/>
-			<param name="artifact.repo" value="${uml.artifact.url}"/>
+			<param name="repo" value="${uml.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.emfqtv.all.sdk"/>
 			<param name="feature.version" value="${emfqtv.version}"/>
-			<param name="metadata.repo" value="${emfqtv.metadata.url}"/>
-			<param name="artifact.repo" value="${emfqtv.artifact.url}"/>
+			<param name="repo" value="${emfqtv.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gef.sdk"/>
 			<param name="feature.version" value="${gef.version}"/>
-			<param name="metadata.repo" value="${gef.metadata.url}"/>
-			<param name="artifact.repo" value="${gef.artifact.url}"/>
+			<param name="repo" value="${gef.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.ocl.all.sdk"/>
 			<param name="feature.version" value="${ocl.version}"/>
-			<param name="metadata.repo" value="${ocl.metadata.url}"/>
-			<param name="artifact.repo" value="${ocl.artifact.url}"/>
+			<param name="repo" value="${ocl.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.m2m.qvt.oml.sdk"/>
 			<param name="feature.version" value="${qvt.version}"/>
-			<param name="metadata.repo" value="${qvt.metadata.url}"/>
-			<param name="artifact.repo" value="${qvt.artifact.url}"/>
+			<param name="repo" value="${qvt.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gmf.sdk"/>
 			<param name="feature.version" value="${gmf.version}"/>
-			<param name="metadata.repo" value="${gmf.metadata.url}"/>
-			<param name="artifact.repo" value="${gmf.artifact.url}"/>
+			<param name="repo" value="${gmf.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gmf.sdk.experimental"/>
 			<param name="feature.version" value="${gmfexp.version}"/>
-			<param name="metadata.repo" value="${gmfexp.metadata.url}"/>
-			<param name="artifact.repo" value="${gmfexp.artifact.url}"/>
+			<param name="repo" value="${gmfexp.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2tools.sdk"/>
 			<param name="feature.version" value="${umlt.version}"/>
-			<param name="metadata.repo" value="${umlt.metadata.url}"/>
-			<param name="artifact.repo" value="${umlt.artifact.url}"/>
+			<param name="repo" value="${umlt.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.teneo.sdk"/>
 			<param name="feature.version" value="${teneo.version}"/>
-			<param name="metadata.repo" value="${teneo.metadata.url}"/>
-			<param name="artifact.repo" value="${teneo.artifact.url}"/>
+			<param name="repo" value="${teneo.repo.url}"/>
 		</antcall>
 		
 		<!-- workaround for out of date xpand and mwe update sites -->
@@ -95,14 +85,12 @@
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.xpand.sdk"/>
 			<param name="feature.version" value="${xpand.version}"/>
-			<param name="metadata.repo" value="${xpand.metadata.url}"/>
-			<param name="artifact.repo" value="${xpand.artifact.url}"/>
+			<param name="repo" value="${xpand.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.mwe.sdk"/>
 			<param name="feature.version" value="${mwe.version}"/>
-			<param name="metadata.repo" value="${mwe.metadata.url}"/>
-			<param name="artifact.repo" value="${mwe.artifact.url}"/>
+			<param name="repo" value="${mwe.repo.url}"/>
 		</antcall>
 		
 <!-- TODO:remove?		<antcall target="installDeltaPack"/> -->
@@ -310,13 +298,13 @@
 			<arg line="--launcher.suppressErrors" />
 			<arg line="-consoleLog" />
 			<arg line="-installIU ${feature.id}.feature.group" />
-			<!-- NOTE: using no version parameter seems to install the latest (first? arbitrary?) version of the feature 
-					   to use a version, be sure to set ${feature.version} to something like "-version 1.0.0" (including -version)
-					   as having no value after -version is not the same as no switch at all, and 0.0.0 doesn't behave as expected -->
-			<arg line="${feature.version}" /> 
+			<!-- NOTE: using no version parameter seems to install the latest (first? arbitrary?) version of the feature. 
+					   note: having no value after -version is not the same as no argument at all, and 0.0.0 doesn't behave as expected -->
+			<arg line="-version ${feature.version}" /> 
 			<arg line="-profileProperties org.eclipse.update.install.features=true" />
-			<arg line="-metadataRepository ${metadata.repo}" />
-			<arg line="-artifactRepository ${artifact.repo}" />
+			<!-- Until someone splits the two, assume metadata and artifact repo are the same -->
+			<arg line="-metadataRepository ${repo}" />
+			<arg line="-artifactRepository ${repo}" />
 			<arg line="-vmargs -Xmx1024m" />
 		</exec>
 		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache" />
