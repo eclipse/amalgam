@@ -36,7 +36,7 @@
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2.sdk"/>
-			<param name="feature.version" value="${uml2.version}"/>
+			<param name="feature.version" value="${uml.version}"/>
 			<param name="metadata.repo" value="${uml.metadata.url}"/>
 			<param name="artifact.repo" value="${uml.artifact.url}"/>
 		</antcall>
