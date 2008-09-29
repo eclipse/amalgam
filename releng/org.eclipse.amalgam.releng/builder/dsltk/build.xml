@@ -58,39 +58,39 @@
 	<target name="build.p2.product">
 		<!-- Invoke p2 product installation here - no need to do within customTargets, actually -->
 		<!-- note that there's a p2.director ant task, though not complete? -->
-		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse" />
+		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/${archivePrefix}" />
 		<antcall target="run.director">
-			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse"/>
+			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/${archivePrefix}"/>
 			<param name="p2.os" value="win32"/>
 			<param name="p2.ws" value="win32"/>
 			<param name="p2.arch" value="x86"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
 		
-		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) 
+		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
 		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
 			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
-			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>-->
+			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
 		
 		<zip destfile="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.win32.win32.x86.zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse" />
 		
 		
-		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse" />
+		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/${archivePrefix}" />
 		<antcall target="run.director">
-			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse"/>
+			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/${archivePrefix}"/>
 			<param name="p2.os" value="linux"/>
 			<param name="p2.ws" value="gtk"/>
 			<param name="p2.arch" value="x86"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
 		
-		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) 
+		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
 		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
 			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
-			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>-->
+			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
 		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/">
-			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar ${archivePrefix}"/>
+			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar ${archivePrefix}"/>
 		</exec>
 		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar.gz"/>
 		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar" />
@@ -105,20 +105,20 @@
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
 
-		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default 
-		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app" /> -->
+		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default -->
+		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app" /> 
 		
-		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) 
+		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
 		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
 			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
-			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/> -->
+			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/> 
 		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/">
-			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar ${archivePrefix}"/>
+			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar ${archivePrefix}"/>
 		</exec>
 		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar.gz"/>
-<!--	<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" />
-		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp"/> -->
+		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" />
+		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp"/> 
 	</target>
 	
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
