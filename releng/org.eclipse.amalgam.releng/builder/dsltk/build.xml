@@ -15,7 +15,6 @@
 	
 	<target name="fetch.builder"> 
 		<!-- No director app in normal basebuilder, so just use SDK and extract deltapack into it -->
-		<!-- can all dependencies just be installed into basebuilder and forget base location (target)? -->
 		<get src="${eclipseBaseURL}" dest="${buildDirectory}/base.tar.gz" verbose="true" usetimestamp="true"/>
 		<mkdir dir="${buildDirectory}/basebuilder"/>
 		<exec executable="tar">
@@ -72,14 +71,10 @@
 		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
 			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
 			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>-->
-			
-		<!-- workaround for missing args in generated .ini file that are declared in .product file 
-		<concat append="true" destfile="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse/dsltoolkit.ini">-Xms128m
--Xmx1024m
--XX:MaxPermSize=256m
-		</concat> -->
 		
-		<zip destfile="${buildDirectory}/${buildLabel}/p2/dsltk-incubation.win32.win32.x86.zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse"/>
+		<zip destfile="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.win32.win32.x86.zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse" />
+		
+		
 		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse" />
 		<antcall target="run.director">
 			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse"/>
@@ -94,17 +89,13 @@
 			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
 			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>-->
 		
-		<!-- workaround for missing args in generated .ini file that are declared in .product file 
-		<concat append="true" destfile="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse/dsltoolkit.ini">-Xms128m
--Xmx1024m
--XX:MaxPermSize=256m
-		</concat>-->
-		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/">
-			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/dsltk-incubation.linux.gtk.x86.tar ${archivePrefix}"/>
+			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/dsltk.linux.gtk.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/dsltk-incubation.linux.gtk.x86.tar.gz"/>
-		<delete file="${buildDirectory}/${buildLabel}/p2/dsltk.linux.gtk.x86.tar" />
+		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar.gz"/>
+		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar" />
+		
+		
 		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse" />
 		<antcall target="run.director">
 			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse"/>
@@ -113,16 +104,6 @@
 			<param name="p2.arch" value="x86"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
-		
-		<!-- FIXME: replace dsltoolkit.ini with Eclipse.app/../Eclipse.ini and then concat with another
-		           that has the missing vmargs - workaround 
-		<copy file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app/Contents/MacOS/eclipse.ini" 
-			  tofile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini" overwrite="true"/>
-		<concat append="true" destfile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/dsltoolkit.app/Contents/MacOS/dsltoolkit.ini">-Xdock:icon=../Resources/Eclipse.icns
--Xms128m
--Xmx1024m
--XX:MaxPermSize=256m
-		</concat> -->
 
 		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default 
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse/Eclipse.app" /> -->
@@ -133,10 +114,10 @@
 			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/> -->
 		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/">
-			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar ${archivePrefix}"/>
+			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/dsltk-incubation.macosx.carbon.x86.tar.gz"/>
-		<delete file="${buildDirectory}/${buildLabel}/p2/dsltk.macosx.carbon.x86.tar" />
+		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar.gz"/>
+		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" />
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp"/>
 	</target>
 	
