@@ -16,11 +16,11 @@
 	<target name="fetch.builder"> 
 		<!-- No director app in normal basebuilder, so just use SDK and extract deltapack into it -->
 		<get src="${eclipseBaseURL}" dest="${buildDirectory}/base.tar.gz" verbose="true" usetimestamp="true"/>
-		<mkdir dir="${buildDirectory}/basebuilder"/>
+		<mkdir dir="${basebuilder}"/>
 		<exec executable="tar">
 			<arg line="-xzf"/>
 			<arg line="${buildDirectory}/base.tar.gz"/>
-			<arg line="-C ${buildDirectory}/basebuilder"/>
+			<arg line="-C ${basebuilder}"/>
 		</exec>
 		<antcall target="install.delta.pack"/>
 	</target>
@@ -28,7 +28,7 @@
 	<target name="install.delta.pack">
 		<available file="${buildDirectory}/deltapack.zip" property="skipDeltaPack" />
 		<antcall target="get.delta.pack"/>
-		<unzip src="${buildDirectory}/deltapack.zip" dest="${buildDirectory}/basebuilder"/>
+		<unzip src="${buildDirectory}/deltapack.zip" dest="${basebuilder}"/>
 	</target>
 	
 	<target name="get.delta.pack" unless="skipDeltaPack">
@@ -36,7 +36,7 @@
 	</target>
 
 	<target name="build.product">		
-		<exec executable="${buildDirectory}/basebuilder/eclipse/eclipse" dir="${buildDirectory}/builder" failonerror="true">
+		<exec executable="${basebuilder}/eclipse/eclipse" dir="${buildDirectory}/builder" failonerror="true">
 			<arg line="-application org.eclipse.ant.core.antRunner"/>
 			<arg line="-buildfile ${basebuilder}/eclipse/plugins/org.eclipse.pde.build_${pde.build.version}/scripts/productBuild/productBuild.xml" />
 			<arg line="-nosplash" />
@@ -124,7 +124,7 @@
 	</target>
 	
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
-		<exec executable="${buildDirectory}/basebuilder/eclipse/eclipse" failonerror="false">
+		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
