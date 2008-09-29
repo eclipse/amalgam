@@ -11,6 +11,10 @@
 		<property name="buildRoot" value="${user.home}/build"/>
 		<property name="builderTag" value="HEAD"/>
 		<property name="basebuilder" value="${buildRoot}/basebuilder"/>
+		
+		<property name="pde.build.version" value="3.4.1.R34x_v20080805"/>
+		<property name="eclipseBaseURL" value="http://download.eclipse.org/eclipse/downloads/drops/R-3.4.1-200809111700/eclipse-SDK-3.4.1-macosx-carbon.tar.gz"/>
+		<property name="deltaPackURL" value="http://download.eclipse.org/eclipse/downloads/drops/R-3.4.1-200809111700/eclipse-3.4.1-delta-pack.zip"/>
 	</target>
 	
 	<target name="main" depends="init">
@@ -65,7 +69,9 @@
 			<arg line="-consoleLog" />
 			<arg line="-vmargs"/>
 			<arg line="-Xmx1024m" />
+			<arg value="-DbuildRoot=${buildRoot}"/>
 			<arg value="-Dbuilder=${buildDirectory}/builder"/>
+			<arg value="-Dbasebuilder=${basebuilder}"/>
 			<arg value="-DbuildDirectory=${buildDirectory}"/>
 			<arg value="-Dbase=${base}"/>
 			<arg value="-DbaseLocation=${baseLocation}"/>
@@ -74,8 +80,17 @@
 			<arg value="-DbuildId=${buildId}"/>
 			<arg value="-DbuildLabel=${buildLabel}"/>
 		</exec>
+		
+		<!-- We don't really need the zips produced by the product build, so delete -->
+		<delete >
+		    <fileset dir="${buildDirectory}/${buildLabel}" includes="**/*.zip"/>
+		</delete>
+		
+		
+		<!-- TODO: build p2 artifacts in root and not in /p2 directory -->
+		
 				
-		<!-- Invoke p2 product installation here - no need to do within customTargets, actually -->
+		<!-- Invoke p2 product installation  -->
 		<!-- note that there's a p2.director ant task, though not complete? -->
 		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/${archivePrefix}" />
 		<antcall target="run.director">
@@ -141,7 +156,7 @@
 		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" />
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp"/>
 		
-		<!-- TODO: delete unused product zips and move /p2 directory artifacts up ... OR, just delete them first and build p2 artifacts in root? -->
+		
 	</target>
 	
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
