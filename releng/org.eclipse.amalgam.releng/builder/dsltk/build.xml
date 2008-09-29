@@ -68,10 +68,10 @@
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
 		
-		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
+		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) 
 		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
 			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
-			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
+			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>-->
 			
 		<!-- workaround for missing args in generated .ini file that are declared in .product file 
 		<concat append="true" destfile="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/eclipse/dsltoolkit.ini">-Xms128m
@@ -89,10 +89,10 @@
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
 		
-		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
+		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) 
 		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
 			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
-			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
+			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>-->
 		
 		<!-- workaround for missing args in generated .ini file that are declared in .product file 
 		<concat append="true" destfile="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/eclipse/dsltoolkit.ini">-Xms128m
