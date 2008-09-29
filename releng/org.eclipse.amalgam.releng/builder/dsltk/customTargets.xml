@@ -15,11 +15,11 @@
 	<!-- ===================================================================== -->
 	<!-- ===================================================================== -->
 	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
-		<get src="${eclipseBaseURL}" dest="${buildDirectory}/base.tar.gz" verbose="true" usetimestamp="true"/>
+		<get src="${eclipseBaseURL}" dest="${buildRoot}/base.tar.gz" verbose="true" usetimestamp="true"/>
 		<mkdir dir="${base}"/>
 		<exec executable="tar">
 			<arg line="-xzf"/>
-			<arg line="${buildDirectory}/base.tar.gz"/>
+			<arg line="${buildRoot}/base.tar.gz"/>
 			<arg line="-C ${base}"/>
 		</exec>
 
