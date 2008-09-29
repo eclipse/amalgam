@@ -15,8 +15,6 @@
 	<!-- ===================================================================== -->
 	<!-- ===================================================================== -->
 	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
-		<!-- TODO replace zip usage with director install from update site after 241596 resolved -->
-		<!-- with that, just download the director app, as it's not included in the basebuilder -->
 		<get src="${eclipseBaseURL}" dest="${buildDirectory}/base.tar.gz" verbose="true" usetimestamp="true"/>
 		<mkdir dir="${base}"/>
 		<exec executable="tar">
@@ -28,62 +26,52 @@
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf"/>
 			<param name="feature.version" value=""/>
-			<param name="metadata.repo" value="${emf.metadata.url}"/>
-			<param name="artifact.repo" value="${emf.artifact.url}"/>
+			<param name="repo" value="${emf.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2"/>
 			<param name="feature.version" value=""/>
-			<param name="metadata.repo" value="${uml.metadata.url}"/>
-			<param name="artifact.repo" value="${uml.artifact.url}"/>
+			<param name="repo" value="${uml.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.emfqtv.all"/>
 			<param name="feature.version" value=""/>
-			<param name="metadata.repo" value="${qtv.metadata.url}"/>
-			<param name="artifact.repo" value="${qtv.artifact.url}"/>
+			<param name="repo" value="${qtv.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gef"/>
 			<param name="feature.version" value=""/>
-			<param name="metadata.repo" value="${gef.metadata.url}"/>
-			<param name="artifact.repo" value="${gef.artifact.url}"/>
+			<param name="repo" value="${gef.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.ocl.all"/>
 			<param name="feature.version" value=""/>
-			<param name="metadata.repo" value="${ocl.metadata.url}"/>
-			<param name="artifact.repo" value="${ocl.artifact.url}"/>
+			<param name="repo" value="${ocl.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gmf"/>
 			<param name="feature.version" value=""/>
-			<param name="metadata.repo" value="${gmf.metadata.url}"/>
-			<param name="artifact.repo" value="${gmf.artifact.url}"/>
+			<param name="repo" value="${gmf.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2tools.sdk"/>
 			<param name="feature.version" value=""/>
-			<param name="metadata.repo" value="${umlt.metadata.url}"/>
-			<param name="artifact.repo" value="${umlt.artifact.url}"/>
+			<param name="repo" value="${umlt.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2.diagram.clazz.search"/>
 			<param name="feature.version" value=""/>
-			<param name="metadata.repo" value="${uml2diagramsearch.metadata.url}"/>
-			<param name="artifact.repo" value="${uml2diagramsearch.artifact.url}"/>
+			<param name="repo" value="${uml2diagramsearch.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.stp.bpmn.feature"/>
 			<param name="feature.version" value=""/>
-			<param name="metadata.repo" value="${bpmn.metadata.url}"/>
-			<param name="artifact.repo" value="${bpmn.artifact.url}"/>
+			<param name="repo" value="${bpmn.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.stp.sc.sca.feature"/>
 			<param name="feature.version" value=""/>
-			<param name="metadata.repo" value="${sca.metadata.url}"/>
-			<param name="artifact.repo" value="${sca.artifact.url}"/>
+			<param name="repo" value="${sca.repo.url}"/>
 		</antcall>
 		
 		<p2.generator source="${baseLocation}" 
@@ -246,13 +234,12 @@
 			<arg line="--launcher.suppressErrors" />
 			<arg line="-consoleLog" />
 			<arg line="-installIU ${feature.id}.feature.group" />
-			<!-- NOTE: using no version parameter seems to install the latest (first? arbitrary?) version of the feature 
-					   to use a version, be sure to set ${p2.version} to something like "-version 1.0.0" (including -version)
-					   as having no value after -version is not the same as no switch at all, and 0.0.0 doesn't behave as expected -->
+			<!-- NOTE: using no version parameter seems to install the latest (first? arbitrary?) version of the feature. 
+					   note: having 0.0.0 as the version is not the same as no value, unfortunately -->
 			<arg line="${feature.version}" /> 
 			<arg line="-profileProperties org.eclipse.update.install.features=true" />
-			<arg line="-metadataRepository ${metadata.repo}" />
-			<arg line="-artifactRepository ${artifact.repo}" />
+			<arg line="-metadataRepository ${repo}" />
+			<arg line="-artifactRepository ${repo}" />
 			<arg line="-vmargs -Xmx1024m" />
 		</exec>
 		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache" />

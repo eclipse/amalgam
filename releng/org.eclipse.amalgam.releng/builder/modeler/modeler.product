@@ -14,7 +14,8 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+      <vmArgs>-Xms40m-Xmx512m-XX:MaxPermSize=256m</vmArgs>
+      <vmArgsMac>-Xdock:icon=../Resources/Eclipse.icns-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
    <windowImages i16="/org.eclipse.amalgam.modeler/icons/eclipse.gif" i32="/org.eclipse.amalgam.modeler/icons/eclipse32.gif" i48="/org.eclipse.amalgam.modeler/icons/eclipse48.gif"/>
@@ -47,9 +48,6 @@
       <feature id="org.eclipse.ocl.all" version="0.0.0"/>
       <feature id="org.eclipse.emf.emfqtv.all" version="0.0.0"/>
       <feature id="org.eclipse.gmf" version="0.0.0"/>
-      <!-- UML2 Tools removed until org.eclipse.emf feature dependency removed -->
-      <!-- Remove until bug 247240 is resolved
-      <feature id="org.eclipse.uml2.diagram.clazz.search" version="0.0.0"/> -->
       <feature id="org.eclipse.uml2tools.examples" version="0.0.0"/>
       <feature id="org.eclipse.amalgam.modeler" version="0.0.0"/>
       <feature id="org.eclipse.amalgam.examples.modeler" version="0.0.0"/>
