@@ -96,9 +96,9 @@
 		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar" />
 		
 		
-		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse" />
+		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/${archivePrefix}" />
 		<antcall target="run.director">
-			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/eclipse"/>
+			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/${archivePrefix}"/>
 			<param name="p2.os" value="macosx"/>
 			<param name="p2.ws" value="carbon"/>
 			<param name="p2.arch" value="x86"/>
@@ -117,8 +117,8 @@
 			<arg line="${tarargs}-cvf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar ${archivePrefix}"/>
 		</exec>
 		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar.gz"/>
-		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" />
-		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp"/>
+<!--	<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" />
+		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp"/> -->
 	</target>
 	
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
