@@ -36,7 +36,7 @@
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.emf.emfqtv.all"/>
 			<param name="feature.version" value=""/>
-			<param name="repo" value="${qtv.repo.url}"/>
+			<param name="repo" value="${emfqtv.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.gef"/>
