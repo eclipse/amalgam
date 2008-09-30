@@ -54,7 +54,7 @@
 			<param name="repo" value="${gmf.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.uml2tools.sdk"/>
+			<param name="feature.id" value="org.eclipse.uml2.diagram"/>
 			<param name="feature.version" value=""/>
 			<param name="repo" value="${umlt.repo.url}"/>
 		</antcall>
