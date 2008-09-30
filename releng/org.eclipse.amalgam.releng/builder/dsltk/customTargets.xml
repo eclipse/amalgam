@@ -275,7 +275,9 @@
 			<arg line="-artifactRepository ${repo}" />
 			<arg line="-vmargs -Xmx1024m" />
 		</exec>
+<!-- remove to see if necessary
 		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache" />
+-->
 	</target>
 		
 	<!-- ===================================================================== -->
