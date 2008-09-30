@@ -59,11 +59,6 @@
 			<param name="repo" value="${umlt.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.uml2tools.examples"/>
-			<param name="feature.version" value="${umlte.version}"/>
-			<param name="repo" value="${umlte.repo.url}"/>
-		</antcall>
-		<antcall target="install.feature">
 			<param name="feature.id" value="org.eclipse.uml2.diagram.clazz.search"/>
 			<param name="feature.version" value=""/>
 			<param name="repo" value="${uml2diagramsearch.repo.url}"/>
