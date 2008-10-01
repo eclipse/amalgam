@@ -7,11 +7,10 @@
 		<property name="time" value="${TSTAMP}"/>
 		<!-- TODO: find a better way obtain from product definition and pass to build below -->
 		<property name="productVersion" value="1.0.0.v${date}${time}"/>
-		
 		<property name="buildRoot" value="${user.home}/build"/>
 		<property name="builderTag" value="HEAD"/>
 		<property name="basebuilder" value="${buildRoot}/basebuilder"/>
-		
+		<!-- TODO: extract version information to external properties -->
 		<property name="pde.build.version" value="3.4.1.R34x_v20080805"/>
 		<property name="eclipseBaseURL" value="http://download.eclipse.org/eclipse/downloads/drops/R-3.4.1-200809111700/eclipse-SDK-3.4.1-macosx-carbon.tar.gz"/>
 		<property name="deltaPackURL" value="http://download.eclipse.org/eclipse/downloads/drops/R-3.4.1-200809111700/eclipse-3.4.1-delta-pack.zip"/>
@@ -20,12 +19,12 @@
 	<target name="main" depends="init">
 		<antcall target="fetch.builder"/>
 		<antcall target="build.product">
-			<param name="target" value="dsltk"/>
-			<param name="buildDirectory" value="${buildRoot}/dsltk"/>
-		</antcall>
-		<antcall target="build.product">
 			<param name="target" value="modeler"/>
 			<param name="buildDirectory" value="${buildRoot}/modeler"/>
+		</antcall>
+		<antcall target="build.product">
+			<param name="target" value="dsltk"/>
+			<param name="buildDirectory" value="${buildRoot}/dsltk"/>
 		</antcall>
 	</target>
 	
@@ -41,10 +40,10 @@
 		<antcall target="install.delta.pack"/>
 	</target>
 	
-	<target name="install.delta.pack">
+	<target name="install.delta.pack">		
 		<available file="${buildRoot}/deltapack.zip" property="skipDeltaPack" />
 		<antcall target="get.delta.pack"/>
-		<unzip src="${buildRoot}/deltapack.zip" dest="${basebuilder}"/>
+		<unzip src="${buildRoot}/deltapack.zip" dest="${basebuilder}"/> 
 	</target>
 	
 	<target name="get.delta.pack" unless="skipDeltaPack">
@@ -86,12 +85,7 @@
 		    <fileset dir="${buildDirectory}/${buildLabel}" includes="**/*.zip"/>
 		</delete>
 		
-		
-		<!-- TODO: build p2 artifacts in root and not in /p2 directory -->
-		
-				
-		<!-- Invoke p2 product installation  -->
-		<!-- note that there's a p2.director ant task, though not complete? -->
+		<!-- Invoke p2 director to assemble each product -->
 		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/${archivePrefix}" />
 		<antcall target="run.director">
 			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/${archivePrefix}"/>
@@ -100,14 +94,7 @@
 			<param name="p2.arch" value="x86"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
-		
-		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
-		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/${archivePrefix}/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
-			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
-			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
-		
-		<zip destfile="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.win32.win32.x86.zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/${archivePrefix}" />
-		
+		<zip destfile="${buildDirectory}/${buildLabel}/${archiveNamePrefix}.win32.win32.x86.zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/win32.win32.x86/${archivePrefix}" />
 		
 		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/${archivePrefix}" />
 		<antcall target="run.director">
@@ -117,18 +104,11 @@
 			<param name="p2.arch" value="x86"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
-		
-		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
-		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/${archivePrefix}/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
-			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
-			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/>
-		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/linux.gtk.x86/">
 			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar.gz"/>
+		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar" zipfile="${buildDirectory}/${buildLabel}/${archiveNamePrefix}.linux.gtk.x86.tar.gz"/>
 		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.linux.gtk.x86.tar" />
-		
 		
 		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/${archivePrefix}" />
 		<antcall target="run.director">
@@ -138,25 +118,17 @@
 			<param name="p2.arch" value="x86"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
-
 		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default (but first, copy correct .ini file) -->
 		<copy file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/${archivePrefix}/Eclipse.app/Contents/MacOS/eclipse.ini" 
 					  tofile="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/${archivePrefix}/${archivePrefix}.app/Contents/MacOS/${archivePrefix}.ini" overwrite="true"/>
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/${archivePrefix}/Eclipse.app" /> 
-		
-		<!-- FIXME: workaround for bug 237662 (org.eclipse.core.runtime start level wrong in bundles.info) -->
-		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/${archivePrefix}/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
-			token="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,false" 
-			value="file:plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar,4,true"/> 
-		
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/macosx.carbon.x86/">
 			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" zipfile="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar.gz"/>
+		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" zipfile="${buildDirectory}/${buildLabel}/${archiveNamePrefix}.macosx.carbon.x86.tar.gz"/>
 		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.macosx.carbon.x86.tar" />
-		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp"/>
 		
-		
+		<delete dir="${buildDirectory}/${buildLabel}/p2"/>
 	</target>
 	
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
@@ -184,5 +156,5 @@
 		<!-- delete the metadata cache as well as the artifacts for unzipped bundles -->
 		<delete failonerror="false" includeEmptyDirs="true" dir="${p2.director.install.path}/p2/org.eclipse.equinox.p2.core/cache" />
 	</target>
-
+	
 </project>
