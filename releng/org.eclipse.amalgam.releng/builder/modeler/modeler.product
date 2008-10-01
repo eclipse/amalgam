@@ -41,8 +41,8 @@
    <plugins>
    </plugins>
 
-   <features>
-      <feature id="org.eclipse.platform" version="0.0.0"/>
+   <features> <!-- test theory that removing platform feature causes improper bundles.info to be generated...
+      <feature id="org.eclipse.platform" version="0.0.0"/> -->
       <feature id="org.eclipse.cvs" version="0.0.0"/>
       <feature id="org.eclipse.gef" version="0.0.0"/>
       <feature id="org.eclipse.ocl.all" version="0.0.0"/>
