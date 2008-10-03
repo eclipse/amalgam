@@ -59,10 +59,14 @@
 		<delete dir="${buildRoot}/${target}/builder/org.eclipse.amalgam" />
 		<property file="${buildRoot}/${target}/builder/build.properties"/>
 		
+		<fileset dir="${basebuilder}/eclipse/plugins" includes="org.eclipse.pde.build_*/scripts/productBuild/productBuild.xml" id="pde.plugin.path" />
+		<pathconvert property="buildFile" refid="pde.plugin.path" />
+		<fail message="Could not find PDE plugins. PDE not installed?" unless="buildFile" />
+		
 		<!-- First, run normal product build to fetch, compile, and generate metadata repository for p2 build -->
 		<exec executable="${basebuilder}/eclipse/eclipse" dir="${buildDirectory}/builder" failonerror="true">
 			<arg line="-application org.eclipse.ant.core.antRunner"/>
-			<arg line="-buildfile ${basebuilder}/eclipse/plugins/org.eclipse.pde.build_${pde.build.version}/scripts/productBuild/productBuild.xml" />
+			<arg line="-buildfile ${buildFile}" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
 			<arg line="-consoleLog" />
