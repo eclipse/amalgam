@@ -25,4 +25,9 @@ plugin@org.eclipse.amalgam.examples.dsl.bpmn=HEAD,:pserver:anonymous@dev.eclipse
 plugin@org.eclipse.amalgam.examples.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsltk
 plugin@org.eclipse.amalgam.examples.modeler=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.modeler
 
+!*** Test Galileo build *****************************************************************
+feature@org.eclipse.galileo=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.galileo-feature
+plugin@org.eclipse.galileo=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/plugins/org.eclipse.galileo
+
+
 
