@@ -119,8 +119,6 @@ public class DSLProjectWizard extends EmptyProjectWizard {
 					manifest.println(" org.eclipse.xtend.typesystem.emf,");
 					manifest.println(" org.eclipse.emf.mwe.core,");
 					manifest.println(" org.eclipse.emf.mwe.utils,");
-					manifest.println(" org.apache.commons.cli,");
-					manifest.println(" org.apache.commons.lang,");
 					manifest.println(" org.eclipse.emf.ecore.xmi,");
 					manifest.println(" org.apache.commons.logging,");
 					manifest.println(" org.antlr.runtime");
