@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ASCII"?>
+<build:Build xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:build="http://www.eclipse.org/amalgam/2008/build" xsi:schemaLocation="http://www.eclipse.org/amalgam/2008/build build.ecore" type="I" buildRoot="${user.home}/build" fetchTag="CVS=HEAD">
+  <repositories location="http://download.eclipse.org/eclipse/updates/3.4.x"/>
+  <repositories location="http://download.eclipse.org/modeling/emf/updates/releases/"/>
+  <repositories location="http://download.eclipse.org/tools/gef/updates/milestones/"/>
+  <repositories location="http://download.eclipse.org/modeling/gmf/updates/releases/"/>
+  <repositories location="http://download.eclipse.org/modeling/mdt/updates/releases/"/>
+  <repositories location="http://download.eclipse.org/modeling/m2m/updates/releases/"/>
+  <productConfiguration>
+    <product href="Product.xmi#/"/>
+    <repoMappings repository="//@repositories.2">
+      <feature href="Product.xmi#//@features/@feature.1"/>
+    </repoMappings>
+  </productConfiguration>
+  <base config="//@configs.0" version="3.5M1" buildID="S-3.5M1-200808071402" extension="tar.gz"/>
+  <configs os="macosx" ws="carbon" arch="x86" archiveFormat="tar"/>
+  <configs os="win32" ws="win32" arch="x86" archiveFormat="zip"/>
+  <configs os="linux" ws="gtk" arch="x86" archiveFormat="tar"/>
+  <map root="org.eclipse.amalgam/releng/org.eclipse.amalgam.releng" repo=":pserver:anonymous@dev.eclipse.org/cvsroot/modeling" tag="HEAD"/>
+</build:Build>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<workflow>
+	<property name="model" value="platform:/resource/org.eclipse.amalgam.releng.builder/model/Build.xmi" />
+	<property name="out" value="out" />
+
+	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup">
+		<platformUri value="../" />
+	</bean>
+
+	<component class="org.eclipse.emf.mwe.utils.Reader">
+		<uri value="${model}" />
+		<modelSlot value="model" />
+	</component>
+
+	<component class="org.eclipse.xpand2.Generator">
+		<metaModel id="mm" class="org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel"/>
+		<expand value="build2script::Main FOR model" />
+		<outlet path="${out}"/>
+	</component>
+</workflow>

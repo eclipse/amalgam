@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.4"?>
+
+<product name="Modeler" id="org.eclipse.amalgam.modeler.product" application="org.eclipse.ui.ide.workbench" version="1.0.0.qualifier" useFeatures="true">
+
+   <aboutInfo>
+      <image path="/org.eclipse.amalgam.modeler/about.png"/>
+      <text>
+         %aboutDialogText
+      </text>
+   </aboutInfo>
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgs>-Xms40m-Xmx512m-XX:MaxPermSize=256m</vmArgs>
+      <vmArgsMac>-Xdock:icon=../Resources/Eclipse.icns-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <windowImages i16="/org.eclipse.amalgam.modeler/icons/eclipse.gif" i32="/org.eclipse.amalgam.modeler/icons/eclipse32.gif" i48="/org.eclipse.amalgam.modeler/icons/eclipse48.gif"/>
+
+   <splash
+      location="org.eclipse.amalgam.modeler"
+      startupProgressRect="0,290,450,15"
+      startupMessageRect="5,270,450,15"
+      startupForegroundColor="E6E6E6" />
+   <launcher name="modeler">
+      <macosx icon="/org.eclipse.amalgam.modeler/Eclipse.icns"/>
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <intro introId="org.eclipse.ui.intro.universal"/>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.eclipse.platform" version="0.0.0"/>
+      <feature id="org.eclipse.cvs" version="0.0.0"/>
+      <feature id="org.eclipse.gef" version="0.0.0"/>
+      <feature id="org.eclipse.ocl.all" version="0.0.0"/>
+      <feature id="org.eclipse.emf.emfqtv.all" version="0.0.0"/>
+      <feature id="org.eclipse.gmf" version="0.0.0"/>
+      <feature id="org.eclipse.amalgam.modeler" version="0.0.0"/>
+      <feature id="org.eclipse.amalgam.examples.modeler" version="0.0.0"/>
+      <feature id="org.eclipse.stp.bpmn.feature" version="0.0.0"/>
+   </features>
+
+</product>
