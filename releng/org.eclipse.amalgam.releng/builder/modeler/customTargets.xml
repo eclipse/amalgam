@@ -69,7 +69,7 @@
 			<param name="repo" value="${bpmn.repo.url}"/>
 		</antcall>
 		<antcall target="install.feature">
-			<param name="feature.id" value="org.eclipse.stp.sc.sca.feature"/>
+			<param name="feature.id" value="org.eclipse.stp.sca.feature.amalgamation"/>
 			<param name="feature.version" value=""/>
 			<param name="repo" value="${sca.repo.url}"/>
 		</antcall>
