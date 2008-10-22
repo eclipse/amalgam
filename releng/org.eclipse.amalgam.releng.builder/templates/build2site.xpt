@@ -1,0 +1,19 @@
+«IMPORT 'http://www.eclipse.org/amalgam/2008/build'»
+«IMPORT 'http://www.eclipse.org/amalgam/2008/product'»
+
+«DEFINE Main FOR Build-»
+<?xml version="1.0"?>
+<site mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/releases/galileo/site.xml&amp;format=xml&amp;protocol=http" pack200="true" digestURL="http://download.eclipse.org/releases/galileo/">
+<description url="http://www.eclipse.org/ganymede/">This Galileo Discovery Site contains a number of Eclipse based projects released simultaneously, June 2009.</description>
+«FOREACH productConfiguration.categoryMappings AS mapping»
+<feature url="features/«mapping.feature.id»_«mapping.feature.version».jar" id="«mapping.feature.id»" version="«mapping.feature.version»">
+<category name="«mapping.category.name»"/>
+</feature>
+«ENDFOREACH»
+«FOREACH categories AS category»
+<category-def name="«category.name»" label="«category.label»">
+<description>«category.description»</description>
+</category-def>
+«ENDFOREACH»
+</site>
+«ENDDEFINE»

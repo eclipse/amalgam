@@ -23,6 +23,11 @@
 			<param name="target" value="«productConfiguration.product.name»"/>
 			<param name="buildDirectory" value="${buildRoot}/«productConfiguration.product.name»"/>
 		</antcall>
+		<!-- FIXME: generate metadata using site.xml to provide categories until bug 250974 is resolved -->
+		<antcall target="categorize">
+			<param name="target" value="«productConfiguration.product.name»"/>
+			<param name="buildDirectory" value="${buildRoot}/«productConfiguration.product.name»"/>
+		</antcall>
 	</target>
 	
 	<target name="fetch.builder"> 
@@ -60,6 +65,11 @@
 		<fileset dir="${basebuilder}/eclipse/plugins" includes="org.eclipse.pde.build_*/scripts/productBuild/productBuild.xml" id="pde.plugin.path" />
 		<pathconvert property="buildFile" refid="pde.plugin.path" />
 		<fail message="Could not find pde builder here: ${buildFile}" unless="buildFile" />
+		
+		<echo message="Configuring product «productConfiguration.product.id» with the following features:"/>
+«FOREACH productConfiguration.product.features.feature AS feature-»
+		<echo message="   «feature.id» «feature.version»"/>
+«ENDFOREACH»
 		
 		<!-- First, run normal product build to fetch, compile, and generate metadata repository for p2 build -->
 		<exec executable="${basebuilder}/eclipse/eclipse" dir="${buildDirectory}/builder" failonerror="true">
@@ -123,28 +133,46 @@
 	
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
 		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
-			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
-			<arg line="-nosplash" />
-			<arg line="--launcher.suppressErrors" />
-			<arg line="-consoleLog" />
-			<arg line="-installIU ${p2.IU}" />
-			<arg line="-version ${p2.version}" />
-			<arg line="-p2.os ${p2.os}" />
-			<arg line="-p2.ws ${p2.ws}" />
-			<arg line="-p2.arch ${p2.arch}" />
-			<arg line="-roaming" />
-			<arg line="-profile ${p2.profile}" />
-			<arg line="-profileProperties org.eclipse.update.install.features=true" />
-			<arg line="-metadataRepository ${p2.metadata.repo}" />
-			<arg line="-artifactRepository ${p2.artifact.repo}" />
-			<arg line="-destination ${p2.director.install.path}" />
-			<arg line="-bundlepool ${p2.director.install.path}" />
-			<arg line="-vmargs -Xmx1024m" />
-			<arg line="-Declipse.p2.data.area=${p2.director.install.path}/p2" />
+			<arg line="-application org.eclipse.equinox.p2.director.app.application"/>
+			<arg line="-nosplash"/>
+			<arg line="--launcher.suppressErrors"/>
+			<arg line="-consoleLog"/>
+			<arg line="-installIU ${p2.IU}"/>
+			<arg line="-version ${p2.version}"/>
+			<arg line="-p2.os ${p2.os}"/>
+			<arg line="-p2.ws ${p2.ws}"/>
+			<arg line="-p2.arch ${p2.arch}"/>
+			<arg line="-roaming"/>
+			<arg line="-profile ${p2.profile}"/>
+			<arg line="-profileProperties org.eclipse.update.install.features=true"/>
+			<arg line="-metadataRepository ${p2.metadata.repo}"/>
+			<arg line="-artifactRepository ${p2.artifact.repo}"/>
+			<arg line="-destination ${p2.director.install.path}"/>
+			<arg line="-bundlepool ${p2.director.install.path}"/>
+			<arg line="-vmargs -Xmx1024m"/>
+			<arg line="-Declipse.p2.data.area=${p2.director.install.path}/p2"/>
 		</exec>
 		
 		<!-- delete the metadata cache as well as the artifacts for unzipped bundles -->
-		<delete failonerror="false" includeEmptyDirs="true" dir="${p2.director.install.path}/p2/org.eclipse.equinox.p2.core/cache" />
+		<delete failonerror="false" includeEmptyDirs="true" dir="${p2.director.install.path}/p2/org.eclipse.equinox.p2.core/cache"/>
+	</target>
+	
+	<!-- FIXME: workaround for bug 250974 : generate metadata using site.xml for categorization -->
+	<target name="categorize" depends="init">
+		<property file="${buildRoot}/${target}/builder/build.properties"/>
+		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
+			<arg line="-application org.eclipse.equinox.p2.metadata.generator.EclipseGenerator"/>
+			<arg line="-updateSite ${buildDirectory}/repo"/>
+			<arg line="-site file:${buildDirectory}/repo/site.xml"/>
+			<arg line="-metadataRepository ${p2.metadata.repo}"/>
+			<arg line="-artifactRepository ${p2.artifact.repo}"/>
+			<arg line="-nosplash"/>
+			<arg line="--launcher.suppressErrors"/>
+			<arg line="-consoleLog"/>
+			<arg line="-reusePack200Files"/>
+			<arg line="-noDefaultIUs"/>
+			<arg line="-vmargs -Xmx1024m"/>
+		</exec>
 	</target>
 	
 </project>

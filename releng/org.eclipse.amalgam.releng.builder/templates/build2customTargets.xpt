@@ -197,7 +197,7 @@
 			artifactrepository="${repo}"
 			metadatarepository="${repo}"
 		/> -->
-		
+		<echo message="Installing feature ${feature.id} ${feature.version}"/>
 		<exec executable="${baseLocation}/eclipse" failonerror="false">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
