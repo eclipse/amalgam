@@ -17,8 +17,7 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.antlr.runtime,
  org.eclipse.core.runtime,
  org.eclipse.jface.text,
- org.eclipse.jdt.core,
- org.eclipse.jem;resolution:=optional
+ org.eclipse.jdt.core
 Bundle-Vendor: %providerName
  
  
