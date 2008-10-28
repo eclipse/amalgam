@@ -46,7 +46,7 @@
      </perspectiveExtension>
    </extension>
    
-   <!-- DSL Toolkit primary wizards -->
+   <!-- DSL Toolkit primary wizards : REMOVED as they are not filtered by capabilities
    <extension
          point="org.eclipse.ui.newWizards">
       <primaryWizard
@@ -55,7 +55,7 @@
       <primaryWizard
             id="org.eclipse.amalgam.dsl.domain.DomainModelWizard">
       </primaryWizard>
-   </extension>
+   </extension> -->
    
    <extension point="org.eclipse.ui.newWizards">
   	  <!-- DSL Project Wizard -->
@@ -192,6 +192,30 @@
    <!-- DSL development activity definition -->
    <extension
        point="org.eclipse.ui.activities">
+       
+    <!-- DSL Project activities -->
+    <activity
+          description="%activity.dsl.perspective.desc"
+          id="org.eclipse.amalgam.dsl.perspectiveActivity"
+          name="%activity.dsl.perspective">
+    </activity>
+    <categoryActivityBinding
+          activityId="org.eclipse.amalgam.dsl.perspectiveActivity"
+          categoryId="org.eclipse.amalgam.dsl.Category">
+    </categoryActivityBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.dsl.perspectiveActivity"
+          pattern="org\.eclipse\.amalgam\.dsltk\.ui/org\.eclipse\.amalgam\.dsl\.DSLProjectWizard">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.dsl.perspectiveActivity"
+          pattern="org\.eclipse\.amalgam\.dsltk\.ui/org\.eclipse\.amalgam\.dsl\.ui\.dslPerspective">
+    </activityPatternBinding>
+    <!-- Filter any example contributions as well -->
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.dsl.perspectiveActivity"
+          pattern="org\.eclipse\.amalgam\.examples\.dsltk\/org\.eclipse\.amalgam\.examples\.dsl\..*">
+    </activityPatternBinding>
    
     <!-- Domain Modeling activities -->
     <activity
@@ -296,6 +320,10 @@
     <defaultEnablement
           id="org.eclipse.amalgam.dsl.diagramDefinitionActivity">
     </defaultEnablement>
+    <defaultEnablement
+          id="org.eclipse.amalgam.dsl.dslProjectActivity">
+    </defaultEnablement>
+    
   </extension>
   
   <!-- Model Transformation activity definition -->
