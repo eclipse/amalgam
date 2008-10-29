@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<build:Contribution xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" label="WebTools">
+  <features id="org.eclipse.wst" version="3.1.0.v200810090150-7G5-8eM6Jutz04Z5Wy0Up-Ab9ctX" repo="//@repositories.0">
+    <category href="galileo.build#//@categories.2"/>
+  </features>
+  <features id="org.eclipse.jst" version="3.1.0.v200809240350-7W7A19LJbz0z0Vkh0LVVhMlfjfLN" repo="//@repositories.0">
+    <category href="galileo.build#//@categories.2"/>
+  </features>
+  <repositories location="http://download.eclipse.org/webtools/tempTestUpdates/" label="WebTools temporary updates"/>
+</build:Contribution>

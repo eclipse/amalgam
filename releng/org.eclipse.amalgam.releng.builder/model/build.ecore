@@ -4,10 +4,6 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="build"
     nsURI="http://www.eclipse.org/amalgam/2008/build" nsPrefix="build">
   <eClassifiers xsi:type="ecore:EClass" name="Build">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="repositories" upperBound="-1"
-        eType="#//Repository" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="productConfiguration" eType="#//ProductConfiguration"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//BuildType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="buildRoot" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="base" eType="#//Base" containment="true"/>
@@ -17,20 +13,14 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fetchTag" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
         eType="#//Category" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contributions" upperBound="-1"
+        eType="#//Contribution" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="product" eType="ecore:EClass product.ecore#//Product"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Repository">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProductConfiguration">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="product" eType="ecore:EClass product.ecore#//Product"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="repoMappings" upperBound="-1"
-        eType="#//RepositoryMapping" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="categoryMappings" upperBound="-1"
-        eType="#//CategoryMapping" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RepositoryMapping">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass product.ecore#//Feature"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="repository" eType="#//Repository"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BuildType">
     <eLiterals name="Continuous" literal="C"/>
@@ -47,9 +37,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="extension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Config">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="os" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ws" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="arch" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="os" eType="#//OS"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ws" eType="#//WS"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="arch" eType="#//ARCH"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="archiveFormat" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Map">
@@ -62,8 +52,37 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CategoryMapping">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass product.ecore#//Feature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Contribution">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contacts" upperBound="-1"
+        eType="#//Contact" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
+        eType="#//Feature" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="repositories" upperBound="-1"
+        eType="#//Repository" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Contact">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Feature">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="#//Category"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="repo" eType="#//Repository"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OS">
+    <eLiterals name="win32"/>
+    <eLiterals name="linux" value="1"/>
+    <eLiterals name="macosx" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="WS">
+    <eLiterals name="win32"/>
+    <eLiterals name="gtk" value="1"/>
+    <eLiterals name="carbon" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ARCH">
+    <eLiterals name="x86"/>
+    <eLiterals name="ppc" value="1"/>
   </eClassifiers>
 </ecore:EPackage>

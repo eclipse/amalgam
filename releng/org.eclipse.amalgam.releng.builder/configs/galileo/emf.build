@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<build:Contribution xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" label="EMF">
+  <features id="org.eclipse.emf.sdk" version="2.5.0.v200809231800" repo="//@repositories.0">
+    <category href="galileo.build#//@categories.0"/>
+  </features>
+  <repositories location="http://download.eclipse.org/modeling/emf/updates/milestones/" label="EMF milestones"/>
+</build:Contribution>

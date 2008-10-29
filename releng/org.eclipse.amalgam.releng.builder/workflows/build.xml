@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="workflows/build2script.exec" default="invokeAll" basedir="." xmlns:xpt="borland:xpand.exec.dsl/2007" xmlns:dsl="borland:exec.dsl/2007" xmlns:fs="borland:resource.exec.dsl/2007" >
+
+<dsl:templateset id="tset1" url="platform:/resource/org.eclipse.amalgam.releng.builder/templates"/>
+<fs:input uri="platform:/resource/org.eclipse.amalgam.releng.builder/configs/galileo/galileo.build" id="input1"/>
+<fs:input uri="platform:/resource/org.eclipse.amalgam.releng.builder/configs/galileo/galileo.product"/>
+
+	<target name="invokeAll" depends="invoke1,invoke2,invoke3,invoke4"/>
+	
+	<target name="invoke0">
+		<qvto.interpretedTransformation
+		     transformation="platform:/resource/org.eclipse.amalgam.releng.builder/transformations/updateproduct.qvto">
+		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/galileo/galileo.product"/>
+		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/galileo/galileo.build"/>
+		</qvto.interpretedTransformation>
+	</target>
+	
+	
+	
+	<target name="invoke1">
+
+   	<xpt:template name="build2customTargets::Main" templateset="tset1" >
+   		<?together generated="true"?>
+       	
+<xpt:selector refid="input1" expression="this.first()">
+</xpt:selector>
+       	       	<fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/galileo/build/galileo/builder/customTargets.xml"/>
+   	</xpt:template>
+</target>
+<target name="invoke2">
+
+   	<xpt:template name="build2properties::Main" templateset="tset1" >
+   		<?together generated="true"?>
+       	
+<xpt:selector refid="input1" expression="this.first()">
+</xpt:selector>
+       	       	<fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/galileo/build/galileo/builder/build.properties"/>
+   	</xpt:template>
+</target>
+<target name="invoke3">
+
+   	<xpt:template name="build2script::Main" templateset="tset1" >
+   		<?together generated="true"?>
+       	
+<xpt:selector refid="input1" expression="this.first()">
+</xpt:selector>
+       	       	<fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/galileo/build/build.xml"/>
+   	</xpt:template>
+</target>
+<target name="invoke4">
+
+   	<xpt:template name="build2site::Main" templateset="tset1" >
+   		<?together generated="true"?>
+       	
+<xpt:selector refid="input1" expression="this.first()">
+</xpt:selector>
+       	       	<fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/galileo/build/galileo/repo/site.xml"/>
+   	</xpt:template>
+</target>
+</project>

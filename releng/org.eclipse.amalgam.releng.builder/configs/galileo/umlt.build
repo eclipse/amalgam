@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<build:Contribution xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" label="UML Diagrams">
+  <features id="org.eclipse.uml2.diagram" version="0.9.0.v200810040708" repo="//@repositories.0">
+    <category href="galileo.build#//@categories.0"/>
+  </features>
+  <repositories location="http://download.eclipse.org/modeling/mdt/updates/milestones/" label="UML Diagram milestones"/>
+</build:Contribution>

@@ -1,0 +1,20 @@
+modeltype build uses "http://www.eclipse.org/amalgam/2008/build";
+modeltype product uses "http://www.eclipse.org/amalgam/2008/product";
+
+transformation updateproduct(inout inProduct : product, in inBuild : build);
+
+main() {
+	inProduct.rootObjects()[Product].features->map toFeatures();
+}
+
+mapping inout product::Features::toFeatures() {
+	init { 
+		self.feature := inBuild.rootObjects()[Build].contributions.features.map toFeature()->asOrderedSet();
+	}
+}
+
+mapping build::Feature::toFeature() : product::Feature {
+	id := self.id;
+	version := self.version;
+}
+

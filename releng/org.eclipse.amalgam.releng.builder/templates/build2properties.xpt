@@ -28,27 +28,27 @@
 #The type of the top level element we are building,  generally "feature"
 topLevelElementType = product
 #The id of the top level element we are building
-topLevelElementId = «productConfiguration.product.id»
+topLevelElementId = «product.id»
 
 ############# PRODUCT/PACKAGING CONTROL #############
-product=${buildDirectory}/«productConfiguration.product.name».product
+product=${buildDirectory}/«product.name».product
 runPackager=true
 
 generate.p2.metadata=true
 p2.metadata.repo=file:${buildDirectory}/repo
 p2.artifact.repo=file:${buildDirectory}/repo
-p2.metadata.repo.name=«productConfiguration.product.name.toFirstUpper()» Metadata Repository
-p2.artifact.repo.name=«productConfiguration.product.name.toFirstUpper()» Artifact Repository
-p2.profile=«productConfiguration.product.name.toFirstUpper()»Profile
+p2.metadata.repo.name=«product.name.toFirstUpper()» Metadata Repository
+p2.artifact.repo.name=«product.name.toFirstUpper()» Artifact Repository
+p2.profile=«product.name.toFirstUpper()»Profile
 p2.flavor=tooling
-p2.IU=«productConfiguration.product.id»
+p2.IU=«product.id»
 p2.publish.artifacts=true
        
 #Set the name of the archive that will result from the product build.
-archiveNamePrefix=«productConfiguration.product.name»
+archiveNamePrefix=«product.name»
 
 # The prefix that will be used in the generated archive.
-archivePrefix=«productConfiguration.product.name»
+archivePrefix=«product.name»
 
 # The location underwhich all of the build output will be collected.
 collectingFolder=${archivePrefix}
@@ -103,14 +103,14 @@ generateVersionsLists=true
 # The directory into which the build elements are fetched and where
 # the build takes place.
 buildRoot=«buildRoot»
-buildDirectory=${buildRoot}/«productConfiguration.product.name»
+buildDirectory=${buildRoot}/«product.name»
 
 # Type of build.  Used in naming the build output.  Typically this value is
 # one of I, N, M, S, ...
 buildType=«type»
 
 # ID of the build.  Used in naming the build output.
-buildId=«productConfiguration.product.name»-${buildType}${date}-${time}
+buildId=«product.name»-${buildType}${date}-${time}
 
 # Label for the build.  Used in naming the build output
 buildLabel=${buildType}${timestamp}

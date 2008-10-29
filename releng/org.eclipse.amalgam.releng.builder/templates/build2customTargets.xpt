@@ -35,11 +35,11 @@
 		«ELSE»
 		<unzip src="${buildRoot}/base.«base.extension»" dest="${base}"/>
 		«ENDIF»
-«FOREACH productConfiguration.repoMappings AS mapping-»
+«FOREACH contributions.features.select(f | f.repo.location != null) AS feature-»
 		<antcall target="install.feature">
-			<param name="feature.id" value="«mapping.feature.id»"/>
-			<param name="feature.version" value="«mapping.feature.version»"/>
-			<param name="repo" value="«mapping.repository.location»"/>
+			<param name="feature.id" value="«feature.id»"/>
+			<param name="feature.version" value="«feature.version»"/>
+			<param name="repo" value="«feature.repo.location»"/>
 		</antcall>
 «ENDFOREACH»
 	</target>
@@ -105,10 +105,10 @@
 	<!-- Steps to do before setup -->
 	<!-- ===================================================================== -->
 	<target name="preSetup">
-		<copy file="${builder}/«productConfiguration.product.name».product" tofile="${buildDirectory}/«productConfiguration.product.name».product" overwrite="true"/>
-		<echo file="${buildDirectory}/product.version" message="productVersion=«productConfiguration.product.version»" />
+		<copy file="${builder}/«product.name».product" tofile="${buildDirectory}/«product.name».product" overwrite="true"/>
+		<echo file="${buildDirectory}/product.version" message="productVersion=«product.version»" />
 		<replace file="${buildDirectory}/product.version" token="qualifier" value="v${timestamp}" />
-		<replace file="${buildDirectory}/«productConfiguration.product.name».product" token="qualifier" value="v${timestamp}" />
+		<replace file="${buildDirectory}/«product.name».product" token="qualifier" value="v${timestamp}" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -198,7 +198,7 @@
 			metadatarepository="${repo}"
 		/> -->
 		<echo message="Installing feature ${feature.id} ${feature.version}"/>
-		<exec executable="${baseLocation}/eclipse" failonerror="false">
+		<exec executable="${baseLocation}/eclipse" failonerror="true">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />

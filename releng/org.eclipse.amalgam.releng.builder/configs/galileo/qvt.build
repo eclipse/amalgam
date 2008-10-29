@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<build:Contribution xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" label="QVT">
+  <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20080825-1430-7C-E8MACKz-gEQhuz0N4lLgT9fOj" repo="//@repositories.0">
+    <category href="galileo.build#//@categories.0"/>
+  </features>
+  <repositories location="http://download.eclipse.org/modeling/m2m/updates/milestones/" label="QVT milestones"/>
+</build:Contribution>

@@ -20,13 +20,13 @@
 	<target name="main" depends="init">
 		<antcall target="fetch.builder"/>
 		<antcall target="build.product">
-			<param name="target" value="«productConfiguration.product.name»"/>
-			<param name="buildDirectory" value="${buildRoot}/«productConfiguration.product.name»"/>
+			<param name="target" value="«product.name»"/>
+			<param name="buildDirectory" value="${buildRoot}/«product.name»"/>
 		</antcall>
 		<!-- FIXME: generate metadata using site.xml to provide categories until bug 250974 is resolved -->
 		<antcall target="categorize">
-			<param name="target" value="«productConfiguration.product.name»"/>
-			<param name="buildDirectory" value="${buildRoot}/«productConfiguration.product.name»"/>
+			<param name="target" value="«product.name»"/>
+			<param name="buildDirectory" value="${buildRoot}/«product.name»"/>
 		</antcall>
 	</target>
 	
@@ -66,8 +66,8 @@
 		<pathconvert property="buildFile" refid="pde.plugin.path" />
 		<fail message="Could not find pde builder here: ${buildFile}" unless="buildFile" />
 		
-		<echo message="Configuring product «productConfiguration.product.id» with the following features:"/>
-«FOREACH productConfiguration.product.features.feature AS feature-»
+		<echo message="Configuring product «product.id» with the following features:"/>
+«FOREACH product.features.feature AS feature-»
 		<echo message="   «feature.id» «feature.version»"/>
 «ENDFOREACH»
 		

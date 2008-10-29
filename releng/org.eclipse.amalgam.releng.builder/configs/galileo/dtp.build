@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<build:Contribution xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" label="DataTools">
+  <features id="org.eclipse.datatools.sdk.feature" version="1.6.1.v200809191145-67S39KdPRD0xFFr12VxQFZUflz05" repo="//@repositories.0">
+    <category href="galileo.build#//@categories.3"/>
+  </features>
+  <repositories location="http://download.eclipse.org/datatools/updates" label="DTP updates"/>
+</build:Contribution>

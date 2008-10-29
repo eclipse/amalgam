@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build:Build xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" type="I" buildRoot="${user.home}/build" fetchTag="CVS=HEAD" label="Galileo">
+  <base config="//@configs.2" version="I20081016-1126" buildID="I20081016-1126" extension="tar.gz"/>
+  <configs archiveFormat="zip"/>
+  <configs os="linux" ws="gtk"/>
+  <configs os="macosx" ws="carbon"/>
+  <map root="org.eclipse.amalgam/releng/org.eclipse.amalgam.releng" repo=":pserver:anonymous@dev.eclipse.org/cvsroot/modeling" tag="HEAD"/>
+  <categories name="Modeling" label="Modeling" description="Model definition, creation, and manipulation frameworks (e.g. EMF, OCL, GMF, M2M, M2T) and industry models (e.g. UML, JEM, XSD)."/>
+  <categories name="Programming Languages" label="Programming Languages" description="Put description here..."/>
+  <categories name="Web Development" label="Web Development" description="Put description here..."/>
+  <categories name="Database Development" label="Database Development" description="Put description here..."/>
+  <categories name="Test and Performance" label="Test and Performance" description="Put description here..."/>
+  <categories name="Device Development" label="Device Development" description="Put description here..."/>
+  <categories name="Collaboration" label="Collaboration" description="Put description here..."/>
+  <categories name="Tools and Goodies" label="Tools and Goodies" description="Put description here..."/>
+  <contributions href="eclipse.build#/"/>
+  <contributions href="emf.build#/"/>
+  <contributions href="gef.build#/"/>
+  <contributions href="ocl.build#/"/>
+  <contributions href="emfqtv.build#/"/>
+  <contributions href="qvt.build#/"/>
+  <contributions href="uml2.build#/"/>
+  <contributions href="gmf.build#/"/>
+  <contributions href="umlt.build#/"/>
+  <contributions href="dtp.build#/"/>
+  <contributions href="birt.build#/"/>
+  <contributions href="webtools.build#/"/>
+  <contributions label="Galileo">
+    <features id="org.eclipse.galileo" version="1.0.0"/>
+  </contributions>
+  <product href="galileo.product#/"/>
+</build:Build>
