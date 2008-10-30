@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <build:Build xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" type="I" buildRoot="${user.home}/build" fetchTag="CVS=HEAD" label="Galileo">
-  <base config="//@configs.2" version="I20081016-1126" buildID="I20081016-1126" extension="tar.gz"/>
+  <base config="//@configs.2" version="I20081029-0800" buildID="I20081029-0800" extension="tar.gz"/>
   <configs archiveFormat="zip"/>
   <configs os="linux" ws="gtk"/>
   <configs os="macosx" ws="carbon"/>
