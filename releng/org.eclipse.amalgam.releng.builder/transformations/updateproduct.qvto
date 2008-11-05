@@ -9,7 +9,7 @@ main() {
 
 mapping inout product::Features::toFeatures() {
 	init { 
-		self.feature := inBuild.rootObjects()[Build].contributions.features.map toFeature()->asOrderedSet();
+		self.feature := inBuild.rootObjects()[Build].contributions.features->select(f | f.inProduct = true).map toFeature()->asOrderedSet();
 	}
 }
 

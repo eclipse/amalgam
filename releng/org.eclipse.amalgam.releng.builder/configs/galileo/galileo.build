@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<build:Build xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" type="I" buildRoot="${user.home}/build" fetchTag="CVS=HEAD" label="Galileo">
-  <base config="//@configs.2" version="I20081029-0800" buildID="I20081029-0800" extension="tar.gz"/>
-  <configs archiveFormat="zip"/>
-  <configs os="linux" ws="gtk"/>
-  <configs os="macosx" ws="carbon"/>
+<build:Build xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" type="I" buildRoot="/shared/galileo/build" fetchTag="CVS=HEAD" label="Galileo" base="//@platforms.0" builder="//@platforms.0">
+  <platforms config="//@configs.0" version="3.5M3" buildID="S-3.5M3-200810301917" extension="tar.gz"/>
+  <configs os="linux" ws="gtk" arch="ppc" archiveFormat="tar"/>
   <map root="org.eclipse.amalgam/releng/org.eclipse.amalgam.releng" repo=":pserver:anonymous@dev.eclipse.org/cvsroot/modeling" tag="HEAD"/>
-  <categories name="Modeling" label="Modeling" description="Model definition, creation, and manipulation frameworks (e.g. EMF, OCL, GMF, M2M, M2T) and industry models (e.g. UML, JEM, XSD)."/>
+  <categories name="Modeling" label="Modeling" description="Model definition, creation, and manipulation frameworks (e.g. EMF, OCL, GMF, M2M, M2T) and industry models (e.g. UML, JEM, XSD).">
+    <features href="emfqtv.build#//@features.0"/>
+    <features href="qvt.build#//@features.0"/>
+    <features href="emf.build#//@features.0"/>
+    <features href="gmf.build#//@features.0"/>
+    <features href="ocl.build#//@features.0"/>
+    <features href="uml2.build#//@features.0"/>
+    <features href="umlt.build#//@features.0"/>
+  </categories>
   <categories name="Programming Languages" label="Programming Languages" description="Put description here..."/>
-  <categories name="Web Development" label="Web Development" description="Put description here..."/>
-  <categories name="Database Development" label="Database Development" description="Put description here..."/>
+  <categories name="Web Development" label="Web Development" description="Put description here...">
+    <features href="webtools.build#//@features.0"/>
+    <features href="webtools.build#//@features.1"/>
+  </categories>
+  <categories name="Database Development" label="Database Development" description="Put description here...">
+    <features href="dtp.build#//@features.0"/>
+  </categories>
   <categories name="Test and Performance" label="Test and Performance" description="Put description here..."/>
   <categories name="Device Development" label="Device Development" description="Put description here..."/>
   <categories name="Collaboration" label="Collaboration" description="Put description here..."/>
-  <categories name="Tools and Goodies" label="Tools and Goodies" description="Put description here..."/>
+  <categories name="Tools and Goodies" label="Tools and Goodies" description="Put description here...">
+    <features href="birt.build#//@features.0"/>
+    <features href="birt.build#//@features.1"/>
+  </categories>
   <contributions href="eclipse.build#/"/>
   <contributions href="emf.build#/"/>
   <contributions href="gef.build#/"/>
@@ -26,7 +40,7 @@
   <contributions href="birt.build#/"/>
   <contributions href="webtools.build#/"/>
   <contributions label="Galileo">
-    <features id="org.eclipse.galileo" version="1.0.0"/>
+    <features id="org.eclipse.galileo" version="1.0.0.qualifier"/>
   </contributions>
   <product href="galileo.product#/"/>
 </build:Build>

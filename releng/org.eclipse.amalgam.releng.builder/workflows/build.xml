@@ -13,33 +13,46 @@
 		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/galileo/galileo.product"/>
 		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/galileo/galileo.build"/>
 		</qvto.interpretedTransformation>
+		<copy file="../configs/galileo/galileo.product" todir="../out/build/galileo/builder" overwrite="true"/>
+		<qvto.interpretedTransformation
+		     transformation="platform:/resource/org.eclipse.amalgam.releng.builder/transformations/updateproduct.qvto">
+		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/dsltk/dsltk.product"/>
+		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/dsltk/dsltk.build"/>
+		</qvto.interpretedTransformation>
+		<copy file="../configs/dsltk/dsltk.product" todir="../out/build/dsltk/builder" overwrite="true"/>
+		<qvto.interpretedTransformation
+		     transformation="platform:/resource/org.eclipse.amalgam.releng.builder/transformations/updateproduct.qvto">
+		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/modeler/modeler.product"/>
+		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/modeler/modeler.build"/>
+		</qvto.interpretedTransformation>
+		<copy file="../configs/modeler/modeler.product" todir="../out/build/modeler/builder" overwrite="true"/>
 	</target>
 	
 	<target name="gen.customTargets.xml">
 	   	<xpt:template name="build2customTargets::Main" templateset="tset1">
        		<xpt:selector refid="input1" expression="this.first()"/>
-       		<fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/galileo/build/galileo/builder/customTargets.xml"/>
+       		<fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/build/galileo/builder/customTargets.xml"/>
    		</xpt:template>
 	</target>
 
 	<target name="gen.build.properties">
 	   	<xpt:template name="build2properties::Main" templateset="tset1">
 			<xpt:selector refid="input1" expression="this.first()"/>
-   	       	<fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/galileo/build/galileo/builder/build.properties"/>
+   	       	<fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/build/galileo/builder/build.properties"/>
 	   	</xpt:template>
 	</target>
 
 	<target name="gen.build.xml">
 	   	<xpt:template name="build2script::Main" templateset="tset1">       	
 			<xpt:selector refid="input1" expression="this.first()"/>
-       	    <fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/galileo/build/build.xml"/>
+       	    <fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/build/build-galileo.xml"/>
    		</xpt:template>
 	</target>
 
 	<target name="gen.site.xml">
    		<xpt:template name="build2site::Main" templateset="tset1"> 	
 			<xpt:selector refid="input1" expression="this.first()"/>
-   	       	<fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/galileo/build/galileo/repo/site.xml"/>
+   	       	<fs:destfile value="platform:/resource/org.eclipse.amalgam.releng.builder/out/build/galileo/repo/site.xml"/>
 	   	</xpt:template>
 	</target>
 	

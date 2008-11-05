@@ -6,7 +6,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Build">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//BuildType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="buildRoot" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="base" eType="#//Base" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="platforms" upperBound="-1"
+        eType="#//Platform" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="configs" upperBound="-1"
         eType="#//Config" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="map" eType="#//Map" containment="true"/>
@@ -17,6 +18,8 @@
         eType="#//Contribution" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="product" eType="ecore:EClass product.ecore#//Product"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="base" eType="#//Platform"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="builder" eType="#//Platform"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Repository">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
@@ -30,7 +33,7 @@
     <eLiterals name="Release" value="4" literal="R"/>
     <eLiterals name="Maintenance" value="5" literal="M"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Base">
+  <eClassifiers xsi:type="ecore:EClass" name="Platform">
     <eStructuralFeatures xsi:type="ecore:EReference" name="config" eType="#//Config"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="buildID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -40,7 +43,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="os" eType="#//OS"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ws" eType="#//WS"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="arch" eType="#//ARCH"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="archiveFormat" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="archiveFormat" eType="#//ArchiveFormat"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Map">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="root" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -51,6 +54,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
+        eType="#//Feature" eOpposite="#//Feature/category"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Contribution">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contacts" upperBound="-1"
@@ -68,8 +73,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="Feature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="#//Category"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="#//Category"
+        eOpposite="#//Category/features"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="repo" eType="#//Repository"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="inProduct" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OS">
     <eLiterals name="win32"/>
@@ -84,5 +92,9 @@
   <eClassifiers xsi:type="ecore:EEnum" name="ARCH">
     <eLiterals name="x86"/>
     <eLiterals name="ppc" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ArchiveFormat">
+    <eLiterals name="zip"/>
+    <eLiterals name="tar"/>
   </eClassifiers>
 </ecore:EPackage>

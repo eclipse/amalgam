@@ -24,17 +24,20 @@
 	<!-- ===================================================================== -->
 	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
 		<get src="${eclipseBaseURL}" 
-			 dest="${buildRoot}/base.«base.extension»" verbose="true" usetimestamp="true"/>
+			 dest="${buildRoot}/eclipse-SDK-«base.version»-«base.config.os»«base.config.ws == base.config.os ? '' : '-' + base.config.ws»«builder.config.arch.literal == 'ppc' ? '-ppc' : ''».«base.extension»" verbose="true" usetimestamp="true"/>
 		<mkdir dir="${base}"/>
 		«IF base.extension == 'tar.gz'»
 		<exec executable="tar">
 			<arg line="-xzf"/>
-			<arg line="${buildRoot}/base.«base.extension»"/>
+			<arg line="${buildRoot}/eclipse-SDK-«base.version»-«base.config.os»«base.config.ws == base.config.os ? '' : '-' + base.config.ws»«builder.config.arch.literal == 'ppc' ? '-ppc' : ''».«base.extension»"/>
 			<arg line="-C ${base}"/>
 		</exec>
 		«ELSE»
-		<unzip src="${buildRoot}/base.«base.extension»" dest="${base}"/>
+		<unzip src="${buildRoot}/eclipse-SDK-«base.version»-«base.config.os»«base.config.ws == base.config.os ? '' : '-' + base.config.ws».«base.extension»" dest="${base}"/>
 		«ENDIF»
+		
+		<antcall target="install.delta.pack"/>
+		
 «FOREACH contributions.features.select(f | f.repo.location != null) AS feature-»
 		<antcall target="install.feature">
 			<param name="feature.id" value="«feature.id»"/>
@@ -42,6 +45,18 @@
 			<param name="repo" value="«feature.repo.location»"/>
 		</antcall>
 «ENDFOREACH»
+	</target>
+	
+	<!-- Fetch and extract the delta pack to its pluginPath location -->
+	<target name="install.delta.pack">		
+		<available file="${buildRoot}/eclipse-«base.version»-delta-pack.zip" property="skipDeltaPack" />
+		<antcall target="get.delta.pack"/>
+		<unzip src="${buildRoot}/eclipse-«base.version»-delta-pack.zip" dest="${deltaPackLocation}"/>
+	</target>
+	
+	<target name="get.delta.pack" unless="skipDeltaPack">
+		<get src="${deltaPackURL}" 
+		     dest="${buildRoot}/eclipse-«base.version»-delta-pack.zip" verbose="true" usetimestamp="true" />
 	</target>
 	
 	<target name="checkLocalBase">
@@ -105,10 +120,10 @@
 	<!-- Steps to do before setup -->
 	<!-- ===================================================================== -->
 	<target name="preSetup">
-		<copy file="${builder}/«product.name».product" tofile="${buildDirectory}/«product.name».product" overwrite="true"/>
+		<copy file="${builder}/«product.launcher.name».product" tofile="${buildDirectory}/«product.launcher.name».product" overwrite="true"/>
 		<echo file="${buildDirectory}/product.version" message="productVersion=«product.version»" />
 		<replace file="${buildDirectory}/product.version" token="qualifier" value="v${timestamp}" />
-		<replace file="${buildDirectory}/«product.name».product" token="qualifier" value="v${timestamp}" />
+		<replace file="${buildDirectory}/«product.launcher.name».product" token="qualifier" value="v${timestamp}" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -198,7 +213,7 @@
 			metadatarepository="${repo}"
 		/> -->
 		<echo message="Installing feature ${feature.id} ${feature.version}"/>
-		<exec executable="${baseLocation}/eclipse" failonerror="true">
+		<exec executable="${baseLocation}/eclipse" failonerror="false">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
@@ -213,9 +228,7 @@
 			<arg line="-artifactRepository ${repo}" />
 			<arg line="-vmargs -Xmx1024m" />
 		</exec>
-<!-- remove to see if necessary
-		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache" />
--->
+		
 	</target>
 		
 	<!-- ===================================================================== -->

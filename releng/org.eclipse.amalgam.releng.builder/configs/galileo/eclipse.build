@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="ASCII"?>
 <build:Contribution xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" label="Eclipse">
-  <features id="org.eclipse.sdk" version="3.5.0.v20081020-7M7Z_7BEDmNr30F90z-81Q6rR1kWQ2qPiBVYeThT8xJMI"/>
+  <features id="org.eclipse.sdk" version="3.5.0.v20081020-7M7Z_7BEDmNr30G01z098S6rS2kUH4oPiCSZgRYjbXwGV"/>
 </build:Contribution>

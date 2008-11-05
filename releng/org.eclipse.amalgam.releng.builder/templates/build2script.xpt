@@ -14,54 +14,41 @@
 		<property name="time" value="${TSTAMP}"/>
 		
 		<property name="buildRoot" value="«buildRoot»"/>
-		<property name="basebuilder" value="${buildRoot}/basebuilder"/>
+		<property name="basebuilder" value="${buildRoot}/«product.launcher.name»/basebuilder"/>
 	</target>
 	
 	<target name="main" depends="init">
 		<antcall target="fetch.builder"/>
 		<antcall target="build.product">
-			<param name="target" value="«product.name»"/>
-			<param name="buildDirectory" value="${buildRoot}/«product.name»"/>
+			<param name="target" value="«product.launcher.name»"/>
+			<param name="buildDirectory" value="${buildRoot}/«product.launcher.name»"/>
 		</antcall>
 		<!-- FIXME: generate metadata using site.xml to provide categories until bug 250974 is resolved -->
 		<antcall target="categorize">
-			<param name="target" value="«product.name»"/>
-			<param name="buildDirectory" value="${buildRoot}/«product.name»"/>
+			<param name="target" value="«product.launcher.name»"/>
+			<param name="buildDirectory" value="${buildRoot}/«product.launcher.name»"/>
 		</antcall>
 	</target>
 	
 	<target name="fetch.builder"> 
-		<!-- No director app in normal basebuilder, so just use SDK and extract deltapack into it -->
-		<get src="http://download.eclipse.org/eclipse/downloads/drops/«base.buildID»/eclipse-SDK-«base.version»-«base.config.os»«base.config.ws == base.config.os ? '' : '-' + base.config.ws».«base.extension»" 
-		     dest="${buildRoot}/base.«base.extension»" verbose="true" usetimestamp="true"/>
+		<!-- No director app in normal basebuilder, so just use SDK -->
+		<get src="http://download.eclipse.org/eclipse/downloads/drops/«builder.buildID»/eclipse-SDK-«builder.version»-«builder.config.os»«builder.config.ws == builder.config.os ? '' : '-' + builder.config.ws»«builder.config.arch.literal == 'ppc' ? '-ppc' : ''».«builder.extension»" 
+		     dest="${buildRoot}/eclipse-SDK-«builder.version»-«builder.config.os»«builder.config.ws == builder.config.os ? '' : '-' + builder.config.ws»«builder.config.arch.literal == 'ppc' ? '-ppc' : ''».«builder.extension»" verbose="true" usetimestamp="true"/>
 		<mkdir dir="${basebuilder}"/>
-		«IF base.extension == 'tar.gz'»
+		«IF builder.extension == 'tar.gz'»
 		<exec executable="tar">
 			<arg line="-xzf"/>
-			<arg line="${buildRoot}/base.«base.extension»"/>
+			<arg line="${buildRoot}/eclipse-SDK-«builder.version»-«builder.config.os»«builder.config.ws == builder.config.os ? '' : '-' + builder.config.ws»«builder.config.arch.literal == 'ppc' ? '-ppc' : ''».«builder.extension»"/>
 			<arg line="-C ${basebuilder}"/>
 		</exec>
 		«ELSE»
-		<unzip src="${buildRoot}/base.«base.extension»" dest="${basebuilder}"/>
+		<unzip src="${buildRoot}/eclipse-SDK-«builder.version»-«builder.config.os»«builder.config.ws == builder.config.os ? '' : '-' + builder.config.ws».«builder.extension»" dest="${basebuilder}"/>
 		«ENDIF»
-		<antcall target="install.delta.pack"/>
 	</target>
 	
-	<target name="install.delta.pack">		
-		<available file="${buildRoot}/deltapack.zip" property="skipDeltaPack" />
-		<antcall target="get.delta.pack"/>
-		<unzip src="${buildRoot}/deltapack.zip" dest="${basebuilder}"/> 
-	</target>
-	
-	<target name="get.delta.pack" unless="skipDeltaPack">
-		<get src="http://download.eclipse.org/eclipse/downloads/drops/«base.buildID»/eclipse-«base.version»-delta-pack.zip" 
-		     dest="${buildRoot}/deltapack.zip" verbose="true" usetimestamp="true" />
-	</target>
-	
-	<target name="build.product">	
+	<target name="build.product">
 		<property file="${buildRoot}/${target}/builder/build.properties"/>
 		<fail message="Could not load builder properties.  Did you generate them and customTargets.xml to ${buildRoot}/${target}/builder?" unless="product" />
-
 		<fileset dir="${basebuilder}/eclipse/plugins" includes="org.eclipse.pde.build_*/scripts/productBuild/productBuild.xml" id="pde.plugin.path" />
 		<pathconvert property="buildFile" refid="pde.plugin.path" />
 		<fail message="Could not find pde builder here: ${buildFile}" unless="buildFile" />
@@ -72,7 +59,7 @@
 «ENDFOREACH»
 		
 		<!-- First, run normal product build to fetch, compile, and generate metadata repository for p2 build -->
-		<exec executable="${basebuilder}/eclipse/eclipse" dir="${buildDirectory}/builder" failonerror="true">
+		<exec executable="${basebuilder}/eclipse/eclipse" dir="${buildDirectory}/builder" failonerror="false">
 			<arg line="-application org.eclipse.ant.core.antRunner"/>
 			<arg line="-buildfile ${buildFile}" />
 			<arg line="-nosplash" />
@@ -92,12 +79,6 @@
 			<arg value="-DbuildLabel=${buildLabel}"/>
 		</exec>
 		
-		<!-- We don't really need the zips produced by the product build, so delete 
-		<delete >
-		    <fileset dir="${buildDirectory}/${buildLabel}" includes="**/*.zip"/>
-		</delete>
-		-->
-		
 		<property file="${buildDirectory}/product.version"/>
 		
 		<!-- NOTE: when PDE build supports the configs property for product builds, this section can be simplified -->
@@ -111,13 +92,20 @@
 			<param name="p2.arch" value="«config.arch»"/>
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
-		«IF config.os == 'macosx'»
+		
+		<!-- Workaround for improper start info in bundles.info - Fixed post M1 builder, though other bugs exist to prevent moving forward still 
+		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
+				 token="file:plugins/org.eclipse.core.runtime_3.5.0.v20081010.jar,4,false" 
+				 value="file:plugins/org.eclipse.core.runtime_3.5.0.v20081010.jar,4,true"/>
+		-->
+		
+		«IF config.os.literal == "macosx"»
 		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default (but first, copy correct .ini file) -->
 		<copy file="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app/Contents/MacOS/eclipse.ini" 
 					  tofile="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/${archivePrefix}.app/Contents/MacOS/${archivePrefix}.ini" overwrite="true"/>
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app" />
 		«ENDIF»
-		«IF config.os == 'win32'»
+		«IF config.os.literal == "win32"»
 		<zip destfile="${buildDirectory}/${buildLabel}/${archiveNamePrefix}.«config.os».«config.ws».«config.arch».zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
 		«ELSE»
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/">
@@ -137,6 +125,7 @@
 			<arg line="-nosplash"/>
 			<arg line="--launcher.suppressErrors"/>
 			<arg line="-consoleLog"/>
+			<arg line="-p2.flavor ${p2.flavor}"/>
 			<arg line="-installIU ${p2.IU}"/>
 			<arg line="-version ${p2.version}"/>
 			<arg line="-p2.os ${p2.os}"/>
@@ -149,8 +138,9 @@
 			<arg line="-artifactRepository ${p2.artifact.repo}"/>
 			<arg line="-destination ${p2.director.install.path}"/>
 			<arg line="-bundlepool ${p2.director.install.path}"/>
-			<arg line="-vmargs -Xmx1024m"/>
+			<arg line="-vmargs"/>
 			<arg line="-Declipse.p2.data.area=${p2.director.install.path}/p2"/>
+			<arg line="-Xmx1024m"/>
 		</exec>
 		
 		<!-- delete the metadata cache as well as the artifacts for unzipped bundles -->
@@ -171,7 +161,8 @@
 			<arg line="-consoleLog"/>
 			<arg line="-reusePack200Files"/>
 			<arg line="-noDefaultIUs"/>
-			<arg line="-vmargs -Xmx1024m"/>
+			<arg line="-vmargs"/>
+			<arg line="-Xmx1024m"/>
 		</exec>
 	</target>
 	
