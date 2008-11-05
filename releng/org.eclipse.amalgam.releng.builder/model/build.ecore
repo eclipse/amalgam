@@ -88,6 +88,7 @@
     <eLiterals name="win32"/>
     <eLiterals name="gtk" value="1"/>
     <eLiterals name="carbon" value="2"/>
+    <eLiterals name="cocoa" value="3" literal="cocoa"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ARCH">
     <eLiterals name="x86"/>
