@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.amalgam.releng.builder.model/src"
-    modelPluginID="org.eclipse.amalgam.releng.builder.model" modelName="Build" importerID="org.eclipse.emf.importer.ecore"
-    containmentProxies="true" complianceLevel="5.0" copyrightFields="false" usedGenPackages="product.genmodel#//product">
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2008 Borland Software Corporation&#xD;  &#xD;  All rights reserved. This program and the accompanying materials&#xD;  are made available under the terms of the Eclipse Public License v1.0&#xD;  which accompanies this distribution, and is available at&#xD;  http://www.eclipse.org/legal/epl-v10.html&#xD; &#xD;  Contributors:&#xD;     Borland Software Corporation - initial API and implementation"
+    modelDirectory="/org.eclipse.amalgam.releng.build.model/src" editDirectory="/org.eclipse.amalgam.releng.build.model.edit/src"
+    editorDirectory="/org.eclipse.amalgam.releng.build.model.editor/src" modelPluginID="org.eclipse.amalgam.releng.build.model"
+    modelName="Build" importerID="org.eclipse.emf.importer.ecore" containmentProxies="true"
+    complianceLevel="5.0" copyrightFields="false" language="" usedGenPackages="product.genmodel#//product">
   <foreignModel>build.ecore</foreignModel>
   <genPackages prefix="Build" basePackage="org.eclipse.amalgam.releng" resource="XMI"
       disposableProviderFactory="true" ecorePackage="build.ecore#/">
@@ -24,6 +26,7 @@
       <genEnumLiterals ecoreEnumLiteral="build.ecore#//WS/win32"/>
       <genEnumLiterals ecoreEnumLiteral="build.ecore#//WS/gtk"/>
       <genEnumLiterals ecoreEnumLiteral="build.ecore#//WS/carbon"/>
+      <genEnumLiterals ecoreEnumLiteral="build.ecore#//WS/cocoa"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="build.ecore#//ARCH">
       <genEnumLiterals ecoreEnumLiteral="build.ecore#//ARCH/x86"/>
@@ -89,6 +92,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Feature/version"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Feature/category"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Feature/repo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Feature/inProduct"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
