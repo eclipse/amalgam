@@ -11,16 +11,16 @@
   </launcherArgs>
   <vm/>
   <launcher name="dsltk">
-    <macosx icon="/org.eclipse.amalgam.builder/Eclipse.icns"/>
+    <macosx icon="/org.eclipse.amalgam.dsltk/Eclipse.icns"/>
     <solaris/>
     <win>
       <bmp/>
     </win>
   </launcher>
   <splash location="org.eclipse.amalgam.dsltk" startupProgressRect="0,290,450,15" startupMessageRect="5,270,450,15" startupForegroundColor="E6E6E6"/>
-  <windowImages i16="/org.eclipse.amalgam.builder/icons/eclipse.gif" i32="/org.eclipse.amalgam.builder/icons/eclipse32.gif" i48="/org.eclipse.amalgam.builder/icons/eclipse48.gif"/>
+  <windowImages i16="/org.eclipse.amalgam.dsltk/icons/eclipse.gif" i32="/org.eclipse.amalgam.dsltk/icons/eclipse32.gif" i48="/org.eclipse.amalgam.dsltk/icons/eclipse48.gif"/>
   <aboutInfo>
-    <image path="/org.eclipse.amalgam.builder/about.png"/>
+    <image path="/org.eclipse.amalgam.dsltk/about.png"/>
     <text>
          %aboutDialogText
       </text>
@@ -28,25 +28,24 @@
   <intro introId="org.eclipse.ui.intro.universal"/>
   <plugins/>
   <features>
-    <feature id="org.eclipse.xpand.sdk" version="0.9.0.v200801101356"/>
-    <feature id="org.eclipse.emf.sdk" version="2.5.0.v200811032126"/>
-    <feature id="org.eclipse.gmf.xpand" version="0.9.3.v20081028-1532-37_8Y_kE77c9HBP5IQDB"/>
-    <feature id="org.eclipse.amalgam.builder" version="1.0.0.qualifier"/>
-    <feature id="org.eclipse.cvs" version="1.1.100.r20080924-7C79EAU9EI99m_ZBQ"/>
-    <feature id="org.eclipse.amalgam.dsltk" version="1.0.0.qualifier"/>
-    <feature id="org.eclipse.gef.sdk" version="3.5.0.v20080806-1610-7B7H-97ON6c7YCeDHYDe_cUgDJNV"/>
     <feature id="org.eclipse.gmf.sdk" version="2.2.0.v20080917-1925-7A7A3AImms9uVK-KldWYTMMy9wOh"/>
-    <feature id="org.eclipse.emf.teneo.sdk" version="1.0.0.v200806111928-3--87D3BKcgLUKa6ESidYXUVVFGE"/>
-    <feature id="org.eclipse.amalgam.examples.dsltk" version="1.0.0.qualifier"/>
-    <feature id="org.eclipse.emf.emfqtv.all.sdk" version="1.3.0.v200809221833-377-9-FL4TAlEsz-nmjIcgz0mlDV"/>
+    <feature id="org.eclipse.gmf.sdk.experimental" version="1.1.1.v20080731-1520-793AiDdrOnJWIGxk13Ix1dd1gY"/>
+    <feature id="org.eclipse.xpand.sdk" version="0.9.0.v200801101356"/>
+    <feature id="org.eclipse.cvs" version="1.1.100.r20080924-7C79EAU9EI99m_ZBQ"/>
+    <feature id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20080825-1430-7C-E8MACKz-gEQhuz0N4lLgT9fOj"/>
+    <feature id="org.eclipse.amalgam.examples.dsltk" version=""/>
+    <feature id="org.eclipse.emf.sdk" version="2.5.0.v200811032126"/>
     <feature id="org.eclipse.jdt" version="3.5.0.v20081027-1300-7o82EDeEGlTuiukG2dBZ0jq"/>
+    <feature id="org.eclipse.emf.teneo.sdk" version="1.0.0.v200806111928-3--87D3BKcgLUKa6ESidYXUVVFGE"/>
+    <feature id="org.eclipse.amalgam.dsltk" version=""/>
+    <feature id="org.eclipse.platform" version="3.5.0.v20081007-9K9PFB8EmejKTyIjCkuhc_VlMt0GZA2z0WwJiS"/>
+    <feature id="org.eclipse.emf.emfqtv.all.sdk" version="1.3.0.v200809221833-377-9-FL4TAlEsz-nmjIcgz0mlDV"/>
+    <feature id="org.eclipse.amalgam.builder" version=""/>
+    <feature id="org.eclipse.emf.mwe.sdk" version="0.7.0.v200801100355"/>
     <feature id="org.eclipse.pde" version="3.5.0.v20081020-7V7XE8MEB7sQS9aqolDlXSM"/>
     <feature id="org.eclipse.uml2.diagram" version="0.9.0.v200810040708"/>
-    <feature id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20080825-1430-7C-E8MACKz-gEQhuz0N4lLgT9fOj"/>
-    <feature id="org.eclipse.platform" version="3.5.0.v20081007-9K9PFB8EmejKTyIjCkuhc_VlMt0GZA2z0WwJiS"/>
-    <feature id="org.eclipse.gmf.sdk.experimental" version="1.1.1.v20080731-1520-793AiDdrOnJWIGxk13Ix1dd1gY"/>
-    <feature id="org.eclipse.emf.mwe.sdk" version="0.7.0.v200801100355"/>
-    <feature id="org.eclipse.ocl.all.sdk" version="1.3.0.v200808032335-67C8a_-PQQdLnSYHjltyg3xeBhfp"/>
+    <feature id="org.eclipse.gef.sdk" version="3.5.0.v20080806-1610-7B7H-97ON6c7YCeDHYDe_cUgDJNV"/>
     <feature id="org.eclipse.uml2.sdk" version="2.2.100.v200808270930"/>
+    <feature id="org.eclipse.ocl.all.sdk" version="1.3.0.v200808032335-67C8a_-PQQdLnSYHjltyg3xeBhfp"/>
   </features>
 </product>
