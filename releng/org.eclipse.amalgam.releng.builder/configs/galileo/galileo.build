@@ -12,7 +12,9 @@
     <features href="uml2.build#//@features.0"/>
     <features href="umlt.build#//@features.0"/>
   </categories>
-  <categories name="Programming Languages" label="Programming Languages" description="Put description here..."/>
+  <categories name="Programming Languages" label="Programming Languages" description="Put description here...">
+    <features href="cdt.build#//@features.1"/>
+  </categories>
   <categories name="Web Development" label="Web Development" description="Put description here...">
     <features href="webtools.build#//@features.0"/>
     <features href="webtools.build#//@features.1"/>
@@ -26,6 +28,7 @@
   <categories name="Tools and Goodies" label="Tools and Goodies" description="Put description here...">
     <features href="birt.build#//@features.0"/>
     <features href="birt.build#//@features.1"/>
+    <features href="mylyn.build#//@features.0"/>
   </categories>
   <contributions href="eclipse.build#/"/>
   <contributions href="emf.build#/"/>
@@ -42,5 +45,7 @@
   <contributions label="Galileo">
     <features id="org.eclipse.galileo" version="1.0.0.qualifier"/>
   </contributions>
+  <contributions href="mylyn.build#/"/>
+  <contributions href="cdt.build#/"/>
   <product href="galileo.product#/"/>
 </build:Build>

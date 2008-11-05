@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<build:Contribution xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" label="CDT">
+  <contacts name="Vivian Kong" email="vivkong@gmail.com"/>
+  <contacts name="Doug Schaefer" email="dschaefer@rogers.com"/>
+  <features id="org.eclipse.cdt.platform" version="5.0.1.200809120802" repo="//@repositories.0"/>
+  <features id="org.eclipse.cdt" version="5.0.1.200809120802" repo="//@repositories.0">
+    <category href="galileo.build#//@categories.1"/>
+  </features>
+  <features id="org.eclipse.cdt.mylyn" version="5.0.1.200809120802" repo="//@repositories.0"/>
+  <repositories location="http://download.eclipse.org/tools/cdt/updates/ganymede/site.xml" label="CDT updates"/>
+</build:Contribution>

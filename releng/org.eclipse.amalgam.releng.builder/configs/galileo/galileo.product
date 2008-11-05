@@ -28,20 +28,20 @@
   <intro introId="org.eclipse.ui.intro.universal"/>
   <plugins/>
   <features>
-    <feature id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20080825-1430-7C-E8MACKz-gEQhuz0N4lLgT9fOj"/>
-    <feature id="org.eclipse.jst" version="3.1.0.v200809240350-7W7A19LJbz0z0Vkh0LVVhMlfjfLN"/>
-    <feature id="org.eclipse.wst" version="3.1.0.v200810090150-7G5-8eM6Jutz04Z5Wy0Up-Ab9ctX"/>
-    <feature id="org.eclipse.ocl.all.sdk" version="1.3.0.v200808032335-67C8a_-PQQdLnSYHjltyg3xeBhfp"/>
-    <feature id="org.eclipse.emf.sdk" version="2.5.0.v200811032126"/>
-    <feature id="org.eclipse.emf.emfqtv.all.sdk" version="1.3.0.v200809221833-377-9-FL4TAlEsz-nmjIcgz0mlDV"/>
-    <feature id="org.eclipse.datatools.sdk.feature" version="1.6.1.v200809191145-67S39KdPRD0xFFr12VxQFZUflz05"/>
     <feature id="org.eclipse.gef.sdk" version="3.5.0.v20080806-1610-7B7H-97ON6c7YCeDHYDe_cUgDJNV"/>
-    <feature id="org.eclipse.galileo" version="1.0.0.qualifier"/>
-    <feature id="org.eclipse.uml2.sdk" version="2.2.100.v200808270930"/>
-    <feature id="org.eclipse.gmf.sdk" version="2.1.2.v20080916-2008-7A7877AIkpv51hK-KmQPDq6XqvC_"/>
-    <feature id="org.eclipse.uml2.diagram" version="0.9.0.v200810040708"/>
-    <feature id="org.eclipse.birt" version="2.3.1.v20080630-7N7Y7AAYdlIXLgz-SLsyMQ21x2fI"/>
-    <feature id="org.eclipse.birt.doc" version="2.3.1.v20080630-2207w31191_34b"/>
     <feature id="org.eclipse.sdk" version="3.5.0.v20081020-7M7Z_7BEDmNr30G01z098S6rS2kUH4oPiCSZgRYjbXwGV"/>
+    <feature id="org.eclipse.birt" version="2.3.1.v20080630-7N7Y7AAYdlIXLgz-SLsyMQ21x2fI"/>
+    <feature id="org.eclipse.wst" version="3.1.0.v200810090150-7G5-8eM6Jutz04Z5Wy0Up-Ab9ctX"/>
+    <feature id="org.eclipse.emf.emfqtv.all.sdk" version="1.3.0.v200809221833-377-9-FL4TAlEsz-nmjIcgz0mlDV"/>
+    <feature id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20080825-1430-7C-E8MACKz-gEQhuz0N4lLgT9fOj"/>
+    <feature id="org.eclipse.uml2.diagram" version="0.9.0.v200810040708"/>
+    <feature id="org.eclipse.gmf.sdk" version="2.1.2.v20080916-2008-7A7877AIkpv51hK-KmQPDq6XqvC_"/>
+    <feature id="org.eclipse.birt.doc" version="2.3.1.v20080630-2207w31191_34b"/>
+    <feature id="org.eclipse.datatools.sdk.feature" version="1.6.1.v200809191145-67S39KdPRD0xFFr12VxQFZUflz05"/>
+    <feature id="org.eclipse.emf.sdk" version="2.5.0.v200811032126"/>
+    <feature id="org.eclipse.jst" version="3.1.0.v200809240350-7W7A19LJbz0z0Vkh0LVVhMlfjfLN"/>
+    <feature id="org.eclipse.ocl.all.sdk" version="1.3.0.v200808032335-67C8a_-PQQdLnSYHjltyg3xeBhfp"/>
+    <feature id="org.eclipse.uml2.sdk" version="2.2.100.v200808270930"/>
+    <feature id="org.eclipse.galileo" version="1.0.0.qualifier"/>
   </features>
 </product>
