@@ -5,6 +5,7 @@ feature@org.eclipse.amalgam.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsro
 feature@org.eclipse.amalgam.examples.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.examples.dsltk-feature
 feature@org.eclipse.amalgam.modeler=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.modeler-feature
 feature@org.eclipse.amalgam.examples.modeler=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.examples.modeler-feature
+feature@org.eclipse.amalgam.builder=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.builder-feature
 
 !*** Amalgam plug-ins *******************************************************************
 plugin@org.eclipse.amalgam.common.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/plugins/org.eclipse.amalgam.common.ui
@@ -24,6 +25,16 @@ plugin@org.eclipse.amalgam.examples.dsl.scenario=HEAD,:pserver:anonymous@dev.ecl
 plugin@org.eclipse.amalgam.examples.dsl.bpmn=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsl.bpmn
 plugin@org.eclipse.amalgam.examples.dsltk=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.dsltk
 plugin@org.eclipse.amalgam.examples.modeler=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/examples/org.eclipse.amalgam.examples.modeler
+
+!*** Amalgam builder *******************************************************************
+plugin@org.eclipse.amalgam.builder=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/releng/org.eclipse.amalgam.builder
+plugin@org.eclipse.amalgam.releng.builder=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/releng/org.eclipse.amalgam.releng.builder
+plugin@org.eclipse.amalgam.releng.build.model=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/releng/org.eclipse.amalgam.releng.build.model
+plugin@org.eclipse.amalgam.releng.build.model.edit=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/releng/org.eclipse.amalgam.releng.build.model.edit
+plugin@org.eclipse.amalgam.releng.build.model.editor=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/releng/org.eclipse.amalgam.releng.build.model.editor
+plugin@org.eclipse.amalgam.releng.product.model=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/releng/org.eclipse.amalgam.releng.product.model
+plugin@org.eclipse.amalgam.releng.product.model.edit=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/releng/org.eclipse.amalgam.releng.product.model.edit
+plugin@org.eclipse.amalgam.releng.product.model.editor=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/releng/org.eclipse.amalgam.releng.product.model.editor
 
 !*** Test Galileo build *****************************************************************
 feature@org.eclipse.galileo=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.galileo-feature
