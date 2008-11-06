@@ -5,4 +5,5 @@ Bundle-SymbolicName: org.eclipse.amalgam.examples.dsltk;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.amalgam.common.ui;bundle-version="1.0.0"
+Require-Bundle: org.eclipse.jem;resolution:=optional,
+ org.eclipse.amalgam.common.ui;bundle-version="1.0.0"
