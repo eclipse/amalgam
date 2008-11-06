@@ -10,10 +10,10 @@
 	<target name="update.product">
 		<qvto.interpretedTransformation
 		     transformation="platform:/resource/org.eclipse.amalgam.releng.builder/transformations/updateproduct.qvto">
-		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/galileo/galileo.product"/>
-		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/galileo/galileo.build"/>
+		     <targeturidef targeturi="platform:/resource/org.eclipse.galileo.build/galileo.product"/>
+		     <targeturidef targeturi="platform:/resource/org.eclipse.galileo.build/galileo.build"/>
 		</qvto.interpretedTransformation>
-		<copy file="../configs/galileo/galileo.product" todir="../out/build/galileo/builder" overwrite="true"/>
+		<copy file="../../org.eclipse.galileo.build/galileo.product" todir="../../org.eclipse.galileo.build/out/build/galileo/builder" overwrite="true"/>
 		<qvto.interpretedTransformation
 		     transformation="platform:/resource/org.eclipse.amalgam.releng.builder/transformations/updateproduct.qvto">
 		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/dsltk/dsltk.product"/>
