@@ -45,6 +45,13 @@
 			<param name="repo" value="«feature.repo.location»"/>
 		</antcall>
 «ENDFOREACH»
+«FOREACH contributions.bundles.select(b | b.repo.location != null) AS bundle-»
+		<antcall target="install.bundle">
+			<param name="bundle.id" value="«bundle.id»"/>
+			<param name="bundle.version" value="«bundle.version»"/>
+			<param name="repo" value="«bundle.repo.location»"/>
+		</antcall>
+«ENDFOREACH»
 	</target>
 	
 	<!-- Fetch and extract the delta pack to its pluginPath location -->
@@ -213,6 +220,7 @@
 			metadatarepository="${repo}"
 		/> -->
 		<echo message="Installing feature ${feature.id} ${feature.version}"/>
+		<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
 		<exec executable="${baseLocation}/eclipse" failonerror="false">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
@@ -226,9 +234,35 @@
 			<!-- Until someone splits the two, assume metadata and artifact repo are the same -->
 			<arg line="-metadataRepository ${repo}" />
 			<arg line="-artifactRepository ${repo}" />
-			<arg line="-vmargs -Xmx1024m" />
+			<arg line="-vmargs"/>
+			<arg line="-Xmx1024m" />
+			<arg line="-Declipse.p2.MD5Check=false"/>
 		</exec>
 		
+		<!-- delete the metadata cache -->
+		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache"/>
+	</target>
+	
+	<target name="install.bundle"> 
+		<echo message="Installing bundle ${bundle.id} ${bundle.version}"/>
+		<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
+		<exec executable="${baseLocation}/eclipse" failonerror="false">
+			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
+			<arg line="-nosplash" />
+			<arg line="--launcher.suppressErrors" />
+			<arg line="-consoleLog" />
+			<arg line="-installIU ${bundle.id}" />
+			<arg line="-version ${bundle.version}" /> 
+			<!-- Until someone splits the two, assume metadata and artifact repo are the same -->
+			<arg line="-metadataRepository ${repo}" />
+			<arg line="-artifactRepository ${repo}" />
+			<arg line="-vmargs"/>
+			<arg line="-Xmx1024m" />
+			<arg line="-Declipse.p2.MD5Check=false"/>
+		</exec>
+		
+		<!-- delete the metadata cache -->
+		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache"/>
 	</target>
 		
 	<!-- ===================================================================== -->

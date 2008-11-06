@@ -82,6 +82,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Contribution/features"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Contribution/label"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Contribution/repositories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Contribution/bundles"/>
     </genClasses>
     <genClasses ecoreClass="build.ecore#//Contact">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Contact/name"/>
@@ -93,6 +94,11 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Feature/category"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Feature/repo"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Feature/inProduct"/>
+    </genClasses>
+    <genClasses ecoreClass="build.ecore#//Bundle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Bundle/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Bundle/version"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Bundle/repo"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
