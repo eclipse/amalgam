@@ -93,12 +93,6 @@
 			<param name="p2.version" value="${productVersion}"/>
 		</antcall>
 		
-		<!-- Workaround for improper start info in bundles.info - Fixed post M1 builder, though other bugs exist to prevent moving forward still 
-		<replace file="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" 
-				 token="file:plugins/org.eclipse.core.runtime_3.5.0.v20081010.jar,4,false" 
-				 value="file:plugins/org.eclipse.core.runtime_3.5.0.v20081010.jar,4,true"/>
-		-->
-		
 		«IF config.os.literal == "macosx"»
 		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default (but first, copy correct .ini file) -->
 		<copy file="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app/Contents/MacOS/eclipse.ini" 
@@ -106,13 +100,13 @@
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app" />
 		«ENDIF»
 		«IF config.os.literal == "win32"»
-		<zip destfile="${buildDirectory}/${buildLabel}/${archiveNamePrefix}.«config.os».«config.ws».«config.arch».zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
+		<zip destfile="${buildDirectory}/${buildLabel}/${archiveNamePrefix}-${buildLabel}.«config.os».«config.ws».«config.arch».zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
 		«ELSE»
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/">
-			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.«config.os».«config.ws».«config.arch».tar ${archivePrefix}"/>
+			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}-${buildLabel}.«config.os».«config.ws».«config.arch».tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.«config.os».«config.ws».«config.arch».tar" zipfile="${buildDirectory}/${buildLabel}/${archiveNamePrefix}.«config.os».«config.ws».«config.arch».tar.gz"/>
-		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}.«config.os».«config.ws».«config.arch».tar" />
+		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}-${buildLabel}.«config.os».«config.ws».«config.arch».tar" zipfile="${buildDirectory}/${buildLabel}/${archiveNamePrefix}-${buildLabel}.«config.os».«config.ws».«config.arch».tar.gz"/>
+		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}-${buildLabel}.«config.os».«config.ws».«config.arch».tar" />
 		«ENDIF»
 		«ENDFOREACH»
 		
@@ -120,6 +114,7 @@
 	</target>
 	
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
+	<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
 		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application"/>
 			<arg line="-nosplash"/>
@@ -140,6 +135,7 @@
 			<arg line="-bundlepool ${p2.director.install.path}"/>
 			<arg line="-vmargs"/>
 			<arg line="-Declipse.p2.data.area=${p2.director.install.path}/p2"/>
+			<arg line="-Declipse.p2.MD5Check=false"/>
 			<arg line="-Xmx1024m"/>
 		</exec>
 		
