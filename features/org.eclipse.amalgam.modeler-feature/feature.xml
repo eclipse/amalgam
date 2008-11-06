@@ -47,24 +47,8 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.ui.ide" version="3.4.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.search" version="3.4.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.equinox.common"/>
-      <import plugin="org.eclipse.equinox.p2.core"/>
-      <import plugin="org.eclipse.equinox.p2.director"/>
-      <import plugin="org.eclipse.equinox.p2.engine"/>
-      <import plugin="org.eclipse.equinox.p2.garbagecollector"/>
-      <import plugin="org.eclipse.equinox.p2.metadata.repository"/>
-      <import plugin="org.eclipse.equinox.p2.metadata"/>
-      <import plugin="org.eclipse.osgi"/>
-      <import plugin="org.eclipse.equinox.p2.artifact.repository"/>
-      <import plugin="org.eclipse.equinox.p2.metadata.generator"/>
-      <import plugin="org.eclipse.equinox.p2.ui"/>
-      <import plugin="org.eclipse.equinox.p2.updatechecker"/>
-      <import plugin="org.eclipse.equinox.frameworkadmin"/>
-      <import plugin="org.eclipse.equinox.simpleconfigurator.manipulator"/>
       <import plugin="org.eclipse.equinox.registry"/>
       <import plugin="org.eclipse.ecf"/>
-      <import plugin="org.eclipse.core.jobs"/>
-      <import plugin="org.eclipse.osgi.services"/>
-      <import plugin="org.eclipse.core.net"/>
       <import plugin="org.eclipse.core.expressions"/>
       <import plugin="org.eclipse.ui.views"/>
       <import plugin="org.eclipse.emf.ecore"/>
@@ -93,6 +77,9 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.ui.navigator.resources"/>
       <import plugin="org.eclipse.gmf.runtime.emf.ui.properties" version="1.0.2" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.help.ui" version="3.3.101" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing.render"/>
    </requires>
 
    <plugin
