@@ -8,4 +8,6 @@
   <repositories location="http://download.eclipse.org/modeling/emf/updates/releases/" label="EMF releases"/>
   <repositories location="http://download.eclipse.org/modeling/m2m/updates/milestones/" label="M2M milestones"/>
   <repositories location="http://download.eclipse.org/modeling/emft/updates/releases/" label="EMFT Milestones"/>
+  <repositories location="http://download.eclipse.org/modeling/mdt/updates/releases/" label="MDT releases"/>
+  <repositories location="http://download.eclipse.org/modeling/mdt/updates/interim/" label="MDT releases"/>
 </build:Contribution>
