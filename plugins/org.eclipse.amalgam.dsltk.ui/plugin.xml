@@ -550,23 +550,34 @@
    </extension>
    <!-- end org.eclipse.sdk copy section -->
    
-   <!-- hide ant wizard and User Assistance items -->
+   <!-- hide ant wizard and User Assistance items - Moved from javaDevelopment to new category -->
    <extension
          point="org.eclipse.ui.activities">
+     <activity
+    	  description="%activity.userassistance.desc"
+          id="org.eclipse.amalgam.userAssistance"
+          name="%activity.userassistance">
+     </activity>
+      
+      <categoryActivityBinding
+            activityId="org.eclipse.amalgam.userAssistance"
+            categoryId="org.eclipse.categories.developmentCategory">
+      </categoryActivityBinding>
+      
       <activityPatternBinding
-            activityId="org.eclipse.javaDevelopment"
+            activityId="org.eclipse.amalgam.userAssistance"
             pattern="org\.eclipse\.ant\.ui/org\.eclipse\.ant\.ui\.wizards\.JavaProjectWizard">
 	  </activityPatternBinding>
 	  <activityPatternBinding
-	  	    activityId="org.eclipse.javaDevelopment"
+	  	    activityId="org.eclipse.amalgam.userAssistance"
 	  	    pattern="org\.eclipse\.pde\.ui/org\.eclipse\.pde\.ui\.NewCheatSheetWizard">
 	  </activityPatternBinding>
 	  <activityPatternBinding
-	  	    activityId="org.eclipse.javaDevelopment"
+	  	    activityId="org.eclipse.amalgam.userAssistance"
 	  	    pattern="org\.eclipse\.pde\.ui/org\.eclipse\.pde\.ui\.NewContextHelpWizard">
 	  </activityPatternBinding>
 	  <activityPatternBinding
-	  	    activityId="org.eclipse.javaDevelopment"
+	  	    activityId="org.eclipse.amalgam.userAssistance"
 	  	    pattern="org\.eclipse\.pde\.ui/org\.eclipse\.pde\.ui\.NewTOCWizard">
 	  </activityPatternBinding>
 	</extension>
