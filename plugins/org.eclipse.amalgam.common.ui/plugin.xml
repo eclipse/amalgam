@@ -140,23 +140,17 @@
     <defaultEnablement
           id="org.eclipse.amalgam.uml.activity">
     </defaultEnablement>
-   
+    
+    <!-- Hide UML2 elements - no category binding -->
     <activity
-    	  description="%activity.uml.diagramming.desc"
-          id="org.eclipse.amalgam.uml.diagramming.activity"
-          name="%activity.uml.diagramming">
+    	  description="%activity.uml2.hide.desc"
+          id="org.eclipse.amalgam.hide.uml2.activity"
+          name="%activity.uml2.hide">
     </activity>
-    <categoryActivityBinding
-          activityId="org.eclipse.amalgam.uml.diagramming.activity"
-          categoryId="org.eclipse.amalgam.modeling.Category">
-    </categoryActivityBinding>
     <activityPatternBinding
-          activityId="org.eclipse.amalgam.uml.diagramming.activity"
-          pattern="org\.eclipse\.amalgam\.common\.ui/org\.eclipse\.amalgam\.uml2\.diagram.*">
+          activityId="org.eclipse.amalgam.hide.uml2.activity"
+          pattern="org\.eclipse\.uml2\.uml\.editor/org\.eclipse\.uml2\.uml\.editor\.presentation\.UMLModelWizardID">
     </activityPatternBinding>
-    <defaultEnablement
-          id="org.eclipse.amalgam.uml.diagramming.activity">
-    </defaultEnablement>
     
   </extension>
   
