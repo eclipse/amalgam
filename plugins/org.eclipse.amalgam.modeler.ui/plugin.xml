@@ -29,16 +29,24 @@
 	          pattern="org\.eclipse\.stp\.bpmn\.diagram/org\.eclipse\.stp\.bpmn\.diagram\.part\.BpmnCreationWizardID">
 	    </activityPatternBinding>
 	    
-	    <!-- Hide UML2 elements - no category binding -->
+	    <!-- Hide UML diagrams -->
 	    <activity
-	    	  description="%activity.uml2.hide.desc"
-	          id="org.eclipse.amalgam.hide.uml2.activity"
-	          name="%activity.uml2.hide">
+	    	  description="%activity.uml.diagramming.desc"
+	          id="org.eclipse.amalgam.uml.diagramming.activity"
+	          name="%activity.uml.diagramming">
 	    </activity>
+	    <categoryActivityBinding
+	          activityId="org.eclipse.amalgam.uml.diagramming.activity"
+	          categoryId="org.eclipse.amalgam.modeling.Category">
+	    </categoryActivityBinding>
 	    <activityPatternBinding
-	          activityId="org.eclipse.amalgam.hide.uml2.activity"
-	          pattern="org\.eclipse\.uml2\.uml\.editor/org\.eclipse\.uml2\.uml\.editor\.presentation\.UMLModelWizardID">
+	          activityId="org.eclipse.amalgam.uml.diagramming.activity"
+	          pattern="org\.eclipse\.amalgam\.common\.ui/org\.eclipse\.amalgam\.uml2\.diagram.*">
 	    </activityPatternBinding>
+	    <defaultEnablement
+	          id="org.eclipse.amalgam.uml.diagramming.activity">
+	    </defaultEnablement>
+	    
 	    <activityPatternBinding
 	          activityId="org.eclipse.amalgam.hide.uml2.activity"
 	          pattern="org\.eclipse\.uml2\.diagram\.clazz/org\.eclipse\.uml2\.diagram\.clazz\.part\.UMLCreationWizardID">
@@ -73,7 +81,7 @@
 	    </activityPatternBinding>
 	</extension>
 	
-	<!-- UML2 diagram and model wizard redefinition -->
+	<!-- UML2 diagram wizard redefinition -->
     <extension point="org.eclipse.ui.newWizards">
         <wizard
   	     	name="%uml.model.wizard"
