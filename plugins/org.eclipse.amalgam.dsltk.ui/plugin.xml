@@ -321,7 +321,7 @@
           id="org.eclipse.amalgam.dsl.diagramDefinitionActivity">
     </defaultEnablement>
     <defaultEnablement
-          id="org.eclipse.amalgam.dsl.dslProjectActivity">
+          id="org.eclipse.amalgam.dsl.perspectiveActivity">
     </defaultEnablement>
     
   </extension>
