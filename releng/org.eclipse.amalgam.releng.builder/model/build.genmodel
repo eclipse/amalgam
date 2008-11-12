@@ -36,7 +36,7 @@
       <genEnumLiterals ecoreEnumLiteral="build.ecore#//ArchiveFormat/zip"/>
       <genEnumLiterals ecoreEnumLiteral="build.ecore#//ArchiveFormat/tar"/>
     </genEnums>
-    <genClasses ecoreClass="build.ecore#//Build">
+    <genClasses ecoreClass="build.ecore#//Build" labelFeature="#//build/Build/label">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/buildRoot"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Build/platforms"/>
@@ -50,7 +50,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Build/base"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Build/builder"/>
     </genClasses>
-    <genClasses ecoreClass="build.ecore#//Repository">
+    <genClasses ecoreClass="build.ecore#//Repository" labelFeature="#//build/Repository/label">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Repository/location"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Repository/label"/>
     </genClasses>
