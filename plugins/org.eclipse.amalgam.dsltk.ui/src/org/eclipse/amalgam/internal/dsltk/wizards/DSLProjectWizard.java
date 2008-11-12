@@ -45,7 +45,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.ide.undo.CreateFolderOperation;
 import org.eclipse.ui.part.ISetSelectionTarget;
-import org.eclipse.xtend.shared.ui.core.builder.XtendXpandNature;
+//import org.eclipse.xtend.shared.ui.core.builder.XtendXpandNature;
 
 /**
  * A project wizard that adds the appropriate natures for DSL development. At
@@ -127,7 +127,7 @@ public class DSLProjectWizard extends EmptyProjectWizard {
 					// configure additional options/natures
 					createFolder("diagrams", progressMonitor);
 					configureQVTOptions(progressMonitor);
-					configureXpandOptions(progressMonitor);
+//					configureXpandOptions(progressMonitor);
 				} catch (Exception exception) {
 					GenModelEditPlugin.INSTANCE.log(exception);
 				} finally {
@@ -164,9 +164,9 @@ public class DSLProjectWizard extends EmptyProjectWizard {
 		NatureUtils.addNature(project, TransformationNature.ID);
 	}
 
-	private void configureXpandOptions(IProgressMonitor monitor) throws CoreException {
-		NatureUtils.addNature(project, XtendXpandNature.NATURE_ID);
-	}
+//	private void configureXpandOptions(IProgressMonitor monitor) throws CoreException {
+//		NatureUtils.addNature(project, XtendXpandNature.NATURE_ID);
+//	}
 
 	private IContainer createFolder(String name, IProgressMonitor monitor) {
 		IProgressMonitor safeMonitor = monitor != null ? monitor : new NullProgressMonitor();

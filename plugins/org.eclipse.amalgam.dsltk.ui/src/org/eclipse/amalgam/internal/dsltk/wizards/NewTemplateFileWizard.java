@@ -10,15 +10,15 @@
  *******************************************************************************/
 package org.eclipse.amalgam.internal.dsltk.wizards;
 
-import org.eclipse.xtend.shared.ui.wizards.NewExtXptResourceWizard;
+//import org.eclipse.xtend.shared.ui.wizards.NewExtXptResourceWizard;
 
 /**
  * FIXME workaround for bug 229115 (wizard not exposed in xpand)
  */
-public class NewTemplateFileWizard extends NewExtXptResourceWizard {
+public class NewTemplateFileWizard /*extends NewExtXptResourceWizard */{
 	
     public NewTemplateFileWizard() {
-        super("NewTemplateFile.xpt", "xpt", "New Template File", "Creates a new Xpand Template File", null);
+//        super("NewTemplateFile.xpt", "xpt", "New Template File", "Creates a new Xpand Template File", null);
     }
 
 }
