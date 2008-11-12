@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dsltk" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand">
+	
+	<target name="main" depends="update.product,invoke.templates">
+		<eclipse.refreshLocal resource="org.eclipse.amalgam.releng.builder" depth="infinite"/>
+	</target>
+		
+	<target name="update.product">
+		<qvto.interpretedTransformation
+		     transformation="platform:/plugin/org.eclipse.amalgam.releng.builder/transformations/updateproduct.qvto">
+		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/dsltk/dsltk.product"/>
+		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/dsltk/dsltk.build"/>
+		</qvto.interpretedTransformation>
+		<copy file="../configs/dsltk/dsltk.product" todir="../out/build/dsltk/builder" overwrite="true"/>
+	</target>
+
+	<target name="invoke.templates">
+		<mkdir dir="../out/build/dsltk/repo"/>
+		<zzz:template name="build2properties::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.releng.builder/configs/dsltk/dsltk.build#/" 
+			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			outfile="../out/build/dsltk/builder/build.properties"/>
+		<zzz:template name="build2customTargets::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.releng.builder/configs/dsltk/dsltk.build#/" 
+			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			outfile="../out/build/dsltk/builder/customTargets.xml"/>
+		<zzz:template name="build2script::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.releng.builder/configs/dsltk/dsltk.build#/" 
+			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			outfile="../out/build/build-dsltk.xml"/>
+		<zzz:template name="build2site::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.releng.builder/configs/dsltk/dsltk.build#/" 
+			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			outfile="../out/build/dsltk/repo/site.xml"/>
+	</target>
+
+</project>
