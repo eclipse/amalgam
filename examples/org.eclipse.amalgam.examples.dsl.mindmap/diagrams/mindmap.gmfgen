@@ -2,8 +2,7 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel" packageNamePrefix="org.eclipse.amalgam.examples.mindmap.diagram"
-    sameFileForDiagramAndModel="true"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel" sameFileForDiagramAndModel="true"
     diagramFileExtension="mmd">
   <audits>
     <categories
@@ -61,13 +60,18 @@
     </metrics>
   </metrics>
   <diagram
-      visualID="79"
+      visualID="1000"
       editPartClassName="MapEditPart"
       itemSemanticEditPolicyClassName="MapItemSemanticEditPolicy"
       notationViewFactoryClassName="MapViewFactory"
       canonicalEditPolicyClassName="MapCanonicalEditPolicy"
       iconProviderPriority="Low"
-      validationProviderPriority="Low">
+      creationWizardCategoryID="org.eclipse.amalgam.examples.requirements.wizards.category"
+      validationProviderPriority="Low"
+      validationEnabled="true"
+      metricProviderPriority="Low"
+      validationDecorators="true"
+      liveValidationUIFeedback="true">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
@@ -79,7 +83,7 @@
     <domainDiagramElement
         href="../model/mindmap.genmodel#//mindmap/Map"/>
     <topLevelNodes
-        visualID="1001"
+        visualID="2001"
         editPartClassName="TopicEditPart"
         itemSemanticEditPolicyClassName="TopicItemSemanticEditPolicy"
         notationViewFactoryClassName="TopicViewFactory"
@@ -112,7 +116,7 @@
             href="../model/mindmap.genmodel#//mindmap/Map/elements"/>
       </modelFacet>
       <labels
-          visualID="4001"
+          visualID="5001"
           editPartClassName="TopicNameEditPart"
           itemSemanticEditPolicyClassName="TopicNameItemSemanticEditPolicy"
           notationViewFactoryClassName="TopicNameViewFactory">
@@ -130,7 +134,7 @@
       </labels>
     </topLevelNodes>
     <topLevelNodes
-        visualID="1002"
+        visualID="2002"
         editPartClassName="Topic2EditPart"
         itemSemanticEditPolicyClassName="Topic2ItemSemanticEditPolicy"
         notationViewFactoryClassName="Topic2ViewFactory"
@@ -163,7 +167,7 @@
             href="../model/mindmap.genmodel#//mindmap/Map/elements"/>
       </modelFacet>
       <labels
-          visualID="4002"
+          visualID="5002"
           editPartClassName="TopicName2EditPart"
           itemSemanticEditPolicyClassName="TopicName2ItemSemanticEditPolicy"
           notationViewFactoryClassName="TopicName2ViewFactory">
@@ -181,7 +185,7 @@
       </labels>
     </topLevelNodes>
     <links
-        visualID="3001"
+        visualID="4001"
         editPartClassName="TopicSubtopicsEditPart"
         itemSemanticEditPolicyClassName="TopicSubtopicsItemSemanticEditPolicy"
         notationViewFactoryClassName="TopicSubtopicsViewFactory"
@@ -194,7 +198,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="TopicSubtopicsFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class TopicSubtopicsFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public TopicSubtopicsFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;setSourceDecoration(createSourceDecoration());&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createSourceDecoration() {&#xA;&#x9;&#x9;org.eclipse.amalgam.examples.bpmn.figures.CircleDecoration df = new org.eclipse.amalgam.examples.bpmn.figures.CircleDecoration();&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class TopicSubtopicsFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public TopicSubtopicsFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;setSourceDecoration(createSourceDecoration());&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createSourceDecoration() {&#xA;&#x9;&#x9;org.eclipse.amalgam.examples.mindmap.diagram.figures.CircleDecoration df = new org.eclipse.amalgam.examples.mindmap.diagram.figures.CircleDecoration();&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
@@ -205,7 +209,7 @@
       </modelFacet>
     </links>
     <links
-        visualID="3002"
+        visualID="4002"
         editPartClassName="RelationshipEditPart"
         itemSemanticEditPolicyClassName="RelationshipItemSemanticEditPolicy"
         notationViewFactoryClassName="RelationshipViewFactory"
@@ -247,7 +251,7 @@
             href="../model/mindmap.genmodel#//mindmap/Relationship/target"/>
       </modelFacet>
       <labels
-          visualID="4003"
+          visualID="6001"
           editPartClassName="RelationshipNameEditPart"
           itemSemanticEditPolicyClassName="RelationshipNameItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipNameViewFactory">
@@ -268,7 +272,7 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="4004"
+          visualID="6002"
           editPartClassName="RelationshipTypeEditPart"
           itemSemanticEditPolicyClassName="RelationshipTypeItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipTypeViewFactory"
@@ -292,7 +296,7 @@
       </labels>
     </links>
     <links
-        visualID="3003"
+        visualID="4003"
         editPartClassName="Relationship2EditPart"
         itemSemanticEditPolicyClassName="Relationship2ItemSemanticEditPolicy"
         notationViewFactoryClassName="Relationship2ViewFactory"
@@ -334,7 +338,7 @@
             href="../model/mindmap.genmodel#//mindmap/Relationship/target"/>
       </modelFacet>
       <labels
-          visualID="4005"
+          visualID="6003"
           editPartClassName="RelationshipName2EditPart"
           itemSemanticEditPolicyClassName="RelationshipName2ItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipName2ViewFactory">
@@ -355,7 +359,7 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="4006"
+          visualID="6004"
           editPartClassName="RelationshipType2EditPart"
           itemSemanticEditPolicyClassName="RelationshipType2ItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipType2ViewFactory"
@@ -379,7 +383,7 @@
       </labels>
     </links>
     <links
-        visualID="3004"
+        visualID="4004"
         editPartClassName="Relationship3EditPart"
         itemSemanticEditPolicyClassName="Relationship3ItemSemanticEditPolicy"
         notationViewFactoryClassName="Relationship3ViewFactory"
@@ -421,7 +425,7 @@
             href="../model/mindmap.genmodel#//mindmap/Relationship/target"/>
       </modelFacet>
       <labels
-          visualID="4007"
+          visualID="6005"
           editPartClassName="RelationshipName3EditPart"
           itemSemanticEditPolicyClassName="RelationshipName3ItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipName3ViewFactory">
@@ -442,7 +446,7 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="4008"
+          visualID="6006"
           editPartClassName="RelationshipType3EditPart"
           itemSemanticEditPolicyClassName="RelationshipType3ItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipType3ViewFactory"
@@ -467,6 +471,12 @@
     </links>
     <palette>
       <groups
+          title="Default"
+          description="Holds top-level non-container tools">
+        <entries
+            xsi:type="gmfgen:Separator"/>
+      </groups>
+      <groups
           title="Nodes">
         <entries
             xsi:type="gmfgen:ToolEntry"
@@ -479,35 +489,35 @@
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Subtopic"
-            description="Create new Subtopic link"
-            smallIconPath="/org.eclipse.amalgam.examples.mindmap.model.edit/icons/full/obj16/Subtopic.gif"
+            description="Create new Subtopic"
             genLinks="//@diagram/@links.0"/>
         <entries
             xsi:type="gmfgen:ToolGroup"
             title="Relationships"
+            description=""
             stack="true">
           <entries
               xsi:type="gmfgen:ToolEntry"
               title="Dependency"
-              description="Create new dependency relationship"
+              description="Create new Dependency Relationship"
               genLinks="//@diagram/@links.1"/>
           <entries
               xsi:type="gmfgen:ToolEntry"
               title="Include"
-              description="Create new include relationship"
-              genLinks="//@diagram/@links.3"/>
+              description="Create new Include Relationship"
+              genLinks="//@diagram/@links.2"/>
           <entries
               xsi:type="gmfgen:ToolEntry"
               title="Extend"
-              description="Create new extend relationship"
-              genLinks="//@diagram/@links.2"/>
+              description="Create new Extend Relationship"
+              genLinks="//@diagram/@links.3"/>
         </entries>
       </groups>
     </palette>
     <preferencePages
         xsi:type="gmfgen:GenStandardPreferencePage"
         iD="org.eclipse.amalgam.examples.mindmap.diagram.general"
-        name="mindmap Diagram">
+        name="Mindmap Diagram">
       <children
           xsi:type="gmfgen:GenStandardPreferencePage"
           iD="org.eclipse.amalgam.examples.mindmap.diagram.appearance"
@@ -536,8 +546,7 @@
     </preferencePages>
   </diagram>
   <plugin
-      iD="org.eclipse.amalgam.examples.mindmap.diagram"
-      name="Mindmap Diagram Plugin"
+      name="Mindmap Diagramming Plugin"
       provider="Eclipse.org"
       printingEnabled="true"/>
   <editor/>
@@ -801,14 +810,14 @@
           body="Type::DEPENDENCY"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
-          body="self.type = Type::EXTEND"/>
-      <expressions
-          body="Type::EXTEND"/>
-      <expressions
-          xsi:type="gmfgen:GenConstraint"
           body="self.type = Type::INCLUDE"/>
       <expressions
           body="Type::INCLUDE"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.type = Type::EXTEND"/>
+      <expressions
+          body="Type::EXTEND"/>
       <expressions
           body="self.subtopics->size()"/>
       <expressions

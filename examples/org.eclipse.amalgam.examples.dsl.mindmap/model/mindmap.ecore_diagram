@@ -120,7 +120,7 @@
   <element xmi:type="ecore:EPackage" href="mindmap.ecore#/"/>
   <edges xmi:type="notation:Edge" xmi:id="_ty53oMzyEdyz47fzw_dPVg" type="4002" source="_tyBt4MzyEdyz47fzw_dPVg" target="_tyHNeMzyEdyz47fzw_dPVg">
     <children xmi:type="notation:Node" xmi:id="_ty7FwMzyEdyz47fzw_dPVg" type="6001">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_ty7FwczyEdyz47fzw_dPVg" x="-61" y="-34"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_ty7FwczyEdyz47fzw_dPVg" x="-27" y="29"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_ty8T4MzyEdyz47fzw_dPVg" type="6003">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_ty8T4czyEdyz47fzw_dPVg" x="8" y="-16"/>

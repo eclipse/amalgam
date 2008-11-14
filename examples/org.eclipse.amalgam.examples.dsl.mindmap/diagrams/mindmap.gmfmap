@@ -49,7 +49,7 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="mindmap.gmftool#//@palette/@tools.1/@tools.0"/>
+        href="mindmap.gmftool#//@palette/@tools.2/@tools.0"/>
     <diagramLink
         href="mindmap.gmfgraph#TopicSubtopics"/>
     <linkMetaFeature
@@ -92,53 +92,7 @@
         href="../model/mindmap.ecore#//Map/elements"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="mindmap.gmftool#//@palette/@tools.1/@tools.1/@tools.0"/>
-    <diagramLink
-        href="mindmap.gmfgraph#Relationship"/>
-    <sourceMetaFeature
-        xsi:type="ecore:EReference"
-        href="../model/mindmap.ecore#//Relationship/source"/>
-    <linkMetaFeature
-        xsi:type="ecore:EReference"
-        href="../model/mindmap.ecore#//Relationship/target"/>
-  </links>
-  <links>
-    <domainMetaElement
-        href="../model/mindmap.ecore#//Relationship"/>
-    <domainSpecialization
-        body="self.type = Type::EXTEND"/>
-    <domainInitializer
-        xsi:type="gmfmap:FeatureSeqInitializer">
-      <initializers
-          xsi:type="gmfmap:FeatureValueSpec">
-        <feature
-            xsi:type="ecore:EAttribute"
-            href="../model/mindmap.ecore#//Relationship/type"/>
-        <value
-            body="Type::EXTEND"/>
-      </initializers>
-    </domainInitializer>
-    <labelMappings
-        xsi:type="gmfmap:FeatureLabelMapping">
-      <diagramLabel
-          href="mindmap.gmfgraph#RelationshipName"/>
-      <features
-          href="../model/mindmap.ecore#//MapElement/name"/>
-    </labelMappings>
-    <labelMappings
-        xsi:type="gmfmap:FeatureLabelMapping"
-        readOnly="true"
-        viewPattern="«{0}»">
-      <diagramLabel
-          href="mindmap.gmfgraph#RelationshipType"/>
-      <features
-          href="../model/mindmap.ecore#//Relationship/type"/>
-    </labelMappings>
-    <containmentFeature
-        href="../model/mindmap.ecore#//Map/elements"/>
-    <tool
-        xsi:type="gmftool:CreationTool"
-        href="mindmap.gmftool#//@palette/@tools.1/@tools.1/@tools.2"/>
+        href="mindmap.gmftool#//@palette/@tools.2/@tools.1/@tools.0"/>
     <diagramLink
         href="mindmap.gmfgraph#Relationship"/>
     <sourceMetaFeature
@@ -184,7 +138,53 @@
         href="../model/mindmap.ecore#//Map/elements"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="mindmap.gmftool#//@palette/@tools.1/@tools.1/@tools.1"/>
+        href="mindmap.gmftool#//@palette/@tools.2/@tools.1/@tools.1"/>
+    <diagramLink
+        href="mindmap.gmfgraph#Relationship"/>
+    <sourceMetaFeature
+        xsi:type="ecore:EReference"
+        href="../model/mindmap.ecore#//Relationship/source"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="../model/mindmap.ecore#//Relationship/target"/>
+  </links>
+  <links>
+    <domainMetaElement
+        href="../model/mindmap.ecore#//Relationship"/>
+    <domainSpecialization
+        body="self.type = Type::EXTEND"/>
+    <domainInitializer
+        xsi:type="gmfmap:FeatureSeqInitializer">
+      <initializers
+          xsi:type="gmfmap:FeatureValueSpec">
+        <feature
+            xsi:type="ecore:EAttribute"
+            href="../model/mindmap.ecore#//Relationship/type"/>
+        <value
+            body="Type::EXTEND"/>
+      </initializers>
+    </domainInitializer>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping">
+      <diagramLabel
+          href="mindmap.gmfgraph#RelationshipName"/>
+      <features
+          href="../model/mindmap.ecore#//MapElement/name"/>
+    </labelMappings>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping"
+        readOnly="true"
+        viewPattern="«{0}»">
+      <diagramLabel
+          href="mindmap.gmfgraph#RelationshipType"/>
+      <features
+          href="../model/mindmap.ecore#//Relationship/type"/>
+    </labelMappings>
+    <containmentFeature
+        href="../model/mindmap.ecore#//Map/elements"/>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="mindmap.gmftool#//@palette/@tools.2/@tools.1/@tools.2"/>
     <diagramLink
         href="mindmap.gmfgraph#Relationship"/>
     <sourceMetaFeature

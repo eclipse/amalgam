@@ -4,24 +4,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="mindmap">
   <figures
-      name="BPMN Figures"
-      implementationBundle="org.eclipse.amalgam.examples.bpmn.figures">
-    <figures
-        xsi:type="gmfgraph:CustomDecoration"
-        name="CircleDecoration"
-        qualifiedClassName="org.eclipse.amalgam.examples.bpmn.figures.CircleDecoration"/>
-  </figures>
-  <figures
       name="Default">
     <figures
         xsi:type="gmfgraph:PolylineDecoration"
         name="RelationshipTargetDecoration"/>
+    <figures
+        xsi:type="gmfgraph:CustomDecoration"
+        name="CircleDecoration"
+        qualifiedClassName="org.eclipse.amalgam.examples.mindmap.diagram.figures.CircleDecoration"/>
     <descriptors
         name="TopicSubtopicsFigure">
       <actualFigure
           xsi:type="gmfgraph:PolylineConnection"
           name="TopicSubtopicsFigure"
-          sourceDecoration="//@figures.0/@figures.0"/>
+          sourceDecoration="//@figures.0/@figures.1"/>
     </descriptors>
     <descriptors
         name="RelationshipFigure">
@@ -29,7 +25,7 @@
           xsi:type="gmfgraph:PolylineConnection"
           name="RelationshipFigure"
           lineKind="LINE_DASH"
-          targetDecoration="//@figures.1/@figures.0">
+          targetDecoration="//@figures.0/@figures.0">
         <children
             xsi:type="gmfgraph:Label"
             name="RelationshipNameFigure"
@@ -40,14 +36,15 @@
             text="&lt;...>"/>
       </actualFigure>
       <accessors
-          figure="//@figures.1/@descriptors.1/@actualFigure/@children.0"/>
+          figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
       <accessors
-          figure="//@figures.1/@descriptors.1/@actualFigure/@children.1"/>
+          figure="//@figures.0/@descriptors.1/@actualFigure/@children.1"/>
     </descriptors>
     <descriptors
         name="TopicFigure">
       <actualFigure
           xsi:type="gmfgraph:RoundedRectangle"
+          name="TopicFigure"
           cornerWidth="15"
           cornerHeight="15">
         <layout
@@ -57,10 +54,11 @@
             right="5"/>
         <children
             xsi:type="gmfgraph:Label"
-            name="TopicNameFigure"/>
+            name="TopicNameFigure"
+            text=""/>
       </actualFigure>
       <accessors
-          figure="//@figures.1/@descriptors.2/@actualFigure/@children.0"/>
+          figure="//@figures.0/@descriptors.2/@actualFigure/@children.0"/>
     </descriptors>
     <descriptors
         name="SubtopicFigure">
@@ -100,7 +98,7 @@
         </children>
       </actualFigure>
       <accessors
-          figure="//@figures.1/@descriptors.3/@actualFigure/@children.0/@children.0"/>
+          figure="//@figures.0/@descriptors.3/@actualFigure/@children.0/@children.0"/>
     </descriptors>
   </figures>
   <nodes
@@ -133,20 +131,20 @@
       name="TopicName"
       figure="TopicFigure"
       elementIcon="false"
-      accessor="//@figures.1/@descriptors.2/@accessors.0"/>
+      accessor="//@figures.0/@descriptors.2/@accessors.0"/>
   <labels
       name="RelationshipName"
       figure="RelationshipFigure"
       elementIcon="false"
-      accessor="//@figures.1/@descriptors.1/@accessors.0"/>
+      accessor="//@figures.0/@descriptors.1/@accessors.0"/>
   <labels
       name="RelationshipType"
       figure="RelationshipFigure"
       elementIcon="false"
-      accessor="//@figures.1/@descriptors.1/@accessors.1"/>
+      accessor="//@figures.0/@descriptors.1/@accessors.1"/>
   <labels
       name="SubtopicName"
       figure="SubtopicFigure"
       elementIcon="false"
-      accessor="//@figures.1/@descriptors.3/@accessors.0"/>
+      accessor="//@figures.0/@descriptors.3/@accessors.0"/>
 </gmfgraph:Canvas>

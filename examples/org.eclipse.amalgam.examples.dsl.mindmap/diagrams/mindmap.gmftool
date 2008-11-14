@@ -19,25 +19,28 @@
       </tools>
     </tools>
     <tools
+        xsi:type="gmftool:PaletteSeparator"/>
+    <tools
         xsi:type="gmftool:ToolGroup"
         title="Links">
       <tools
           xsi:type="gmftool:CreationTool"
           title="Subtopic"
-          description="Create new Subtopic link">
+          description="Create new Subtopic">
         <smallIcon
-            xsi:type="gmftool:BundleImage"
-            path="icons/full/obj16/Subtopic.gif"
-            bundle="org.eclipse.amalgam.examples.mindmap.model.edit"/>
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
       </tools>
       <tools
           xsi:type="gmftool:ToolGroup"
           title="Relationships"
+          description=""
           stack="true">
         <tools
             xsi:type="gmftool:CreationTool"
             title="Dependency"
-            description="Create new dependency relationship">
+            description="Create new Dependency Relationship">
           <smallIcon
               xsi:type="gmftool:DefaultImage"/>
           <largeIcon
@@ -46,7 +49,7 @@
         <tools
             xsi:type="gmftool:CreationTool"
             title="Include"
-            description="Create new include relationship">
+            description="Create new Include Relationship">
           <smallIcon
               xsi:type="gmftool:DefaultImage"/>
           <largeIcon
@@ -55,7 +58,7 @@
         <tools
             xsi:type="gmftool:CreationTool"
             title="Extend"
-            description="Create new extend relationship">
+            description="Create new Extend Relationship">
           <smallIcon
               xsi:type="gmftool:DefaultImage"/>
           <largeIcon
