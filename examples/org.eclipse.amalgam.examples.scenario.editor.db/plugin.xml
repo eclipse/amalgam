@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+         id="org.eclipse.amalgam.examples.scenario.diagram.part.ScenarioDiagramEditorID.db"
+         name="Scenario Databse Editor"
+         extensions=""
+         default="true"
+         class="org.eclipse.amalgam.examples.scenario.diagram.part.ScenarioDiagramEditor">
+      </editor>
+   </extension>
+   
+   <extension
+      id="scenario.diagram.editor.actions"
+      point="org.eclipse.ui.actionSets">
+   	<actionSet
+         id="scenario.diagram.editor.actions"
+         label="Scenario"
+         visible="true">
+      <menu
+            id="dbMenu"
+            label="Database">
+         <separator
+               name="dbGroup">
+         </separator>
+      </menu>
+      <action
+            id="scenario.diagram.action0"
+            label="Open Scenario Diagram"
+            menubarPath="dbMenu/dbGroup"
+            style="push">
+         <class
+               class="org.eclipse.amalgam.examples.scenario.diagram.db.OpenScenarioDBEditor">
+         </class>
+      </action>
+   </actionSet>  
+   </extension>
+   
+   
+</plugin>
