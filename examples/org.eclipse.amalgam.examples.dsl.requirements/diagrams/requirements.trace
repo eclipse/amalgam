@@ -3,42 +3,42 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:trace="http://www.eclipse.org/gmf/2006/Trace">
   <nodeTraces
-      visualID="2004"
+      visualID="2001"
       queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/2008/requirements' and _eClass_.name = 'RequirementGroup') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/2008/requirements' and _eClass_.name = 'Model') and _containmentMF_.name = 'groups')">
     <nodeLabelTraces
-        visualID="5005"
+        visualID="5001"
         queryText="true"/>
   </nodeTraces>
   <nodeTraces
-      visualID="2005"
+      visualID="2002"
       queryText="let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/2008/requirements' and _eClass_.name = 'Requirement'">
     <nodeLabelTraces
-        visualID="5006"
+        visualID="5002"
         queryText="true"/>
     <nodeLabelTraces
-        visualID="5007"
+        visualID="5003"
         queryText="true"/>
   </nodeTraces>
   <nodeTraces
-      visualID="2006"
+      visualID="2003"
       queryText="let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/2008/requirements' and _eClass_.name = 'RequirementGroup'">
     <nodeLabelTraces
-        visualID="5008"
+        visualID="5004"
         queryText="true"/>
   </nodeTraces>
   <childNodeTraces
-      visualID="3002"
+      visualID="3001"
       queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/2008/scenario' and _eClass_.name = 'Process') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/2008/requirements' and _eClass_.name = 'Requirement') and _containmentMF_.name = 'scenario')"/>
   <linkTraces
-      visualID="4005"
+      visualID="4001"
       queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/2008/requirements' and _eClass_.name = 'RequirementGroup') and _feature_.name = 'requirements')"/>
   <linkTraces
-      visualID="4006"
+      visualID="4002"
       queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/2008/requirements' and _eClass_.name = 'Requirement') and _feature_.name = 'children')"/>
   <linkTraces
-      visualID="4007"
+      visualID="4003"
       queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/2008/requirements' and _eClass_.name = 'Requirement') and _feature_.name = 'dependencies')"/>
   <linkTraces
-      visualID="4008"
+      visualID="4004"
       queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://www.eclipse.org/2008/requirements' and _eClass_.name = 'RequirementGroup') and _feature_.name = 'children')"/>
 </trace:TraceModel>

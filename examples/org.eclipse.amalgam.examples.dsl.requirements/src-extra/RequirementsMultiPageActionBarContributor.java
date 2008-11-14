@@ -1,4 +1,4 @@
-package org.eclipse.requirements.presentation;
+package org.eclipse.amalgam.examples.requirements.presentation;
 
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.ui.IActionBars;
@@ -6,8 +6,8 @@ import org.eclipse.ui.IActionBars2;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.part.MultiPageEditorActionBarContributor;
-import org.eclipse.requirements.diagram.part.RequirementsDiagramActionBarContributor;
-import org.eclipse.requirements.diagram.part.RequirementsDiagramEditor;
+import org.eclipse.amalgam.examples.requirements.diagram.part.RequirementsDiagramActionBarContributor;
+import org.eclipse.amalgam.examples.requirements.diagram.part.RequirementsDiagramEditor;
 
 /**
  * A special implementation of a <code>MultiPageEditorActionBarContributor</code> to switch between

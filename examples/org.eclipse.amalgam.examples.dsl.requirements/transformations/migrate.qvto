@@ -30,13 +30,16 @@ mapping old::Requirement::toRequirement() : new::Requirement {
 	author := self.author;
 	created := self.created;
 	comments += self.comments.map toComment();
-	version := self.version.map toVersion();
+	
+--  try clone here, rather than invoke a mapping
+	version := self.version.clone()->oclAsType(new::Version)->any(true);
+--	version := self.version.map toVersion();
+
 	dependencies += self.dependencies.late resolve(new::Requirement);
 	scenario := self.scenario;
 	state := self.state.toState();
 	resolution := self.resolution.toResolution();
 }
-
 
 mapping old::Comment::toComment() : new::Comment {
 	subject := self.subject;

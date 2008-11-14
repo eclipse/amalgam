@@ -56,7 +56,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_y9nbwb96Edy4l4_v0jRXRg" fontName="Lucida Grande"/>
     <element xmi:type="ecore:EEnum" href="requirements.ecore#//Type"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y9nbwr96Edy4l4_v0jRXRg" x="99" y="684"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y9nbwr96Edy4l4_v0jRXRg" x="117" y="531"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_y9qfEL96Edy4l4_v0jRXRg" type="2005">
     <children xmi:type="notation:Node" xmi:id="_y9qfE796Edy4l4_v0jRXRg" type="5005"/>
@@ -72,7 +72,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_y9qfEb96Edy4l4_v0jRXRg" fontName="Lucida Grande"/>
     <element xmi:type="ecore:EEnum" href="requirements.ecore#//Priority"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y9qfEr96Edy4l4_v0jRXRg" x="99" y="855"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y9qfEr96Edy4l4_v0jRXRg" x="315" y="531"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_y9rtNL96Edy4l4_v0jRXRg" type="2001">
     <children xmi:type="notation:Node" xmi:id="_y9sUQL96Edy4l4_v0jRXRg" type="5001"/>
@@ -130,7 +130,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_y9uJcb96Edy4l4_v0jRXRg" fontName="Lucida Grande"/>
     <element xmi:type="ecore:EEnum" href="requirements.ecore#//State"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y9uJcr96Edy4l4_v0jRXRg" x="99" y="756"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y9uJcr96Edy4l4_v0jRXRg" x="234" y="531"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_y9vXkL96Edy4l4_v0jRXRg" type="2005">
     <children xmi:type="notation:Node" xmi:id="_y9v-oL96Edy4l4_v0jRXRg" type="5005"/>
@@ -146,7 +146,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_y9vXkb96Edy4l4_v0jRXRg" fontName="Lucida Grande"/>
     <element xmi:type="ecore:EEnum" href="requirements.ecore#//Resolution"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y9vXkr96Edy4l4_v0jRXRg" x="99" y="585"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y9vXkr96Edy4l4_v0jRXRg" x="18" y="531"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_y9xMxL96Edy4l4_v0jRXRg" type="2001">
     <children xmi:type="notation:Node" xmi:id="_y9xz0L96Edy4l4_v0jRXRg" type="5001"/>

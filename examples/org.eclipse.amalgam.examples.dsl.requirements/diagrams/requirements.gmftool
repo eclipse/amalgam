@@ -46,7 +46,7 @@
         <smallIcon
             xsi:type="gmftool:BundleImage"
             path="icons/full/obj16/Association.gif"
-            bundle="org.eclipse.requirements.model.edit"/>
+            bundle="org.eclipse.amalgam.examples.requirements.model.edit"/>
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
@@ -55,7 +55,7 @@
         <smallIcon
             xsi:type="gmftool:BundleImage"
             path="icons/full/obj16/Association.gif"
-            bundle="org.eclipse.requirements.model.edit"/>
+            bundle="org.eclipse.amalgam.examples.requirements.model.edit"/>
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
@@ -64,7 +64,7 @@
         <smallIcon
             xsi:type="gmftool:BundleImage"
             path="icons/full/obj16/DependencyLink.gif"
-            bundle="org.eclipse.requirements.model.edit"/>
+            bundle="org.eclipse.amalgam.examples.requirements.model.edit"/>
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
@@ -73,7 +73,7 @@
         <smallIcon
             xsi:type="gmftool:BundleImage"
             path="icons/full/obj16/Association.gif"
-            bundle="org.eclipse.requirements.model.edit"/>
+            bundle="org.eclipse.amalgam.examples.requirements.model.edit"/>
       </tools>
     </tools>
   </palette>

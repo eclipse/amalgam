@@ -1,4 +1,4 @@
-package org.eclipse.requirements.presentation;
+package org.eclipse.amalgam.examples.requirements.presentation;
 
 import java.util.Map;
 

@@ -2,18 +2,17 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel" packageNamePrefix="org.eclipse.amalgam.examples.requirements.diagram"
-    sameFileForDiagramAndModel="true"
-    diagramFileExtension="requirements"
-    dynamicTemplates="true"
-    templateDirectory="/org.eclipse.amalgam.examples.dsl.requirements/templates/diagram">
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel" sameFileForDiagramAndModel="true"
+    diagramFileExtension="requirements">
   <diagram
-      visualID="79"
+      visualID="1000"
       editPartClassName="ModelEditPart"
       itemSemanticEditPolicyClassName="ModelItemSemanticEditPolicy"
       notationViewFactoryClassName="ModelViewFactory"
       canonicalEditPolicyClassName="ModelCanonicalEditPolicy"
       iconProviderPriority="Low"
+      creationWizardCategoryID="org.eclipse.amalgam.examples.requirements.wizards.category"
+      editingDomainID="org.eclipse.amalgam.examples.requirements.EditingDomain"
       validationProviderPriority="Low">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
@@ -27,7 +26,7 @@
         href="../model/requirements.genmodel#//requirements/Model"/>
     <childNodes
         xsi:type="gmfgen:GenChildSideAffixedNode"
-        visualID="2001"
+        visualID="3001"
         editPartClassName="ProcessEditPart"
         itemSemanticEditPolicyClassName="ProcessItemSemanticEditPolicy"
         notationViewFactoryClassName="ProcessViewFactory"
@@ -67,7 +66,7 @@
       </modelFacet>
     </childNodes>
     <topLevelNodes
-        visualID="1001"
+        visualID="2001"
         editPartClassName="RequirementGroupEditPart"
         itemSemanticEditPolicyClassName="RequirementGroupItemSemanticEditPolicy"
         notationViewFactoryClassName="RequirementGroupViewFactory"
@@ -102,7 +101,7 @@
             href="../model/requirements.genmodel#//requirements/Model/groups"/>
       </modelFacet>
       <labels
-          visualID="4001"
+          visualID="5001"
           editPartClassName="RequirementGroupIdEditPart"
           itemSemanticEditPolicyClassName="RequirementGroupIdItemSemanticEditPolicy"
           notationViewFactoryClassName="RequirementGroupIdViewFactory">
@@ -121,7 +120,7 @@
       </labels>
     </topLevelNodes>
     <topLevelNodes
-        visualID="1002"
+        visualID="2002"
         editPartClassName="RequirementEditPart"
         itemSemanticEditPolicyClassName="RequirementItemSemanticEditPolicy"
         notationViewFactoryClassName="RequirementViewFactory"
@@ -150,7 +149,7 @@
       <behaviour
           xsi:type="gmfgen:CustomBehaviour"
           key="&quot;TooltipPolicy&quot;"
-          editPolicyQualifiedClassName="org.eclipse.amalgam.examples.requirements.diagram.edit.policies.TooltipEditPolicy"/>
+          editPolicyQualifiedClassName="org.eclipse.amalgam.examples.requirements.diagram.edit.policies.RequirementsTooltipEditPolicy"/>
       <modelFacet>
         <metaClass
             href="../model/requirements.genmodel#//requirements/Requirement"/>
@@ -173,7 +172,7 @@
       </modelFacet>
       <labels
           xsi:type="gmfgen:GenExternalNodeLabel"
-          visualID="4002"
+          visualID="5002"
           editPartClassName="RequirementIdEditPart"
           itemSemanticEditPolicyClassName="RequirementIdItemSemanticEditPolicy"
           notationViewFactoryClassName="RequirementIdViewFactory">
@@ -195,7 +194,7 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="4003"
+          visualID="5003"
           editPartClassName="RequirementTypeEditPart"
           itemSemanticEditPolicyClassName="RequirementTypeItemSemanticEditPolicy"
           notationViewFactoryClassName="RequirementTypeViewFactory"
@@ -220,7 +219,7 @@
       </labels>
     </topLevelNodes>
     <topLevelNodes
-        visualID="1003"
+        visualID="2003"
         editPartClassName="RequirementGroup2EditPart"
         itemSemanticEditPolicyClassName="RequirementGroup2ItemSemanticEditPolicy"
         notationViewFactoryClassName="RequirementGroup2ViewFactory"
@@ -251,7 +250,7 @@
             href="../model/requirements.genmodel#//requirements/RequirementGroup"/>
       </modelFacet>
       <labels
-          visualID="4004"
+          visualID="5004"
           editPartClassName="RequirementGroupId2EditPart"
           itemSemanticEditPolicyClassName="RequirementGroupId2ItemSemanticEditPolicy"
           notationViewFactoryClassName="RequirementGroupId2ViewFactory">
@@ -270,7 +269,7 @@
       </labels>
     </topLevelNodes>
     <links
-        visualID="3001"
+        visualID="4001"
         editPartClassName="RequirementGroupRequirementsEditPart"
         itemSemanticEditPolicyClassName="RequirementGroupRequirementsItemSemanticEditPolicy"
         notationViewFactoryClassName="RequirementGroupRequirementsViewFactory"
@@ -293,7 +292,7 @@
       </modelFacet>
     </links>
     <links
-        visualID="3002"
+        visualID="4002"
         editPartClassName="RequirementChildrenEditPart"
         itemSemanticEditPolicyClassName="RequirementChildrenItemSemanticEditPolicy"
         notationViewFactoryClassName="RequirementChildrenViewFactory"
@@ -316,7 +315,7 @@
       </modelFacet>
     </links>
     <links
-        visualID="3003"
+        visualID="4003"
         editPartClassName="RequirementDependenciesEditPart"
         itemSemanticEditPolicyClassName="RequirementDependenciesItemSemanticEditPolicy"
         notationViewFactoryClassName="RequirementDependenciesViewFactory"
@@ -343,7 +342,7 @@
       </modelFacet>
     </links>
     <links
-        visualID="3004"
+        visualID="4004"
         editPartClassName="RequirementGroupChildrenEditPart"
         itemSemanticEditPolicyClassName="RequirementGroupChildrenItemSemanticEditPolicy"
         notationViewFactoryClassName="RequirementGroupChildrenViewFactory"
@@ -390,25 +389,25 @@
             xsi:type="gmfgen:ToolEntry"
             title="Child Requirement"
             description="Create new Requirement Child Link"
-            smallIconPath="/org.eclipse.requirements.model.edit/icons/full/obj16/Association.gif"
+            smallIconPath="/org.eclipse.amalgam.examples.requirements.model.edit/icons/full/obj16/Association.gif"
             genLinks="//@diagram/@links.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Group Requirement"
             description="Create new Group Requirement Link"
-            smallIconPath="/org.eclipse.requirements.model.edit/icons/full/obj16/Association.gif"
+            smallIconPath="/org.eclipse.amalgam.examples.requirements.model.edit/icons/full/obj16/Association.gif"
             genLinks="//@diagram/@links.0"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Dependency"
             description="Create new Requirement Dependency Link"
-            smallIconPath="/org.eclipse.requirements.model.edit/icons/full/obj16/DependencyLink.gif"
+            smallIconPath="/org.eclipse.amalgam.examples.requirements.model.edit/icons/full/obj16/DependencyLink.gif"
             genLinks="//@diagram/@links.2"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Child Group"
             description="Create new Child Group Link"
-            smallIconPath="/org.eclipse.requirements.model.edit/icons/full/obj16/Association.gif"
+            smallIconPath="/org.eclipse.amalgam.examples.requirements.model.edit/icons/full/obj16/Association.gif"
             genLinks="//@diagram/@links.3"/>
       </groups>
     </palette>
@@ -444,8 +443,7 @@
     </preferencePages>
   </diagram>
   <plugin
-      iD="org.eclipse.amalgam.examples.requirements.diagram"
-      name="Requirements Diagram Plugin"
+      name="Requirements Plugin"
       provider="Eclipse.org"
       printingEnabled="true"/>
   <editor/>
@@ -633,6 +631,18 @@
           xsi:type="gmfgen:TypeTabFilter">
         <types>org.eclipse.gmf.runtime.notation.View</types>
         <types>org.eclipse.gef.EditPart</types>
+        <generatedTypes>abstractNavigatorItem</generatedTypes>
+      </filter>
+    </tabs>
+    <tabs
+        xsi:type="gmfgen:GenCustomPropertyTab"
+        iD="description"
+        label="Description"
+        className="RequirementDescriptionPropertySection">
+      <filter
+          xsi:type="gmfgen:TypeTabFilter">
+        <types>org.eclipse.amalgam.examples.requirements.Requirement</types>
+        <types>org.eclipse.amalgam.examples.requirements.diagram.edit.parts.RequirementEditPart</types>
         <generatedTypes>abstractNavigatorItem</generatedTypes>
       </filter>
     </tabs>

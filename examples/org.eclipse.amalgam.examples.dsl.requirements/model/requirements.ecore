@@ -26,10 +26,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Requirement"
         eOpposite="#//Requirement/children"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="scenario" eType="ecore:EClass ../../org.eclipse.amalgam.examples.dsl.scenario/model/scenario.ecore#//Process"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" eType="#//State"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolution" eType="#//Resolution"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="scenario" eType="ecore:EClass ../../org.eclipse.amalgam.examples.dsl.scenario/model/scenario.ecore#//Process"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Type">
     <eLiterals name="FUNCTIONAL" literal="F"/>

@@ -2,6 +2,7 @@
 <project name="org.eclipse.amalgam.examples.dsl.requirements" default="main" basedir=".">
 	<target name="init">
 		<available file="../org.eclipse.amalgam.examples.requirements.diagram/plugin.xml" type="file" property="generated" />
+		<available file="../org.eclipse.amalgam.examples.requirements.ui/plugin.xml" type="file" property="ui" />
 	</target>
 		
 	<target name="main" depends="init" if="generated">
@@ -13,6 +14,13 @@
 		</copy>
 		<copy todir="../org.eclipse.amalgam.examples.requirements.model.editor/icons" overwrite="true">
 			<fileset dir="./icons/editor/icons"/>
+		</copy>
+		<antcall target="deploy"/>
+	</target>
+	
+	<target name="deploy" if="ui">
+		<copy todir="../org.eclipse.amalgam.examples.requirements.ui/templates" overwrite="true">
+			<fileset dir="./templates-deploy" includes="**/*.xpt,**/*.ext"/>
 		</copy>
 	</target>
 
