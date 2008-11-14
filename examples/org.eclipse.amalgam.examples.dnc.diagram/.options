@@ -1,0 +1,7 @@
+# Tracing options for the org.eclipse.amalgam.examples.dnc.diagram plug-in
+
+# Common issues
+org.eclipse.amalgam.examples.dnc.diagram/debug=false
+
+# Visual IDs
+org.eclipse.amalgam.examples.dnc.diagram/debug/visualID=false
