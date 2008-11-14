@@ -2,12 +2,13 @@
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.amalgam.examples.scenario.model/src"
-    modelPluginID="org.eclipse.amalgam.examples.scenario.model" modelName="scenario"
-    editPluginClass="org.eclipse.amalgam.examples.scenario.provider.ScenarioEditPlugin"
+    editDirectory="/org.eclipse.amalgam.examples.scenario.model.edit/src" modelPluginID="org.eclipse.amalgam.examples.scenario.model"
+    modelName="scenario" editPluginClass="org.eclipse.amalgam.examples.scenario.provider.ScenarioEditPlugin"
     editorPluginClass="org.eclipse.amalgam.examples.scenario.presentation.ScenarioEditorPlugin"
+    testSuiteClass="org.eclipse.amalgam.examples.scenario.tests.scenarioAllTests"
     complianceLevel="5.0" copyrightFields="false">
   <foreignModel>platform:/resource/org.eclipse.amalgam.examples.dsl.scenario/model/scenario.ecore#/</foreignModel>
-  <genPackages prefix="Scenario" basePackage="org.eclipse.amalgam.examples" disposableProviderFactory="true"
+  <genPackages prefix="Scenario" basePackage="org.eclipse" disposableProviderFactory="true"
       ecorePackage="scenario.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="scenario.ecore#//EventType">
       <genEnumLiterals ecoreEnumLiteral="scenario.ecore#//EventType/START"/>
