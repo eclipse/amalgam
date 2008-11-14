@@ -2,8 +2,7 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel" packageNamePrefix="org.eclipse.amalgam.examples.dnc.diagram"
-    sameFileForDiagramAndModel="true"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel" sameFileForDiagramAndModel="true"
     diagramFileExtension="dnc"
     dynamicTemplates="true"
     templateDirectory="/org.eclipse.amalgam.examples.dsl.dnc/templates-diagram">
@@ -14,6 +13,7 @@
       notationViewFactoryClassName="PackageViewFactory"
       canonicalEditPolicyClassName="PackageCanonicalEditPolicy"
       iconProviderPriority="Low"
+      creationWizardCategoryID="org.eclipse.amalgam.examples.requirements.wizards.category"
       validationProviderPriority="Low">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
@@ -23,7 +23,6 @@
     <viewmap
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
-    <containsShortcutsTo>dnc</containsShortcutsTo>
     <domainDiagramElement
         href="../../org.eclipse.amalgam.examples.dsl.oocore/model/oocore.genmodel#//oocore/Package"/>
     <childNodes
@@ -66,7 +65,7 @@
     </childNodes>
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
-        visualID="3004"
+        visualID="3002"
         editPartClassName="OperationEditPart"
         itemSemanticEditPolicyClassName="OperationItemSemanticEditPolicy"
         notationViewFactoryClassName="OperationViewFactory"
@@ -1500,10 +1499,8 @@
     </preferencePages>
   </diagram>
   <plugin
-      iD="org.eclipse.amalgam.examples.dnc.diagram"
-      name="Color Modeling Diagram Plugin"
-      provider="Eclipse.org"
-      printingEnabled="true"/>
+      name="Color Diagram Plugin"
+      provider="Eclipse.org"/>
   <editor/>
   <navigator>
     <childReferences
@@ -2402,11 +2399,12 @@
           body="(oppositeEnd.oclIsTypeOf(dnc::MomentInterval) and self.oclIsTypeOf(dnc::MomentInterval)) or&#xD;(oppositeEnd.oclIsTypeOf(dnc::MomentInterval) and self.oclIsTypeOf(dnc::MIDetail)) or&#xD;(oppositeEnd.oclIsTypeOf(dnc::Role) and self.oclIsTypeOf(dnc::Role)) or&#xD;(oppositeEnd.oclIsTypeOf(dnc::Party) and self.oclIsTypeOf(dnc::Party)) or&#xD;(oppositeEnd.oclIsTypeOf(dnc::Place) and self.oclIsTypeOf(dnc::Place)) or&#xD;(oppositeEnd.oclIsTypeOf(dnc::Thing) and self.oclIsTypeOf(dnc::Thing)) or&#xD;(oppositeEnd.oclIsTypeOf(dnc::Description) and self.oclIsTypeOf(dnc::Description))"/>
     </providers>
     <providers
-        xsi:type="gmfgen:GenJavaExpressionProvider">
+        xsi:type="gmfgen:GenJavaExpressionProvider"
+        injectExpressionBody="true">
       <expressions
-          body="createAssociationOpposite"/>
+          body="org.eclipse.amalgam.examples.oocore.Reference opposite = org.eclipse.amalgam.examples.oocore.OocorePackage.eINSTANCE.getOocoreFactory()&#xA;&#x9;&#x9;&#x9;&#x9;.createReference();&#xA;&#x9;&#x9;opposite.setOpposite(self);&#xA;&#x9;&#x9;opposite.setBidirectional(true);&#xA;&#x9;&#x9;opposite.setType(self.getOwner());&#xA;&#x9;&#x9;opposite.setName(self.getOwner().getName().toLowerCase());&#xA;&#x9;&#x9;((org.eclipse.amalgam.examples.oocore.Class) self.getType()).getFeatures().add(opposite);&#xA;&#x9;&#x9;return opposite;"/>
       <expressions
-          body="createAggregationOpposite"/>
+          body="org.eclipse.amalgam.examples.oocore.Reference opposite = org.eclipse.amalgam.examples.oocore.OocorePackage.eINSTANCE.getOocoreFactory()&#xA;&#x9;&#x9;&#x9;&#x9;.createReference();&#xA;&#x9;&#x9;opposite.setOpposite(self);&#xA;&#x9;&#x9;opposite.setBidirectional(true);&#xA;&#x9;&#x9;opposite.setType(self.getOwner());&#xA;&#x9;&#x9;opposite.setName(self.getOwner().getName().toLowerCase());&#xA;&#x9;&#x9;((org.eclipse.amalgam.examples.oocore.Class) self.getType()).getFeatures().add(opposite);&#xA;&#x9;&#x9;return opposite;"/>
     </providers>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>

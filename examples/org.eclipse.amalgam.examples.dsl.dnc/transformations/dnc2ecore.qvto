@@ -1,5 +1,24 @@
-transformation dnc2ecore();
+modeltype dnc uses 'http://www.eclipse.org/2008/dnc';
+modeltype oocore uses 'http://www.eclipse.org/2008/oocore';
+modeltype ecore uses 'http://www.eclipse.org/emf/2002/Ecore';
 
-mapping main() {
+transformation dnc2ecore(in inModel : dnc, out outModel : ecore);
 
+configuration property uriPrefix : String;
+	
+
+main() {
+	inModel.rootObjects()[Package]->map toPackage();
+}
+
+mapping oocore::Package::toPackage() : ecore::EPackage {
+	name := self.name;
+	nsPrefix := self.name;
+	nsURI := uriPrefix + self.name;
+	eClassifiers += self.contents[Archetype].map toClass();
+	eSubpackages += self.contents[Package].map toPackage();
+}
+
+mapping dnc::Archetype::toClass() : ecore::EClass {
+	name := self.name;
 }

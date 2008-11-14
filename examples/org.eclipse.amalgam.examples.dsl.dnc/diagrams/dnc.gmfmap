@@ -581,7 +581,7 @@
             xsi:type="ecore:EReference"
             href="../../org.eclipse.amalgam.examples.dsl.oocore/model/oocore.ecore#//Reference/opposite"/>
         <value
-            body="createAssociationOpposite"
+            body="org.eclipse.amalgam.examples.oocore.Reference opposite = org.eclipse.amalgam.examples.oocore.OocorePackage.eINSTANCE.getOocoreFactory()&#xA;&#x9;&#x9;&#x9;&#x9;.createReference();&#xA;&#x9;&#x9;opposite.setOpposite(self);&#xA;&#x9;&#x9;opposite.setBidirectional(true);&#xA;&#x9;&#x9;opposite.setType(self.getOwner());&#xA;&#x9;&#x9;opposite.setName(self.getOwner().getName().toLowerCase());&#xA;&#x9;&#x9;((org.eclipse.amalgam.examples.oocore.Class) self.getType()).getFeatures().add(opposite);&#xA;&#x9;&#x9;return opposite;"
             language="java"/>
       </initializers>
       <initializers
@@ -669,7 +669,7 @@
             xsi:type="ecore:EReference"
             href="../../org.eclipse.amalgam.examples.dsl.oocore/model/oocore.ecore#//Reference/opposite"/>
         <value
-            body="createAggregationOpposite"
+            body="org.eclipse.amalgam.examples.oocore.Reference opposite = org.eclipse.amalgam.examples.oocore.OocorePackage.eINSTANCE.getOocoreFactory()&#xA;&#x9;&#x9;&#x9;&#x9;.createReference();&#xA;&#x9;&#x9;opposite.setOpposite(self);&#xA;&#x9;&#x9;opposite.setBidirectional(true);&#xA;&#x9;&#x9;opposite.setType(self.getOwner());&#xA;&#x9;&#x9;opposite.setName(self.getOwner().getName().toLowerCase());&#xA;&#x9;&#x9;((org.eclipse.amalgam.examples.oocore.Class) self.getType()).getFeatures().add(opposite);&#xA;&#x9;&#x9;return opposite;"
             language="java"/>
       </initializers>
       <initializers

@@ -7,14 +7,13 @@ transformation dnc2jee(in modelIn : dnc, out modelOut : java);
 
 import library Strings;
 
-mapping main(in dncModel : oocore::Package, out javaModel : java::JavaPackage) {
-	init {
-		javaModel := dncModel.map toPackage();
-	}
+main() {
+	modelIn.rootObjects()[Package]->map toPackage();
 }
 
 /**
- * Map color model package to Java package.
+ * Recursively map each color model package to Java package, 
+ * mapping each Archetype to its respective EJB type.
  */
 mapping oocore::Package::toPackage() : java::JavaPackage {
 	name := self.name;
@@ -28,18 +27,27 @@ mapping oocore::Package::toPackage() : java::JavaPackage {
 	eSubpackages += self.contents[Package].map toPackage();
 }
 
+/**
+ * A mapping from an Archetype to a Java class that 
+ * is interited by each of the EJB mapping classes.
+ */
 mapping dnc::Archetype::toClass() : java::JavaClass {
 	name := self.name;
 	fields += self.features[Attribute].map toField(result);
 	methods += self.features[Operation].map toMethod();
 }
 
+/**
+ * A mapping to add obligatory Serializable implements clause
+ * to each EJB class.
+ */
 mapping dnc::Archetype::toSerializableClass() : java::JavaClass {
 	implementsInterfaces += 'java.io.Serializable'.map toClass();
 }
 
 /**
- * Map an Archetype to a @Stateful session bean
+ * Map an Archetype to a @Stateful session bean, inheriting basic
+ * class and Serializable features.
  */
 mapping dnc::Archetype::toStateful() : java::JavaClass 
 	inherits dnc::Archetype::toClass 
@@ -51,7 +59,8 @@ mapping dnc::Archetype::toStateful() : java::JavaClass
 }
 
 /**
- * Map an Archetype to an @Entity
+ * Map an Archetype to an @Entity bean, inheriting basic
+ * class and Serializable features.
  */
 mapping dnc::Archetype::toEntity() : java::JavaClass 
 	inherits dnc::Archetype::toClass 
