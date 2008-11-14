@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
+      <viewProvider
+            class="org.eclipse.amalgam.examples.scenario.diagram.custom.providers.ScenarioViewProvider">
+         <Priority
+               name="Medium">
+         </Priority>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
+      </viewProvider>
+   </extension>
+   <extension
+         point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+      <editpartProvider
+            class="org.eclipse.amalgam.examples.scenario.diagram.custom.providers.ScenarioEditPartProvider">
+         <Priority
+               name="Medium">
+         </Priority>
+      </editpartProvider>
+   </extension>
+	<extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+	  <contributionItemProvider class="org.eclipse.amalgam.examples.scenario.diagram.custom.providers.ContributionItemProvider">
+	     <Priority name="Medium"/>
+	     <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+	        <popupStructuredContributionCriteria objectClass="org.eclipse.amalgam.examples.scenario.diagram.custom.edit.parts.IntermediateEventImageEditPart"/>
+	        <popupAction path="/additions" id="displayDefaultFigureAction"/>
+	     </popupContribution>
+		 <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+		    <popupStructuredContributionCriteria objectClass="org.eclipse.amalgam.examples.scenario.diagram.custom.edit.parts.IntermediateEventImageEditPart"/>
+		    <popupAction path="/additions" id="setHyperlinkAction"/>
+		 </popupContribution>
+	  </contributionItemProvider>
+	</extension>
+	<extension point="org.eclipse.gmf.runtime.diagram.ui.editpolicyProviders">
+	   <editpolicyProvider class="org.eclipse.amalgam.examples.scenario.diagram.custom.providers.ScenarioEditPolicyProvider">
+	       <Priority name="High"/>
+	   </editpolicyProvider>
+	</extension>
+	<extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+	  <decoratorProvider class="org.eclipse.amalgam.examples.scenario.diagram.custom.providers.LinkDecoratorProvider">
+	     <Priority name="Lowest"/>
+	  </decoratorProvider>
+	</extension>
+</plugin>
