@@ -127,10 +127,6 @@
 	<!-- Steps to do before setup -->
 	<!-- ===================================================================== -->
 	<target name="preSetup">
-		<copy file="${builder}/«product.launcher.name».product" tofile="${buildDirectory}/«product.launcher.name».product" overwrite="true"/>
-		<echo file="${buildDirectory}/product.version" message="productVersion=«product.version»" />
-		<replace file="${buildDirectory}/product.version" token="qualifier" value="v${timestamp}" />
-		<replace file="${buildDirectory}/«product.launcher.name».product" token="qualifier" value="v${timestamp}" />
 	</target>
 
 	<!-- ===================================================================== -->

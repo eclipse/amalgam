@@ -9,9 +9,8 @@
 	<!-- ===================================================================== -->
 	
 	<target name="init">
-		<tstamp/>
-		<property name="date" value="${DSTAMP}"/>
-		<property name="time" value="${TSTAMP}"/>
+		<property name="date" value="«date»"/>
+		<property name="time" value="«time»"/>
 		
 		<property name="buildRoot" value="«buildRoot»"/>
 		<property name="basebuilder" value="${buildRoot}/«product.launcher.name»/basebuilder"/>
@@ -79,8 +78,6 @@
 			<arg value="-DbuildLabel=${buildLabel}"/>
 		</exec>
 		
-		<property file="${buildDirectory}/product.version"/>
-		
 		<!-- NOTE: when PDE build supports the configs property for product builds, this section can be simplified -->
 		«FOREACH configs AS config»
 		<!-- Invoke p2 director to assemble the «config.os».«config.ws».«config.arch» product -->
@@ -90,7 +87,7 @@
 			<param name="p2.os" value="«config.os»"/>
 			<param name="p2.ws" value="«config.ws»"/>
 			<param name="p2.arch" value="«config.arch»"/>
-			<param name="p2.version" value="${productVersion}"/>
+			<param name="p2.version" value="«product.version»"/>
 		</antcall>
 		
 		«IF config.os.literal == "macosx"»

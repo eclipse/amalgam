@@ -1,16 +1,54 @@
 modeltype build uses "http://www.eclipse.org/amalgam/2008/build";
 modeltype product uses "http://www.eclipse.org/amalgam/2008/product";
 
-transformation updateproduct(inout inProduct : product, in inBuild : build);
+transformation updateproduct(in inProduct : product, in inBuild : build, out outProduct : product, out outBuild : build);
+
+configuration property date : String;
+configuration property time : String;
 
 main() {
-	inProduct.rootObjects()[Product].features->map toFeatures();
+	inProduct.rootObjects()[Product].map toProduct();
+	inBuild.rootObjects()[Build].map toBuild();
 }
 
-mapping inout product::Features::toFeatures() {
-	init { 
-		self.feature := inBuild.rootObjects()[Build].contributions.features->select(f | f.inProduct = true).map toFeature()->asOrderedSet();
-	}
+mapping product::Product::toProduct() : product::Product@outProduct {
+	-- TODO: use deepclone of product and update just features and version
+	name := self.name;
+	id := self.id;
+	application := self.application;
+	useFeatures := self.useFeatures;
+	launcherArgs := self.launcherArgs.deepclone()->oclAsType(LauncherArgs)->any(true);
+	configIni := self.configIni.deepclone()->oclAsType(ConfigIni)->any(true);
+	features := self.features.map toFeatures();
+	version := self.version.updateVersion();
+	vm := self.vm.deepclone()->oclAsType(VirtualMachine)->any(true);
+	aboutInfo := self.aboutInfo.deepclone()->oclAsType(AboutInfo)->any(true);
+	launcher := self.launcher.deepclone()->oclAsType(Launcher)->any(true);
+	splash := self.splash.deepclone()->oclAsType(Splash)->any(true);
+	windowImages := self.windowImages.deepclone()->oclAsType(WindowImage)->any(true);
+	intro := self.intro.deepclone()->oclAsType(Intro)->any(true);
+	-- plugins not process, though could be considered later
+}
+
+mapping build::Build::toBuild() : build::Build@outBuild {
+	type := self.type;
+	buildRoot := self.buildRoot;
+	platforms := self.platforms.deepclone()->oclAsType(Platform)->asOrderedSet();
+	date := this.date;
+	time := this.time;
+	label := self.label;
+	base := self.base.deepclone()->oclAsType(Platform)->any(true);
+	builder := self.builder.deepclone()->oclAsType(Platform)->any(true);
+	configs := self.configs.deepclone()->oclAsType(Config)->asOrderedSet();
+	_map := self._map.deepclone()->oclAsType(Map)->any(true);
+	fetchTag := self.fetchTag;
+	categories := self.categories.deepclone()->oclAsType(Category)->asOrderedSet();
+	contributions := self.contributions.deepclone()->oclAsType(Contribution)->asOrderedSet();
+	product := outProduct.rootObjects()[Product]->any(true);
+}
+
+mapping product::Features::toFeatures() : product::Features {
+	feature := inBuild.rootObjects()[Build].contributions.features->select(f | f.inProduct = true).map toFeature()->asOrderedSet();
 }
 
 mapping build::Feature::toFeature() : product::Feature {
@@ -18,3 +56,10 @@ mapping build::Feature::toFeature() : product::Feature {
 	version := self.version;
 }
 
+query String::updateVersion() : String {
+	var v : String := self;
+	if (self.endsWith('qualifier')) then {
+		v := self.substringBefore('qualifier') + 'v' + this.date + this.time;
+	} endif;
+	return v;
+}

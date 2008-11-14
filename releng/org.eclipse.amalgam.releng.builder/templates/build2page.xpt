@@ -1,0 +1,27 @@
+«IMPORT 'http://www.eclipse.org/amalgam/2008/build'»
+«IMPORT 'http://www.eclipse.org/amalgam/2008/product'»
+
+«DEFINE Main FOR Build-»
+<html>
+<head>
+
+</head>
+<body>
+
+<p>The following features were installed as dependencies required for this build:</p>
+<ul>
+«FOREACH contributions.features.select(f | f.repo.location != null) AS feature-»
+  <li>Feature: «feature.id», Version: «feature.version», Repository: <a href="«feature.repo.location»">«feature.repo.label»</a></li>
+«ENDFOREACH»
+</ul>
+
+<p>The following bundles were installed as dependencies required for this build:</p>
+<ul>
+«FOREACH contributions.bundles.select(b | b.repo.location != null) AS bundle-»
+  <li>Bundle: «bundle.id», Version: «bundle.version», Repository: <a href="«bundle.repo.location»">«bundle.repo.label»</a></ul>
+«ENDFOREACH»
+</ul>
+
+
+</body></html>
+«ENDDEFINE»
