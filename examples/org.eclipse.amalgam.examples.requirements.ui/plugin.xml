@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   
+<extension
+     point="org.eclipse.m2m.qvt.oml.runtime.qvtTransformation">
+  <transformation
+        file="transformations/mindmap2requirements.qvto"
+        id="org.eclipse.amalgam.examples.mindmap.TransformMindmap2Requirements.transformationId">
+  </transformation>
+  <transformation
+        file="transformations/dnc2jee.qvto"
+        id="org.eclipse.amalgam.examples.dnc.TransformDnc2Java.transformationId">
+  </transformation>
+  <transformation
+        file="transformations/scenario2testsuite.qvto"
+        id="org.eclipse.amalgam.examples.scenario.Scenario2TestSuite.transformationId">
+  </transformation>
+  <transformation
+        file="transformations/mindmap2xhtml.qvto"
+        id="org.eclipse.amalgam.examples.mindmap.TransformMindmap2XHTML.transformationId">
+  </transformation>
+</extension>
+
+<extension point="org.eclipse.ui.popupMenus">
+  <objectContribution
+        id="org.eclipse.amalgam.examples.requirements.actions.TransformMindmap2Requirements.id"
+        nameFilter="*.mmd"
+        objectClass="org.eclipse.core.resources.IFile">
+     <action
+           label="%TransformMindmap2Requirements_label"
+           class="org.eclipse.amalgam.examples.requirements.actions.TransformMindmap2Requirements"
+           menubarPath="additions"
+           enablesFor="1"
+           id="org.eclipse.amalgam.examples.requirements.actions.TransformMindmap2Requirements.actionId">
+     </action>
+  </objectContribution>
+  <objectContribution
+        id="org.eclipse.amalgam.examples.requirements.actions.TransformScenario2Testsuite.id"
+        nameFilter="*.scenario"
+        objectClass="org.eclipse.core.resources.IFile">
+     <action
+           label="%TransformScenario2Testsuite_label"
+           class="org.eclipse.amalgam.examples.requirements.actions.TransformScenario2Testsuite"
+           menubarPath="additions"
+           enablesFor="1"
+           id="org.eclipse.amalgam.examples.requirements.actions.TransformScenario2Testsuite.actionId">
+     </action>
+  </objectContribution>
+  <objectContribution
+        id="org.eclipse.amalgam.examples.requirements.actions.TransformMindmap2XHTML.id"
+        nameFilter="*.mmd"
+        objectClass="org.eclipse.core.resources.IFile">
+     <action
+           label="%TransformMindmap2XHTML_label"
+           class="org.eclipse.amalgam.examples.requirements.actions.TransformMindmap2XHTML"
+           menubarPath="additions"
+           enablesFor="1"
+           id="org.eclipse.amalgam.examples.requirements.actions.TransformMindmap2XHTML.actionId">
+     </action>
+  </objectContribution>
+  <objectContribution
+        id="org.eclipse.amalgam.examples.requirements.actions.TransformDnc2Jem.id"
+        nameFilter="*.dnc"
+        objectClass="org.eclipse.core.resources.IFile">
+     <action
+           label="%TransformDnc2Jem_label"
+           class="org.eclipse.amalgam.examples.requirements.actions.TransformDnc2Jem"
+           menubarPath="additions"
+           enablesFor="1"
+           id="org.eclipse.amalgam.examples.requirements.actions.TransformDnc2Jem.actionId">
+     </action>
+  </objectContribution>
+  <objectContribution
+        id="org.eclipse.amalgam.examples.requirements.actions.TransformMindmapToCsv.id"
+        nameFilter="*.mmd"
+        objectClass="org.eclipse.core.resources.IFile">
+     <action
+           label="%TransformMindmap2Csv_label"
+           class="org.eclipse.amalgam.examples.requirements.actions.TransformMindmap2Csv"
+           menubarPath="additions"
+           enablesFor="1"
+           id="org.eclipse.amalgam.examples.requirements.actions.TransformMindmapToCsv.actionId">
+     </action>
+  </objectContribution>
+  <objectContribution
+        id="org.eclipse.amalgam.examples.requirements.actions.TransformJem2Java.id"
+        nameFilter="*.jem"
+        objectClass="org.eclipse.core.resources.IFile">
+     <action
+           label="%TransformJem2Java_label"
+           class="org.eclipse.amalgam.examples.requirements.actions.TransformJem2Java"
+           menubarPath="additions"
+           enablesFor="1"
+           id="org.eclipse.amalgam.examples.requirements.actions.TransformJem2Java.actionId">
+     </action>
+  </objectContribution>
+  <objectContribution
+        id="org.eclipse.amalgam.examples.requirements.actions.TransformRequirements2HTML.id"
+        nameFilter="*.requirements"
+        objectClass="org.eclipse.core.resources.IFile">
+     <action
+           label="%TransformRequirements2HTML_label"
+           class="org.eclipse.amalgam.examples.requirements.actions.TransformRequirements2HTML"
+           menubarPath="additions"
+           enablesFor="1"
+           id="org.eclipse.amalgam.examples.requirements.actions.TransformRequirementsToHTML.actionId">
+     </action>
+  </objectContribution>
+  <objectContribution
+        id="org.eclipse.amalgam.examples.requirements.actions.TransformDnc2Java.id"
+        nameFilter="*.dnc"
+        objectClass="org.eclipse.core.resources.IFile">
+     <action
+           label="%TransformDnc2Java_label"
+           class="org.eclipse.amalgam.examples.requirements.actions.TransformDnc2Java"
+           menubarPath="additions"
+           enablesFor="1"
+           id="org.eclipse.amalgam.examples.requirements.actions.TransformDnc2Java.actionId">
+     </action>
+  </objectContribution>
+</extension>
+
+	<extension
+	     point="org.eclipse.ui.perspectives">
+	  <perspective
+	        name="%_UI_Perspective_label"
+	        icon="icons/wizard.gif"
+	        class="org.eclipse.amalgam.examples.requirements.ui.RequirementsPerspective"
+	        id="org.eclipse.amalgam.examples.requirements.perspective">
+	     <description>%_UI_Perspective_description</description>
+	  </perspective>
+	</extension>
+	<extension point="org.eclipse.ui.perspectiveExtensions">
+	  <perspectiveExtension targetID="org.eclipse.amalgam.examples.requirements.perspective">
+	     <perspectiveShortcut id="org.eclipse.ui.resourcePerspective"/>
+	     <newWizardShortcut id="org.eclipse.amalgam.examples.requirements.ui.wizards.id"/>
+	     <actionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+	     <actionSet id="org.eclipse.debug.ui.launchActionSet"/>
+	     <viewShortcut id="org.eclipse.search.ui.views.SearchView"/>
+	  </perspectiveExtension>
+	</extension>
+	<extension
+	     point="org.eclipse.ui.newWizards">
+	  <category
+	        name="Requirements"
+	        id="org.eclipse.amalgam.examples.requirements.wizards.category"/>
+	  <wizard
+	        name="%_UI_ProjectWizard_label"
+	        icon="icons/wizard.gif"
+	        category="org.eclipse.amalgam.examples.requirements.wizards.category"
+	        class="org.eclipse.amalgam.examples.requirements.ui.wizards.RequirementsProjectWizard"
+			finalPerspective="org.eclipse.amalgam.examples.requirements.perspective"
+	        id="org.eclipse.amalgam.examples.requirements.ui.wizards.id"
+	        project="true">
+	     <description>%_UI_ProjectWizard_description</description>
+	  </wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+	  <page
+	        class="org.eclipse.amalgam.examples.requirements.preferences.RequirementsGeneralPreferencePage"
+	        id="org.eclipse.amalgam.examples.requirements.preferences.category"
+	        name="%_UI_PreferencePage_label">
+	  </page>
+	</extension>
+
+</plugin>

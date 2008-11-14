@@ -1,0 +1,75 @@
+modeltype mindmap 'strict' uses 'http://www.eclipse.org/2008/mindmap';
+modeltype requirements 'strict' uses 'http://www.eclipse.org/2008/requirements';
+
+transformation test(in inModel : mindmap, out outModel : requirements);
+
+main() {
+	inModel.rootObjects()![Map].map toRequirementsModel();
+--	inModel.objectsOfType(mindmap::Map).map toRequirementsModel();
+--	outModel.removeElement(outModel.rootObjects()![Model]);
+}
+
+mapping mindmap::Map::toRequirementsModel() : requirements::Model {
+	init {
+		
+		log(self.metaClassName());
+		
+		log('subobjects', self.allSubobjects().metaClassName());
+		
+		var s : String := 'test';
+		log('test'.substringBefore('s'));
+		log('test'.substringAfter('s'));
+		log('test'.firstToUpper());
+		log('test'.lastToUpper());
+		log('A  sentence with   extra spaces '.normalizeSpace());
+		log('xxxy'.match('x*y').repr());
+		log('a simple test'.equalsIgnoreCase('A Simple Test').repr());
+		log('find the x character'.find('x').repr());
+		log('find the x character'.rfind('x').repr());
+		log('"is quoted?"'.isQuoted('"').repr());
+		log('quote me'.quotify('"'));
+		log('"do not quote me"'.unquotify('"'));
+		log('true'.matchBoolean(true).repr() + ' ' + '0'.matchBoolean(false).repr());
+		log('0'.matchInteger(0).repr());
+		log('0.117'.matchFloat(0.117).repr());
+		log('a8s(c'.matchIdentifier('').repr());
+		log('0'.asBoolean().repr());
+		log('99'.asInteger().toString());
+		log('99.9'.asFloat().toString());
+		
+		var index : String := 'index';
+		String.startStrCounter(index);
+		log(String.getStrCounter(index).toString());
+		log(String.incrStrCounter(index).toString());
+		index.restartAllStrCounter();
+		log(String.getStrCounter(index).toString());
+		log(String.incrStrCounter(index).toString());
+		log(index.addSuffixNumber());
+		
+		log('input', inModel.repr());
+		log('collectselect', self.elements->collectselect(i; a=i.name | a.startsWith('A')));
+		log('collectselect-short', self.elements->name[a | a.startsWith('A')]);
+		log('collectselect-shorter', self.elements->name[startsWith('A')]);
+		log('xcollect', self.elements->xcollect(a | a.name));
+		log('xcollect-short', self.elements->name);
+		log('xselect', self.elements->xselect(Topic));
+		log('xselect-short', self.elements[Topic]);
+		
+		var topics : OrderedSet(Topic) := self.elements[Topic];
+		--log('', topics->collect(t | t.name), 3);
+	}
+	title := self.title;
+	groups += object requirements::RequirementGroup {
+		requirements += self.elements[Topic].map toRequirement();
+	}
+
+}
+
+mapping mindmap::MapElement::nameToTitle() : requirements::Requirement {
+	title := self.name;
+}
+
+mapping mindmap::Topic::toRequirement() : requirements::Requirement 
+	inherits mindmap::MapElement::nameToTitle {
+	
+}

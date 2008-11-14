@@ -1,0 +1,163 @@
+modeltype mindmap 'strict' uses 'http://www.eclipse.org/2008/mindmap';
+modeltype xhtml 'strict' uses 'http://www.w3.org/1999/xhtml';
+
+transformation mindmap2xhtml(in inModel : mindmap, out outModel : xhtml);
+
+property relations : Set(mindmap::Relationship) = null;
+
+main() {
+	inModel.rootObjects()[Map]->map toXHTML();
+}
+
+mapping mindmap::Map::toXHTML() : xhtml::DocumentRoot {
+	init {
+		this.relations := self.elements[mindmap::Relationship];
+	}
+	html += object HtmlType {
+		head := object HeadType {
+			title := object TitleType {
+				text += self.title + ' Report';
+			};
+		};
+		_body := object BodyType {
+			h1 += object H1Type {
+				text += self.title + ' Report';
+			};
+			h2 += object H2Type {
+				text += 'Contents';
+			};
+			ul += object UlType {
+				li += self.rootTopics.map toIndexItem();
+			};
+			hr += object HrType {};
+			div += self.elements[mindmap::Topic].map toContentItem();
+		};
+	};
+}
+
+query mindmap::Topic::getRelations() : Set(mindmap::Relationship) {
+	return relations->select(r | r.source = self)->asSet();
+}
+
+mapping mindmap::Topic::toIndexItem() : xhtml::LiType {
+	init {
+		result := object LiType {
+			a += object AType {
+				href := '#' + self.name;
+				text += self.name;
+			};
+		};
+		if not self.subtopics->isEmpty() then {
+			result.ul += object UlType {
+				li += self.subtopics.map toIndexItem();
+			};
+		} endif;
+	}
+}
+
+mapping mindmap::Topic::toContentItem() : xhtml::DivType {
+	table += object TableType {
+		tbody += object TbodyType {
+			tr += object TrType {
+				th += object ThType {
+					align := AlignType::left;
+					colspan := 4;
+					a += object AType {
+						name := self.name;
+						text += 'Topic: ' + self.name;
+					};
+				};
+			};
+			tr += object TrType {
+				td += object TdType {
+					text += 'Date: ';
+					text += self.start.repr();
+				};
+				td += object TdType {
+					text += 'Priority: ';
+					text += self.getPriority();
+				};
+				td += object TdType {
+					text += 'Direct subtopics: ';
+					text += self.subtopics->size().toString();
+				};
+				td += object TdType {
+					text += 'Total subtopics: ';
+					text += self.allSubtopics()->size().toString();
+				};
+			};
+			tr += object TrType {
+				td += object TdType {
+					align := AlignType::left;
+					colspan := 4;
+					text += self.description;
+				};
+			};
+		};
+	};
+	end {
+		if not self.subtopics->isEmpty() then {
+			result.div += object DivType {
+				h4 += object H4Type {
+					text += 'Suptopics';
+				};
+				ul += object UlType {
+					li += self.subtopics.map toListItem();
+				};
+			};
+		} endif;
+		var relations : Set(mindmap::Relationship) := self.getRelations();
+		if not relations->isEmpty() then {
+			result.div += object DivType {
+				h4 += object H4Type {
+					text += 'Relationships';
+				};
+				ul += object UlType {
+					li += relations.map toListItem();
+				};
+			};
+		} endif;
+		result.br += object BrType {};
+	}
+}
+
+mapping mindmap::Relationship::toListItem() : xhtml::LiType {
+	text += self.getType() + ' relationship to ';
+	a += object AType {
+		href := '#' + self.target.name;
+		text += self.target.name;
+	};
+}
+
+mapping mindmap::Topic::toListItem() : xhtml::LiType {
+	a += object AType {
+		href := '#' + self.name;
+		text += self.name;
+	};
+}
+
+query mindmap::Relationship::getType() : String {
+	var pri : String := null;
+	switch {
+	       (self.type = Type::DEPENDENCY) ? pri := 'Dependency';
+	       (self.type = Type::INCLUDE) ? pri := 'Include';
+	       (self.type = Type::EXTEND) ? pri := 'Extend';
+	       else ? assert fatal (false) with log('Type unsupported', self);
+	};
+	return pri;
+}
+
+query mindmap::Topic::getPriority() : String {
+	var pri : String := null;
+	switch {
+	       (self.priority = Priority::HIGH) ? pri := 'High';
+	       (self.priority = Priority::MEDIUM) ? pri := 'Medium';
+	       (self.priority = Priority::LOW) ? pri := 'Low';
+	       else ? assert fatal (false) with log('Priority unsupported',  
+           self);
+	};
+	return pri;
+}
+
+
+

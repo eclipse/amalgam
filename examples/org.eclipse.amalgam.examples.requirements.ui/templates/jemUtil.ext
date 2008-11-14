@@ -1,0 +1,38 @@
+import java;
+import ecore;
+
+List[java::JavaPackage] rootPackages(Collection[ecore::EObject] roots) :
+	roots.typeSelect(java::JavaPackage)
+;
+
+List[java::JavaPackage] gatherPackages(java::JavaPackage pkg) :
+	let p = {pkg} : p.addAll(pkg.eSubpackages.typeSelect(java::JavaPackage).gatherPackages().flatten())
+;
+
+List[java::JavaClass] gatherClasses(Collection[java::JavaPackage] roots) :
+	let p = roots.gatherPackages() : p.javaClasses.select(c | c.eAnnotations.first().source != 'library')
+;
+
+String fullyQualifiedName(JavaPackage p) : 
+	p.eSuperPackage == null ? p.name : fullyQualifiedName(p.eSuperPackage) + '.' + p.name
+;
+
+String fullyQualifiedName(JavaClass c) : 
+	c.javaPackage == null ? c.name : 
+	(let p = fullyQualifiedName(c.javaPackage) :  p != '' && p != 'java.lang' ? p + '.' + c.name : c.name)
+;
+
+String fullyQualifiedPath(JavaClass c) :
+	fullyQualifiedName(c.javaPackage).replaceAll('\\.', '/') + "/" + c.name + ".java"
+;
+
+String wrapIfCollection(ETypedElement element) : 
+	let p = element.eAnnotations.select(a | a.source == 'collection') :
+	p.size > 0 ? 
+		p.first().details.first().value + "<" + fullyQualifiedName(element.eType) + ">" :
+		fullyQualifiedName(element.eType)
+;
+
+Boolean isValid(JavaPackage package) :
+	package != null && package.name != null && package.name.length > 0
+;

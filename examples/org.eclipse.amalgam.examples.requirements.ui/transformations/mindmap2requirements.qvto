@@ -1,0 +1,53 @@
+modeltype mindmap 'strict' uses 'http://www.eclipse.org/2008/mindmap';
+modeltype requirements 'strict' uses 'http://www.eclipse.org/2008/requirements';
+
+transformation mindmap2requirements(in inModel : mindmap, out outModel : requirements);
+
+property dependencies : Set(Relationship) = null;
+property reqCtr : Integer = 1;
+property grpCtr : Integer = 1;
+
+main() {
+	inModel.rootObjects()[Map]->map toRequirementsModel();
+}
+
+mapping mindmap::Map::toRequirementsModel() : requirements::Model {
+	init {
+		this.dependencies := self.dependencies();
+	}
+	title := self.title;
+	groups += self.rootTopics.map toRequirementGroup()->asOrderedSet();
+}
+
+mapping mindmap::Topic::toRequirementGroup() : requirements::RequirementGroup {
+	init {
+		result := object requirements::RequirementGroup {
+			name := self.name;
+			id := 'G0' + this.grpCtr.toString();
+			requirements += self.subtopics.map toRequirement();
+		}
+	}
+	end {
+		this.grpCtr := grpCtr + 1;
+	}
+}
+
+mapping mindmap::Topic::toRequirement() : requirements::Requirement {
+	title := self.name;
+	children += self.subtopics.map toRequirement();
+	id := 'R0' + this.reqCtr.toString();
+	version := object requirements::Version {
+		major := 1;
+	};
+	dependencies += this.dependencies->select(source = self).target.late 
+	  resolveIn(mindmap::Topic::toRequirement, requirements::Requirement);
+	end {
+		this.reqCtr := reqCtr + 1;
+	}
+}
+
+query mindmap::Map::dependencies() : Set(mindmap::Relationship) {
+	return self.elements->select(oclIsTypeOf(mindmap::Relationship))
+	  ->select(c | c.oclAsType(mindmap::Relationship).type = mindmap::Type::DEPENDENCY)
+	  ->collect(oclAsType(mindmap::Relationship))->asSet();
+}
