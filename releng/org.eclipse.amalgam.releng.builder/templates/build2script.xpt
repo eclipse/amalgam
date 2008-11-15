@@ -52,7 +52,7 @@
 		<pathconvert property="buildFile" refid="pde.plugin.path" />
 		<fail message="Could not find pde builder here: ${buildFile}" unless="buildFile" />
 		
-		<echo message="Configuring product «product.id» with the following features:"/>
+		<echo message="Configuring product «product.id» «product.version» with the following features:"/>
 «FOREACH product.features.feature AS feature-»
 		<echo message="   «feature.id» «feature.version»"/>
 «ENDFOREACH»
@@ -77,6 +77,11 @@
 			<arg value="-DbuildId=${buildId}"/>
 			<arg value="-DbuildLabel=${buildLabel}"/>
 		</exec>
+		
+		<!-- We don't really need the zips produced by the product build, so delete -->
+		<delete >
+		    <fileset dir="${buildDirectory}/${buildLabel}" includes="**/*.zip"/>
+		</delete>
 		
 		<!-- NOTE: when PDE build supports the configs property for product builds, this section can be simplified -->
 		«FOREACH configs AS config»
@@ -108,6 +113,13 @@
 		«ENDFOREACH»
 		
 		<delete dir="${buildDirectory}/${buildLabel}/p2"/>
+		
+		<!-- Consolidate artifacts for publish -->
+		<move file="${buildDirectory}/index.php" todir="${buildDirectory}/${buildLabel}"/>
+		<move file="${buildDirectory}/directory.txt" todir="${buildDirectory}/${buildLabel}"/>
+		<move file="${buildDirectory}/«product.launcher.name».build" todir="${buildDirectory}/${buildLabel}"/>
+		<move file="${buildDirectory}/«product.launcher.name».product" todir="${buildDirectory}/${buildLabel}"/>
+		
 	</target>
 	
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->

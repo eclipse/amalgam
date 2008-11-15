@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="modeler" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand">
+	
+	<tstamp/>
+	
+	<target name="main">
+		<antcall target="generate">
+			<param name="product" value="modeler"/>
+		</antcall>
+		<antcall target="generate">
+			<param name="product" value="dsltk"/>
+		</antcall>
+		<eclipse.refreshLocal resource="org.eclipse.amalgam.releng.builder" depth="infinite"/>
+	</target>
+		
+	<target name="generate">
+		<qvto.interpretedTransformation
+		     transformation="platform:/resource/org.eclipse.amalgam.releng.builder/transformations/updateproduct.qvto">
+		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/${product}/${product}.product"/>
+		     <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/configs/${product}/${product}.build"/>
+			 <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/out/build/${product}/${product}.product"/>
+			 <targeturidef targeturi="platform:/resource/org.eclipse.amalgam.releng.builder/out/build/${product}/${product}.build"/>
+			 <configurationproperty name="date" value="${DSTAMP}"/>
+			 <configurationproperty name="time" value="${TSTAMP}"/>
+		</qvto.interpretedTransformation>
+		<mkdir dir="../out/build/${product}/repo"/>
+		<mkdir dir="../out/build/${product}/builder"/>
+		<zzz:template name="build2properties::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.releng.builder/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			outfile="../out/build/${product}/builder/build.properties"/>
+		<zzz:template name="build2customTargets::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.releng.builder/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			outfile="../out/build/${product}/builder/customTargets.xml"/>
+		<zzz:template name="build2script::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.releng.builder/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			outfile="../out/build/build-${product}.xml"/>
+		<zzz:template name="build2site::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.releng.builder/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			outfile="../out/build/${product}/repo/site.xml"/>
+		<zzz:template name="build2page::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.releng.builder/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			outfile="../out/build/${product}/index.php"/>
+	</target>
+</project>

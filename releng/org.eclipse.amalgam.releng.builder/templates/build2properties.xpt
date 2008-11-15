@@ -45,10 +45,10 @@ p2.IU=«product.id»
 p2.publish.artifacts=true
        
 #Set the name of the archive that will result from the product build.
-archiveNamePrefix=«product.launcher.name»
+archiveNamePrefix=«product.launcher.name»-incubation
 
 # The prefix that will be used in the generated archive.
-archivePrefix=«product.launcher.name»
+archivePrefix=«product.launcher.name»-incubation
 
 # The location underwhich all of the build output will be collected.
 collectingFolder=${archivePrefix}
@@ -109,13 +109,13 @@ buildDirectory=${buildRoot}/«product.launcher.name»
 buildType=«type»
 
 # ID of the build.  Used in naming the build output.
-buildId=«product.launcher.name»-${buildType}${date}-${time}
+buildId=${archiveNamePrefix}-${buildType}${date}-${time}
 
 # Label for the build.  Used in naming the build output
 buildLabel=${buildType}${timestamp}
 
 # Timestamp for the build.  Used in naming the build output - ${date} and ${time} expected to be initialized in build.xml
-timestamp=${date}${time}
+timestamp=${date}-${time}
 
 #The value to be used for the qualifier of a plugin or feature when you want to override the value computed by pde.
 #The value will only be applied to plugin or features indicating build.properties, qualifier = context 

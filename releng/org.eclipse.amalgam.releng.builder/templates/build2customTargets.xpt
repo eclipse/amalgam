@@ -37,21 +37,27 @@
 		«ENDIF»
 		
 		<antcall target="install.delta.pack"/>
-		
-«FOREACH contributions.features.select(f | f.repo.location != null) AS feature-»
+
+«FOREACH contributions AS contribution-»
+«IF contribution.features.size() > 0 || contribution.bundles.size() > 0-»
+		<echo message="Installing contributions «FOREACH contribution.features AS feature SEPARATOR ", "-»«feature.id»«ENDFOREACH»."/>
+«FOREACH contribution.features.select(f | f.repo.location != null) AS feature-»
 		<antcall target="install.feature">
 			<param name="feature.id" value="«feature.id»"/>
 			<param name="feature.version" value="«feature.version»"/>
 			<param name="repo" value="«feature.repo.location»"/>
 		</antcall>
-«ENDFOREACH»
-«FOREACH contributions.bundles.select(b | b.repo.location != null) AS bundle-»
+«ENDFOREACH-»
+«FOREACH contribution.bundles.select(f | f.repo.location != null) AS bundle-»
 		<antcall target="install.bundle">
 			<param name="bundle.id" value="«bundle.id»"/>
 			<param name="bundle.version" value="«bundle.version»"/>
 			<param name="repo" value="«bundle.repo.location»"/>
 		</antcall>
-«ENDFOREACH»
+«ENDFOREACH-»
+		<echo message="Upon failure, contact «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
+«ENDIF-»
+«ENDFOREACH-»
 	</target>
 	
 	<!-- Fetch and extract the delta pack to its pluginPath location -->
@@ -215,9 +221,8 @@
 			artifactrepository="${repo}"
 			metadatarepository="${repo}"
 		/> -->
-		<echo message="Installing feature ${feature.id} ${feature.version}"/>
 		<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
-		<exec executable="${baseLocation}/eclipse" failonerror="false">
+		<exec executable="${baseLocation}/eclipse" failonerror="true">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
@@ -240,9 +245,8 @@
 	</target>
 	
 	<target name="install.bundle"> 
-		<echo message="Installing bundle ${bundle.id} ${bundle.version}"/>
 		<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
-		<exec executable="${baseLocation}/eclipse" failonerror="false">
+		<exec executable="${baseLocation}/eclipse" failonerror="true">
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
