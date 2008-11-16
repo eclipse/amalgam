@@ -96,10 +96,8 @@
 		</antcall>
 		
 		«IF config.os.literal == "macosx"»
-		<!-- FIXME: workaround for leftover Eclipse.app when launcher is different from default (but first, copy correct .ini file) -->
-		<copy file="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app/Contents/MacOS/eclipse.ini" 
-					  tofile="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/${archivePrefix}.app/Contents/MacOS/${archivePrefix}.ini" overwrite="true"/>
-		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app" />
+		<!-- FIXME: delete leftover .app - investigate how archivePrefix, archiveNamePrefix, etc. are intended to be used with product builds -->
+		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/${archivePrefix}.app" />
 		«ENDIF»
 		«IF config.os.literal == "win32"»
 		<zip destfile="${buildDirectory}/${buildLabel}/${archiveNamePrefix}-${buildLabel}.«config.os».«config.ws».«config.arch».zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
