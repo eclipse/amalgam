@@ -105,7 +105,7 @@
 		 <wizard
 		   id="org.eclipse.amalgam.m2t.wizard.NewXpandTemplateFileWizard"
 		   name="%mt.xpand.wizard"
-		   class="org.eclipse.amalgam.internal.dsltk.wizards.NewTemplateFileWizard"
+		   class="org.eclipse.gmf.internal.xpand.editor.ui.NewTemplateFileWizard"
 		   category="org.eclipse.amalgam.transformation.wizardCategory"
 		   icon="icons/full/obj16/NewXPandTemplate.gif">
 	       <description>%mt.xpand.wizard.desc</description>
@@ -113,7 +113,7 @@
 		</wizard>
 	</extension> 
 	
-   <!-- Xtend Wizard -->
+   <!-- Xtend Wizard 
    <extension
 	      point = "org.eclipse.ui.newWizards">
 		 <wizard
@@ -125,7 +125,7 @@
 	       <description>%mt.xtend.wizard.desc</description>
 		   <selection class="org.eclipse.core.resources.IResource"/>
 		</wizard>
-	</extension>
+	</extension> -->
    
    <!-- Operational QVT Transformation Wizards -->
    <extension
@@ -153,7 +153,7 @@
 		</wizard>
 	</extension>
 
-   <!-- Model Workflow Engine Wizard -->
+   <!-- Model Workflow Engine Wizard 
    <extension
 	      point = "org.eclipse.ui.newWizards">
 		 <wizard
@@ -165,7 +165,7 @@
 	       <description>%mt.workflow.wizard.desc</description>
 		   <selection class="org.eclipse.core.resources.IResource"/>
 		</wizard>
-	</extension>
+	</extension> -->
 	
    <!-- General Model Wizards -->
    <extension point="org.eclipse.ui.newWizards">

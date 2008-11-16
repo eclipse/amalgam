@@ -45,7 +45,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.ide.undo.CreateFolderOperation;
 import org.eclipse.ui.part.ISetSelectionTarget;
-import org.eclipse.xtend.shared.ui.core.builder.XtendXpandNature;
+//import org.eclipse.xtend.shared.ui.core.builder.XtendXpandNature;
 
 /**
  * A project wizard that adds the appropriate natures for DSL development. At
@@ -114,20 +114,20 @@ public class DSLProjectWizard extends EmptyProjectWizard {
 					manifest.println(genModelContainerPath.segment(0));
 					manifest.println("Bundle-Version: 1.0.0.qualifier");
 					manifest.println("Require-Bundle: org.eclipse.emf.ecore,");
-					manifest.println(" org.eclipse.xpand,");
-					manifest.println(" org.eclipse.xtend,");
-					manifest.println(" org.eclipse.xtend.typesystem.emf,");
-					manifest.println(" org.eclipse.emf.mwe.core,");
-					manifest.println(" org.eclipse.emf.mwe.utils,");
+//					manifest.println(" org.eclipse.xpand,");
+//					manifest.println(" org.eclipse.xtend,");
+//					manifest.println(" org.eclipse.xtend.typesystem.emf,");
+//					manifest.println(" org.eclipse.emf.mwe.core,");
+//					manifest.println(" org.eclipse.emf.mwe.utils,");
 					manifest.println(" org.eclipse.emf.ecore.xmi,");
-					manifest.println(" org.apache.commons.logging,");
-					manifest.println(" org.antlr.runtime");
+//					manifest.println(" org.apache.commons.logging,");
+//					manifest.println(" org.antlr.runtime");
 					manifest.close();
 
 					// configure additional options/natures
 					createFolder("diagrams", progressMonitor);
 					configureQVTOptions(progressMonitor);
-					configureXpandOptions(progressMonitor);
+//					configureXpandOptions(progressMonitor);
 				} catch (Exception exception) {
 					GenModelEditPlugin.INSTANCE.log(exception);
 				} finally {
@@ -164,9 +164,9 @@ public class DSLProjectWizard extends EmptyProjectWizard {
 		NatureUtils.addNature(project, TransformationNature.ID);
 	}
 
-	private void configureXpandOptions(IProgressMonitor monitor) throws CoreException {
-		NatureUtils.addNature(project, XtendXpandNature.NATURE_ID);
-	}
+//	private void configureXpandOptions(IProgressMonitor monitor) throws CoreException {
+//		NatureUtils.addNature(project, XtendXpandNature.NATURE_ID);
+//	}
 
 	private IContainer createFolder(String name, IProgressMonitor monitor) {
 		IProgressMonitor safeMonitor = monitor != null ? monitor : new NullProgressMonitor();
