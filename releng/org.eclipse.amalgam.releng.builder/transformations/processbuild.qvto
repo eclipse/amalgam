@@ -1,0 +1,46 @@
+modeltype build uses "http://www.eclipse.org/amalgam/2008/build";
+modeltype product uses "http://www.eclipse.org/amalgam/2008/product";
+
+transformation processbuild(in inProduct : product, in inBuild : build, out outProduct : product, out outBuild : build);
+
+configuration property date : String;
+configuration property time : String;
+
+main() {
+	inProduct.rootObjects()[Product].map toProduct();
+	inBuild.rootObjects()[Build].map toBuild();
+	outBuild.rootObjects()[Build].map updateBuild();
+	outProduct.rootObjects()[Product].features.map toFeatures();
+}
+
+mapping product::Product::toProduct() : product::Product@outProduct {
+	init {
+		result := self.deepclone()->oclAsType(Product)->any(true);
+		var v : String := self.version;
+		if (v.endsWith('qualifier')) then {
+			v := self.version.substringBefore('qualifier') + 'v' + this.date + this.time;
+		} endif;
+	}
+	version := v;
+}
+
+mapping build::Build::toBuild() : build::Build@outBuild {
+	init {
+		result := self.deepclone()->oclAsType(Build)->any(true);
+	}
+}
+
+mapping inout build::Build::updateBuild() {
+	product := outProduct.rootObjects()[Product]->any(true);
+	date := this.date;
+	time := this.time;
+}
+
+mapping inout product::Features::toFeatures() {
+	feature += outBuild.rootObjects()[Build].contributions.features->select(f | f.inProduct = true).map toFeature();
+}
+
+mapping build::Feature::toFeature() : product::Feature {
+	id := self.id;
+	version := self.version;
+}

@@ -4,16 +4,16 @@
 «DEFINE Main FOR Build-»
 <?xml version="1.0"?>
 <site mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/releases/galileo/site.xml&amp;format=xml&amp;protocol=http" pack200="true" digestURL="http://download.eclipse.org/releases/galileo/">
-<description url="http://www.eclipse.org/ganymede/">This Galileo Discovery Site contains a number of Eclipse based projects released simultaneously, June 2009.</description>
-«FOREACH contributions.features.select(f | f.category != null) AS feature»
-<feature url="features/«feature.id»_«feature.version».jar" id="«feature.id»" version="«feature.version»">
-<category name="«feature.category.name»"/>
-</feature>
-«ENDFOREACH»
+<description url="http://www.eclipse.org/ganymede/">This is the «label» update site.</description>
 «FOREACH categories AS category»
 <category-def name="«category.name»" label="«category.label»">
-<description>«category.description»</description>
+  <description>«category.description»</description>
 </category-def>
+«FOREACH category.features AS feature»
+<feature url="features/«feature.id»_«feature.version».jar" id="«feature.id»" version="«feature.version»">
+  <category name="«category.name»"/>
+</feature>
+«ENDFOREACH»
 «ENDFOREACH»
 </site>
 «ENDDEFINE»

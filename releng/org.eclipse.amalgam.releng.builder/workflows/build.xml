@@ -17,7 +17,7 @@
 		
 	<target name="generate">
 		<qvto.interpretedTransformation
-		     transformation="platform:/resource/${project}/transformations/updateproduct.qvto">
+		     transformation="platform:/resource/${project}/transformations/processbuild.qvto">
 		     <targeturidef targeturi="platform:/resource/${project}/configs/${product}/${product}.product"/>
 		     <targeturidef targeturi="platform:/resource/${project}/configs/${product}/${product}.build"/>
 			 <targeturidef targeturi="platform:/resource/${project}/out/build/${product}/${product}.product"/>
@@ -41,7 +41,7 @@
 			outfile="../out/build/build-${product}.xml"/>
 		<zzz:template name="build2site::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			templateroot="platform:/resource/org.eclipse.amalgam.releng.builder/templates/"
 			outfile="../out/build/${product}/repo/site.xml"/>
 		<zzz:template name="build2page::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
