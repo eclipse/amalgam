@@ -29,7 +29,7 @@
     <features id="org.eclipse.gmf.sdk" version="2.2.0.v20080917-1925-7A7A3AImmt9tVK-KldWYVKKsB0Ui" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.0"/>
     </features>
-    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20080825-1430-7C-E8MACKz-gEQhuz0N4lLgT9fOj" category="//@categories.0">
+    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20080825-1430-7C-E8MAEKy6ESRq8P0E1BVTLz09l" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.6"/>
     </features>
     <features id="org.eclipse.emf.teneo.sdk" version="1.0.0.v200806111928-3--87D3BKcgLUKa6ESidYXUVVFGE" category="//@categories.0">
