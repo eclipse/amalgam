@@ -27,5 +27,7 @@
   </aboutInfo>
   <intro introId="org.eclipse.ui.intro.universal"/>
   <plugins/>
-  <features/>
+  <features>
+  	<!-- features injected here by build model -->
+  </features>
 </product>

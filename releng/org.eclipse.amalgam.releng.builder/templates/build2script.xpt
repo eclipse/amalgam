@@ -95,18 +95,14 @@
 			<param name="p2.version" value="«product.version»"/>
 		</antcall>
 		
-		«IF config.os.literal == "macosx"»
-		<!-- FIXME: delete leftover .app - investigate how archivePrefix, archiveNamePrefix, etc. are intended to be used with product builds -->
-		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/${archivePrefix}.app" />
-		«ENDIF»
 		«IF config.os.literal == "win32"»
-		<zip destfile="${buildDirectory}/${buildLabel}/${archiveNamePrefix}-${buildLabel}.«config.os».«config.ws».«config.arch».zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
+		<zip destfile="${buildDirectory}/${buildLabel}/${buildId}.«config.os».«config.ws».«config.arch».zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
 		«ELSE»
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/">
-			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}-${buildLabel}.«config.os».«config.ws».«config.arch».tar ${archivePrefix}"/>
+			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}-${buildLabel}.«config.os».«config.ws».«config.arch».tar" zipfile="${buildDirectory}/${buildLabel}/${archiveNamePrefix}-${buildLabel}.«config.os».«config.ws».«config.arch».tar.gz"/>
-		<delete file="${buildDirectory}/${buildLabel}/p2/${archiveNamePrefix}-${buildLabel}.«config.os».«config.ws».«config.arch».tar" />
+		<gzip src="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" zipfile="${buildDirectory}/${buildLabel}/${buildId}.«config.os».«config.ws».«config.arch».tar.gz"/>
+		<delete file="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" />
 		«ENDIF»
 		«ENDFOREACH»
 		

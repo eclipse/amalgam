@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <build:Contribution xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" label="Modeling repositories">
-  <repositories location="http://download.eclipse.org/modeling/gmf/updates/milestones/" label="GMF Milestones"/>
+  <repositories location="http://download.eclipse.org/modeling/gmf/updates/milestones/" label="GMF milestones"/>
   <repositories location="http://download.eclipse.org/modeling/mdt/updates/milestones/" label="MDT milestones"/>
   <repositories location="http://download.eclipse.org/modeling/emf/updates/milestones/" label="EMF milestones"/>
   <repositories location="http://download.eclipse.org/modeling/gmf/updates/interim/" label="GMF interim"/>
-  <repositories location="http://download.eclipse.org/modeling/emft/updates/milestones/" label="EMFT Milestones"/>
+  <repositories location="http://download.eclipse.org/modeling/emft/updates/milestones/" label="EMFT milestones"/>
   <repositories location="http://download.eclipse.org/modeling/emf/updates/releases/" label="EMF releases"/>
   <repositories location="http://download.eclipse.org/modeling/m2m/updates/milestones/" label="M2M milestones"/>
-  <repositories location="http://download.eclipse.org/modeling/emft/updates/releases/" label="EMFT Milestones"/>
+  <repositories location="http://download.eclipse.org/modeling/emft/updates/releases/" label="EMFT milestones"/>
   <repositories location="http://download.eclipse.org/modeling/mdt/updates/releases/" label="MDT releases"/>
   <repositories location="http://download.eclipse.org/modeling/mdt/updates/interim/" label="MDT releases"/>
-  <repositories location="http://download.eclipse.org/modeling/gmf/updates/releases/" label="GMF Milestones"/>
+  <repositories location="http://download.eclipse.org/modeling/gmf/updates/releases/" label="GMF releases"/>
   <repositories location="http://download.eclipse.org/modeling/m2m/updates/releases/" label="M2M milestones"/>
 </build:Contribution>

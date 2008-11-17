@@ -41,6 +41,7 @@
 «FOREACH contributions AS contribution-»
 «IF contribution.features.size() > 0 || contribution.bundles.size() > 0-»
 		<echo message="Installing contributions «FOREACH contribution.features AS feature SEPARATOR ", "-»«feature.id»«ENDFOREACH»."/>
+		<echo message="Upon failure, contact «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
 «FOREACH contribution.features.select(f | f.repo.location != null) AS feature-»
 		<antcall target="install.feature">
 			<param name="feature.id" value="«feature.id»"/>
@@ -55,7 +56,6 @@
 			<param name="repo" value="«bundle.repo.location»"/>
 		</antcall>
 «ENDFOREACH-»
-		<echo message="Upon failure, contact «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
 «ENDIF-»
 «ENDFOREACH-»
 	</target>
