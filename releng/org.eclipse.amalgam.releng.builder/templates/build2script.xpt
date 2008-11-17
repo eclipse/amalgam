@@ -160,6 +160,7 @@
 			<arg line="-consoleLog"/>
 			<arg line="-reusePack200Files"/>
 			<arg line="-noDefaultIUs"/>
+			<arg line="-compress"/>
 			<arg line="-vmargs"/>
 			<arg line="-Xmx1024m"/>
 		</exec>
