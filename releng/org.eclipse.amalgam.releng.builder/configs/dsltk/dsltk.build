@@ -6,7 +6,7 @@
   <configs os="linux" ws="gtk" archiveFormat="tar"/>
   <configs os="linux" ws="gtk" arch="ppc" archiveFormat="tar"/>
   <map root="org.eclipse.amalgam/releng/org.eclipse.amalgam.releng" repo=":pserver:anonymous@dev.eclipse.org/cvsroot/modeling" tag="HEAD"/>
-  <categories name="DSL Toolkit" label="DSL Toolkit" description="A collection of modeling capabilities for designing and developing model-driven applications." features="//@contributions.0/@features.6 //@contributions.0/@features.4 //@contributions.0/@features.7 //@contributions.0/@features.9 //@contributions.0/@features.15 //@contributions.0/@features.11 //@contributions.0/@features.10 //@contributions.0/@features.16"/>
+  <categories name="DSL Toolkit" label="DSL Toolkit" description="A collection of modeling capabilities for designing and developing model-driven applications." features="//@contributions.0/@features.7 //@contributions.0/@features.4 //@contributions.0/@features.8 //@contributions.0/@features.10 //@contributions.0/@features.16 //@contributions.0/@features.12 //@contributions.0/@features.11 //@contributions.0/@features.17 //@contributions.0/@features.5"/>
   <contributions label="DSL Toolkit">
     <contacts name="Richard Gronback" email="richard.gronback@borland.com"/>
     <features id="org.eclipse.platform" version="3.5.0.v20081007-9K9PFB8EmejKTyIjCkuhc_VlMt0GZA2z0WwJiS"/>
@@ -14,6 +14,9 @@
     <features id="org.eclipse.pde" version="3.5.0.v20081020-7V7XE8MEB7sQS9aqolDlXSM"/>
     <features id="org.eclipse.cvs" version="1.1.100.r20080924-7C79EAU9EI99m_ZBQ"/>
     <features id="org.eclipse.emf.sdk" version="2.5.0.v200811032126" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.2"/>
+    </features>
+    <features id="org.eclipse.xsd.sdk" version="2.4.0.v200806021643" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
     <features id="org.eclipse.uml2.sdk" version="3.0.0.v200811051030">

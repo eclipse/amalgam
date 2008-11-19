@@ -10,7 +10,6 @@ main() {
 	inProduct.rootObjects()[Product].map toProduct();
 	inBuild.rootObjects()[Build].map toBuild();
 	outBuild.rootObjects()[Build].map updateBuild();
-	-- Use this to get around why simple feature mapping within toProduct() doesn't work as desired
 	outProduct.rootObjects()[Product].features.map toFeatures();
 }
 
@@ -23,8 +22,6 @@ mapping product::Product::toProduct() : product::Product@outProduct {
 		} endif;
 	}
 	version := v;
---  Curiously, the below doesn't work, so use outProduct in main() as workaround
---	features := self.features.map toFeatures();
 }
 
 mapping build::Build::toBuild() : build::Build@outBuild {
@@ -40,10 +37,12 @@ mapping inout build::Build::updateBuild() {
 }
 
 mapping inout product::Features::toFeatures() {
-	feature += outBuild.rootObjects()[Build].contributions.features->select(f | f.inProduct = true).map toFeature();
+	feature += outBuild.rootObjects()[Build].contributions.features->map toFeature();
 }
 
-mapping build::Feature::toFeature() : product::Feature {
+mapping build::Feature::toFeature() : product::Feature when {
+	self.inProduct
+}{
 	id := self.id;
 	version := self.version;
 }
