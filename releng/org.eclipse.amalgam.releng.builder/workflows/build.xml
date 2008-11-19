@@ -2,22 +2,21 @@
 <project name="modeler" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand">
 	
 	<tstamp/>
+	<property name="project" value="org.eclipse.amalgam.releng.builder"/>
 	
 	<target name="main">
 		<antcall target="generate">
 			<param name="product" value="modeler"/>
-			<param name="project" value="org.eclipse.amalgam.releng.builder"/>
 		</antcall>
 		<antcall target="generate">
 			<param name="product" value="dsltk"/>
-			<param name="project" value="org.eclipse.amalgam.releng.builder"/>
 		</antcall>
-		<eclipse.refreshLocal resource="org.eclipse.amalgam.releng.builder" depth="infinite"/>
+		<eclipse.refreshLocal resource="${project}" depth="infinite"/>
 	</target>
 		
 	<target name="generate">
 		<qvto.interpretedTransformation
-		     transformation="platform:/plugin/${project}/transformations/processbuild.qvto">
+		     transformation="platform:/resource/${project}/transformations/processbuild.qvto">
 		     <targeturidef targeturi="platform:/resource/${project}/configs/${product}/${product}.product"/>
 		     <targeturidef targeturi="platform:/resource/${project}/configs/${product}/${product}.build"/>
 			 <targeturidef targeturi="platform:/resource/${project}/out/build/${product}/${product}.product"/>
@@ -29,23 +28,23 @@
 		<mkdir dir="${basedir}/out/build/${product}/builder"/>
 		<zzz:template name="build2properties::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			templateroot="platform:/resource/${project}/templates/"
 			outfile="${basedir}/out/build/${product}/builder/build.properties"/>
 		<zzz:template name="build2customTargets::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			templateroot="platform:/resource/${project}/templates/"
 			outfile="${basedir}/out/build/${product}/builder/customTargets.xml"/>
 		<zzz:template name="build2script::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			templateroot="platform:/resource/${project}/templates/"
 			outfile="${basedir}/out/build/build-${product}.xml"/>
 		<zzz:template name="build2site::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			templateroot="platform:/resource/${project}/templates/"
 			outfile="${basedir}/out/build/${product}/repo/site.xml"/>
 		<zzz:template name="build2page::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/org.eclipse.amalgam.releng.builder/templates/"
+			templateroot="platform:/resource/${project}/templates/"
 			outfile="${basedir}/out/build/${product}/index.php"/>
 	</target>
 </project>
