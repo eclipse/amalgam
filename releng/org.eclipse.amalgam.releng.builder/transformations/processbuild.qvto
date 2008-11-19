@@ -40,9 +40,7 @@ mapping inout product::Features::toFeatures() {
 	feature += outBuild.rootObjects()[Build].contributions.features->map toFeature();
 }
 
-mapping build::Feature::toFeature() : product::Feature when {
-	self.inProduct
-}{
+mapping build::Feature::toFeature() : product::Feature {
 	id := self.id;
 	version := self.version;
 }
