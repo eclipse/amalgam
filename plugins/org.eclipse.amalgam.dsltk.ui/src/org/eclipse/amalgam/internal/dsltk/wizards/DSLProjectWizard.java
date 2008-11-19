@@ -113,13 +113,13 @@ public class DSLProjectWizard extends EmptyProjectWizard {
 					manifest.print("Bundle-SymbolicName: ");
 					manifest.println(genModelContainerPath.segment(0));
 					manifest.println("Bundle-Version: 1.0.0.qualifier");
-					manifest.println("Require-Bundle: org.eclipse.emf.ecore,");
+					manifest.println("Bundle-RequiredExecutionEnvironment: J2SE-1.5");
 //					manifest.println(" org.eclipse.xpand,");
 //					manifest.println(" org.eclipse.xtend,");
 //					manifest.println(" org.eclipse.xtend.typesystem.emf,");
 //					manifest.println(" org.eclipse.emf.mwe.core,");
 //					manifest.println(" org.eclipse.emf.mwe.utils,");
-					manifest.println(" org.eclipse.emf.ecore.xmi,");
+//					manifest.println(" org.eclipse.emf.ecore.xmi,");
 //					manifest.println(" org.apache.commons.logging,");
 //					manifest.println(" org.antlr.runtime");
 					manifest.close();
