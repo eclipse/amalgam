@@ -7,8 +7,8 @@ configuration property date : String;
 configuration property time : String;
 
 main() {
-	inProduct.rootObjects()[Product].map toProduct();
 	inBuild.rootObjects()[Build].map toBuild();
+	inProduct.rootObjects()[Product].map toProduct();
 	outBuild.rootObjects()[Build].map updateBuild();
 	outProduct.rootObjects()[Product].features.map toFeatures();
 }
@@ -22,6 +22,9 @@ mapping product::Product::toProduct() : product::Product@outProduct {
 		} endif;
 	}
 	version := v;
+--	features := object product::Features {
+--		feature += outBuild.rootObjects()[Build].contributions.features->select(f | f.inProduct)->map toFeature();
+--	}
 }
 
 mapping build::Build::toBuild() : build::Build@outBuild {
@@ -37,7 +40,7 @@ mapping inout build::Build::updateBuild() {
 }
 
 mapping inout product::Features::toFeatures() {
-	feature += outBuild.rootObjects()[Build].contributions.features->map toFeature();
+	feature += outBuild.rootObjects()[Build].contributions.features->select(f | f.inProduct)->map toFeature();
 }
 
 mapping build::Feature::toFeature() : product::Feature {
