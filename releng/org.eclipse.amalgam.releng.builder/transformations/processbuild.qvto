@@ -1,7 +1,7 @@
-modeltype build uses "http://www.eclipse.org/amalgam/2008/build";
-modeltype product uses "http://www.eclipse.org/amalgam/2008/product";
+modeltype BUILD uses "http://www.eclipse.org/amalgam/2008/build";
+modeltype PRODUCT uses "http://www.eclipse.org/amalgam/2008/product";
 
-transformation processbuild(in inProduct : product, in inBuild : build, out outProduct : product, out outBuild : build);
+transformation processbuild(in inProduct : PRODUCT, in inBuild : BUILD, out outProduct : PRODUCT, out outBuild : BUILD);
 
 configuration property date : String;
 configuration property time : String;
@@ -9,7 +9,7 @@ configuration property time : String;
 main() {
 	inBuild.rootObjects()[Build].map toBuild();
 	inProduct.rootObjects()[Product].map toProduct();
---	outProduct.rootObjects()[Product].features.map toFeatures();
+	outProduct.rootObjects()[Product].features.map toFeatures();
 }
 
 mapping product::Product::toProduct() : product::Product@outProduct {
@@ -21,9 +21,9 @@ mapping product::Product::toProduct() : product::Product@outProduct {
 		} endif;
 	}
 	version := v;
-	features := object product::Features {
-		feature += outBuild.rootObjects()![Build].contributions.features->select(f | f.inProduct)->map toFeature();
-	}
+--	features := object product::Features {
+--		feature += outBuild.rootObjects()![Build].contributions.features->select(f | f.inProduct)->map toFeature();
+--	}
 	end {
 		outBuild.rootObjects()[Build].map updateProductReference();
 	}
