@@ -95,6 +95,11 @@
 			<param name="p2.version" value="«product.version»"/>
 		</antcall>
 		
+		«IF config.os.literal == "macosx"»
+		<!-- FIXME: workaround for leftover Eclipse.app TODO: find/submit bug -->
+		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app" />
+		«ENDIF»
+		
 		«IF config.os.literal == "win32"»
 		<zip destfile="${buildDirectory}/${buildLabel}/${buildId}.«config.os».«config.ws».«config.arch».zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
 		«ELSE»
@@ -109,6 +114,7 @@
 		<delete dir="${buildDirectory}/${buildLabel}/p2"/>
 		
 		<!-- Consolidate artifacts for publish -->
+		<move file="${buildRoot}/«product.launcher.name».build.log.txt" todir="${buildDirectory}/${buildLabel}" failonerror="false"/>
 		<move file="${buildDirectory}/index.php" todir="${buildDirectory}/${buildLabel}"/>
 		<move file="${buildDirectory}/directory.txt" todir="${buildDirectory}/${buildLabel}"/>
 		<move file="${buildDirectory}/«product.launcher.name».build" todir="${buildDirectory}/${buildLabel}"/>
@@ -160,10 +166,16 @@
 			<arg line="-consoleLog"/>
 			<arg line="-reusePack200Files"/>
 			<arg line="-noDefaultIUs"/>
-			<arg line="-compress"/>
 			<arg line="-vmargs"/>
 			<arg line="-Xmx1024m"/>
 		</exec>
+		<!-- Zip the metadata, as -compress argument above didn't seem to do the trick -->
+		<zip destfile="${buildDirectory}/${buildLabel}/content.jar"
+       		 basedir="${buildDirectory}/repo"
+       		 includes="content.xml"/>
+       	<zip destfile="${buildDirectory}/${buildLabel}/artifacts.jar"
+       		 basedir="${buildDirectory}/repo"
+       		 includes="artifacts.xml"/>
 	</target>
 	
 </project>
