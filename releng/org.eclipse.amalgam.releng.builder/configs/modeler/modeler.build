@@ -6,7 +6,7 @@
   <configs os="linux" ws="gtk" archiveFormat="tar"/>
   <configs os="linux" ws="gtk" arch="ppc" archiveFormat="tar"/>
   <map root="org.eclipse.amalgam/releng/org.eclipse.amalgam.releng" repo=":pserver:anonymous@dev.eclipse.org/cvsroot/modeling" tag="HEAD"/>
-  <categories name="Modeler" label="Modeler" description="A lightweight modeling solution that includes UML, BPMN, and SCA modeling." features="//@contributions.0/@features.7 //@contributions.0/@features.5 //@contributions.0/@features.6 //@contributions.0/@features.10 //@contributions.0/@features.3 //@contributions.0/@features.4 //@contributions.0/@features.12 //@contributions.0/@features.13 //@contributions.0/@features.11"/>
+  <categories name="Modeler" label="Modeler" description="A lightweight modeling solution that includes UML, BPMN, and SCA modeling." features="//@contributions.0/@features.7 //@contributions.0/@features.5 //@contributions.0/@features.6 //@contributions.0/@features.10 //@contributions.0/@features.3 //@contributions.0/@features.4 //@contributions.0/@features.12 //@contributions.0/@features.11"/>
   <contributions label="Modeler">
     <contacts name="Richard Gronback" email="richard.gronback@borland.com"/>
     <features id="org.eclipse.platform" version="3.5.0.v20081007-9K9PFB8EmejKTyIjCkuhc_VlMt0GZA2z0WwJiS"/>
@@ -32,9 +32,6 @@
     <features id="org.eclipse.stp.sca.feature.amalgamation" version="1.1.0.200810141327" category="//@categories.0" repo="//@contributions.0/@repositories.1"/>
     <features id="org.eclipse.uml2.diagram" version="0.9.0.v200811170848" category="//@categories.0" inProduct="false">
       <repo href="../modeling-repos.build#//@repositories.1"/>
-    </features>
-    <features id="org.eclipse.uml2.diagram.clazz.search" version="0.7.0.v200806130939" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.7"/>
     </features>
     <features id="org.eclipse.stp.bpmn.feature" version="1.0.0.200806121858-4--7E77c7UAEAcQc" category="//@categories.0" repo="//@contributions.0/@repositories.2"/>
     <repositories location="http://download.eclipse.org/tools/gef/updates/milestones/" label="GEF milestones"/>
