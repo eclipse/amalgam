@@ -119,7 +119,8 @@
 		<move file="${buildDirectory}/directory.txt" todir="${buildDirectory}/${buildLabel}"/>
 		<move file="${buildDirectory}/«product.launcher.name».build" todir="${buildDirectory}/${buildLabel}"/>
 		<move file="${buildDirectory}/«product.launcher.name».product" todir="${buildDirectory}/${buildLabel}"/>
-		
+		<copy file="${buildDirectory}/repo/content.jar" todir="${buildDirectory}/${buildLabel}"/>
+		<copy file="${buildDirectory}/repo/artifacts.jar" todir="${buildDirectory}/${buildLabel}"/>
 	</target>
 	
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
@@ -170,10 +171,10 @@
 			<arg line="-Xmx1024m"/>
 		</exec>
 		<!-- Zip the metadata, as -compress argument above didn't seem to do the trick -->
-		<zip destfile="${buildDirectory}/${buildLabel}/content.jar"
+		<zip destfile="${buildDirectory}/repo/content.jar"
        		 basedir="${buildDirectory}/repo"
        		 includes="content.xml"/>
-       	<zip destfile="${buildDirectory}/${buildLabel}/artifacts.jar"
+       	<zip destfile="${buildDirectory}/repo/artifacts.jar"
        		 basedir="${buildDirectory}/repo"
        		 includes="artifacts.xml"/>
 	</target>
