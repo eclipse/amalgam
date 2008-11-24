@@ -35,8 +35,8 @@ product=${buildDirectory}/«product.launcher.name».product
 runPackager=true
 
 generate.p2.metadata=true
-p2.metadata.repo=file:${buildDirectory}/repo
-p2.artifact.repo=file:${buildDirectory}/repo
+p2.metadata.repo=file:${buildDirectory}/${buildLabel}/repo
+p2.artifact.repo=file:${buildDirectory}/${buildLabel}/repo
 p2.metadata.repo.name=«product.name.toFirstUpper()» Metadata Repository
 p2.artifact.repo.name=«product.name.toFirstUpper()» Artifact Repository
 p2.profile=«product.launcher.name.toFirstUpper()»Profile
@@ -204,22 +204,22 @@ fetchTag=«fetchTag»
 logExtension=.log
 
 # Whether or not to include debug info in the output jars
-javacDebugInfo=true
+javacDebugInfo=«compiler.debugInfo»
 
 # Whether or not to fail the build if there are compiler errors
-javacFailOnError=false
+javacFailOnError=«compiler.failOnError»
 
 # Enable or disable verbose mode of the compiler
-javacVerbose=false
+javacVerbose=«compiler.verbose»
 
 # Extra arguments for the compiler. These are specific to the java compiler being used.
-compilerArg=-warn:-serial,discouraged,unchecked,raw,intfAnnotation,varargsCast -enableJavadoc
+compilerArg=«compiler.args»
 
 # Default value for the version of the source code. This value is used when compiling plug-ins that do not set the Bundle-RequiredExecutionEnvironment or set javacSource in build.properties
-javacSource=1.5
+javacSource=«compiler.sourceVersion»
 
 # Default value for the version of the byte code targeted. This value is used when compiling plug-ins that do not set the Bundle-RequiredExecutionEnvironment or set javacTarget in build.properties.
-javacTarget=1.5
+javacTarget=«compiler.targetVersion»
 
 #to avoid recompilation if previously compiled
 #noclean=true

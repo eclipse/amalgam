@@ -11,7 +11,6 @@
 	<target name="init">
 		<property name="date" value="«date»"/>
 		<property name="time" value="«time»"/>
-		
 		<property name="buildRoot" value="«buildRoot»"/>
 		<property name="basebuilder" value="${buildRoot}/«product.launcher.name»/basebuilder"/>
 	</target>
@@ -59,6 +58,9 @@
 		
 		<!-- First, run normal product build to fetch, compile, and generate metadata repository for p2 build -->
 		<exec executable="${basebuilder}/eclipse/eclipse" dir="${buildDirectory}/builder" failonerror="false">
+«IF launchVM != null && launchVM != ''-»
+			<arg line="-vm «launchVM-»"/>
+«ENDIF-»
 			<arg line="-application org.eclipse.ant.core.antRunner"/>
 			<arg line="-buildfile ${buildFile}" />
 			<arg line="-nosplash" />
@@ -119,13 +121,14 @@
 		<move file="${buildDirectory}/directory.txt" todir="${buildDirectory}/${buildLabel}"/>
 		<move file="${buildDirectory}/«product.launcher.name».build" todir="${buildDirectory}/${buildLabel}"/>
 		<move file="${buildDirectory}/«product.launcher.name».product" todir="${buildDirectory}/${buildLabel}"/>
-		<copy file="${buildDirectory}/repo/content.jar" todir="${buildDirectory}/${buildLabel}"/>
-		<copy file="${buildDirectory}/repo/artifacts.jar" todir="${buildDirectory}/${buildLabel}"/>
 	</target>
 	
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
 	<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
 		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
+«IF launchVM != null && launchVM != ''-»
+			<arg line="-vm «launchVM-»"/>
+«ENDIF-»
 			<arg line="-application org.eclipse.equinox.p2.director.app.application"/>
 			<arg line="-nosplash"/>
 			<arg line="--launcher.suppressErrors"/>
@@ -157,9 +160,12 @@
 	<target name="categorize" depends="init">
 		<property file="${buildRoot}/${target}/builder/build.properties"/>
 		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
+«IF launchVM != null && launchVM != ''-»
+			<arg line="-vm «launchVM-»"/>
+«ENDIF-»
 			<arg line="-application org.eclipse.equinox.p2.metadata.generator.EclipseGenerator"/>
-			<arg line="-updateSite ${buildDirectory}/repo"/>
-			<arg line="-site file:${buildDirectory}/repo/site.xml"/>
+			<arg line="-updateSite ${buildDirectory}/${buildLabel}/repo"/>
+			<arg line="-site ${p2.metadata.repo}/site.xml"/>
 			<arg line="-metadataRepository ${p2.metadata.repo}"/>
 			<arg line="-artifactRepository ${p2.artifact.repo}"/>
 			<arg line="-nosplash"/>
@@ -171,12 +177,14 @@
 			<arg line="-Xmx1024m"/>
 		</exec>
 		<!-- Zip the metadata, as -compress argument above didn't seem to do the trick -->
-		<zip destfile="${buildDirectory}/repo/content.jar"
-       		 basedir="${buildDirectory}/repo"
+		<zip destfile="${buildDirectory}/${buildLabel}/repo/content.jar"
+       		 basedir="${buildDirectory}/${buildLabel}/repo"
        		 includes="content.xml"/>
-       	<zip destfile="${buildDirectory}/repo/artifacts.jar"
-       		 basedir="${buildDirectory}/repo"
+       	<zip destfile="${buildDirectory}/${buildLabel}/repo/artifacts.jar"
+       		 basedir="${buildDirectory}/${buildLabel}/repo"
        		 includes="artifacts.xml"/>
+        <delete file="${buildDirectory}/${buildLabel}/repo/content.xml" failonerror="false"/>
+       	<delete file="${buildDirectory}/${buildLabel}/repo/artifacts.xml" failonerror="false"/>
 	</target>
 	
 </project>
