@@ -85,8 +85,10 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 	<div class="sideitem">
 		<h3>Related Links</h3>
 			<ul class="midlist">
-			<li><a href="«label.toLowerCase()».build">View the <b>build model</b> for the current «label» build.</a></li>
-			<li><a href="directory.txt">View the <b>map file entries</b> for the current build.</a></li></ul>
+				<li><a href="«product.launcher.name».build.log.txt">View the <b>build log</b> for the current build.</a></li>
+				<li><a href="«product.launcher.name».build">View the <b>build model</b> for the current build.</a></li>
+				<li><a href="directory.txt">View the <b>map file entries</b> for the current build.</a></li>
+			</ul>
 	</div>
 </div>
 
