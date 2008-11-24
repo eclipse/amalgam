@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2008 Borland Software Corporation
+   
+   All rights reserved. This program and the accompanying materials
+   are made available under the terms of the Eclipse Public License v1.0
+   which accompanies this distribution, and is available at
+   http://www.eclipse.org/legal/epl-v10.html
+  
+   Contributors:
+      Borland Software Corporation - initial API and implementation
+
+ $Id: plugin.xml,v 1.1 2008/11/24 20:38:02 rgronback Exp $
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.eclipse.amalgam.releng.build.presentation.BuildModelWizardID"
+            name="%_UI_BuildModelWizard_label"
+            class="org.eclipse.amalgam.releng.build.presentation.BuildModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/BuildModelFile.gif">
+         <description>%_UI_BuildModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="org.eclipse.amalgam.releng.build.presentation.BuildEditorID"
+            name="%_UI_BuildEditor_label"
+            icon="icons/full/obj16/BuildModelFile.gif"
+            extensions="build"
+            class="org.eclipse.amalgam.releng.build.presentation.BuildEditor"
+            contributorClass="org.eclipse.amalgam.releng.build.presentation.BuildActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
