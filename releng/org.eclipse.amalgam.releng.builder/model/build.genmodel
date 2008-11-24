@@ -53,6 +53,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Build/builder"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/date"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/time"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Build/compiler"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/launchVM"/>
     </genClasses>
     <genClasses ecoreClass="build.ecore#//Repository" labelFeature="#//build/Repository/label">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Repository/location"/>
@@ -103,6 +105,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Bundle/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Bundle/version"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Bundle/repo"/>
+    </genClasses>
+    <genClasses ecoreClass="build.ecore#//Compiler">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Compiler/args"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Compiler/sourceVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Compiler/targetVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Compiler/verbose"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Compiler/failOnError"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Compiler/debugInfo"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
