@@ -59,7 +59,7 @@
 		<!-- First, run normal product build to fetch, compile, and generate metadata repository for p2 build -->
 		<exec executable="${basebuilder}/eclipse/eclipse" dir="${buildDirectory}/builder" failonerror="false">
 «IF launchVM != null && launchVM != ''-»
-			<arg line="-vm «launchVM-»"/>
+			<arg line="-vm «launchVM»"/>
 «ENDIF-»
 			<arg line="-application org.eclipse.ant.core.antRunner"/>
 			<arg line="-buildfile ${buildFile}" />
@@ -127,7 +127,7 @@
 	<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
 		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
 «IF launchVM != null && launchVM != ''-»
-			<arg line="-vm «launchVM-»"/>
+			<arg line="-vm «launchVM»"/>
 «ENDIF-»
 			<arg line="-application org.eclipse.equinox.p2.director.app.application"/>
 			<arg line="-nosplash"/>
@@ -161,7 +161,7 @@
 		<property file="${buildRoot}/${target}/builder/build.properties"/>
 		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
 «IF launchVM != null && launchVM != ''-»
-			<arg line="-vm «launchVM-»"/>
+			<arg line="-vm «launchVM»"/>
 «ENDIF-»
 			<arg line="-application org.eclipse.equinox.p2.metadata.generator.EclipseGenerator"/>
 			<arg line="-updateSite ${buildDirectory}/${buildLabel}/repo"/>

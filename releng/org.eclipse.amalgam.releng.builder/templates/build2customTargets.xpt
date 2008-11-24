@@ -224,7 +224,7 @@
 		<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
 		<exec executable="${baseLocation}/eclipse" failonerror="true">
 «IF launchVM != null && launchVM != ''-»
-			<arg line="-vm «launchVM-»"/>
+			<arg line="-vm «launchVM»"/>
 «ENDIF-»
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
@@ -251,7 +251,7 @@
 		<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
 		<exec executable="${baseLocation}/eclipse" failonerror="true">
 «IF launchVM != null && launchVM != ''»
-			<arg line="-vm «launchVM-»"/>
+			<arg line="-vm «launchVM»"/>
 «ENDIF»
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
 			<arg line="-nosplash" />
