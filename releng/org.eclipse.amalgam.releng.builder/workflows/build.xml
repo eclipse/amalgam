@@ -37,7 +37,7 @@
 		<zzz:template name="build2script::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
 			templateroot="platform:/resource/${project}/templates/"
-			outfile="${basedir}/out/build/build-${product}.xml"/>
+			outfile="${basedir}/out/build/${product}/build.xml"/>
 		<zzz:template name="build2site::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
 			templateroot="platform:/resource/${project}/templates/"
