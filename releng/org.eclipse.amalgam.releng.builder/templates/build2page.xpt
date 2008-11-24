@@ -105,7 +105,8 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 			<tr>
 				<td width="75%">
 		   			The page provides access to the various sections of this build along with details
-					relating to its results.
+					relating to its results.  Note that in addition to the product archives available from 
+					this page, this build of the «label» may be installed using p2 by pointing to this <a href="http://download.eclipse.org/modeling/amalgam/«product.launcher.name»/downloads/drops/«type»«date»-«time»/repo/">URL.</a>
 				</td>
 			</tr>
 		</table>
