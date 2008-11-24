@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright (c) 2008 Borland Software Corporation
+   
+   All rights reserved. This program and the accompanying materials
+   are made available under the terms of the Eclipse Public License v1.0
+   which accompanies this distribution, and is available at
+   http://www.eclipse.org/legal/epl-v10.html
+  
+   Contributors:
+      Borland Software Corporation - initial API and implementation
+
+ $Id: plugin.xml,v 1.1 2008/11/24 20:38:29 rgronback Exp $
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.eclipse.org/amalgam/2008/product"
+            class="org.eclipse.amalgam.releng.product.ProductPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="product"
+            class="org.eclipse.amalgam.releng.product.util.ProductResourceFactoryImpl"/>
+   </extension>
+
+</plugin>
