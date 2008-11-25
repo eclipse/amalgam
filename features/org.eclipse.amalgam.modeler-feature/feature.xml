@@ -68,7 +68,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
       <import plugin="org.eclipse.gmf.runtime.notation.providers"/>
-      <import plugin="org.eclipse.uml2.uml"/>
+      <import plugin="org.eclipse.uml2.uml" version="3.3.0" match="compatible"/>
       <import plugin="org.eclipse.uml2.uml.edit"/>
       <import plugin="org.eclipse.uml2.uml.editor"/>
       <import plugin="org.eclipse.uml2.uml.resources"/>
