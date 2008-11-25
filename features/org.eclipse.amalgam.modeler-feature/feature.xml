@@ -27,12 +27,10 @@ http://www.eclipse.org/legal/epl-v10.html
       <update label="%updateSiteName" url="http://download.eclipse.org/modeling/amalgam/updates/site.xml"/>
    </url>
 
-   <includes
-         id="org.eclipse.uml2"
-         version="0.0.0"/>
-
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.stp.bpmn.diagram"/>
+      <import plugin="org.eclipse.search"/>
       <import plugin="org.eclipse.equinox.common"/>
       <import plugin="org.eclipse.equinox.p2.core"/>
       <import plugin="org.eclipse.equinox.p2.director"/>
@@ -72,6 +70,8 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.gmf.runtime.notation.providers"/>
       <import plugin="org.eclipse.uml2.uml"/>
       <import plugin="org.eclipse.uml2.uml.edit"/>
+      <import plugin="org.eclipse.uml2.uml.editor"/>
+      <import plugin="org.eclipse.uml2.uml.resources"/>
       <import plugin="org.eclipse.emf.ecore.edit"/>
       <import plugin="org.eclipse.emf.ocl"/>
       <import plugin="org.eclipse.emf.query.ocl"/>
@@ -81,10 +81,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.ui.navigator.resources"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing.render"/>
-      <import plugin="org.eclipse.uml2.uml.resources"/>
       <import plugin="org.eclipse.gmf.runtime.notation"/>
-      <import plugin="org.eclipse.stp.bpmn.diagram"/>
-      <import plugin="org.eclipse.search"/>
       <import plugin="org.eclipse.ui.navigator"/>
       <import plugin="org.eclipse.ui.intro"/>
       <import plugin="org.eclipse.update.configurator"/>
