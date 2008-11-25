@@ -27,10 +27,6 @@ http://www.eclipse.org/legal/epl-v10.html
       <update label="%updateSiteName" url="http://download.eclipse.org/modeling/amalgam/updates/site.xml"/>
    </url>
 
-   <requires>
-
-   </requires>
-
    <plugin
          id="org.eclipse.amalgam.modeler"
          download-size="0"
