@@ -159,6 +159,7 @@
 	<!-- FIXME: workaround for bug 250974 : generate metadata using site.xml for categorization -->
 	<target name="categorize" depends="init">
 		<property file="${buildRoot}/${target}/builder/build.properties"/>
+		<move file="${buildDirectory}/site.xml" todir="${buildDirectory}/${buildLabel}/repo"/>
 		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
 «IF launchVM != null && launchVM != ''-»
 			<arg line="-vm «launchVM»"/>
