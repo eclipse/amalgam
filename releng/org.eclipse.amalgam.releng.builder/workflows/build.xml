@@ -41,7 +41,7 @@
 		<zzz:template name="build2site::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
 			templateroot="platform:/resource/${project}/templates/"
-			outfile="${basedir}/out/build/${product}/repo/site.xml"/>
+			outfile="${basedir}/out/build/${product}/site.xml"/>
 		<zzz:template name="build2page::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
 			templateroot="platform:/resource/${project}/templates/"
