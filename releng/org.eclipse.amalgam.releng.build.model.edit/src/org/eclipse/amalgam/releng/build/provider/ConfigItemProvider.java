@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: ConfigItemProvider.java,v 1.1 2008/11/24 20:37:38 rgronback Exp $
+ * $Id: ConfigItemProvider.java,v 1.2 2008/11/25 00:35:09 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -17,9 +17,11 @@ package org.eclipse.amalgam.releng.build.provider;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.amalgam.releng.build.ARCH;
 import org.eclipse.amalgam.releng.build.BuildPackage;
 import org.eclipse.amalgam.releng.build.Config;
 import org.eclipse.amalgam.releng.build.OS;
+import org.eclipse.amalgam.releng.build.WS;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -183,10 +185,26 @@ public class ConfigItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
+		ARCH archValue = ((Config)object).getArch();
+		WS wsValue = ((Config)object).getWs();
+		String archLabel = archValue == null ? null : archValue.toString();
+		String wsLabel = wsValue == null ? null : wsValue.toString();
+		return archLabel == null || archLabel.length() == 0 || wsLabel == null || wsLabel.length() == 0 ?
+			getTextGen(object) :
+			getTextGen(object) + "," + wsLabel + "," + archLabel;
+	}
+	
+	/**
+	 * This returns the label text for the adapted class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getTextGen(Object object) {
 		OS labelValue = ((Config)object).getOs();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
