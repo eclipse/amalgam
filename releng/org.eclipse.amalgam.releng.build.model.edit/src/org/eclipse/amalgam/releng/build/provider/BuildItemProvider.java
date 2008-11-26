@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildItemProvider.java,v 1.1 2008/11/24 20:37:38 rgronback Exp $
+ * $Id: BuildItemProvider.java,v 1.2 2008/11/26 11:35:41 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -84,6 +84,7 @@ public class BuildItemProvider
 			addDatePropertyDescriptor(object);
 			addTimePropertyDescriptor(object);
 			addLaunchVMPropertyDescriptor(object);
+			addDeltapackPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -309,6 +310,28 @@ public class BuildItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Deltapack feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDeltapackPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Build_deltapack_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Build_deltapack_feature", "_UI_Build_type"),
+				 BuildPackage.Literals.BUILD__DELTAPACK,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -387,6 +410,7 @@ public class BuildItemProvider
 			case BuildPackage.BUILD__DATE:
 			case BuildPackage.BUILD__TIME:
 			case BuildPackage.BUILD__LAUNCH_VM:
+			case BuildPackage.BUILD__DELTAPACK:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case BuildPackage.BUILD__PLATFORMS:

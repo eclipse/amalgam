@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: PlatformItemProvider.java,v 1.1 2008/11/24 20:37:38 rgronback Exp $
+ * $Id: PlatformItemProvider.java,v 1.2 2008/11/26 11:35:41 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -71,12 +71,55 @@ public class PlatformItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addFilePropertyDescriptor(object);
+			addLocationPropertyDescriptor(object);
 			addConfigPropertyDescriptor(object);
-			addVersionPropertyDescriptor(object);
-			addBuildIDPropertyDescriptor(object);
-			addExtensionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the File feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFilePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Platform_file_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Platform_file_feature", "_UI_Platform_type"),
+				 BuildPackage.Literals.PLATFORM__FILE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Location feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLocationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Platform_location_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Platform_location_feature", "_UI_Platform_type"),
+				 BuildPackage.Literals.PLATFORM__LOCATION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -102,72 +145,6 @@ public class PlatformItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Version feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addVersionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Platform_version_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Platform_version_feature", "_UI_Platform_type"),
-				 BuildPackage.Literals.PLATFORM__VERSION,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Build ID feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addBuildIDPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Platform_buildID_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Platform_buildID_feature", "_UI_Platform_type"),
-				 BuildPackage.Literals.PLATFORM__BUILD_ID,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Extension feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addExtensionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Platform_extension_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Platform_extension_feature", "_UI_Platform_type"),
-				 BuildPackage.Literals.PLATFORM__EXTENSION,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This returns Platform.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -186,7 +163,7 @@ public class PlatformItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Platform)object).getVersion();
+		String label = ((Platform)object).getFile();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Platform_type") :
 			getString("_UI_Platform_type") + " " + label;
@@ -204,9 +181,8 @@ public class PlatformItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Platform.class)) {
-			case BuildPackage.PLATFORM__VERSION:
-			case BuildPackage.PLATFORM__BUILD_ID:
-			case BuildPackage.PLATFORM__EXTENSION:
+			case BuildPackage.PLATFORM__FILE:
+			case BuildPackage.PLATFORM__LOCATION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
