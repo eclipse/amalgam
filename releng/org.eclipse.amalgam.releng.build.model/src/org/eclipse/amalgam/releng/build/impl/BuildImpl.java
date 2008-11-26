@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildImpl.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: BuildImpl.java,v 1.2 2008/11/26 11:35:39 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -63,6 +63,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getTime <em>Time</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getCompiler <em>Compiler</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getLaunchVM <em>Launch VM</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getDeltapack <em>Deltapack</em>}</li>
  * </ul>
  * </p>
  *
@@ -298,6 +299,26 @@ public class BuildImpl extends EObjectImpl implements Build {
 	 * @ordered
 	 */
 	protected String launchVM = LAUNCH_VM_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDeltapack() <em>Deltapack</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDeltapack()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DELTAPACK_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDeltapack() <em>Deltapack</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDeltapack()
+	 * @generated
+	 * @ordered
+	 */
+	protected String deltapack = DELTAPACK_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -764,6 +785,27 @@ public class BuildImpl extends EObjectImpl implements Build {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getDeltapack() {
+		return deltapack;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDeltapack(String newDeltapack) {
+		String oldDeltapack = deltapack;
+		deltapack = newDeltapack;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.BUILD__DELTAPACK, oldDeltapack, deltapack));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -828,6 +870,8 @@ public class BuildImpl extends EObjectImpl implements Build {
 				return basicGetCompiler();
 			case BuildPackage.BUILD__LAUNCH_VM:
 				return getLaunchVM();
+			case BuildPackage.BUILD__DELTAPACK:
+				return getDeltapack();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -893,6 +937,9 @@ public class BuildImpl extends EObjectImpl implements Build {
 			case BuildPackage.BUILD__LAUNCH_VM:
 				setLaunchVM((String)newValue);
 				return;
+			case BuildPackage.BUILD__DELTAPACK:
+				setDeltapack((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -953,6 +1000,9 @@ public class BuildImpl extends EObjectImpl implements Build {
 			case BuildPackage.BUILD__LAUNCH_VM:
 				setLaunchVM(LAUNCH_VM_EDEFAULT);
 				return;
+			case BuildPackage.BUILD__DELTAPACK:
+				setDeltapack(DELTAPACK_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -997,6 +1047,8 @@ public class BuildImpl extends EObjectImpl implements Build {
 				return compiler != null;
 			case BuildPackage.BUILD__LAUNCH_VM:
 				return LAUNCH_VM_EDEFAULT == null ? launchVM != null : !LAUNCH_VM_EDEFAULT.equals(launchVM);
+			case BuildPackage.BUILD__DELTAPACK:
+				return DELTAPACK_EDEFAULT == null ? deltapack != null : !DELTAPACK_EDEFAULT.equals(deltapack);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1025,6 +1077,8 @@ public class BuildImpl extends EObjectImpl implements Build {
 		result.append(time);
 		result.append(", launchVM: ");
 		result.append(launchVM);
+		result.append(", deltapack: ");
+		result.append(deltapack);
 		result.append(')');
 		return result.toString();
 	}

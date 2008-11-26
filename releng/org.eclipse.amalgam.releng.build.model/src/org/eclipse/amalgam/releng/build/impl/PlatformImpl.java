@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: PlatformImpl.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: PlatformImpl.java,v 1.2 2008/11/26 11:35:39 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -32,16 +32,55 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.PlatformImpl#getFile <em>File</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.PlatformImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.PlatformImpl#getConfig <em>Config</em>}</li>
- *   <li>{@link org.eclipse.amalgam.releng.build.impl.PlatformImpl#getVersion <em>Version</em>}</li>
- *   <li>{@link org.eclipse.amalgam.releng.build.impl.PlatformImpl#getBuildID <em>Build ID</em>}</li>
- *   <li>{@link org.eclipse.amalgam.releng.build.impl.PlatformImpl#getExtension <em>Extension</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class PlatformImpl extends EObjectImpl implements Platform {
+	/**
+	 * The default value of the '{@link #getFile() <em>File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String FILE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getFile() <em>File</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected String file = FILE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLocation() <em>Location</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLocation()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LOCATION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLocation() <em>Location</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLocation()
+	 * @generated
+	 * @ordered
+	 */
+	protected String location = LOCATION_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getConfig() <em>Config</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -51,66 +90,6 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 	 * @ordered
 	 */
 	protected Config config;
-
-	/**
-	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getVersion()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String VERSION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getVersion()
-	 * @generated
-	 * @ordered
-	 */
-	protected String version = VERSION_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getBuildID() <em>Build ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBuildID()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String BUILD_ID_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getBuildID() <em>Build ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBuildID()
-	 * @generated
-	 * @ordered
-	 */
-	protected String buildID = BUILD_ID_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getExtension() <em>Extension</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getExtension()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String EXTENSION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getExtension() <em>Extension</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getExtension()
-	 * @generated
-	 * @ordered
-	 */
-	protected String extension = EXTENSION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -129,6 +108,48 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 	@Override
 	protected EClass eStaticClass() {
 		return BuildPackage.Literals.PLATFORM;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getFile() {
+		return file;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFile(String newFile) {
+		String oldFile = file;
+		file = newFile;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.PLATFORM__FILE, oldFile, file));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLocation() {
+		return location;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLocation(String newLocation) {
+		String oldLocation = location;
+		location = newLocation;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.PLATFORM__LOCATION, oldLocation, location));
 	}
 
 	/**
@@ -174,81 +195,16 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getVersion() {
-		return version;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setVersion(String newVersion) {
-		String oldVersion = version;
-		version = newVersion;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.PLATFORM__VERSION, oldVersion, version));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getBuildID() {
-		return buildID;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setBuildID(String newBuildID) {
-		String oldBuildID = buildID;
-		buildID = newBuildID;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.PLATFORM__BUILD_ID, oldBuildID, buildID));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getExtension() {
-		return extension;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setExtension(String newExtension) {
-		String oldExtension = extension;
-		extension = newExtension;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.PLATFORM__EXTENSION, oldExtension, extension));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case BuildPackage.PLATFORM__FILE:
+				return getFile();
+			case BuildPackage.PLATFORM__LOCATION:
+				return getLocation();
 			case BuildPackage.PLATFORM__CONFIG:
 				if (resolve) return getConfig();
 				return basicGetConfig();
-			case BuildPackage.PLATFORM__VERSION:
-				return getVersion();
-			case BuildPackage.PLATFORM__BUILD_ID:
-				return getBuildID();
-			case BuildPackage.PLATFORM__EXTENSION:
-				return getExtension();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -261,17 +217,14 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case BuildPackage.PLATFORM__FILE:
+				setFile((String)newValue);
+				return;
+			case BuildPackage.PLATFORM__LOCATION:
+				setLocation((String)newValue);
+				return;
 			case BuildPackage.PLATFORM__CONFIG:
 				setConfig((Config)newValue);
-				return;
-			case BuildPackage.PLATFORM__VERSION:
-				setVersion((String)newValue);
-				return;
-			case BuildPackage.PLATFORM__BUILD_ID:
-				setBuildID((String)newValue);
-				return;
-			case BuildPackage.PLATFORM__EXTENSION:
-				setExtension((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -285,17 +238,14 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case BuildPackage.PLATFORM__FILE:
+				setFile(FILE_EDEFAULT);
+				return;
+			case BuildPackage.PLATFORM__LOCATION:
+				setLocation(LOCATION_EDEFAULT);
+				return;
 			case BuildPackage.PLATFORM__CONFIG:
 				setConfig((Config)null);
-				return;
-			case BuildPackage.PLATFORM__VERSION:
-				setVersion(VERSION_EDEFAULT);
-				return;
-			case BuildPackage.PLATFORM__BUILD_ID:
-				setBuildID(BUILD_ID_EDEFAULT);
-				return;
-			case BuildPackage.PLATFORM__EXTENSION:
-				setExtension(EXTENSION_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -309,14 +259,12 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case BuildPackage.PLATFORM__FILE:
+				return FILE_EDEFAULT == null ? file != null : !FILE_EDEFAULT.equals(file);
+			case BuildPackage.PLATFORM__LOCATION:
+				return LOCATION_EDEFAULT == null ? location != null : !LOCATION_EDEFAULT.equals(location);
 			case BuildPackage.PLATFORM__CONFIG:
 				return config != null;
-			case BuildPackage.PLATFORM__VERSION:
-				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-			case BuildPackage.PLATFORM__BUILD_ID:
-				return BUILD_ID_EDEFAULT == null ? buildID != null : !BUILD_ID_EDEFAULT.equals(buildID);
-			case BuildPackage.PLATFORM__EXTENSION:
-				return EXTENSION_EDEFAULT == null ? extension != null : !EXTENSION_EDEFAULT.equals(extension);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -331,12 +279,10 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (version: ");
-		result.append(version);
-		result.append(", buildID: ");
-		result.append(buildID);
-		result.append(", extension: ");
-		result.append(extension);
+		result.append(" (file: ");
+		result.append(file);
+		result.append(", location: ");
+		result.append(location);
 		result.append(')');
 		return result.toString();
 	}

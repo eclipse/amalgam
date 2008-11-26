@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackageImpl.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: BuildPackageImpl.java,v 1.2 2008/11/26 11:35:39 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -389,6 +389,15 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getBuild_Deltapack() {
+		return (EAttribute)buildEClass.getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRepository() {
 		return repositoryEClass;
 	}
@@ -425,8 +434,8 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPlatform_Config() {
-		return (EReference)platformEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPlatform_File() {
+		return (EAttribute)platformEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -434,7 +443,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPlatform_Version() {
+	public EAttribute getPlatform_Location() {
 		return (EAttribute)platformEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -443,17 +452,8 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPlatform_BuildID() {
-		return (EAttribute)platformEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPlatform_Extension() {
-		return (EAttribute)platformEClass.getEStructuralFeatures().get(3);
+	public EReference getPlatform_Config() {
+		return (EReference)platformEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -906,16 +906,16 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		createEAttribute(buildEClass, BUILD__TIME);
 		createEReference(buildEClass, BUILD__COMPILER);
 		createEAttribute(buildEClass, BUILD__LAUNCH_VM);
+		createEAttribute(buildEClass, BUILD__DELTAPACK);
 
 		repositoryEClass = createEClass(REPOSITORY);
 		createEAttribute(repositoryEClass, REPOSITORY__LOCATION);
 		createEAttribute(repositoryEClass, REPOSITORY__LABEL);
 
 		platformEClass = createEClass(PLATFORM);
+		createEAttribute(platformEClass, PLATFORM__FILE);
+		createEAttribute(platformEClass, PLATFORM__LOCATION);
 		createEReference(platformEClass, PLATFORM__CONFIG);
-		createEAttribute(platformEClass, PLATFORM__VERSION);
-		createEAttribute(platformEClass, PLATFORM__BUILD_ID);
-		createEAttribute(platformEClass, PLATFORM__EXTENSION);
 
 		configEClass = createEClass(CONFIG);
 		createEAttribute(configEClass, CONFIG__OS);
@@ -1024,16 +1024,16 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEAttribute(getBuild_Time(), ecorePackage.getEString(), "time", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBuild_Compiler(), this.getCompiler(), null, "compiler", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBuild_LaunchVM(), ecorePackage.getEString(), "launchVM", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBuild_Deltapack(), ecorePackage.getEString(), "deltapack", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(repositoryEClass, Repository.class, "Repository", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRepository_Location(), theXMLTypePackage.getString(), "location", null, 1, 1, Repository.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRepository_Label(), ecorePackage.getEString(), "label", null, 0, 1, Repository.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(platformEClass, Platform.class, "Platform", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPlatform_Config(), this.getConfig(), null, "config", null, 1, 1, Platform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPlatform_Version(), ecorePackage.getEString(), "version", null, 0, 1, Platform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPlatform_BuildID(), ecorePackage.getEString(), "buildID", null, 0, 1, Platform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPlatform_Extension(), ecorePackage.getEString(), "extension", null, 0, 1, Platform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPlatform_File(), ecorePackage.getEString(), "file", null, 0, 1, Platform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPlatform_Location(), ecorePackage.getEString(), "location", null, 0, 1, Platform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPlatform_Config(), this.getConfig(), null, "config", null, 0, 1, Platform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(configEClass, Config.class, "Config", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConfig_Os(), this.getOS(), "os", null, 1, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

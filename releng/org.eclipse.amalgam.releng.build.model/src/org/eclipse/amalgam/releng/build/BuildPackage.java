@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackage.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: BuildPackage.java,v 1.2 2008/11/26 11:35:39 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -222,13 +222,22 @@ public interface BuildPackage extends EPackage {
 	int BUILD__LAUNCH_VM = 15;
 
 	/**
+	 * The feature id for the '<em><b>Deltapack</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUILD__DELTAPACK = 16;
+
+	/**
 	 * The number of structural features of the '<em>Build</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUILD_FEATURE_COUNT = 16;
+	int BUILD_FEATURE_COUNT = 17;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.RepositoryImpl <em>Repository</em>}' class.
@@ -278,40 +287,31 @@ public interface BuildPackage extends EPackage {
 	int PLATFORM = 2;
 
 	/**
+	 * The feature id for the '<em><b>File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLATFORM__FILE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Location</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLATFORM__LOCATION = 1;
+
+	/**
 	 * The feature id for the '<em><b>Config</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PLATFORM__CONFIG = 0;
-
-	/**
-	 * The feature id for the '<em><b>Version</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLATFORM__VERSION = 1;
-
-	/**
-	 * The feature id for the '<em><b>Build ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLATFORM__BUILD_ID = 2;
-
-	/**
-	 * The feature id for the '<em><b>Extension</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLATFORM__EXTENSION = 3;
+	int PLATFORM__CONFIG = 2;
 
 	/**
 	 * The number of structural features of the '<em>Platform</em>' class.
@@ -320,7 +320,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PLATFORM_FEATURE_COUNT = 4;
+	int PLATFORM_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.ConfigImpl <em>Config</em>}' class.
@@ -1000,6 +1000,17 @@ public interface BuildPackage extends EPackage {
 	EAttribute getBuild_LaunchVM();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Build#getDeltapack <em>Deltapack</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Deltapack</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Build#getDeltapack()
+	 * @see #getBuild()
+	 * @generated
+	 */
+	EAttribute getBuild_Deltapack();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.amalgam.releng.build.Repository <em>Repository</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1042,6 +1053,28 @@ public interface BuildPackage extends EPackage {
 	EClass getPlatform();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Platform#getFile <em>File</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>File</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Platform#getFile()
+	 * @see #getPlatform()
+	 * @generated
+	 */
+	EAttribute getPlatform_File();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Platform#getLocation <em>Location</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Location</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Platform#getLocation()
+	 * @see #getPlatform()
+	 * @generated
+	 */
+	EAttribute getPlatform_Location();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.amalgam.releng.build.Platform#getConfig <em>Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1051,39 +1084,6 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPlatform_Config();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Platform#getVersion <em>Version</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Version</em>'.
-	 * @see org.eclipse.amalgam.releng.build.Platform#getVersion()
-	 * @see #getPlatform()
-	 * @generated
-	 */
-	EAttribute getPlatform_Version();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Platform#getBuildID <em>Build ID</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Build ID</em>'.
-	 * @see org.eclipse.amalgam.releng.build.Platform#getBuildID()
-	 * @see #getPlatform()
-	 * @generated
-	 */
-	EAttribute getPlatform_BuildID();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Platform#getExtension <em>Extension</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Extension</em>'.
-	 * @see org.eclipse.amalgam.releng.build.Platform#getExtension()
-	 * @see #getPlatform()
-	 * @generated
-	 */
-	EAttribute getPlatform_Extension();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.amalgam.releng.build.Config <em>Config</em>}'.
@@ -1728,6 +1728,14 @@ public interface BuildPackage extends EPackage {
 		EAttribute BUILD__LAUNCH_VM = eINSTANCE.getBuild_LaunchVM();
 
 		/**
+		 * The meta object literal for the '<em><b>Deltapack</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BUILD__DELTAPACK = eINSTANCE.getBuild_Deltapack();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.impl.RepositoryImpl <em>Repository</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1764,36 +1772,28 @@ public interface BuildPackage extends EPackage {
 		EClass PLATFORM = eINSTANCE.getPlatform();
 
 		/**
+		 * The meta object literal for the '<em><b>File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PLATFORM__FILE = eINSTANCE.getPlatform_File();
+
+		/**
+		 * The meta object literal for the '<em><b>Location</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PLATFORM__LOCATION = eINSTANCE.getPlatform_Location();
+
+		/**
 		 * The meta object literal for the '<em><b>Config</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference PLATFORM__CONFIG = eINSTANCE.getPlatform_Config();
-
-		/**
-		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PLATFORM__VERSION = eINSTANCE.getPlatform_Version();
-
-		/**
-		 * The meta object literal for the '<em><b>Build ID</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PLATFORM__BUILD_ID = eINSTANCE.getPlatform_BuildID();
-
-		/**
-		 * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PLATFORM__EXTENSION = eINSTANCE.getPlatform_Extension();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.impl.ConfigImpl <em>Config</em>}' class.
