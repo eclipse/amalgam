@@ -41,7 +41,6 @@
 «FOREACH contributions AS contribution-»
 «IF contribution.features.size() > 0 || contribution.bundles.size() > 0-»
 		<echo message="Installing contributions «FOREACH contribution.features AS feature SEPARATOR ", "-»«feature.id»«ENDFOREACH»."/>
-		<echo message="Upon failure, contact «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
 «FOREACH contribution.features.select(f | f.repo.location != null) AS feature-»
 		<antcall target="install.feature">
 			<param name="feature.id" value="«feature.id»"/>
@@ -59,6 +58,25 @@
 «ENDIF-»
 «ENDFOREACH-»
 	</target>
+	
+	
+«FOREACH contributions AS contribution-»
+«FOREACH contribution.features AS feature-»
+	<target name="email.«feature.id».result" if="install.failed">
+		<echo message="TODO: email contact(s) «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
+		<fail message="Installation of feature «feature.id» [«feature.version»] failed! Email to responsible contributor sent."/>
+	</target>
+«ENDFOREACH-»
+«ENDFOREACH-»
+
+«FOREACH contributions AS contribution-»
+«FOREACH contribution.bundles AS bundle-»
+	<target name="email.«bundle.id».result" if="install.failed">
+		<echo message="TODO: email contact(s) «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
+		<fail message="Installation of bundle «bundle.id» [«bundle.version»] failed! Email to responsible contributor sent."/>
+	</target>
+«ENDFOREACH-»
+«ENDFOREACH-»
 	
 	<!-- Fetch and extract the delta pack to its pluginPath location -->
 	<target name="install.delta.pack">		
@@ -222,7 +240,7 @@
 			metadatarepository="${repo}"
 		/> -->
 		<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
-		<exec executable="${baseLocation}/eclipse" failonerror="true">
+		<exec executable="${baseLocation}/eclipse" failonerror="false" resultproperty="install.return.code">
 «IF launchVM != null && launchVM != ''-»
 			<arg line="-vm «launchVM»"/>
 «ENDIF-»
@@ -243,13 +261,19 @@
 			<arg line="-Declipse.p2.MD5Check=false"/>
 		</exec>
 		
+		<condition property="install.failed">
+			<not><equals arg1="${install.return.code}" arg2="0"/></not>
+		</condition>
+		
+		<antcall target="email.${feature.id}.result"/>
+		
 		<!-- delete the metadata cache -->
 		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache"/>
 	</target>
 	
 	<target name="install.bundle"> 
 		<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
-		<exec executable="${baseLocation}/eclipse" failonerror="true">
+		<exec executable="${baseLocation}/eclipse" failonerror="false" resultproperty="install.return.code">
 «IF launchVM != null && launchVM != ''»
 			<arg line="-vm «launchVM»"/>
 «ENDIF»
@@ -266,6 +290,12 @@
 			<arg line="-Xmx1024m" />
 			<arg line="-Declipse.p2.MD5Check=false"/>
 		</exec>
+		
+		<condition property="install.failed">
+			<not><equals arg1="${install.return.code}" arg2="0"/></not>
+		</condition>
+		
+		<antcall target="email.${bundle.id}.result"/>
 		
 		<!-- delete the metadata cache -->
 		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache"/>
