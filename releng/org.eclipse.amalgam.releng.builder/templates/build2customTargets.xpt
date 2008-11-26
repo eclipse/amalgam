@@ -24,16 +24,16 @@
 	<!-- ===================================================================== -->
 	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
 		<get src="${eclipseBaseURL}" 
-			 dest="${buildRoot}/eclipse-SDK-«base.version»-«base.config.os»«base.config.ws == base.config.os ? '' : '-' + base.config.ws»«builder.config.arch.literal == 'ppc' ? '-ppc' : ''».«base.extension»" verbose="true" usetimestamp="true"/>
+			 dest="${buildRoot}/«base.file»" verbose="true" usetimestamp="true"/>
 		<mkdir dir="${base}"/>
-		«IF base.extension == 'tar.gz'»
+		«IF base.file.endsWith("tar.gz") == true»
 		<exec executable="tar">
 			<arg line="-xzf"/>
-			<arg line="${buildRoot}/eclipse-SDK-«base.version»-«base.config.os»«base.config.ws == base.config.os ? '' : '-' + base.config.ws»«builder.config.arch.literal == 'ppc' ? '-ppc' : ''».«base.extension»"/>
+			<arg line="${buildRoot}/«base.file»"/>
 			<arg line="-C ${base}"/>
 		</exec>
 		«ELSE»
-		<unzip src="${buildRoot}/eclipse-SDK-«base.version»-«base.config.os»«base.config.ws == base.config.os ? '' : '-' + base.config.ws».«base.extension»" dest="${base}"/>
+		<unzip src="${buildRoot}/«base.file»" dest="${base}"/>
 		«ENDIF»
 		
 		<antcall target="install.delta.pack"/>
@@ -62,14 +62,14 @@
 	
 	<!-- Fetch and extract the delta pack to its pluginPath location -->
 	<target name="install.delta.pack">		
-		<available file="${buildRoot}/eclipse-«base.version»-delta-pack.zip" property="skipDeltaPack" />
+		<available file="${buildRoot}/«deltapack»" property="skipDeltaPack" />
 		<antcall target="get.delta.pack"/>
-		<unzip src="${buildRoot}/eclipse-«base.version»-delta-pack.zip" dest="${deltaPackLocation}"/>
+		<unzip src="${buildRoot}/«deltapack»" dest="${deltaPackLocation}"/>
 	</target>
 	
 	<target name="get.delta.pack" unless="skipDeltaPack">
 		<get src="${deltaPackURL}" 
-		     dest="${buildRoot}/eclipse-«base.version»-delta-pack.zip" verbose="true" usetimestamp="true" />
+		     dest="${buildRoot}/«deltapack»" verbose="true" usetimestamp="true" />
 	</target>
 	
 	<target name="checkLocalBase">

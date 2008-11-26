@@ -137,8 +137,8 @@ base=${buildDirectory}/base
 baseLocation=${base}/eclipse
 deltaPackLocation=${buildDirectory}/deltapack
 
-eclipseBaseURL=http://download.eclipse.org/eclipse/downloads/drops/«base.buildID»/eclipse-SDK-«base.version»-«base.config.os»«base.config.ws == base.config.os ? '' : '-' + base.config.ws»«builder.config.arch.literal == 'ppc' ? '-ppc' : ''».«base.extension»
-deltaPackURL=http://download.eclipse.org/eclipse/downloads/drops/«base.buildID»/eclipse-«base.version»-delta-pack.zip
+eclipseBaseURL=«base.location»«base.file»
+deltaPackURL=«base.location»«deltapack»
 
 #Os/Ws/Arch/nl of the eclipse specified by baseLocation
 baseos=«base.config.os»

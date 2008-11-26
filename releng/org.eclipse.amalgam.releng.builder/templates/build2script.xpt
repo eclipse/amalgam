@@ -30,17 +30,17 @@
 	
 	<target name="fetch.builder"> 
 		<!-- No director app in normal basebuilder, so just use SDK -->
-		<get src="http://download.eclipse.org/eclipse/downloads/drops/«builder.buildID»/eclipse-SDK-«builder.version»-«builder.config.os»«builder.config.ws == builder.config.os ? '' : '-' + builder.config.ws»«builder.config.arch.literal == 'ppc' ? '-ppc' : ''».«builder.extension»" 
-		     dest="${buildRoot}/eclipse-SDK-«builder.version»-«builder.config.os»«builder.config.ws == builder.config.os ? '' : '-' + builder.config.ws»«builder.config.arch.literal == 'ppc' ? '-ppc' : ''».«builder.extension»" verbose="true" usetimestamp="true"/>
+		<get src="«builder.location»«builder.file»" 
+		     dest="${buildRoot}/«builder.file»" verbose="true" usetimestamp="true"/>
 		<mkdir dir="${basebuilder}"/>
-		«IF builder.extension == 'tar.gz'»
+		«IF builder.file.endsWith("tar.gz") == true»
 		<exec executable="tar">
 			<arg line="-xzf"/>
-			<arg line="${buildRoot}/eclipse-SDK-«builder.version»-«builder.config.os»«builder.config.ws == builder.config.os ? '' : '-' + builder.config.ws»«builder.config.arch.literal == 'ppc' ? '-ppc' : ''».«builder.extension»"/>
+			<arg line="${buildRoot}/«builder.file»"/>
 			<arg line="-C ${basebuilder}"/>
 		</exec>
 		«ELSE»
-		<unzip src="${buildRoot}/eclipse-SDK-«builder.version»-«builder.config.os»«builder.config.ws == builder.config.os ? '' : '-' + builder.config.ws».«builder.extension»" dest="${basebuilder}"/>
+		<unzip src="${buildRoot}/«builder.file»" dest="${basebuilder}"/>
 		«ENDIF»
 	</target>
 	

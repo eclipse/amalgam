@@ -55,16 +55,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/time"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Build/compiler"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/launchVM"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/deltapack"/>
     </genClasses>
     <genClasses ecoreClass="build.ecore#//Repository" labelFeature="#//build/Repository/label">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Repository/location"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Repository/label"/>
     </genClasses>
     <genClasses ecoreClass="build.ecore#//Platform">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Platform/config"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Platform/version"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Platform/buildID"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Platform/extension"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Platform/file"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Platform/location"/>
     </genClasses>
     <genClasses ecoreClass="build.ecore#//Config">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Config/os"/>
