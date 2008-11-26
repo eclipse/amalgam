@@ -26,6 +26,55 @@ http://www.eclipse.org/legal/epl-v10.html
    <url>
       <update label="%updateSiteName" url="http://download.eclipse.org/modeling/amalgam/updates/site.xml"/>
    </url>
+   
+   <plugin
+         id="org.eclipse.uml2"
+         download-size="0"
+         install-size="0"
+         version="2.1.0.v200805131030"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.common"
+         download-size="0"
+         install-size="0"
+         version="1.4.0.v200805131030"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.common.edit"
+         download-size="0"
+         install-size="0"
+         version="1.4.0.v200805131030"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.uml"
+         download-size="0"
+         install-size="0"
+         version="3.0.0.v200811051030"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.uml.edit"
+         download-size="0"
+         install-size="0"
+         version="3.0.0.v20081007-1910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.uml.editor"
+         download-size="0"
+         install-size="0"
+         version="3.0.0.v20081007-1910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.uml.resources"
+         download-size="0"
+         install-size="0"
+         version="3.0.0.v20081021-1910"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.amalgam.modeler"
