@@ -11,5 +11,6 @@
   <repositories location="http://download.eclipse.org/modeling/mdt/updates/releases/" label="MDT releases"/>
   <repositories location="http://download.eclipse.org/modeling/mdt/updates/interim/" label="MDT releases"/>
   <repositories location="http://download.eclipse.org/modeling/gmf/updates/releases/" label="GMF releases"/>
-  <repositories location="http://download.eclipse.org/modeling/m2m/updates/releases/" label="M2M milestones"/>
+  <repositories location="http://download.eclipse.org/modeling/m2m/updates/releases/" label="M2M releases"/>
+  <repositories location="http://download.eclipse.org/modeling/m2m/updates/interim/" label="M2M interim"/>
 </build:Contribution>
