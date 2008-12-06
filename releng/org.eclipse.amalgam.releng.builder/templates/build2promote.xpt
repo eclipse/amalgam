@@ -1,0 +1,37 @@
+«IMPORT 'http://www.eclipse.org/amalgam/2008/build'»
+«IMPORT 'http://www.eclipse.org/amalgam/2008/product'»
+
+«DEFINE Main FOR Build-»
+<?xml version="1.0"?>
+<project default="publish" basedir=".">
+	<!-- ===================================================================== -->
+	<!--                    NOTE: This a generated script                      -->
+	<!--	TODO: support remote publishing									   -->
+	<!-- ===================================================================== -->
+	
+	<target name="init">
+		<property name="date" value="«date»"/>
+		<property name="time" value="«time»"/>
+		<property name="buildRoot" value="«buildRoot»"/>
+		<property file="${buildRoot}/«product.launcher.name»/builder/build.properties"/>
+		<fail message="Could not load property 'product' from build.properties.  Did you generate it and customTargets.xml to ${buildRoot}/«product.launcher.name»/builder?" unless="product"/>
+		<property name="targetDirectory" value="«promotion.directory»"/>
+	</target>
+	
+	<target name="publish" depends="init,clean">
+		<copy file="${buildRoot}/«product.launcher.name»/«product.launcher.name».build.log.txt" todir="${targetDirectory}" />
+		<copy todir="${targetDirectory}">
+			<fileset dir="${buildDirectory}/${buildLabel}">
+				<include name="**/*"/>
+		    </fileset>
+		 </copy>
+	</target>
+	
+	<target name="clean" unless="noclean">
+		<delete>
+			<fileset dir="${targetDirectory}" includes="**/*"/>
+		</delete>
+	</target>
+	
+</project>
+«ENDDEFINE»

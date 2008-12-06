@@ -5,10 +5,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Amalgam downloads</title>
+	<title>«label» downloads</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="author" content="Eclipse Foundation, Inc." />
-	<meta name="keywords" content="amalgam, modeling, domain-specific language, uml" />
 	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/visual.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/layout.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/print.css" media="print" />
@@ -73,6 +72,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 </div>
 
 <div id="rightcolumn">
+«IF promotion.incubating == true-»
 	<br/>
 	<div class="sideitem">
 	   <h6>Incubation</h6>
@@ -81,6 +81,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 	        align="center" src="http://www.eclipse.org/images/egg-incubation.png" border="0"/></a>
 	   </div>
 	</div>
+«ENDIF»
 	<br/>
 	<div class="sideitem">
 		<h3>Related Links</h3>
@@ -116,7 +117,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 			</tr>
 «FOREACH configs AS config»
 			<tr>
-			  <td><img align="top" src="http://www.eclipse.org/modeling/images/modeling_about.png"></td><td align="left"><a href="http://www.eclipse.org/modeling/download.php?file=/modeling/amalgam/«product.launcher.name»/downloads/drops/«type»«date»-«time»/«product.launcher.name»-incubation-«type»«date»-«time».«config.os».«config.ws».«config.arch».«config.archiveFormat.literal == 'tar' ? config.archiveFormat.literal + '.gz' : config.archiveFormat»">«product.launcher.name»-incubation-«type»«date»-«time».«config.os».«config.ws».«config.arch».«config.archiveFormat.literal == 'tar' ? config.archiveFormat.literal + '.gz' : config.archiveFormat»</a></td>
+			  <td><img align="top" src="http://www.eclipse.org/modeling/images/modeling_about.png"></td><td align="left"><a href="http://www.eclipse.org/modeling/download.php?file=/modeling/amalgam/«product.launcher.name»/downloads/drops/«type»«date»-«time»/«product.launcher.name»-«type»«date»-«time»-«promotion.incubating == true ? "incubation-" : ""»«config.os»-«config.ws»-«config.arch».«config.archiveFormat.literal == 'tar' ? config.archiveFormat.literal + '.gz' : config.archiveFormat»">«product.launcher.name»-incubation-«type»«date»-«time».«config.os».«config.ws».«config.arch».«config.archiveFormat.literal == 'tar' ? config.archiveFormat.literal + '.gz' : config.archiveFormat»</a></td>
 			</tr>
 «ENDFOREACH»
 		</table>

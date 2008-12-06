@@ -46,7 +46,7 @@
 	
 	<target name="build.product">
 		<property file="${buildRoot}/${target}/builder/build.properties"/>
-		<fail message="Could not load builder properties.  Did you generate them and customTargets.xml to ${buildRoot}/${target}/builder?" unless="product" />
+		<fail message="Could not load property 'product' from build.properties.  Did you generate it and customTargets.xml to ${buildRoot}/${target}/builder?" unless="product" />
 		<fileset dir="${basebuilder}/eclipse/plugins" includes="org.eclipse.pde.build_*/scripts/productBuild/productBuild.xml" id="pde.plugin.path" />
 		<pathconvert property="buildFile" refid="pde.plugin.path" />
 		<fail message="Could not find pde builder here: ${buildFile}" unless="buildFile" />
@@ -103,12 +103,12 @@
 		«ENDIF»
 		
 		«IF config.os.literal == "win32"»
-		<zip destfile="${buildDirectory}/${buildLabel}/${buildId}.«config.os».«config.ws».«config.arch».zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
+		<zip destfile="${buildDirectory}/${buildLabel}/${buildId}-«promotion.incubating == true ? "incubation-" : ""»«config.os»-«config.ws»-«config.arch».zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
 		«ELSE»
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/">
 			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" zipfile="${buildDirectory}/${buildLabel}/${buildId}.«config.os».«config.ws».«config.arch».tar.gz"/>
+		<gzip src="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" zipfile="${buildDirectory}/${buildLabel}/${buildId}-«promotion.incubating == true ? "incubation-" : ""»«config.os»-«config.ws»-«config.arch».tar.gz"/>
 		<delete file="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" />
 		«ENDIF»
 		«ENDFOREACH»

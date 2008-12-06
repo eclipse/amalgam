@@ -24,7 +24,6 @@
 			 <configurationproperty name="date" value="${DSTAMP}"/>
 			 <configurationproperty name="time" value="${TSTAMP}"/>
 		</qvto.interpretedTransformation>
-		<mkdir dir="${basedir}/out/build/${product}/repo"/>
 		<mkdir dir="${basedir}/out/build/${product}/builder"/>
 		<zzz:template name="build2properties::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
@@ -46,5 +45,9 @@
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
 			templateroot="platform:/resource/${project}/templates/"
 			outfile="${basedir}/out/build/${product}/index.php"/>
+		<zzz:template name="build2promote::Main" 
+			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/resource/${project}/templates/"
+			outfile="${basedir}/out/build/${product}/promote.xml"/>
 	</target>
 </project>

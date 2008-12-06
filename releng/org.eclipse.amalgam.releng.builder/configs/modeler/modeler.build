@@ -41,4 +41,5 @@
   <contributions href="../modeling-repos.build#/"/>
   <product href="modeler.product#/"/>
   <compiler args="-warn:-serial,discouraged,unchecked,raw,intfAnnotation,varargsCast -showversion -enableJavadoc -encoding ISO-8859-1"/>
+  <promotion directory="${user.home}/downloads/modeling/amalgam/modeler/downloads/drops/${buildId}" incubating="true"/>
 </build:Build>
