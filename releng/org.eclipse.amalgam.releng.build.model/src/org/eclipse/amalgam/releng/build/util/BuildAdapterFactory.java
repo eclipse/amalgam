@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildAdapterFactory.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: BuildAdapterFactory.java,v 1.2 2008/12/06 03:59:50 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.util;
 
@@ -23,6 +23,7 @@ import org.eclipse.amalgam.releng.build.Contribution;
 import org.eclipse.amalgam.releng.build.Feature;
 import org.eclipse.amalgam.releng.build.Map;
 import org.eclipse.amalgam.releng.build.Platform;
+import org.eclipse.amalgam.releng.build.Promotion;
 import org.eclipse.amalgam.releng.build.Repository;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -130,6 +131,10 @@ public class BuildAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseCompiler(org.eclipse.amalgam.releng.build.Compiler object) {
 				return createCompilerAdapter();
+			}
+			@Override
+			public Adapter casePromotion(Promotion object) {
+				return createPromotionAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -302,6 +307,20 @@ public class BuildAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCompilerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.amalgam.releng.build.Promotion <em>Promotion</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.amalgam.releng.build.Promotion
+	 * @generated
+	 */
+	public Adapter createPromotionAdapter() {
 		return null;
 	}
 

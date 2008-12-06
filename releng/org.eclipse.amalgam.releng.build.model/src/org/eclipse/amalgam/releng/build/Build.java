@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: Build.java,v 1.2 2008/11/26 11:35:39 rgronback Exp $
+ * $Id: Build.java,v 1.3 2008/12/06 03:59:50 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getCompiler <em>Compiler</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getLaunchVM <em>Launch VM</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getDeltapack <em>Deltapack</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.Build#getPromotion <em>Promotion</em>}</li>
  * </ul>
  * </p>
  *
@@ -457,5 +458,31 @@ public interface Build extends EObject {
 	 * @generated
 	 */
 	void setDeltapack(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Promotion</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Promotion</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Promotion</em>' containment reference.
+	 * @see #setPromotion(Promotion)
+	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getBuild_Promotion()
+	 * @model containment="true" resolveProxies="true"
+	 * @generated
+	 */
+	Promotion getPromotion();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.amalgam.releng.build.Build#getPromotion <em>Promotion</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Promotion</em>' containment reference.
+	 * @see #getPromotion()
+	 * @generated
+	 */
+	void setPromotion(Promotion value);
 
 } // Build

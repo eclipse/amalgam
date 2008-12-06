@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildSwitch.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: BuildSwitch.java,v 1.2 2008/12/06 03:59:50 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.util;
 
@@ -25,6 +25,7 @@ import org.eclipse.amalgam.releng.build.Contribution;
 import org.eclipse.amalgam.releng.build.Feature;
 import org.eclipse.amalgam.releng.build.Map;
 import org.eclipse.amalgam.releng.build.Platform;
+import org.eclipse.amalgam.releng.build.Promotion;
 import org.eclipse.amalgam.releng.build.Repository;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -166,6 +167,12 @@ public class BuildSwitch<T> {
 			case BuildPackage.COMPILER: {
 				org.eclipse.amalgam.releng.build.Compiler compiler = (org.eclipse.amalgam.releng.build.Compiler)theEObject;
 				T result = caseCompiler(compiler);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case BuildPackage.PROMOTION: {
+				Promotion promotion = (Promotion)theEObject;
+				T result = casePromotion(promotion);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -335,6 +342,21 @@ public class BuildSwitch<T> {
 	 * @generated
 	 */
 	public T caseCompiler(org.eclipse.amalgam.releng.build.Compiler object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Promotion</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Promotion</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePromotion(Promotion object) {
 		return null;
 	}
 

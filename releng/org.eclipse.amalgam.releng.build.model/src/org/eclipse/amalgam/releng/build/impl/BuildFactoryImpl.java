@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildFactoryImpl.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: BuildFactoryImpl.java,v 1.2 2008/12/06 03:59:50 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -28,6 +28,7 @@ import org.eclipse.amalgam.releng.build.Feature;
 import org.eclipse.amalgam.releng.build.Map;
 import org.eclipse.amalgam.releng.build.OS;
 import org.eclipse.amalgam.releng.build.Platform;
+import org.eclipse.amalgam.releng.build.Promotion;
 import org.eclipse.amalgam.releng.build.Repository;
 import org.eclipse.amalgam.releng.build.WS;
 import org.eclipse.emf.ecore.EClass;
@@ -94,6 +95,7 @@ public class BuildFactoryImpl extends EFactoryImpl implements BuildFactory {
 			case BuildPackage.FEATURE: return createFeature();
 			case BuildPackage.BUNDLE: return createBundle();
 			case BuildPackage.COMPILER: return createCompiler();
+			case BuildPackage.PROMOTION: return createPromotion();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -253,6 +255,16 @@ public class BuildFactoryImpl extends EFactoryImpl implements BuildFactory {
 	public org.eclipse.amalgam.releng.build.Compiler createCompiler() {
 		CompilerImpl compiler = new CompilerImpl();
 		return compiler;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Promotion createPromotion() {
+		PromotionImpl promotion = new PromotionImpl();
+		return promotion;
 	}
 
 	/**

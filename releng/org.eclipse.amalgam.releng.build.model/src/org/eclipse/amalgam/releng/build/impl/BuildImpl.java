@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildImpl.java,v 1.2 2008/11/26 11:35:39 rgronback Exp $
+ * $Id: BuildImpl.java,v 1.3 2008/12/06 03:59:50 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -24,6 +24,7 @@ import org.eclipse.amalgam.releng.build.Contribution;
 import org.eclipse.amalgam.releng.build.Map;
 import org.eclipse.amalgam.releng.build.Platform;
 
+import org.eclipse.amalgam.releng.build.Promotion;
 import org.eclipse.amalgam.releng.product.Product;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -64,6 +65,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getCompiler <em>Compiler</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getLaunchVM <em>Launch VM</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getDeltapack <em>Deltapack</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getPromotion <em>Promotion</em>}</li>
  * </ul>
  * </p>
  *
@@ -319,6 +321,16 @@ public class BuildImpl extends EObjectImpl implements Build {
 	 * @ordered
 	 */
 	protected String deltapack = DELTAPACK_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getPromotion() <em>Promotion</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPromotion()
+	 * @generated
+	 * @ordered
+	 */
+	protected Promotion promotion;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -806,6 +818,72 @@ public class BuildImpl extends EObjectImpl implements Build {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Promotion getPromotion() {
+		if (promotion != null && promotion.eIsProxy()) {
+			InternalEObject oldPromotion = (InternalEObject)promotion;
+			promotion = (Promotion)eResolveProxy(oldPromotion);
+			if (promotion != oldPromotion) {
+				InternalEObject newPromotion = (InternalEObject)promotion;
+				NotificationChain msgs = oldPromotion.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BuildPackage.BUILD__PROMOTION, null, null);
+				if (newPromotion.eInternalContainer() == null) {
+					msgs = newPromotion.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - BuildPackage.BUILD__PROMOTION, null, msgs);
+				}
+				if (msgs != null) msgs.dispatch();
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BuildPackage.BUILD__PROMOTION, oldPromotion, promotion));
+			}
+		}
+		return promotion;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Promotion basicGetPromotion() {
+		return promotion;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetPromotion(Promotion newPromotion, NotificationChain msgs) {
+		Promotion oldPromotion = promotion;
+		promotion = newPromotion;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BuildPackage.BUILD__PROMOTION, oldPromotion, newPromotion);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPromotion(Promotion newPromotion) {
+		if (newPromotion != promotion) {
+			NotificationChain msgs = null;
+			if (promotion != null)
+				msgs = ((InternalEObject)promotion).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BuildPackage.BUILD__PROMOTION, null, msgs);
+			if (newPromotion != null)
+				msgs = ((InternalEObject)newPromotion).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - BuildPackage.BUILD__PROMOTION, null, msgs);
+			msgs = basicSetPromotion(newPromotion, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.BUILD__PROMOTION, newPromotion, newPromotion));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -821,6 +899,8 @@ public class BuildImpl extends EObjectImpl implements Build {
 				return ((InternalEList<?>)getContributions()).basicRemove(otherEnd, msgs);
 			case BuildPackage.BUILD__COMPILER:
 				return basicSetCompiler(null, msgs);
+			case BuildPackage.BUILD__PROMOTION:
+				return basicSetPromotion(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -872,6 +952,9 @@ public class BuildImpl extends EObjectImpl implements Build {
 				return getLaunchVM();
 			case BuildPackage.BUILD__DELTAPACK:
 				return getDeltapack();
+			case BuildPackage.BUILD__PROMOTION:
+				if (resolve) return getPromotion();
+				return basicGetPromotion();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -940,6 +1023,9 @@ public class BuildImpl extends EObjectImpl implements Build {
 			case BuildPackage.BUILD__DELTAPACK:
 				setDeltapack((String)newValue);
 				return;
+			case BuildPackage.BUILD__PROMOTION:
+				setPromotion((Promotion)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1003,6 +1089,9 @@ public class BuildImpl extends EObjectImpl implements Build {
 			case BuildPackage.BUILD__DELTAPACK:
 				setDeltapack(DELTAPACK_EDEFAULT);
 				return;
+			case BuildPackage.BUILD__PROMOTION:
+				setPromotion((Promotion)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1049,6 +1138,8 @@ public class BuildImpl extends EObjectImpl implements Build {
 				return LAUNCH_VM_EDEFAULT == null ? launchVM != null : !LAUNCH_VM_EDEFAULT.equals(launchVM);
 			case BuildPackage.BUILD__DELTAPACK:
 				return DELTAPACK_EDEFAULT == null ? deltapack != null : !DELTAPACK_EDEFAULT.equals(deltapack);
+			case BuildPackage.BUILD__PROMOTION:
+				return promotion != null;
 		}
 		return super.eIsSet(featureID);
 	}

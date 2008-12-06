@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackage.java,v 1.2 2008/11/26 11:35:39 rgronback Exp $
+ * $Id: BuildPackage.java,v 1.3 2008/12/06 03:59:50 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -231,13 +231,22 @@ public interface BuildPackage extends EPackage {
 	int BUILD__DELTAPACK = 16;
 
 	/**
+	 * The feature id for the '<em><b>Promotion</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUILD__PROMOTION = 17;
+
+	/**
 	 * The number of structural features of the '<em>Build</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUILD_FEATURE_COUNT = 17;
+	int BUILD_FEATURE_COUNT = 18;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.RepositoryImpl <em>Repository</em>}' class.
@@ -763,6 +772,43 @@ public interface BuildPackage extends EPackage {
 	int COMPILER_FEATURE_COUNT = 6;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl <em>Promotion</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.amalgam.releng.build.impl.PromotionImpl
+	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getPromotion()
+	 * @generated
+	 */
+	int PROMOTION = 11;
+
+	/**
+	 * The feature id for the '<em><b>Directory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROMOTION__DIRECTORY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Incubating</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROMOTION__INCUBATING = 1;
+
+	/**
+	 * The number of structural features of the '<em>Promotion</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROMOTION_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.BuildType <em>Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -770,7 +816,7 @@ public interface BuildPackage extends EPackage {
 	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getBuildType()
 	 * @generated
 	 */
-	int BUILD_TYPE = 11;
+	int BUILD_TYPE = 12;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.OS <em>OS</em>}' enum.
@@ -780,7 +826,7 @@ public interface BuildPackage extends EPackage {
 	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getOS()
 	 * @generated
 	 */
-	int OS = 12;
+	int OS = 13;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.WS <em>WS</em>}' enum.
@@ -790,7 +836,7 @@ public interface BuildPackage extends EPackage {
 	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getWS()
 	 * @generated
 	 */
-	int WS = 13;
+	int WS = 14;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.ARCH <em>ARCH</em>}' enum.
@@ -800,7 +846,7 @@ public interface BuildPackage extends EPackage {
 	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getARCH()
 	 * @generated
 	 */
-	int ARCH = 14;
+	int ARCH = 15;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.ArchiveFormat <em>Archive Format</em>}' enum.
@@ -810,7 +856,7 @@ public interface BuildPackage extends EPackage {
 	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getArchiveFormat()
 	 * @generated
 	 */
-	int ARCHIVE_FORMAT = 15;
+	int ARCHIVE_FORMAT = 16;
 
 
 	/**
@@ -1009,6 +1055,17 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBuild_Deltapack();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.releng.build.Build#getPromotion <em>Promotion</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Promotion</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Build#getPromotion()
+	 * @see #getBuild()
+	 * @generated
+	 */
+	EReference getBuild_Promotion();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.amalgam.releng.build.Repository <em>Repository</em>}'.
@@ -1518,6 +1575,38 @@ public interface BuildPackage extends EPackage {
 	EAttribute getCompiler_DebugInfo();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.amalgam.releng.build.Promotion <em>Promotion</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Promotion</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Promotion
+	 * @generated
+	 */
+	EClass getPromotion();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Promotion#getDirectory <em>Directory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Directory</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Promotion#getDirectory()
+	 * @see #getPromotion()
+	 * @generated
+	 */
+	EAttribute getPromotion_Directory();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Promotion#isIncubating <em>Incubating</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Incubating</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Promotion#isIncubating()
+	 * @see #getPromotion()
+	 * @generated
+	 */
+	EAttribute getPromotion_Incubating();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.amalgam.releng.build.BuildType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1734,6 +1823,14 @@ public interface BuildPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BUILD__DELTAPACK = eINSTANCE.getBuild_Deltapack();
+
+		/**
+		 * The meta object literal for the '<em><b>Promotion</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BUILD__PROMOTION = eINSTANCE.getBuild_Promotion();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.impl.RepositoryImpl <em>Repository</em>}' class.
@@ -2130,6 +2227,32 @@ public interface BuildPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COMPILER__DEBUG_INFO = eINSTANCE.getCompiler_DebugInfo();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl <em>Promotion</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.amalgam.releng.build.impl.PromotionImpl
+		 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getPromotion()
+		 * @generated
+		 */
+		EClass PROMOTION = eINSTANCE.getPromotion();
+
+		/**
+		 * The meta object literal for the '<em><b>Directory</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PROMOTION__DIRECTORY = eINSTANCE.getPromotion_Directory();
+
+		/**
+		 * The meta object literal for the '<em><b>Incubating</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PROMOTION__INCUBATING = eINSTANCE.getPromotion_Incubating();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.BuildType <em>Type</em>}' enum.

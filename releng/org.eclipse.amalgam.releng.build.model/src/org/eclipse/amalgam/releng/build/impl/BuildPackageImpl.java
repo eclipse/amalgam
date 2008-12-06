@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackageImpl.java,v 1.2 2008/11/26 11:35:39 rgronback Exp $
+ * $Id: BuildPackageImpl.java,v 1.3 2008/12/06 03:59:50 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -26,6 +26,7 @@ import org.eclipse.amalgam.releng.build.Contribution;
 import org.eclipse.amalgam.releng.build.Feature;
 import org.eclipse.amalgam.releng.build.Map;
 import org.eclipse.amalgam.releng.build.Platform;
+import org.eclipse.amalgam.releng.build.Promotion;
 import org.eclipse.amalgam.releng.build.Repository;
 
 import org.eclipse.amalgam.releng.product.ProductPackage;
@@ -123,6 +124,13 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * @generated
 	 */
 	private EClass compilerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass promotionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -391,6 +399,15 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 */
 	public EAttribute getBuild_Deltapack() {
 		return (EAttribute)buildEClass.getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBuild_Promotion() {
+		return (EReference)buildEClass.getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -821,6 +838,33 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPromotion() {
+		return promotionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPromotion_Directory() {
+		return (EAttribute)promotionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPromotion_Incubating() {
+		return (EAttribute)promotionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getBuildType() {
 		return buildTypeEEnum;
 	}
@@ -907,6 +951,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		createEReference(buildEClass, BUILD__COMPILER);
 		createEAttribute(buildEClass, BUILD__LAUNCH_VM);
 		createEAttribute(buildEClass, BUILD__DELTAPACK);
+		createEReference(buildEClass, BUILD__PROMOTION);
 
 		repositoryEClass = createEClass(REPOSITORY);
 		createEAttribute(repositoryEClass, REPOSITORY__LOCATION);
@@ -964,6 +1009,10 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		createEAttribute(compilerEClass, COMPILER__VERBOSE);
 		createEAttribute(compilerEClass, COMPILER__FAIL_ON_ERROR);
 		createEAttribute(compilerEClass, COMPILER__DEBUG_INFO);
+
+		promotionEClass = createEClass(PROMOTION);
+		createEAttribute(promotionEClass, PROMOTION__DIRECTORY);
+		createEAttribute(promotionEClass, PROMOTION__INCUBATING);
 
 		// Create enums
 		buildTypeEEnum = createEEnum(BUILD_TYPE);
@@ -1025,6 +1074,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEReference(getBuild_Compiler(), this.getCompiler(), null, "compiler", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBuild_LaunchVM(), ecorePackage.getEString(), "launchVM", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBuild_Deltapack(), ecorePackage.getEString(), "deltapack", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBuild_Promotion(), this.getPromotion(), null, "promotion", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(repositoryEClass, Repository.class, "Repository", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRepository_Location(), theXMLTypePackage.getString(), "location", null, 1, 1, Repository.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1082,6 +1132,10 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEAttribute(getCompiler_Verbose(), ecorePackage.getEBoolean(), "verbose", "false", 0, 1, org.eclipse.amalgam.releng.build.Compiler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCompiler_FailOnError(), ecorePackage.getEBoolean(), "failOnError", "false", 0, 1, org.eclipse.amalgam.releng.build.Compiler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCompiler_DebugInfo(), ecorePackage.getEBoolean(), "debugInfo", "true", 0, 1, org.eclipse.amalgam.releng.build.Compiler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(promotionEClass, Promotion.class, "Promotion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPromotion_Directory(), ecorePackage.getEString(), "directory", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPromotion_Incubating(), ecorePackage.getEBoolean(), "incubating", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(buildTypeEEnum, BuildType.class, "BuildType");
