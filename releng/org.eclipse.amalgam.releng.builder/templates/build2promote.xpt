@@ -16,10 +16,10 @@
 		<property file="${buildRoot}/«product.launcher.name»/builder/build.properties"/>
 		<fail message="Could not load property 'product' from build.properties.  Did you generate it and customTargets.xml to ${buildRoot}/«product.launcher.name»/builder?" unless="product"/>
 		<property name="targetDirectory" value="«promotion.directory»"/>
+		<mkdir dir="${targetDirectory}"/>
 	</target>
 	
 	<target name="publish" depends="init,clean">
-		<mkdir dir="${targetDirectory}"/>
 		<copy file="${buildRoot}/«product.launcher.name»/«product.launcher.name».build.log.txt" todir="${targetDirectory}" />
 		<copy todir="${targetDirectory}">
 			<fileset dir="${buildDirectory}/${buildLabel}">
