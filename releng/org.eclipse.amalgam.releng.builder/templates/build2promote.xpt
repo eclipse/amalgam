@@ -19,6 +19,7 @@
 	</target>
 	
 	<target name="publish" depends="init,clean">
+		<mkdir dir="${targetDirectory}"/>
 		<copy file="${buildRoot}/«product.launcher.name»/«product.launcher.name».build.log.txt" todir="${targetDirectory}" />
 		<copy todir="${targetDirectory}">
 			<fileset dir="${buildDirectory}/${buildLabel}">
