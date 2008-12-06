@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildItemProviderAdapterFactory.java,v 1.1 2008/11/24 20:37:38 rgronback Exp $
+ * $Id: BuildItemProviderAdapterFactory.java,v 1.2 2008/12/06 03:59:48 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -336,6 +336,29 @@ public class BuildItemProviderAdapterFactory extends BuildAdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.amalgam.releng.build.Promotion} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PromotionItemProvider promotionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.amalgam.releng.build.Promotion}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPromotionAdapter() {
+		if (promotionItemProvider == null) {
+			promotionItemProvider = new PromotionItemProvider(this);
+		}
+
+		return promotionItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -445,6 +468,7 @@ public class BuildItemProviderAdapterFactory extends BuildAdapterFactory impleme
 		if (featureItemProvider != null) featureItemProvider.dispose();
 		if (bundleItemProvider != null) bundleItemProvider.dispose();
 		if (compilerItemProvider != null) compilerItemProvider.dispose();
+		if (promotionItemProvider != null) promotionItemProvider.dispose();
 	}
 
 }

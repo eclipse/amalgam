@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildItemProvider.java,v 1.2 2008/11/26 11:35:41 rgronback Exp $
+ * $Id: BuildItemProvider.java,v 1.3 2008/12/06 03:59:48 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -349,6 +349,7 @@ public class BuildItemProvider
 			childrenFeatures.add(BuildPackage.Literals.BUILD__CATEGORIES);
 			childrenFeatures.add(BuildPackage.Literals.BUILD__CONTRIBUTIONS);
 			childrenFeatures.add(BuildPackage.Literals.BUILD__COMPILER);
+			childrenFeatures.add(BuildPackage.Literals.BUILD__PROMOTION);
 		}
 		return childrenFeatures;
 	}
@@ -419,6 +420,7 @@ public class BuildItemProvider
 			case BuildPackage.BUILD__CATEGORIES:
 			case BuildPackage.BUILD__CONTRIBUTIONS:
 			case BuildPackage.BUILD__COMPILER:
+			case BuildPackage.BUILD__PROMOTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -465,6 +467,11 @@ public class BuildItemProvider
 			(createChildParameter
 				(BuildPackage.Literals.BUILD__COMPILER,
 				 BuildFactory.eINSTANCE.createCompiler()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(BuildPackage.Literals.BUILD__PROMOTION,
+				 BuildFactory.eINSTANCE.createPromotion()));
 	}
 
 	/**
