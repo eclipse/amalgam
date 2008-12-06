@@ -116,7 +116,6 @@
 		<delete dir="${buildDirectory}/${buildLabel}/p2"/>
 		
 		<!-- Consolidate artifacts for publish -->
-		<move file="${buildRoot}/«product.launcher.name».build.log.txt" todir="${buildDirectory}/${buildLabel}" failonerror="false"/>
 		<move file="${buildDirectory}/index.php" todir="${buildDirectory}/${buildLabel}"/>
 		<move file="${buildDirectory}/directory.txt" todir="${buildDirectory}/${buildLabel}"/>
 		<move file="${buildDirectory}/«product.launcher.name».build" todir="${buildDirectory}/${buildLabel}"/>
