@@ -180,23 +180,17 @@
 			<arg line="-Xmx1024m"/>
 		</exec>
 		<!-- Zip the metadata, as -compress argument above didn't seem to do the trick -->
-		<zip destfile="${buildDirectory}/${buildLabel}/repo/content.jar"
+		<zip destfile="${buildDirectory}/${buildLabel}/content.jar"
        		 basedir="${buildDirectory}/${buildLabel}/repo"
        		 includes="content.xml"/>
-       	<zip destfile="${buildDirectory}/${buildLabel}/repo/artifacts.jar"
+       	<zip destfile="${buildDirectory}/${buildLabel}/artifacts.jar"
        		 basedir="${buildDirectory}/${buildLabel}/repo"
        		 includes="artifacts.xml"/>
         <delete file="${buildDirectory}/${buildLabel}/repo/content.xml" failonerror="false"/>
        	<delete file="${buildDirectory}/${buildLabel}/repo/artifacts.xml" failonerror="false"/>
-       	<!-- Pull repo folder up a level -->
-		<move todir="${buildDirectory}/${buildLabel}">
-    		<fileset dir="${buildDirectory}/${buildLabel}/repo/binary"/>
-    		<fileset dir="${buildDirectory}/${buildLabel}/repo/features"/>
-    		<fileset dir="${buildDirectory}/${buildLabel}/repo/plugins"/>
-    		<fileset dir="${buildDirectory}/${buildLabel}/repo">
-      			<include name="**/*.jar"/>
-    		</fileset>
-  		</move>
+       	<move tofile="${buildDirectory}/${buildLabel}" file="${buildDirectory}/${buildLabel}/repo/binary"/>
+       	<move tofile="${buildDirectory}/${buildLabel}" file="${buildDirectory}/${buildLabel}/repo/features"/>
+       	<move tofile="${buildDirectory}/${buildLabel}" file="${buildDirectory}/${buildLabel}/repo/plugins"/>
   		<delete dir="${buildDirectory}/${buildLabel}/repo"/>
 	</target>
 	
