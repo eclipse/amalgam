@@ -61,19 +61,29 @@
 	
 	
 «FOREACH contributions AS contribution-»
-«FOREACH contribution.features AS feature-»
+«FOREACH contribution.features.select(f | f.repo.location != null) AS feature-»
 	<target name="email.«feature.id».result" if="install.failed">
-		<echo message="TODO: email contact(s) «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
-		<fail message="Installation of feature «feature.id» [«feature.version»] failed! Email to responsible contributor sent."/>
+		<antcall target="sendmail">
+			<param name="recipients" value="«FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.email»«ENDFOREACH»" />
+			<param name="id" value="«feature.id»"/>
+			<param name="version" value="«feature.version»"/>
+			<param name="repo.location" value="«feature.repo.location»"/>
+		</antcall>
+		<fail message="Installation of feature «feature.id» [«feature.version»] failed! Email sent to «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
 	</target>
 «ENDFOREACH-»
 «ENDFOREACH-»
 
 «FOREACH contributions AS contribution-»
-«FOREACH contribution.bundles AS bundle-»
+«FOREACH contribution.bundles.select(b | b.repo.location != null) AS bundle-»
 	<target name="email.«bundle.id».result" if="install.failed">
-		<echo message="TODO: email contact(s) «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
-		<fail message="Installation of bundle «bundle.id» [«bundle.version»] failed! Email to responsible contributor sent."/>
+		<antcall target="sendmail">
+			<param name="recipients" value="«FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.email»«ENDFOREACH»" />
+			<param name="id" value="«bundle.id»"/>
+			<param name="version" value="«bundle.version»"/>
+			<param name="repo.location" value="«bundle.repo.location»"/>
+		</antcall>
+		<fail message="Installation of bundle «bundle.id» [«bundle.version»] failed! Email sent to «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
 	</target>
 «ENDFOREACH-»
 «ENDFOREACH-»
@@ -319,6 +329,18 @@
 	<target name="noDefault">
 		<echo message="You must specify a target when invoking this file" />
 	</target>
-
+	
+	<target name="sendmail">
+		<copy file="${buildDirectory}/«product.launcher.name».build.log.txt" tofile="${buildRoot}/${buildId}.log.txt"/> 
+		<mail tolist="«buildmaster.email»,${recipients}«IF defaultMailList.size() > 0»,«FOREACH defaultMailList AS contact SEPARATOR ","-»«contact.name»«ENDFOREACH»«ENDIF»"
+              subject="«label» build failed"
+              encoding="plain"
+              failonerror="false">
+            <from name="«label» buildmaster [«buildmaster.name»]"
+                  address="«buildmaster.email»" />
+                  <!-- TODO: add properties to model for accomodate log link and default email list, etc. -->
+            <message>Contribution ${id} version ${version} failed to install from ${repo.location}.	Check the log file for more information: «builderURL»${buildId}.log.txt.</message>
+        </mail>
+	</target>
 </project>
 «ENDDEFINE»
