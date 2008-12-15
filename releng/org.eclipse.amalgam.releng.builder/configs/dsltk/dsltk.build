@@ -49,8 +49,8 @@
     </features>
     <repositories location="http://download.eclipse.org/tools/gef/updates/milestones/" label="GEF milestones"/>
     <repositories location="http://download.eclipse.org/modeling/amalgam/temp/repo/" label="Xpand/MWE temporary updates"/>
-    <repositories location="http://download.eclipse.org/webtools/tempTestUpdates/" label="WebTools temporary updates"/>
-    <bundles id="org.eclipse.jem" version="2.0.300.v200810090230" repo="//@contributions.0/@repositories.2"/>
+    <repositories location="http://download.eclipse.org/webtools/milestones/" label="WebTools milestones"/>
+    <bundles id="org.eclipse.jem" version="2.0.300.v200808132200" repo="//@contributions.0/@repositories.2"/>
   </contributions>
   <contributions href="../modeling-repos.build#/"/>
   <product href="dsltk.product#/"/>
