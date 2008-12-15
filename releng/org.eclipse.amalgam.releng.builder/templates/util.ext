@@ -1,0 +1,26 @@
+import 'http://www.eclipse.org/amalgam/2008/build';
+import 'http://www.eclipse.org/amalgam/2008/product';
+
+String buildId(Build b) : 
+	b.product.launcher.name + "-" + b.buildLabel()
+;
+
+String displayVersion(Build b) :
+	b.promotion.buildAlias != null && b.promotion.buildAlias.length() != 0 ? b.promotion.buildAlias : b.buildLabel()
+;
+
+String buildName(Build b) : 
+	b.product.launcher.name + "-" + b.displayVersion()
+;
+
+String buildLabel(Build b) : 
+	b.type.literal + b.date + "-" + b.time
+;
+
+String archiveName(Build b) :
+	b.buildName() + "-" + (b.promotion.incubating == true ? "incubation-" : "")
+;
+
+String archiveExtension(Config config) :
+	config.os.literal + "-" + config.ws.literal + "-" + config.arch.literal + "." + (config.archiveFormat.literal == 'tar' ? config.archiveFormat.literal + ".gz" : config.archiveFormat.literal)
+;

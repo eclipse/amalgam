@@ -15,7 +15,7 @@
 		<property name="buildRoot" value="«buildRoot»"/>
 		<property file="${buildRoot}/«product.launcher.name»/builder/build.properties"/>
 		<fail message="Could not load property 'product' from build.properties.  Did you generate it and customTargets.xml to ${buildRoot}/«product.launcher.name»/builder?" unless="product"/>
-		<property name="targetDirectory" value="«promotion.directory»"/>
+		<property name="targetDirectory" value="${user.home}«promotion.directory»${buildLabel}"/>
 		<mkdir dir="${targetDirectory}"/>
 	</target>
 	

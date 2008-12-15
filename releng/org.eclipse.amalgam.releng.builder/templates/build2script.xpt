@@ -1,6 +1,8 @@
 «IMPORT 'http://www.eclipse.org/amalgam/2008/build'»
 «IMPORT 'http://www.eclipse.org/amalgam/2008/product'»
 
+«EXTENSION util»
+
 «DEFINE Main FOR Build-»
 <?xml version="1.0"?>
 <project default="main" basedir=".">
@@ -103,12 +105,12 @@
 		«ENDIF»
 		
 		«IF config.os.literal == "win32"»
-		<zip destfile="${buildDirectory}/${buildLabel}/${buildId}-«promotion.incubating == true ? "incubation-" : ""»«config.os»-«config.ws»-«config.arch».zip" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
+		<zip destfile="${buildDirectory}/${buildLabel}/«this.archiveName()»«config.archiveExtension()»" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
 		«ELSE»
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/">
 			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" zipfile="${buildDirectory}/${buildLabel}/${buildId}-«promotion.incubating == true ? "incubation-" : ""»«config.os»-«config.ws»-«config.arch».tar.gz"/>
+		<gzip src="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" zipfile="${buildDirectory}/${buildLabel}/«this.archiveName()»«config.archiveExtension()»"/>
 		<delete file="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" />
 		«ENDIF»
 		«ENDFOREACH»
@@ -120,6 +122,7 @@
 		<move file="${buildDirectory}/directory.txt" todir="${buildDirectory}/${buildLabel}"/>
 		<move file="${buildDirectory}/«product.launcher.name».build" todir="${buildDirectory}/${buildLabel}"/>
 		<move file="${buildDirectory}/«product.launcher.name».product" todir="${buildDirectory}/${buildLabel}"/>
+		
 	</target>
 	
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
@@ -185,6 +188,16 @@
        		 includes="artifacts.xml"/>
         <delete file="${buildDirectory}/${buildLabel}/repo/content.xml" failonerror="false"/>
        	<delete file="${buildDirectory}/${buildLabel}/repo/artifacts.xml" failonerror="false"/>
+       	<!-- Pull repo folder up a level -->
+		<move todir="${buildDirectory}/${buildLabel}">
+    		<fileset dir="${buildDirectory}/${buildLabel}/repo/binary"/>
+    		<fileset dir="${buildDirectory}/${buildLabel}/repo/features"/>
+    		<fileset dir="${buildDirectory}/${buildLabel}/repo/plugins"/>
+    		<fileset dir="${buildDirectory}/${buildLabel}/repo">
+      			<include name="**/*.jar"/>
+    		</fileset>
+  		</move>
+  		<delete dir="${buildDirectory}/${buildLabel}/repo"/>
 	</target>
 	
 </project>

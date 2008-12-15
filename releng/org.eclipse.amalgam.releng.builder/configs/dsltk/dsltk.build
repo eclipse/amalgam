@@ -29,8 +29,8 @@
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
     <features id="org.eclipse.gef.sdk" version="3.5.0.v20080806-1610-7B7H-97OO5c7YCeDIQFZBMVYDJJN" repo="//@contributions.0/@repositories.0"/>
-    <features id="org.eclipse.gmf.sdk" version="2.2.0.v20080917-1925-7A7A3AImmt9tVK-KldWYVKKsB0Ui" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.0"/>
+    <features id="org.eclipse.gmf.sdk" version="2.2.0.v20080917-1925-7A7A3AImnRz-ynioz0KGyobaU1z-" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.3"/>
     </features>
     <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20080825-1430-7C-E8MAEKy6ESRq8P0FAhUNM69l8" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.12"/>
@@ -55,5 +55,5 @@
   <contributions href="../modeling-repos.build#/"/>
   <product href="dsltk.product#/"/>
   <compiler args="-warn:-serial,discouraged,unchecked,raw,intfAnnotation,varargsCast -showversion -enableJavadoc -encoding ISO-8859-1"/>
-  <promotion directory="${user.home}/downloads/modeling/amalgam/dsltk/downloads/drops/${buildLabel}" incubating="true"/>
+  <promotion directory="/downloads/modeling/amalgam/dsltk/downloads/drops/" incubating="true" baseURL="http://www.eclipse.org/downloads/download.php" buildAlias=""/>
 </build:Build>

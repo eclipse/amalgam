@@ -4,7 +4,7 @@
 «DEFINE Main FOR Build-»
 <?xml version="1.0"?>
 <site mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/releases/galileo/site.xml&amp;format=xml&amp;protocol=http" pack200="true" digestURL="http://download.eclipse.org/releases/galileo/">
-<description url="http://www.eclipse.org/ganymede/">This is the «label» update site.</description>
+<description url="http://www.eclipse.org/galileo/">This is the «label» update site.</description>
 «FOREACH categories AS category»
 <category-def name="«category.name»" label="«category.label»">
   <description>«category.description»</description>

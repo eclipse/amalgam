@@ -1,6 +1,8 @@
 «IMPORT 'http://www.eclipse.org/amalgam/2008/build'»
 «IMPORT 'http://www.eclipse.org/amalgam/2008/product'»
 
+«EXTENSION util»
+
 «DEFINE Main FOR Build-»
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -55,7 +57,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 		<li class="tabstart">&#160;&#160;&#160;</li>
 		<li><a href="http://download.eclipse.org/modeling/amalgam/downloads/index.php" target="_self">Amalgam Downloads</a></li>
 		<li class="tabstartselected">&#160;&#160;&#160;</li>
-		<li><a class="tabselected">«label» Build «type»«date»-«time»</a></li>
+		<li><a class="tabselected">«label» Build «this.displayVersion()»</a></li>
 	</ul>
 </div>
 <div id="topnavsep"></div>
@@ -76,7 +78,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 	<br/>
 	<div class="sideitem">
 	   <h6>Incubation</h6>
-	   <p>Amalgam is currently in the <a href="http://www.eclipse.org/projects/dev_process/validation-phase.php">Validation (Incubation) Phase</a>.</p> 
+	   <p>«label» is currently in the <a href="http://www.eclipse.org/projects/dev_process/validation-phase.php">Validation (Incubation) Phase</a>.</p> 
 	   <div align="center"><a href="http://www.eclipse.org/projects/what-is-incubation.php"><img 
 	        align="center" src="http://www.eclipse.org/images/egg-incubation.png" border="0"/></a>
 	   </div>
@@ -98,7 +100,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 		<table BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%" > 
 			<tr> 
 			  <td> 
-				<p><b><font face="Verdana" size="+3">«label» Build: «type»«date»-«time»</font></b><br> 
+				<p><b><font face="Verdana" size="+3">«label» Build: «this.displayVersion()»</font></b><br> 
 				These downloads are provided under the <a href="http://www.eclipse.org/legal/epl/notice.html">
 				<b>Eclipse Foundation Software User Agreement</b></a>.</p>
 			  </td>
@@ -107,17 +109,17 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 				<td width="75%">
 		   			The page provides access to the various sections of this build along with details
 					relating to its results.  Note that in addition to the product archives available from 
-					this page, this build of the «label» may be installed using p2 by pointing to this <a href="http://download.eclipse.org/modeling/amalgam/«product.launcher.name»/downloads/drops/«type»«date»-«time»/repo/">URL.</a>
+					this page, this build of the «label» may be installed using p2 by pointing to this <a href="http://download.eclipse.org«promotion.directory»«this.buildLabel()»/">URL.</a>
 				</td>
 			</tr>
 		</table>
 		<table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
 			<tr>
-			  <td colspan="2"><div class="homeitem3col"><h3><a name="«label»">«label» build «type»«date»-«time»</a></h3></div></td>
+			  <td colspan="2"><div class="homeitem3col"><h3><a name="«label»">«label» build «this.displayVersion()»</a></h3></div></td>
 			</tr>
 «FOREACH configs AS config»
 			<tr>
-			  <td><img align="top" src="http://www.eclipse.org/modeling/images/modeling_about.png"></td><td align="left"><a href="http://www.eclipse.org/modeling/download.php?file=/modeling/amalgam/«product.launcher.name»/downloads/drops/«type»«date»-«time»/«product.launcher.name»-«type»«date»-«time»-«promotion.incubating == true ? "incubation-" : ""»«config.os»-«config.ws»-«config.arch».«config.archiveFormat.literal == 'tar' ? config.archiveFormat.literal + '.gz' : config.archiveFormat»">«product.launcher.name»-incubation-«type»«date»-«time».«config.os».«config.ws».«config.arch».«config.archiveFormat.literal == 'tar' ? config.archiveFormat.literal + '.gz' : config.archiveFormat»</a></td>
+			  <td><img align="top" src="http://www.eclipse.org/modeling/images/modeling_about.png"></td><td align="left"><a href="«promotion.baseURL»?file=«promotion.directory»«this.buildLabel()»/«this.archiveName()»«config.archiveExtension()»">«this.archiveName()»«config.archiveExtension()»</a></td>
 			</tr>
 «ENDFOREACH»
 		</table>
@@ -126,7 +128,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 			  <td><div class="homeitem3col"><h3>Feature Requirements</h3></div></td>
 			</tr>
 		</table>
-				<p>The following features were installed into the build target, though won't necessarily be found in the product:</p>
+				<p>The following features were installed into the build target:</p>
 				<ul class="midlist">
 «FOREACH contributions.features.select(f | f.repo.location != null) AS feature-»
   					<li><b>«feature.id»</b> («feature.version») installed from: <a href="«feature.repo.location»">«feature.repo.label»</a></li>
