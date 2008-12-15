@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: PromotionItemProvider.java,v 1.1 2008/12/06 03:59:48 rgronback Exp $
+ * $Id: PromotionItemProvider.java,v 1.2 2008/12/15 01:31:43 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -73,6 +73,8 @@ public class PromotionItemProvider
 
 			addDirectoryPropertyDescriptor(object);
 			addIncubatingPropertyDescriptor(object);
+			addBaseURLPropertyDescriptor(object);
+			addBuildAliasPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -122,6 +124,50 @@ public class PromotionItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Base URL feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addBaseURLPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Promotion_baseURL_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Promotion_baseURL_feature", "_UI_Promotion_type"),
+				 BuildPackage.Literals.PROMOTION__BASE_URL,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Build Alias feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addBuildAliasPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Promotion_buildAlias_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Promotion_buildAlias_feature", "_UI_Promotion_type"),
+				 BuildPackage.Literals.PROMOTION__BUILD_ALIAS,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Promotion.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -160,6 +206,8 @@ public class PromotionItemProvider
 		switch (notification.getFeatureID(Promotion.class)) {
 			case BuildPackage.PROMOTION__DIRECTORY:
 			case BuildPackage.PROMOTION__INCUBATING:
+			case BuildPackage.PROMOTION__BASE_URL:
+			case BuildPackage.PROMOTION__BUILD_ALIAS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
