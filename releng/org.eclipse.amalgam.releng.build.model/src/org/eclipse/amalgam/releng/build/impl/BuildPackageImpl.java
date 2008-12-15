@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackageImpl.java,v 1.4 2008/12/15 01:31:42 rgronback Exp $
+ * $Id: BuildPackageImpl.java,v 1.5 2008/12/15 16:59:05 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -408,6 +408,33 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 */
 	public EReference getBuild_Promotion() {
 		return (EReference)buildEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBuild_BuilderURL() {
+		return (EAttribute)buildEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBuild_Buildmaster() {
+		return (EReference)buildEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBuild_DefaultMailList() {
+		return (EReference)buildEClass.getEStructuralFeatures().get(20);
 	}
 
 	/**
@@ -970,6 +997,9 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		createEAttribute(buildEClass, BUILD__LAUNCH_VM);
 		createEAttribute(buildEClass, BUILD__DELTAPACK);
 		createEReference(buildEClass, BUILD__PROMOTION);
+		createEAttribute(buildEClass, BUILD__BUILDER_URL);
+		createEReference(buildEClass, BUILD__BUILDMASTER);
+		createEReference(buildEClass, BUILD__DEFAULT_MAIL_LIST);
 
 		repositoryEClass = createEClass(REPOSITORY);
 		createEAttribute(repositoryEClass, REPOSITORY__LOCATION);
@@ -1095,6 +1125,9 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEAttribute(getBuild_LaunchVM(), ecorePackage.getEString(), "launchVM", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBuild_Deltapack(), ecorePackage.getEString(), "deltapack", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBuild_Promotion(), this.getPromotion(), null, "promotion", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBuild_BuilderURL(), ecorePackage.getEString(), "builderURL", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBuild_Buildmaster(), this.getContact(), null, "buildmaster", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBuild_DefaultMailList(), this.getContact(), null, "defaultMailList", null, 0, -1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(repositoryEClass, Repository.class, "Repository", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRepository_Location(), theXMLTypePackage.getString(), "location", null, 1, 1, Repository.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

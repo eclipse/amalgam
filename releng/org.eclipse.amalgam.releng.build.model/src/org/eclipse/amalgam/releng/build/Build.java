@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: Build.java,v 1.3 2008/12/06 03:59:50 rgronback Exp $
+ * $Id: Build.java,v 1.4 2008/12/15 16:59:05 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -45,6 +45,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getLaunchVM <em>Launch VM</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getDeltapack <em>Deltapack</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getPromotion <em>Promotion</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.Build#getBuilderURL <em>Builder URL</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.Build#getBuildmaster <em>Buildmaster</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.Build#getDefaultMailList <em>Default Mail List</em>}</li>
  * </ul>
  * </p>
  *
@@ -484,5 +487,73 @@ public interface Build extends EObject {
 	 * @generated
 	 */
 	void setPromotion(Promotion value);
+
+	/**
+	 * Returns the value of the '<em><b>Builder URL</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Builder URL</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Builder URL</em>' attribute.
+	 * @see #setBuilderURL(String)
+	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getBuild_BuilderURL()
+	 * @model
+	 * @generated
+	 */
+	String getBuilderURL();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.amalgam.releng.build.Build#getBuilderURL <em>Builder URL</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Builder URL</em>' attribute.
+	 * @see #getBuilderURL()
+	 * @generated
+	 */
+	void setBuilderURL(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Buildmaster</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Buildmaster</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Buildmaster</em>' containment reference.
+	 * @see #setBuildmaster(Contact)
+	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getBuild_Buildmaster()
+	 * @model containment="true" resolveProxies="true"
+	 * @generated
+	 */
+	Contact getBuildmaster();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.amalgam.releng.build.Build#getBuildmaster <em>Buildmaster</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Buildmaster</em>' containment reference.
+	 * @see #getBuildmaster()
+	 * @generated
+	 */
+	void setBuildmaster(Contact value);
+
+	/**
+	 * Returns the value of the '<em><b>Default Mail List</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.amalgam.releng.build.Contact}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Default Mail List</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Default Mail List</em>' containment reference list.
+	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getBuild_DefaultMailList()
+	 * @model containment="true" resolveProxies="true"
+	 * @generated
+	 */
+	EList<Contact> getDefaultMailList();
 
 } // Build

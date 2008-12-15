@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackage.java,v 1.4 2008/12/15 01:31:42 rgronback Exp $
+ * $Id: BuildPackage.java,v 1.5 2008/12/15 16:59:05 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -240,13 +240,40 @@ public interface BuildPackage extends EPackage {
 	int BUILD__PROMOTION = 17;
 
 	/**
+	 * The feature id for the '<em><b>Builder URL</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUILD__BUILDER_URL = 18;
+
+	/**
+	 * The feature id for the '<em><b>Buildmaster</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUILD__BUILDMASTER = 19;
+
+	/**
+	 * The feature id for the '<em><b>Default Mail List</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUILD__DEFAULT_MAIL_LIST = 20;
+
+	/**
 	 * The number of structural features of the '<em>Build</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUILD_FEATURE_COUNT = 18;
+	int BUILD_FEATURE_COUNT = 21;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.RepositoryImpl <em>Repository</em>}' class.
@@ -1086,6 +1113,39 @@ public interface BuildPackage extends EPackage {
 	EReference getBuild_Promotion();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Build#getBuilderURL <em>Builder URL</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Builder URL</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Build#getBuilderURL()
+	 * @see #getBuild()
+	 * @generated
+	 */
+	EAttribute getBuild_BuilderURL();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.releng.build.Build#getBuildmaster <em>Buildmaster</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Buildmaster</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Build#getBuildmaster()
+	 * @see #getBuild()
+	 * @generated
+	 */
+	EReference getBuild_Buildmaster();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.amalgam.releng.build.Build#getDefaultMailList <em>Default Mail List</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Default Mail List</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Build#getDefaultMailList()
+	 * @see #getBuild()
+	 * @generated
+	 */
+	EReference getBuild_DefaultMailList();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.amalgam.releng.build.Repository <em>Repository</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1871,6 +1931,30 @@ public interface BuildPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BUILD__PROMOTION = eINSTANCE.getBuild_Promotion();
+
+		/**
+		 * The meta object literal for the '<em><b>Builder URL</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BUILD__BUILDER_URL = eINSTANCE.getBuild_BuilderURL();
+
+		/**
+		 * The meta object literal for the '<em><b>Buildmaster</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BUILD__BUILDMASTER = eINSTANCE.getBuild_Buildmaster();
+
+		/**
+		 * The meta object literal for the '<em><b>Default Mail List</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BUILD__DEFAULT_MAIL_LIST = eINSTANCE.getBuild_DefaultMailList();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.impl.RepositoryImpl <em>Repository</em>}' class.

@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildImpl.java,v 1.3 2008/12/06 03:59:50 rgronback Exp $
+ * $Id: BuildImpl.java,v 1.4 2008/12/15 16:59:05 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -20,6 +20,7 @@ import org.eclipse.amalgam.releng.build.BuildPackage;
 import org.eclipse.amalgam.releng.build.BuildType;
 import org.eclipse.amalgam.releng.build.Category;
 import org.eclipse.amalgam.releng.build.Config;
+import org.eclipse.amalgam.releng.build.Contact;
 import org.eclipse.amalgam.releng.build.Contribution;
 import org.eclipse.amalgam.releng.build.Map;
 import org.eclipse.amalgam.releng.build.Platform;
@@ -66,6 +67,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getLaunchVM <em>Launch VM</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getDeltapack <em>Deltapack</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getPromotion <em>Promotion</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getBuilderURL <em>Builder URL</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getBuildmaster <em>Buildmaster</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getDefaultMailList <em>Default Mail List</em>}</li>
  * </ul>
  * </p>
  *
@@ -331,6 +335,46 @@ public class BuildImpl extends EObjectImpl implements Build {
 	 * @ordered
 	 */
 	protected Promotion promotion;
+
+	/**
+	 * The default value of the '{@link #getBuilderURL() <em>Builder URL</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBuilderURL()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BUILDER_URL_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBuilderURL() <em>Builder URL</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBuilderURL()
+	 * @generated
+	 * @ordered
+	 */
+	protected String builderURL = BUILDER_URL_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getBuildmaster() <em>Buildmaster</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBuildmaster()
+	 * @generated
+	 * @ordered
+	 */
+	protected Contact buildmaster;
+
+	/**
+	 * The cached value of the '{@link #getDefaultMailList() <em>Default Mail List</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultMailList()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Contact> defaultMailList;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -884,6 +928,105 @@ public class BuildImpl extends EObjectImpl implements Build {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getBuilderURL() {
+		return builderURL;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBuilderURL(String newBuilderURL) {
+		String oldBuilderURL = builderURL;
+		builderURL = newBuilderURL;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.BUILD__BUILDER_URL, oldBuilderURL, builderURL));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Contact getBuildmaster() {
+		if (buildmaster != null && buildmaster.eIsProxy()) {
+			InternalEObject oldBuildmaster = (InternalEObject)buildmaster;
+			buildmaster = (Contact)eResolveProxy(oldBuildmaster);
+			if (buildmaster != oldBuildmaster) {
+				InternalEObject newBuildmaster = (InternalEObject)buildmaster;
+				NotificationChain msgs = oldBuildmaster.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BuildPackage.BUILD__BUILDMASTER, null, null);
+				if (newBuildmaster.eInternalContainer() == null) {
+					msgs = newBuildmaster.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - BuildPackage.BUILD__BUILDMASTER, null, msgs);
+				}
+				if (msgs != null) msgs.dispatch();
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BuildPackage.BUILD__BUILDMASTER, oldBuildmaster, buildmaster));
+			}
+		}
+		return buildmaster;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Contact basicGetBuildmaster() {
+		return buildmaster;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetBuildmaster(Contact newBuildmaster, NotificationChain msgs) {
+		Contact oldBuildmaster = buildmaster;
+		buildmaster = newBuildmaster;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BuildPackage.BUILD__BUILDMASTER, oldBuildmaster, newBuildmaster);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBuildmaster(Contact newBuildmaster) {
+		if (newBuildmaster != buildmaster) {
+			NotificationChain msgs = null;
+			if (buildmaster != null)
+				msgs = ((InternalEObject)buildmaster).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BuildPackage.BUILD__BUILDMASTER, null, msgs);
+			if (newBuildmaster != null)
+				msgs = ((InternalEObject)newBuildmaster).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - BuildPackage.BUILD__BUILDMASTER, null, msgs);
+			msgs = basicSetBuildmaster(newBuildmaster, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.BUILD__BUILDMASTER, newBuildmaster, newBuildmaster));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Contact> getDefaultMailList() {
+		if (defaultMailList == null) {
+			defaultMailList = new EObjectContainmentEList.Resolving<Contact>(Contact.class, this, BuildPackage.BUILD__DEFAULT_MAIL_LIST);
+		}
+		return defaultMailList;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -901,6 +1044,10 @@ public class BuildImpl extends EObjectImpl implements Build {
 				return basicSetCompiler(null, msgs);
 			case BuildPackage.BUILD__PROMOTION:
 				return basicSetPromotion(null, msgs);
+			case BuildPackage.BUILD__BUILDMASTER:
+				return basicSetBuildmaster(null, msgs);
+			case BuildPackage.BUILD__DEFAULT_MAIL_LIST:
+				return ((InternalEList<?>)getDefaultMailList()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -955,6 +1102,13 @@ public class BuildImpl extends EObjectImpl implements Build {
 			case BuildPackage.BUILD__PROMOTION:
 				if (resolve) return getPromotion();
 				return basicGetPromotion();
+			case BuildPackage.BUILD__BUILDER_URL:
+				return getBuilderURL();
+			case BuildPackage.BUILD__BUILDMASTER:
+				if (resolve) return getBuildmaster();
+				return basicGetBuildmaster();
+			case BuildPackage.BUILD__DEFAULT_MAIL_LIST:
+				return getDefaultMailList();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1026,6 +1180,16 @@ public class BuildImpl extends EObjectImpl implements Build {
 			case BuildPackage.BUILD__PROMOTION:
 				setPromotion((Promotion)newValue);
 				return;
+			case BuildPackage.BUILD__BUILDER_URL:
+				setBuilderURL((String)newValue);
+				return;
+			case BuildPackage.BUILD__BUILDMASTER:
+				setBuildmaster((Contact)newValue);
+				return;
+			case BuildPackage.BUILD__DEFAULT_MAIL_LIST:
+				getDefaultMailList().clear();
+				getDefaultMailList().addAll((Collection<? extends Contact>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1092,6 +1256,15 @@ public class BuildImpl extends EObjectImpl implements Build {
 			case BuildPackage.BUILD__PROMOTION:
 				setPromotion((Promotion)null);
 				return;
+			case BuildPackage.BUILD__BUILDER_URL:
+				setBuilderURL(BUILDER_URL_EDEFAULT);
+				return;
+			case BuildPackage.BUILD__BUILDMASTER:
+				setBuildmaster((Contact)null);
+				return;
+			case BuildPackage.BUILD__DEFAULT_MAIL_LIST:
+				getDefaultMailList().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1140,6 +1313,12 @@ public class BuildImpl extends EObjectImpl implements Build {
 				return DELTAPACK_EDEFAULT == null ? deltapack != null : !DELTAPACK_EDEFAULT.equals(deltapack);
 			case BuildPackage.BUILD__PROMOTION:
 				return promotion != null;
+			case BuildPackage.BUILD__BUILDER_URL:
+				return BUILDER_URL_EDEFAULT == null ? builderURL != null : !BUILDER_URL_EDEFAULT.equals(builderURL);
+			case BuildPackage.BUILD__BUILDMASTER:
+				return buildmaster != null;
+			case BuildPackage.BUILD__DEFAULT_MAIL_LIST:
+				return defaultMailList != null && !defaultMailList.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1170,6 +1349,8 @@ public class BuildImpl extends EObjectImpl implements Build {
 		result.append(launchVM);
 		result.append(", deltapack: ");
 		result.append(deltapack);
+		result.append(", builderURL: ");
+		result.append(builderURL);
 		result.append(')');
 		return result.toString();
 	}
