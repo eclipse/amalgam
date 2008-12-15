@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildItemProvider.java,v 1.3 2008/12/06 03:59:48 rgronback Exp $
+ * $Id: BuildItemProvider.java,v 1.4 2008/12/15 16:59:03 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -85,6 +85,7 @@ public class BuildItemProvider
 			addTimePropertyDescriptor(object);
 			addLaunchVMPropertyDescriptor(object);
 			addDeltapackPropertyDescriptor(object);
+			addBuilderURLPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -332,6 +333,28 @@ public class BuildItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Builder URL feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addBuilderURLPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Build_builderURL_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Build_builderURL_feature", "_UI_Build_type"),
+				 BuildPackage.Literals.BUILD__BUILDER_URL,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -350,6 +373,8 @@ public class BuildItemProvider
 			childrenFeatures.add(BuildPackage.Literals.BUILD__CONTRIBUTIONS);
 			childrenFeatures.add(BuildPackage.Literals.BUILD__COMPILER);
 			childrenFeatures.add(BuildPackage.Literals.BUILD__PROMOTION);
+			childrenFeatures.add(BuildPackage.Literals.BUILD__BUILDMASTER);
+			childrenFeatures.add(BuildPackage.Literals.BUILD__DEFAULT_MAIL_LIST);
 		}
 		return childrenFeatures;
 	}
@@ -412,6 +437,7 @@ public class BuildItemProvider
 			case BuildPackage.BUILD__TIME:
 			case BuildPackage.BUILD__LAUNCH_VM:
 			case BuildPackage.BUILD__DELTAPACK:
+			case BuildPackage.BUILD__BUILDER_URL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case BuildPackage.BUILD__PLATFORMS:
@@ -421,6 +447,8 @@ public class BuildItemProvider
 			case BuildPackage.BUILD__CONTRIBUTIONS:
 			case BuildPackage.BUILD__COMPILER:
 			case BuildPackage.BUILD__PROMOTION:
+			case BuildPackage.BUILD__BUILDMASTER:
+			case BuildPackage.BUILD__DEFAULT_MAIL_LIST:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -472,6 +500,39 @@ public class BuildItemProvider
 			(createChildParameter
 				(BuildPackage.Literals.BUILD__PROMOTION,
 				 BuildFactory.eINSTANCE.createPromotion()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(BuildPackage.Literals.BUILD__BUILDMASTER,
+				 BuildFactory.eINSTANCE.createContact()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(BuildPackage.Literals.BUILD__DEFAULT_MAIL_LIST,
+				 BuildFactory.eINSTANCE.createContact()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == BuildPackage.Literals.BUILD__BUILDMASTER ||
+			childFeature == BuildPackage.Literals.BUILD__DEFAULT_MAIL_LIST;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**
