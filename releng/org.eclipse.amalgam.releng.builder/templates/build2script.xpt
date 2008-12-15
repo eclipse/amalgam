@@ -188,9 +188,9 @@
        		 includes="artifacts.xml"/>
         <delete file="${buildDirectory}/${buildLabel}/repo/content.xml" failonerror="false"/>
        	<delete file="${buildDirectory}/${buildLabel}/repo/artifacts.xml" failonerror="false"/>
-       	<move tofile="${buildDirectory}/${buildLabel}" file="${buildDirectory}/${buildLabel}/repo/binary"/>
-       	<move tofile="${buildDirectory}/${buildLabel}" file="${buildDirectory}/${buildLabel}/repo/features"/>
-       	<move tofile="${buildDirectory}/${buildLabel}" file="${buildDirectory}/${buildLabel}/repo/plugins"/>
+       	<move tofile="${buildDirectory}/${buildLabel}/binary" file="${buildDirectory}/${buildLabel}/repo/binary"/>
+       	<move tofile="${buildDirectory}/${buildLabel}/features" file="${buildDirectory}/${buildLabel}/repo/features"/>
+       	<move tofile="${buildDirectory}/${buildLabel}/plugins" file="${buildDirectory}/${buildLabel}/repo/plugins"/>
   		<delete dir="${buildDirectory}/${buildLabel}/repo"/>
 	</target>
 	
