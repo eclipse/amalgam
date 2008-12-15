@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackage.java,v 1.3 2008/12/06 03:59:50 rgronback Exp $
+ * $Id: BuildPackage.java,v 1.4 2008/12/15 01:31:42 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -800,13 +800,31 @@ public interface BuildPackage extends EPackage {
 	int PROMOTION__INCUBATING = 1;
 
 	/**
+	 * The feature id for the '<em><b>Base URL</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROMOTION__BASE_URL = 2;
+
+	/**
+	 * The feature id for the '<em><b>Build Alias</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROMOTION__BUILD_ALIAS = 3;
+
+	/**
 	 * The number of structural features of the '<em>Promotion</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROMOTION_FEATURE_COUNT = 2;
+	int PROMOTION_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.BuildType <em>Type</em>}' enum.
@@ -1607,6 +1625,28 @@ public interface BuildPackage extends EPackage {
 	EAttribute getPromotion_Incubating();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Promotion#getBaseURL <em>Base URL</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Base URL</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Promotion#getBaseURL()
+	 * @see #getPromotion()
+	 * @generated
+	 */
+	EAttribute getPromotion_BaseURL();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Promotion#getBuildAlias <em>Build Alias</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Build Alias</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Promotion#getBuildAlias()
+	 * @see #getPromotion()
+	 * @generated
+	 */
+	EAttribute getPromotion_BuildAlias();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.amalgam.releng.build.BuildType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2253,6 +2293,22 @@ public interface BuildPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PROMOTION__INCUBATING = eINSTANCE.getPromotion_Incubating();
+
+		/**
+		 * The meta object literal for the '<em><b>Base URL</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PROMOTION__BASE_URL = eINSTANCE.getPromotion_BaseURL();
+
+		/**
+		 * The meta object literal for the '<em><b>Build Alias</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PROMOTION__BUILD_ALIAS = eINSTANCE.getPromotion_BuildAlias();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.BuildType <em>Type</em>}' enum.

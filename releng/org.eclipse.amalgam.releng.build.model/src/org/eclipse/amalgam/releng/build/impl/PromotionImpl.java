@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: PromotionImpl.java,v 1.1 2008/12/06 03:59:50 rgronback Exp $
+ * $Id: PromotionImpl.java,v 1.2 2008/12/15 01:31:42 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -32,6 +32,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl#getDirectory <em>Directory</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl#isIncubating <em>Incubating</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl#getBaseURL <em>Base URL</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl#getBuildAlias <em>Build Alias</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,6 +79,46 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 	 * @ordered
 	 */
 	protected boolean incubating = INCUBATING_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBaseURL() <em>Base URL</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBaseURL()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BASE_URL_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBaseURL() <em>Base URL</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBaseURL()
+	 * @generated
+	 * @ordered
+	 */
+	protected String baseURL = BASE_URL_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBuildAlias() <em>Build Alias</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBuildAlias()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BUILD_ALIAS_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBuildAlias() <em>Build Alias</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBuildAlias()
+	 * @generated
+	 * @ordered
+	 */
+	protected String buildAlias = BUILD_ALIAS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -144,6 +186,48 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getBaseURL() {
+		return baseURL;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBaseURL(String newBaseURL) {
+		String oldBaseURL = baseURL;
+		baseURL = newBaseURL;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.PROMOTION__BASE_URL, oldBaseURL, baseURL));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getBuildAlias() {
+		return buildAlias;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBuildAlias(String newBuildAlias) {
+		String oldBuildAlias = buildAlias;
+		buildAlias = newBuildAlias;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.PROMOTION__BUILD_ALIAS, oldBuildAlias, buildAlias));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -151,6 +235,10 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 				return getDirectory();
 			case BuildPackage.PROMOTION__INCUBATING:
 				return isIncubating() ? Boolean.TRUE : Boolean.FALSE;
+			case BuildPackage.PROMOTION__BASE_URL:
+				return getBaseURL();
+			case BuildPackage.PROMOTION__BUILD_ALIAS:
+				return getBuildAlias();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -168,6 +256,12 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 				return;
 			case BuildPackage.PROMOTION__INCUBATING:
 				setIncubating(((Boolean)newValue).booleanValue());
+				return;
+			case BuildPackage.PROMOTION__BASE_URL:
+				setBaseURL((String)newValue);
+				return;
+			case BuildPackage.PROMOTION__BUILD_ALIAS:
+				setBuildAlias((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -187,6 +281,12 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 			case BuildPackage.PROMOTION__INCUBATING:
 				setIncubating(INCUBATING_EDEFAULT);
 				return;
+			case BuildPackage.PROMOTION__BASE_URL:
+				setBaseURL(BASE_URL_EDEFAULT);
+				return;
+			case BuildPackage.PROMOTION__BUILD_ALIAS:
+				setBuildAlias(BUILD_ALIAS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -203,6 +303,10 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 				return DIRECTORY_EDEFAULT == null ? directory != null : !DIRECTORY_EDEFAULT.equals(directory);
 			case BuildPackage.PROMOTION__INCUBATING:
 				return incubating != INCUBATING_EDEFAULT;
+			case BuildPackage.PROMOTION__BASE_URL:
+				return BASE_URL_EDEFAULT == null ? baseURL != null : !BASE_URL_EDEFAULT.equals(baseURL);
+			case BuildPackage.PROMOTION__BUILD_ALIAS:
+				return BUILD_ALIAS_EDEFAULT == null ? buildAlias != null : !BUILD_ALIAS_EDEFAULT.equals(buildAlias);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -221,6 +325,10 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 		result.append(directory);
 		result.append(", incubating: ");
 		result.append(incubating);
+		result.append(", baseURL: ");
+		result.append(baseURL);
+		result.append(", buildAlias: ");
+		result.append(buildAlias);
 		result.append(')');
 		return result.toString();
 	}

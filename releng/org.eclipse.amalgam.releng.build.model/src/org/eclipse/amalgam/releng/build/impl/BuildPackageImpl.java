@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackageImpl.java,v 1.3 2008/12/06 03:59:50 rgronback Exp $
+ * $Id: BuildPackageImpl.java,v 1.4 2008/12/15 01:31:42 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -865,6 +865,24 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPromotion_BaseURL() {
+		return (EAttribute)promotionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPromotion_BuildAlias() {
+		return (EAttribute)promotionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getBuildType() {
 		return buildTypeEEnum;
 	}
@@ -1013,6 +1031,8 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		promotionEClass = createEClass(PROMOTION);
 		createEAttribute(promotionEClass, PROMOTION__DIRECTORY);
 		createEAttribute(promotionEClass, PROMOTION__INCUBATING);
+		createEAttribute(promotionEClass, PROMOTION__BASE_URL);
+		createEAttribute(promotionEClass, PROMOTION__BUILD_ALIAS);
 
 		// Create enums
 		buildTypeEEnum = createEEnum(BUILD_TYPE);
@@ -1136,6 +1156,8 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEClass(promotionEClass, Promotion.class, "Promotion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPromotion_Directory(), ecorePackage.getEString(), "directory", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPromotion_Incubating(), ecorePackage.getEBoolean(), "incubating", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPromotion_BaseURL(), ecorePackage.getEString(), "baseURL", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPromotion_BuildAlias(), ecorePackage.getEString(), "buildAlias", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(buildTypeEEnum, BuildType.class, "BuildType");
