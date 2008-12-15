@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: Promotion.java,v 1.2 2008/12/15 01:31:42 rgronback Exp $
+ * $Id: Promotion.java,v 1.3 2008/12/15 21:09:05 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -23,7 +23,8 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.amalgam.releng.build.Promotion#getDirectory <em>Directory</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.Promotion#getUploadDirectory <em>Upload Directory</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.Promotion#getDownloadDirectory <em>Download Directory</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Promotion#isIncubating <em>Incubating</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Promotion#getBaseURL <em>Base URL</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Promotion#getBuildAlias <em>Build Alias</em>}</li>
@@ -36,30 +37,56 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Promotion extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Directory</b></em>' attribute.
+	 * Returns the value of the '<em><b>Upload Directory</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Directory</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Upload Directory</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Directory</em>' attribute.
-	 * @see #setDirectory(String)
-	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getPromotion_Directory()
+	 * @return the value of the '<em>Upload Directory</em>' attribute.
+	 * @see #setUploadDirectory(String)
+	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getPromotion_UploadDirectory()
 	 * @model
 	 * @generated
 	 */
-	String getDirectory();
+	String getUploadDirectory();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.amalgam.releng.build.Promotion#getDirectory <em>Directory</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.amalgam.releng.build.Promotion#getUploadDirectory <em>Upload Directory</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Directory</em>' attribute.
-	 * @see #getDirectory()
+	 * @param value the new value of the '<em>Upload Directory</em>' attribute.
+	 * @see #getUploadDirectory()
 	 * @generated
 	 */
-	void setDirectory(String value);
+	void setUploadDirectory(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Download Directory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Download Directory</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Download Directory</em>' attribute.
+	 * @see #setDownloadDirectory(String)
+	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getPromotion_DownloadDirectory()
+	 * @model
+	 * @generated
+	 */
+	String getDownloadDirectory();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.amalgam.releng.build.Promotion#getDownloadDirectory <em>Download Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Download Directory</em>' attribute.
+	 * @see #getDownloadDirectory()
+	 * @generated
+	 */
+	void setDownloadDirectory(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Incubating</b></em>' attribute.

@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackageImpl.java,v 1.5 2008/12/15 16:59:05 rgronback Exp $
+ * $Id: BuildPackageImpl.java,v 1.6 2008/12/15 21:09:05 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -874,7 +874,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPromotion_Directory() {
+	public EAttribute getPromotion_UploadDirectory() {
 		return (EAttribute)promotionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -883,7 +883,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPromotion_Incubating() {
+	public EAttribute getPromotion_DownloadDirectory() {
 		return (EAttribute)promotionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -892,7 +892,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPromotion_BaseURL() {
+	public EAttribute getPromotion_Incubating() {
 		return (EAttribute)promotionEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -901,8 +901,17 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPromotion_BuildAlias() {
+	public EAttribute getPromotion_BaseURL() {
 		return (EAttribute)promotionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPromotion_BuildAlias() {
+		return (EAttribute)promotionEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1059,7 +1068,8 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		createEAttribute(compilerEClass, COMPILER__DEBUG_INFO);
 
 		promotionEClass = createEClass(PROMOTION);
-		createEAttribute(promotionEClass, PROMOTION__DIRECTORY);
+		createEAttribute(promotionEClass, PROMOTION__UPLOAD_DIRECTORY);
+		createEAttribute(promotionEClass, PROMOTION__DOWNLOAD_DIRECTORY);
 		createEAttribute(promotionEClass, PROMOTION__INCUBATING);
 		createEAttribute(promotionEClass, PROMOTION__BASE_URL);
 		createEAttribute(promotionEClass, PROMOTION__BUILD_ALIAS);
@@ -1187,7 +1197,8 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEAttribute(getCompiler_DebugInfo(), ecorePackage.getEBoolean(), "debugInfo", "true", 0, 1, org.eclipse.amalgam.releng.build.Compiler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(promotionEClass, Promotion.class, "Promotion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPromotion_Directory(), ecorePackage.getEString(), "directory", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPromotion_UploadDirectory(), ecorePackage.getEString(), "uploadDirectory", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPromotion_DownloadDirectory(), ecorePackage.getEString(), "downloadDirectory", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPromotion_Incubating(), ecorePackage.getEBoolean(), "incubating", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPromotion_BaseURL(), ecorePackage.getEString(), "baseURL", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPromotion_BuildAlias(), ecorePackage.getEString(), "buildAlias", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

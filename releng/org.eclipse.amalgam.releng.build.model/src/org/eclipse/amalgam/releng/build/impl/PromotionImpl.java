@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: PromotionImpl.java,v 1.2 2008/12/15 01:31:42 rgronback Exp $
+ * $Id: PromotionImpl.java,v 1.3 2008/12/15 21:09:05 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -30,7 +30,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl#getDirectory <em>Directory</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl#getUploadDirectory <em>Upload Directory</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl#getDownloadDirectory <em>Download Directory</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl#isIncubating <em>Incubating</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl#getBaseURL <em>Base URL</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.PromotionImpl#getBuildAlias <em>Build Alias</em>}</li>
@@ -41,24 +42,44 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class PromotionImpl extends EObjectImpl implements Promotion {
 	/**
-	 * The default value of the '{@link #getDirectory() <em>Directory</em>}' attribute.
+	 * The default value of the '{@link #getUploadDirectory() <em>Upload Directory</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDirectory()
+	 * @see #getUploadDirectory()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String DIRECTORY_EDEFAULT = null;
+	protected static final String UPLOAD_DIRECTORY_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getDirectory() <em>Directory</em>}' attribute.
+	 * The cached value of the '{@link #getUploadDirectory() <em>Upload Directory</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDirectory()
+	 * @see #getUploadDirectory()
 	 * @generated
 	 * @ordered
 	 */
-	protected String directory = DIRECTORY_EDEFAULT;
+	protected String uploadDirectory = UPLOAD_DIRECTORY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDownloadDirectory() <em>Download Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDownloadDirectory()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOWNLOAD_DIRECTORY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDownloadDirectory() <em>Download Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDownloadDirectory()
+	 * @generated
+	 * @ordered
+	 */
+	protected String downloadDirectory = DOWNLOAD_DIRECTORY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isIncubating() <em>Incubating</em>}' attribute.
@@ -144,8 +165,8 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getDirectory() {
-		return directory;
+	public String getUploadDirectory() {
+		return uploadDirectory;
 	}
 
 	/**
@@ -153,11 +174,32 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDirectory(String newDirectory) {
-		String oldDirectory = directory;
-		directory = newDirectory;
+	public void setUploadDirectory(String newUploadDirectory) {
+		String oldUploadDirectory = uploadDirectory;
+		uploadDirectory = newUploadDirectory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.PROMOTION__DIRECTORY, oldDirectory, directory));
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.PROMOTION__UPLOAD_DIRECTORY, oldUploadDirectory, uploadDirectory));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDownloadDirectory() {
+		return downloadDirectory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDownloadDirectory(String newDownloadDirectory) {
+		String oldDownloadDirectory = downloadDirectory;
+		downloadDirectory = newDownloadDirectory;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.PROMOTION__DOWNLOAD_DIRECTORY, oldDownloadDirectory, downloadDirectory));
 	}
 
 	/**
@@ -231,8 +273,10 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case BuildPackage.PROMOTION__DIRECTORY:
-				return getDirectory();
+			case BuildPackage.PROMOTION__UPLOAD_DIRECTORY:
+				return getUploadDirectory();
+			case BuildPackage.PROMOTION__DOWNLOAD_DIRECTORY:
+				return getDownloadDirectory();
 			case BuildPackage.PROMOTION__INCUBATING:
 				return isIncubating() ? Boolean.TRUE : Boolean.FALSE;
 			case BuildPackage.PROMOTION__BASE_URL:
@@ -251,8 +295,11 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BuildPackage.PROMOTION__DIRECTORY:
-				setDirectory((String)newValue);
+			case BuildPackage.PROMOTION__UPLOAD_DIRECTORY:
+				setUploadDirectory((String)newValue);
+				return;
+			case BuildPackage.PROMOTION__DOWNLOAD_DIRECTORY:
+				setDownloadDirectory((String)newValue);
 				return;
 			case BuildPackage.PROMOTION__INCUBATING:
 				setIncubating(((Boolean)newValue).booleanValue());
@@ -275,8 +322,11 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BuildPackage.PROMOTION__DIRECTORY:
-				setDirectory(DIRECTORY_EDEFAULT);
+			case BuildPackage.PROMOTION__UPLOAD_DIRECTORY:
+				setUploadDirectory(UPLOAD_DIRECTORY_EDEFAULT);
+				return;
+			case BuildPackage.PROMOTION__DOWNLOAD_DIRECTORY:
+				setDownloadDirectory(DOWNLOAD_DIRECTORY_EDEFAULT);
 				return;
 			case BuildPackage.PROMOTION__INCUBATING:
 				setIncubating(INCUBATING_EDEFAULT);
@@ -299,8 +349,10 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case BuildPackage.PROMOTION__DIRECTORY:
-				return DIRECTORY_EDEFAULT == null ? directory != null : !DIRECTORY_EDEFAULT.equals(directory);
+			case BuildPackage.PROMOTION__UPLOAD_DIRECTORY:
+				return UPLOAD_DIRECTORY_EDEFAULT == null ? uploadDirectory != null : !UPLOAD_DIRECTORY_EDEFAULT.equals(uploadDirectory);
+			case BuildPackage.PROMOTION__DOWNLOAD_DIRECTORY:
+				return DOWNLOAD_DIRECTORY_EDEFAULT == null ? downloadDirectory != null : !DOWNLOAD_DIRECTORY_EDEFAULT.equals(downloadDirectory);
 			case BuildPackage.PROMOTION__INCUBATING:
 				return incubating != INCUBATING_EDEFAULT;
 			case BuildPackage.PROMOTION__BASE_URL:
@@ -321,8 +373,10 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (directory: ");
-		result.append(directory);
+		result.append(" (uploadDirectory: ");
+		result.append(uploadDirectory);
+		result.append(", downloadDirectory: ");
+		result.append(downloadDirectory);
 		result.append(", incubating: ");
 		result.append(incubating);
 		result.append(", baseURL: ");

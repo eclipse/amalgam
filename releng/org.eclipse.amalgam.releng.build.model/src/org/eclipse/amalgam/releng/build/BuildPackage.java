@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackage.java,v 1.5 2008/12/15 16:59:05 rgronback Exp $
+ * $Id: BuildPackage.java,v 1.6 2008/12/15 21:09:05 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -809,13 +809,22 @@ public interface BuildPackage extends EPackage {
 	int PROMOTION = 11;
 
 	/**
-	 * The feature id for the '<em><b>Directory</b></em>' attribute.
+	 * The feature id for the '<em><b>Upload Directory</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROMOTION__DIRECTORY = 0;
+	int PROMOTION__UPLOAD_DIRECTORY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Download Directory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROMOTION__DOWNLOAD_DIRECTORY = 1;
 
 	/**
 	 * The feature id for the '<em><b>Incubating</b></em>' attribute.
@@ -824,7 +833,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROMOTION__INCUBATING = 1;
+	int PROMOTION__INCUBATING = 2;
 
 	/**
 	 * The feature id for the '<em><b>Base URL</b></em>' attribute.
@@ -833,7 +842,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROMOTION__BASE_URL = 2;
+	int PROMOTION__BASE_URL = 3;
 
 	/**
 	 * The feature id for the '<em><b>Build Alias</b></em>' attribute.
@@ -842,7 +851,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROMOTION__BUILD_ALIAS = 3;
+	int PROMOTION__BUILD_ALIAS = 4;
 
 	/**
 	 * The number of structural features of the '<em>Promotion</em>' class.
@@ -851,7 +860,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROMOTION_FEATURE_COUNT = 4;
+	int PROMOTION_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.BuildType <em>Type</em>}' enum.
@@ -1663,15 +1672,26 @@ public interface BuildPackage extends EPackage {
 	EClass getPromotion();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Promotion#getDirectory <em>Directory</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Promotion#getUploadDirectory <em>Upload Directory</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Directory</em>'.
-	 * @see org.eclipse.amalgam.releng.build.Promotion#getDirectory()
+	 * @return the meta object for the attribute '<em>Upload Directory</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Promotion#getUploadDirectory()
 	 * @see #getPromotion()
 	 * @generated
 	 */
-	EAttribute getPromotion_Directory();
+	EAttribute getPromotion_UploadDirectory();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Promotion#getDownloadDirectory <em>Download Directory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Download Directory</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Promotion#getDownloadDirectory()
+	 * @see #getPromotion()
+	 * @generated
+	 */
+	EAttribute getPromotion_DownloadDirectory();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Promotion#isIncubating <em>Incubating</em>}'.
@@ -2363,12 +2383,20 @@ public interface BuildPackage extends EPackage {
 		EClass PROMOTION = eINSTANCE.getPromotion();
 
 		/**
-		 * The meta object literal for the '<em><b>Directory</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Upload Directory</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute PROMOTION__DIRECTORY = eINSTANCE.getPromotion_Directory();
+		EAttribute PROMOTION__UPLOAD_DIRECTORY = eINSTANCE.getPromotion_UploadDirectory();
+
+		/**
+		 * The meta object literal for the '<em><b>Download Directory</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PROMOTION__DOWNLOAD_DIRECTORY = eINSTANCE.getPromotion_DownloadDirectory();
 
 		/**
 		 * The meta object literal for the '<em><b>Incubating</b></em>' attribute feature.
