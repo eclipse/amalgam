@@ -109,7 +109,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 				<td width="75%">
 		   			The page provides access to the various sections of this build along with details
 					relating to its results.  Note that in addition to the product archives available from 
-					this page, this build of the «label» may be installed using p2 by pointing to this <a href="http://download.eclipse.org«promotion.directory»«this.buildLabel()»/">URL.</a>
+					this page, this build of the «label» may be installed using p2 by pointing to this <a href="http://download.eclipse.org«promotion.downloadDirectory»«this.buildLabel()»/">URL.</a>
 				</td>
 			</tr>
 		</table>
@@ -119,7 +119,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 			</tr>
 «FOREACH configs AS config»
 			<tr>
-			  <td><img align="top" src="http://www.eclipse.org/modeling/images/modeling_about.png"></td><td align="left"><a href="«promotion.baseURL»?file=«promotion.directory»«this.buildLabel()»/«this.archiveName()»«config.archiveExtension()»">«this.archiveName()»«config.archiveExtension()»</a></td>
+			  <td><img align="top" src="http://www.eclipse.org/modeling/images/modeling_about.png"></td><td align="left"><a href="«promotion.baseURL»?file=«promotion.downloadDirectory»«this.buildLabel()»/«this.archiveName()»«config.archiveExtension()»">«this.archiveName()»«config.archiveExtension()»</a></td>
 			</tr>
 «ENDFOREACH»
 		</table>
