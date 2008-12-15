@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: PromotionItemProvider.java,v 1.2 2008/12/15 01:31:43 rgronback Exp $
+ * $Id: PromotionItemProvider.java,v 1.3 2008/12/15 21:09:01 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -71,7 +71,8 @@ public class PromotionItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDirectoryPropertyDescriptor(object);
+			addUploadDirectoryPropertyDescriptor(object);
+			addDownloadDirectoryPropertyDescriptor(object);
 			addIncubatingPropertyDescriptor(object);
 			addBaseURLPropertyDescriptor(object);
 			addBuildAliasPropertyDescriptor(object);
@@ -80,19 +81,41 @@ public class PromotionItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Directory feature.
+	 * This adds a property descriptor for the Upload Directory feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDirectoryPropertyDescriptor(Object object) {
+	protected void addUploadDirectoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Promotion_directory_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Promotion_directory_feature", "_UI_Promotion_type"),
-				 BuildPackage.Literals.PROMOTION__DIRECTORY,
+				 getString("_UI_Promotion_uploadDirectory_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Promotion_uploadDirectory_feature", "_UI_Promotion_type"),
+				 BuildPackage.Literals.PROMOTION__UPLOAD_DIRECTORY,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Download Directory feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDownloadDirectoryPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Promotion_downloadDirectory_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Promotion_downloadDirectory_feature", "_UI_Promotion_type"),
+				 BuildPackage.Literals.PROMOTION__DOWNLOAD_DIRECTORY,
 				 true,
 				 false,
 				 false,
@@ -186,7 +209,7 @@ public class PromotionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Promotion)object).getDirectory();
+		String label = ((Promotion)object).getUploadDirectory();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Promotion_type") :
 			getString("_UI_Promotion_type") + " " + label;
@@ -204,7 +227,8 @@ public class PromotionItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Promotion.class)) {
-			case BuildPackage.PROMOTION__DIRECTORY:
+			case BuildPackage.PROMOTION__UPLOAD_DIRECTORY:
+			case BuildPackage.PROMOTION__DOWNLOAD_DIRECTORY:
 			case BuildPackage.PROMOTION__INCUBATING:
 			case BuildPackage.PROMOTION__BASE_URL:
 			case BuildPackage.PROMOTION__BUILD_ALIAS:
