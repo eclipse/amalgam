@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildItemProvider.java,v 1.4 2008/12/15 16:59:03 rgronback Exp $
+ * $Id: BuildItemProvider.java,v 1.5 2008/12/16 11:28:17 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -86,6 +86,7 @@ public class BuildItemProvider
 			addLaunchVMPropertyDescriptor(object);
 			addDeltapackPropertyDescriptor(object);
 			addBuilderURLPropertyDescriptor(object);
+			addSendmailPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -355,6 +356,28 @@ public class BuildItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Sendmail feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSendmailPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Build_sendmail_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Build_sendmail_feature", "_UI_Build_type"),
+				 BuildPackage.Literals.BUILD__SENDMAIL,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -438,6 +461,7 @@ public class BuildItemProvider
 			case BuildPackage.BUILD__LAUNCH_VM:
 			case BuildPackage.BUILD__DELTAPACK:
 			case BuildPackage.BUILD__BUILDER_URL:
+			case BuildPackage.BUILD__SENDMAIL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case BuildPackage.BUILD__PLATFORMS:
