@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildImpl.java,v 1.4 2008/12/15 16:59:05 rgronback Exp $
+ * $Id: BuildImpl.java,v 1.5 2008/12/16 11:28:16 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -70,6 +70,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getBuilderURL <em>Builder URL</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getBuildmaster <em>Buildmaster</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#getDefaultMailList <em>Default Mail List</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.BuildImpl#isSendmail <em>Sendmail</em>}</li>
  * </ul>
  * </p>
  *
@@ -375,6 +376,26 @@ public class BuildImpl extends EObjectImpl implements Build {
 	 * @ordered
 	 */
 	protected EList<Contact> defaultMailList;
+
+	/**
+	 * The default value of the '{@link #isSendmail() <em>Sendmail</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSendmail()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SENDMAIL_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isSendmail() <em>Sendmail</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSendmail()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean sendmail = SENDMAIL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1027,6 +1048,27 @@ public class BuildImpl extends EObjectImpl implements Build {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isSendmail() {
+		return sendmail;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSendmail(boolean newSendmail) {
+		boolean oldSendmail = sendmail;
+		sendmail = newSendmail;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.BUILD__SENDMAIL, oldSendmail, sendmail));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -1109,6 +1151,8 @@ public class BuildImpl extends EObjectImpl implements Build {
 				return basicGetBuildmaster();
 			case BuildPackage.BUILD__DEFAULT_MAIL_LIST:
 				return getDefaultMailList();
+			case BuildPackage.BUILD__SENDMAIL:
+				return isSendmail() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1190,6 +1234,9 @@ public class BuildImpl extends EObjectImpl implements Build {
 				getDefaultMailList().clear();
 				getDefaultMailList().addAll((Collection<? extends Contact>)newValue);
 				return;
+			case BuildPackage.BUILD__SENDMAIL:
+				setSendmail(((Boolean)newValue).booleanValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1265,6 +1312,9 @@ public class BuildImpl extends EObjectImpl implements Build {
 			case BuildPackage.BUILD__DEFAULT_MAIL_LIST:
 				getDefaultMailList().clear();
 				return;
+			case BuildPackage.BUILD__SENDMAIL:
+				setSendmail(SENDMAIL_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1319,6 +1369,8 @@ public class BuildImpl extends EObjectImpl implements Build {
 				return buildmaster != null;
 			case BuildPackage.BUILD__DEFAULT_MAIL_LIST:
 				return defaultMailList != null && !defaultMailList.isEmpty();
+			case BuildPackage.BUILD__SENDMAIL:
+				return sendmail != SENDMAIL_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1351,6 +1403,8 @@ public class BuildImpl extends EObjectImpl implements Build {
 		result.append(deltapack);
 		result.append(", builderURL: ");
 		result.append(builderURL);
+		result.append(", sendmail: ");
+		result.append(sendmail);
 		result.append(')');
 		return result.toString();
 	}

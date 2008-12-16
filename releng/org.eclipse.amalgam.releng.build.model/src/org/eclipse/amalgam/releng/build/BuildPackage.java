@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackage.java,v 1.6 2008/12/15 21:09:05 rgronback Exp $
+ * $Id: BuildPackage.java,v 1.7 2008/12/16 11:28:16 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -267,13 +267,22 @@ public interface BuildPackage extends EPackage {
 	int BUILD__DEFAULT_MAIL_LIST = 20;
 
 	/**
+	 * The feature id for the '<em><b>Sendmail</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUILD__SENDMAIL = 21;
+
+	/**
 	 * The number of structural features of the '<em>Build</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUILD_FEATURE_COUNT = 21;
+	int BUILD_FEATURE_COUNT = 22;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.RepositoryImpl <em>Repository</em>}' class.
@@ -1155,6 +1164,17 @@ public interface BuildPackage extends EPackage {
 	EReference getBuild_DefaultMailList();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Build#isSendmail <em>Sendmail</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Sendmail</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Build#isSendmail()
+	 * @see #getBuild()
+	 * @generated
+	 */
+	EAttribute getBuild_Sendmail();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.amalgam.releng.build.Repository <em>Repository</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1975,6 +1995,14 @@ public interface BuildPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BUILD__DEFAULT_MAIL_LIST = eINSTANCE.getBuild_DefaultMailList();
+
+		/**
+		 * The meta object literal for the '<em><b>Sendmail</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BUILD__SENDMAIL = eINSTANCE.getBuild_Sendmail();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.impl.RepositoryImpl <em>Repository</em>}' class.

@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: Build.java,v 1.4 2008/12/15 16:59:05 rgronback Exp $
+ * $Id: Build.java,v 1.5 2008/12/16 11:28:16 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getBuilderURL <em>Builder URL</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getBuildmaster <em>Buildmaster</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getDefaultMailList <em>Default Mail List</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.Build#isSendmail <em>Sendmail</em>}</li>
  * </ul>
  * </p>
  *
@@ -555,5 +556,31 @@ public interface Build extends EObject {
 	 * @generated
 	 */
 	EList<Contact> getDefaultMailList();
+
+	/**
+	 * Returns the value of the '<em><b>Sendmail</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Sendmail</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Sendmail</em>' attribute.
+	 * @see #setSendmail(boolean)
+	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getBuild_Sendmail()
+	 * @model
+	 * @generated
+	 */
+	boolean isSendmail();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.amalgam.releng.build.Build#isSendmail <em>Sendmail</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Sendmail</em>' attribute.
+	 * @see #isSendmail()
+	 * @generated
+	 */
+	void setSendmail(boolean value);
 
 } // Build

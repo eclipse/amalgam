@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackageImpl.java,v 1.6 2008/12/15 21:09:05 rgronback Exp $
+ * $Id: BuildPackageImpl.java,v 1.7 2008/12/16 11:28:16 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -435,6 +435,15 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 */
 	public EReference getBuild_DefaultMailList() {
 		return (EReference)buildEClass.getEStructuralFeatures().get(20);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBuild_Sendmail() {
+		return (EAttribute)buildEClass.getEStructuralFeatures().get(21);
 	}
 
 	/**
@@ -1009,6 +1018,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		createEAttribute(buildEClass, BUILD__BUILDER_URL);
 		createEReference(buildEClass, BUILD__BUILDMASTER);
 		createEReference(buildEClass, BUILD__DEFAULT_MAIL_LIST);
+		createEAttribute(buildEClass, BUILD__SENDMAIL);
 
 		repositoryEClass = createEClass(REPOSITORY);
 		createEAttribute(repositoryEClass, REPOSITORY__LOCATION);
@@ -1138,6 +1148,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEAttribute(getBuild_BuilderURL(), ecorePackage.getEString(), "builderURL", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBuild_Buildmaster(), this.getContact(), null, "buildmaster", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBuild_DefaultMailList(), this.getContact(), null, "defaultMailList", null, 0, -1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBuild_Sendmail(), ecorePackage.getEBoolean(), "sendmail", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(repositoryEClass, Repository.class, "Repository", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRepository_Location(), theXMLTypePackage.getString(), "location", null, 1, 1, Repository.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
