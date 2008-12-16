@@ -4,6 +4,10 @@
 «DEFINE Main FOR Build-»
 <project name="Build specific targets and properties" default="noDefault">
 
+«IF sendmail == false»
+	<property name="nomail" value="true"/>
+«ENDIF»
+
 	<!-- ===================================================================== -->
 	<!--                    NOTE: This a generated script                      -->
 	<!-- ===================================================================== -->
@@ -330,7 +334,7 @@
 		<echo message="You must specify a target when invoking this file" />
 	</target>
 	
-	<target name="sendmail">
+	<target name="sendmail" unless="nomail">
 		<copy file="${buildDirectory}/«product.launcher.name».build.log.txt" tofile="${buildRoot}/${buildId}.log.txt"/> 
 		<mail tolist="«buildmaster.email»,${recipients}«IF defaultMailList.size() > 0»,«FOREACH defaultMailList AS contact SEPARATOR ","-»«contact.name»«ENDFOREACH»«ENDIF»"
               subject="«label» build failed"
