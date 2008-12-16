@@ -280,9 +280,7 @@
 		</condition>
 		
 		<antcall target="email.${feature.id}.result"/>
-		
-		<!-- delete the metadata cache -->
-		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache"/>
+
 	</target>
 	
 	<target name="install.bundle"> 
@@ -310,9 +308,7 @@
 		</condition>
 		
 		<antcall target="email.${bundle.id}.result"/>
-		
-		<!-- delete the metadata cache -->
-		<delete failonerror="false" includeEmptyDirs="true" dir="${baseLocation}/p2/org.eclipse.equinox.p2.core/cache"/>
+
 	</target>
 		
 	<!-- ===================================================================== -->
