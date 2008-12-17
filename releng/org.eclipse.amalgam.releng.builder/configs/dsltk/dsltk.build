@@ -57,6 +57,6 @@
   <contributions href="../modeling-repos.build#/"/>
   <product href="dsltk.product#/"/>
   <compiler args="-warn:-serial,discouraged,unchecked,raw,intfAnnotation,varargsCast -showversion -enableJavadoc -encoding ISO-8859-1"/>
-  <promotion uploadDirectory="${user.home}/downloads/modeling/amalgam/dsltk/downloads/drops/${buildLabel}" downloadDirectory="/modeling/amalgam/dsltk/downloads/drops/${buildLabel}" incubating="true" baseURL="http://www.eclipse.org/downloads/download.php" buildAlias="1.0M3"/>
+  <promotion uploadDirectory="${user.home}/downloads/modeling/amalgam/dsltk/downloads/drops/${buildLabel}" downloadDirectory="/modeling/amalgam/dsltk/downloads/drops/" incubating="true" baseURL="http://www.eclipse.org/downloads/download.php" buildAlias="1.0M3"/>
   <buildmaster name="Richard Gronback" email="richard.gronback@borland.com"/>
 </build:Build>

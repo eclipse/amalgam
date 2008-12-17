@@ -26,7 +26,7 @@
     <features id="org.eclipse.emf.emfqtv.all" version="1.3.0.v200809221833-67D-_sS9SMOeLxLYRtGslrT-2KEc" inProduct="false">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
-    <features id="org.eclipse.gmf" version="1.1.1.v20080915-1200-7c8A0EWvjJvh87gdIWasV8us6gY" inProduct="false">
+    <features id="org.eclipse.gmf" version="1.1.1.v20080915-1200-7c8A0EWvjJvh8GgWIXo9e8voCgY" inProduct="false">
       <repo href="../modeling-repos.build#//@repositories.3"/>
     </features>
     <features id="org.eclipse.amalgam.modeler" version="1.0.0.qualifier"/>
@@ -43,5 +43,5 @@
   <contributions href="../modeling-repos.build#/"/>
   <product href="modeler.product#/"/>
   <compiler args="-warn:-serial,discouraged,unchecked,raw,intfAnnotation,varargsCast -showversion -enableJavadoc -encoding ISO-8859-1"/>
-  <promotion uploadDirectory="${user.home}/downloads/modeling/amalgam/modeler/downloads/drops/${buildLabel}" downloadDirectory="/modeling/amalgam/modeler/downloads/drops/${buildLabel}" incubating="true" baseURL="http://www.eclipse.org/downloads/download.php" buildAlias="1.0M3"/>
+  <promotion uploadDirectory="${user.home}/downloads/modeling/amalgam/modeler/downloads/drops/${buildLabel}" downloadDirectory="/modeling/amalgam/modeler/downloads/drops/" incubating="true" baseURL="http://www.eclipse.org/downloads/download.php" buildAlias="1.0M3"/>
 </build:Build>
