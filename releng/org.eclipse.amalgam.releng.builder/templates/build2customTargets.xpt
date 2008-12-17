@@ -73,7 +73,6 @@
 			<param name="version" value="«feature.version»"/>
 			<param name="repo.location" value="«feature.repo.location»"/>
 		</antcall>
-		<fail message="Installation of feature «feature.id» [«feature.version»] failed! Email sent to «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
 	</target>
 «ENDFOREACH-»
 «ENDFOREACH-»
@@ -87,7 +86,6 @@
 			<param name="version" value="«bundle.version»"/>
 			<param name="repo.location" value="«bundle.repo.location»"/>
 		</antcall>
-		<fail message="Installation of bundle «bundle.id» [«bundle.version»] failed! Email sent to «FOREACH contribution.contacts AS contact SEPARATOR ","-»«contact.name» [«contact.email»]«ENDFOREACH»."/>
 	</target>
 «ENDFOREACH-»
 «ENDFOREACH-»
@@ -339,8 +337,13 @@
             <from name="«label» buildmaster [«buildmaster.name»]"
                   address="«buildmaster.email»" />
                   <!-- TODO: add properties to model for accomodate log link and default email list, etc. -->
-            <message>Contribution ${id} version ${version} failed to install from ${repo.location}.	Check the log file for more information: «builderURL»${buildId}.log.txt.</message>
+            <message>
+            Contribution ${id} version ${version} failed to install from ${repo.location}.	
+            
+            Check the log file for more information: «builderURL»${buildId}.log.txt.
+            </message>
         </mail>
+        <fail message="Installation of ${id} [${version}] failed! Email sent to ${recipients}."/>
 	</target>
 </project>
 «ENDDEFINE»
