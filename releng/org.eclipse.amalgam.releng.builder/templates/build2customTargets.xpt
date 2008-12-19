@@ -11,6 +11,7 @@
 «EXPAND allElementsTarget FOR this»
 «EXPAND getBaseComponentsTarget FOR this»
 «EXPAND installDeltaPackTarget FOR this»
+«EXPAND getMapFilesTarget FOR this»
 «EXPAND tagMapFilesTarget FOR this»
 «EXPAND cleanTarget FOR this»
 «EXPAND gatherLogsTarget FOR this»
