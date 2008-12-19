@@ -9,14 +9,26 @@
 	<!-- ===================================================================== -->
 	<!--                    NOTE: This a generated script                      -->
 	<!-- ===================================================================== -->
-	
+«EXPAND initTarget FOR this»
+«EXPAND mainTarget FOR this»
+«EXPAND fetchBuilderTarget FOR this»
+«EXPAND buildProductTarget FOR this»
+«EXPAND runDirectorTarget FOR this»
+«EXPAND categorizeTarget FOR this»
+«EXPAND additions FOR this»
+</project>
+«ENDDEFINE»
+
+«DEFINE initTarget FOR Build»
 	<target name="init">
 		<property name="date" value="«date»"/>
 		<property name="time" value="«time»"/>
 		<property name="buildRoot" value="«buildRoot»"/>
 		<property name="basebuilder" value="${buildRoot}/«product.launcher.name»/basebuilder"/>
 	</target>
-	
+«ENDDEFINE»
+
+«DEFINE mainTarget FOR Build»
 	<target name="main" depends="init">
 		<antcall target="fetch.builder"/>
 		<antcall target="build.product">
@@ -29,7 +41,9 @@
 			<param name="buildDirectory" value="${buildRoot}/«product.launcher.name»"/>
 		</antcall>
 	</target>
-	
+«ENDDEFINE»
+
+«DEFINE fetchBuilderTarget FOR Build»
 	<target name="fetch.builder"> 
 		<!-- No director app in normal basebuilder, so just use SDK -->
 		<get src="«builder.location»«builder.file»" 
@@ -45,7 +59,9 @@
 		<unzip src="${buildRoot}/«builder.file»" dest="${basebuilder}"/>
 		«ENDIF»
 	</target>
-	
+«ENDDEFINE»
+
+«DEFINE buildProductTarget FOR Build»
 	<target name="build.product">
 		<property file="${buildRoot}/${target}/builder/build.properties"/>
 		<fail message="Could not load property 'product' from build.properties.  Did you generate it and customTargets.xml to ${buildRoot}/${target}/builder?" unless="product" />
@@ -83,6 +99,7 @@
 		</exec>
 		
 		<!-- We don't really need the zips produced by the product build, so delete -->
+		<!-- FIXME: we really shouldn't need to produce them at all -->
 		<delete >
 		    <fileset dir="${buildDirectory}/${buildLabel}" includes="**/*.zip"/>
 		</delete>
@@ -124,7 +141,9 @@
 		<move file="${buildDirectory}/«product.launcher.name».product" todir="${buildDirectory}/${buildLabel}"/>
 		
 	</target>
-	
+«ENDDEFINE»
+
+«DEFINE runDirectorTarget FOR Build»
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
 	<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
 		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
@@ -157,7 +176,9 @@
 		<!-- delete the metadata cache as well as the artifacts for unzipped bundles -->
 		<delete failonerror="false" includeEmptyDirs="true" dir="${p2.director.install.path}/p2/org.eclipse.equinox.p2.core/cache"/>
 	</target>
-	
+«ENDDEFINE»
+
+«DEFINE categorizeTarget FOR Build»
 	<!-- FIXME: workaround for bug 250974 : generate metadata using site.xml for categorization -->
 	<target name="categorize" depends="init">
 		<property file="${buildRoot}/${target}/builder/build.properties"/>
@@ -193,6 +214,8 @@
        	<move tofile="${buildDirectory}/${buildLabel}/plugins" file="${buildDirectory}/${buildLabel}/repo/plugins"/>
   		<delete dir="${buildDirectory}/${buildLabel}/repo"/>
 	</target>
-	
-</project>
 «ENDDEFINE»
+
+«DEFINE additions FOR Build»
+«ENDDEFINE»
+	

@@ -4,16 +4,24 @@
 «DEFINE Main FOR Build-»
 <?xml version="1.0"?>
 <site mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/releases/galileo/site.xml&amp;format=xml&amp;protocol=http" pack200="true" digestURL="http://download.eclipse.org/releases/galileo/">
+«EXPAND description FOR this»
+«EXPAND category FOREACH categories»
+«EXPAND feature FOREACH categories.features»
+</site>
+«ENDDEFINE»
+
+«DEFINE description FOR Build»
 <description url="http://www.eclipse.org/galileo/">This is the «label» update site.</description>
-«FOREACH categories AS category»
-<category-def name="«category.name»" label="«category.label»">
-  <description>«category.description»</description>
+«ENDDEFINE»
+
+«DEFINE category FOR Category»
+<category-def name="«name»" label="«label»">
+  <description>«description»</description>
 </category-def>
-«FOREACH category.features AS feature»
-<feature url="features/«feature.id»_«feature.version».jar" id="«feature.id»" version="«feature.version»">
+«ENDDEFINE»
+
+«DEFINE feature FOR Feature»
+<feature url="features/«id»_«version».jar" id="«id»" version="«version»">
   <category name="«category.name»"/>
 </feature>
-«ENDFOREACH»
-«ENDFOREACH»
-</site>
 «ENDDEFINE»

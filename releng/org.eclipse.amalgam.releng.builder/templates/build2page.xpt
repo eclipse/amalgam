@@ -6,6 +6,12 @@
 «DEFINE Main FOR Build-»
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+«EXPAND head FOR this»
+«EXPAND body FOR this»
+</html>
+«ENDDEFINE»
+
+«DEFINE head FOR Build»
 <head>
 	<title>«label» downloads</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -13,24 +19,26 @@
 	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/visual.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/layout.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/print.css" media="print" />
-	<script type="text/javascript">
-
-sfHover = function() {
-	var sfEls = document.getElementById("leftnav").getElementsByTagName("LI");
-	for (var i=0; i<sfEls.length; i++) {
-		sfEls[i].onmouseover=function() {
-			this.className+=" sfhover";
-		}
-		sfEls[i].onmouseout=function() {
-			this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
-		}
-	}
-}
-if (window.attachEvent) window.attachEvent("onload", sfHover);
-</script>
+«EXPAND script FOR this»
 </head>
-<body>
+«ENDDEFINE»
 
+«DEFINE body FOR Build»
+<body>
+«EXPAND header FOR this»
+«EXPAND topnav FOR this»
+<div id="topnavsep"></div>
+«EXPAND leftcol FOR this»
+«EXPAND rightcolumn FOR this»
+<div id="container"
+«EXPAND midcolumn FOR this»
+</div>
+<p><br/></p>
+«EXPAND footer FOR this»
+</body>
+«ENDDEFINE»
+
+«DEFINE header FOR Build»
 <div id="header">
 	<a href="http://www.eclipse.org/"><img src="/eclipse/eclipse.org-common/stylesheets/header_logo.gif" width="163" height="68" border="0" alt="Eclipse Logo" class="logo" /></a>
 	<div id="searchbar">
@@ -51,6 +59,26 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 		<li><a href="http://www.eclipse.org/legal/">Legal</a></li>
 	</ul>
 </div>
+«ENDDEFINE»
+
+«DEFINE script FOR Build»
+	<script type="text/javascript">
+		sfHover = function() {
+			var sfEls = document.getElementById("leftnav").getElementsByTagName("LI");
+			for (var i=0; i<sfEls.length; i++) {
+				sfEls[i].onmouseover=function() {
+					this.className+=" sfhover";
+				}
+				sfEls[i].onmouseout=function() {
+					this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+				}
+			}
+		}
+		if (window.attachEvent) window.attachEvent("onload", sfHover);
+	</script>
+«ENDDEFINE»
+
+«DEFINE topnav FOR Build»
 <div id="topnav">
 	<ul>
 		<li><a href="http://www.eclipse.org/modeling/amalgam" target="_self">Amalgam Homepage</a></li>
@@ -60,8 +88,9 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 		<li><a class="tabselected">«label» Build «this.displayVersion()»</a></li>
 	</ul>
 </div>
-<div id="topnavsep"></div>
+«ENDDEFINE»
 
+«DEFINE leftcol FOR Build»
 <div id="leftcol">
 	<ul id="leftnav">
 	<li><a href="#«label»">«label»</a></li>
@@ -72,7 +101,9 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 	  </li>
 	</ul>
 </div>
+«ENDDEFINE»
 
+«DEFINE rightcolumn FOR Build»
 <div id="rightcolumn">
 «IF promotion.incubating == true-»
 	<br/>
@@ -94,8 +125,9 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 			</ul>
 	</div>
 </div>
+«ENDDEFINE»
 
-<div id="container"
+«DEFINE midcolumn FOR Build»
 	<div id="midcolumn">
 		<table BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%" > 
 			<tr> 
@@ -109,7 +141,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 				<td width="75%">
 		   			The page provides access to the various sections of this build along with details
 					relating to its results.  Note that in addition to the product archives available from 
-					this page, this build of the «label» may be installed using p2 by pointing to this <a href="http://download.eclipse.org«promotion.downloadDirectory»«IF promotion.downloadDirectory.endsWith('drops/')»«this.buildLabel()»/«ENDIF»">URL.</a>
+					this page, this build of the «label» may be installed using p2 by pointing to this «EXPAND repoURL FOR this».
 				</td>
 			</tr>
 		</table>
@@ -119,10 +151,39 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 			</tr>
 «FOREACH configs AS config»
 			<tr>
-			  <td><img align="top" src="http://www.eclipse.org/modeling/images/modeling_about.png"></td><td align="left"><a href="«promotion.baseURL»?file=«promotion.downloadDirectory»«IF promotion.downloadDirectory.endsWith('drops/')»«this.buildLabel()»/«ENDIF»«this.archiveName()»«config.archiveExtension()»">«this.archiveName()»«config.archiveExtension()»</a></td>
+			  «EXPAND downloadImage FOR this»«EXPAND downloadLink(config) FOR this»
 			</tr>
 «ENDFOREACH»
 		</table>
+«EXPAND requirements FOR this»
+	  <hr class="clearer" />
+	</div>
+«ENDDEFINE»
+
+«DEFINE footer FOR Build»
+<div id="footer">
+	<ul id="footernav">
+		<li class="first"><a href="http://www.eclipse.org">Home</a></li>
+		<li><a href="http://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+		<li><a href="http://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+	</ul>
+	<p>Copyright &copy; 2008 The Eclipse Foundation. All Rights Reserved</p>
+</div>
+«ENDDEFINE»
+
+«DEFINE repoURL FOR Build-»
+<a href="http://download.eclipse.org«promotion.downloadDirectory»«IF promotion.downloadDirectory.endsWith('drops/')»«this.buildLabel()»/«ENDIF»">URL</a>
+«ENDDEFINE»
+
+«DEFINE downloadImage FOR Build-»
+<td><img align="top" src="http://www.eclipse.org/modeling/images/modeling_about.png"></td>
+«ENDDEFINE»
+
+«DEFINE downloadLink(Config config) FOR Build-»
+<td align="left"><a href="«promotion.baseURL»?file=«promotion.downloadDirectory»«IF promotion.downloadDirectory.endsWith('drops/')»«this.buildLabel()»/«ENDIF»«this.archiveName()»«config.archiveExtension()»">«this.archiveName()»«config.archiveExtension()»</a></td>
+«ENDDEFINE»
+
+«DEFINE requirements FOR Build»
 		<table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
 			<tr>
 			  <td><div class="homeitem3col"><h3>Feature Requirements</h3></div></td>
@@ -145,23 +206,5 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
   					<li><b>«bundle.id»</b> («bundle.version») installed from: <a href="«bundle.repo.location»">«bundle.repo.label»</a></ul>
 «ENDFOREACH»				
 				</ul>
-	  <hr class="clearer" />
-	</div>
-</div>
-
-<p><br/></p>
-
-<div id="footer">
-	<ul id="footernav">
-		<li class="first"><a href="http://www.eclipse.org">Home</a></li>
-		<li><a href="http://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
-		<li><a href="http://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
-	</ul>
-	<p>Copyright &copy; 2008 The Eclipse Foundation. All Rights Reserved</p>
-</div>
-</body>
-</html>
 «ENDDEFINE»
-
-
 

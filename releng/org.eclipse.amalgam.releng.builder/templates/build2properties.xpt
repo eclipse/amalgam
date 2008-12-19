@@ -18,6 +18,16 @@
 # NOTE: This is a generated properties file
 #
 ###############################################################################
+«EXPAND packagingProperties FOR this»
+«EXPAND buildNamingProperties FOR this»
+«EXPAND baseProperties FOR this»
+«EXPAND mapProperties FOR this»
+«EXPAND repoProperties FOR this»
+«EXPAND compilerOptions FOR this»
+«EXPAND additions FOR this»
+«ENDDEFINE»
+
+«DEFINE packagingProperties FOR Build»
 # Parameters describing how and where to execute the build.
 # Typical users need only update the following properties:
 #    baseLocation - where things you are building against are installed
@@ -27,7 +37,7 @@
 # Of course any of the settings here can be overridden by spec'ing 
 # them on the command line (e.g., -DbaseLocation=d:/eclipse
 
-#The type of the top level element we are building,  generally "feature"
+#The type of the top level element we are building, generally "feature"
 topLevelElementType = product
 #The id of the top level element we are building
 topLevelElementId = «product.id»
@@ -99,7 +109,9 @@ tarargs=
 
 #Control the creation of a file containing the version included in each configuration - on by default 
 generateVersionsLists=true
+«ENDDEFINE»
 
+«DEFINE buildNamingProperties FOR Build»
 ############## BUILD NAMING CONTROL ################
 # The directory into which the build elements are fetched and where
 # the build takes place. Defaults to ${user.home}/build if not set in launch script.
@@ -127,7 +139,9 @@ forceContextQualifier=v${timestamp}
 #The generated suffix is computed according to the content of the feature   
 generateFeatureVersionSuffix=true
 individualSourceBundles=true
+«ENDDEFINE»
 
+«DEFINE baseProperties FOR Build»
 ############# BASE CONTROL #############
 # Settings for the base Eclipse components and Java class libraries 
 # against which you are building.
@@ -153,7 +167,9 @@ basearch=«base.config.arch»
 #- a directory that contains a /plugins or /features subdirectory
 #- the location of a feature.xml, or for 2.1 style plugins, the plugin.xml or fragment.xml
 pluginPath=${deltaPackLocation}/eclipse
+«ENDDEFINE»
 
+«DEFINE mapProperties FOR Build»
 ############# MAP FILE CONTROL ################
 # This section defines CVS tags to use when fetching the map files from the repository.
 # If you want to fetch the map file from repository / location, change the getMapFiles target in the customTargets.xml
@@ -165,8 +181,9 @@ mapsCheckoutTag=«map.tag»
 
 #tagMaps=true
 mapsTagTag=v${buildId}
+«ENDDEFINE»
 
-
+«DEFINE repoProperties FOR Build»
 ############ REPOSITORY CONTROL ###############
 # This section defines properties parameterizing the repositories where plugins, fragments
 # bundles and features are being obtained from. 
@@ -178,8 +195,9 @@ mapsTagTag=v${buildId}
 # For example fetchTag=CVS=HEAD, SVN=v20050101
 fetchTag=«fetchTag»
 #skipFetch=true
+«ENDDEFINE»
 
-
+«DEFINE compilerOptions FOR Build»
 ############# JAVA COMPILER OPTIONS ##############
 # The location of the Java jars to compile against.  Typically the rt.jar for your JDK/JRE
 #bootclasspath=${java.home}/lib/rt.jar;${java.home}/lib/jsse.jar;${java.home}/lib/charsets.jar;${java.home}/lib/deploy_g.jar;${java.home}/lib/deploy.jar;${java.home}/lib/javaws_g.jar;${java.home}/lib/javaws.jar;${java.home}/lib/jce.jar;${java.home}/lib/plugin_g.jar;${java.home}/lib/plugin.jar
@@ -225,4 +243,7 @@ javacTarget=«compiler.targetVersion»
 
 #to avoid recompilation if previously compiled
 #noclean=true
+«ENDDEFINE»
+
+«DEFINE additions FOR Build»
 «ENDDEFINE»

@@ -8,7 +8,14 @@
 	<!--                    NOTE: This a generated script                      -->
 	<!--	TODO: support remote publishing									   -->
 	<!-- ===================================================================== -->
-	
+«EXPAND initTarget FOR this»
+«EXPAND publishTarget FOR this»
+«EXPAND cleanTarget FOR this»
+«EXPAND additions FOR this»
+</project>
+«ENDDEFINE»
+
+«DEFINE initTarget FOR Build»
 	<target name="init">
 		<property name="date" value="«date»"/>
 		<property name="time" value="«time»"/>
@@ -18,7 +25,9 @@
 		<property name="targetDirectory" value="«promotion.uploadDirectory»"/>
 		<mkdir dir="${targetDirectory}"/>
 	</target>
-	
+«ENDDEFINE»
+
+«DEFINE publishTarget FOR Build»	
 	<target name="publish" depends="init,clean">
 		<copy file="${buildRoot}/«product.launcher.name»/«product.launcher.name».build.log.txt" todir="${targetDirectory}" />
 		<copy todir="${targetDirectory}">
@@ -27,12 +36,15 @@
 		    </fileset>
 		 </copy>
 	</target>
-	
+«ENDDEFINE»
+
+«DEFINE cleanTarget FOR Build»
 	<target name="clean" unless="noclean">
 		<delete>
 			<fileset dir="${targetDirectory}" includes="**/*"/>
 		</delete>
 	</target>
-	
-</project>
+«ENDDEFINE»
+
+«DEFINE additions FOR Build»
 «ENDDEFINE»
