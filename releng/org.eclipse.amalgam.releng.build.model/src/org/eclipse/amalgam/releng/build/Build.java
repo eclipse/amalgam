@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: Build.java,v 1.5 2008/12/16 11:28:16 rgronback Exp $
+ * $Id: Build.java,v 1.6 2008/12/30 20:03:10 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -43,7 +43,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getTime <em>Time</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getCompiler <em>Compiler</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getLaunchVM <em>Launch VM</em>}</li>
- *   <li>{@link org.eclipse.amalgam.releng.build.Build#getDeltapack <em>Deltapack</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getPromotion <em>Promotion</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getBuilderURL <em>Builder URL</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Build#getBuildmaster <em>Buildmaster</em>}</li>
@@ -436,32 +435,6 @@ public interface Build extends EObject {
 	 * @generated
 	 */
 	void setLaunchVM(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Deltapack</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Deltapack</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Deltapack</em>' attribute.
-	 * @see #setDeltapack(String)
-	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getBuild_Deltapack()
-	 * @model
-	 * @generated
-	 */
-	String getDeltapack();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.amalgam.releng.build.Build#getDeltapack <em>Deltapack</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Deltapack</em>' attribute.
-	 * @see #getDeltapack()
-	 * @generated
-	 */
-	void setDeltapack(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Promotion</b></em>' containment reference.

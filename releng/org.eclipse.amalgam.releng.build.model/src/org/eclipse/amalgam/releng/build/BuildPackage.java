@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackage.java,v 1.7 2008/12/16 11:28:16 rgronback Exp $
+ * $Id: BuildPackage.java,v 1.8 2008/12/30 20:03:10 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -222,22 +222,13 @@ public interface BuildPackage extends EPackage {
 	int BUILD__LAUNCH_VM = 15;
 
 	/**
-	 * The feature id for the '<em><b>Deltapack</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUILD__DELTAPACK = 16;
-
-	/**
 	 * The feature id for the '<em><b>Promotion</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUILD__PROMOTION = 17;
+	int BUILD__PROMOTION = 16;
 
 	/**
 	 * The feature id for the '<em><b>Builder URL</b></em>' attribute.
@@ -246,7 +237,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUILD__BUILDER_URL = 18;
+	int BUILD__BUILDER_URL = 17;
 
 	/**
 	 * The feature id for the '<em><b>Buildmaster</b></em>' containment reference.
@@ -255,7 +246,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUILD__BUILDMASTER = 19;
+	int BUILD__BUILDMASTER = 18;
 
 	/**
 	 * The feature id for the '<em><b>Default Mail List</b></em>' containment reference list.
@@ -264,7 +255,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUILD__DEFAULT_MAIL_LIST = 20;
+	int BUILD__DEFAULT_MAIL_LIST = 19;
 
 	/**
 	 * The feature id for the '<em><b>Sendmail</b></em>' attribute.
@@ -273,7 +264,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUILD__SENDMAIL = 21;
+	int BUILD__SENDMAIL = 20;
 
 	/**
 	 * The number of structural features of the '<em>Build</em>' class.
@@ -282,7 +273,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUILD_FEATURE_COUNT = 22;
+	int BUILD_FEATURE_COUNT = 21;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.RepositoryImpl <em>Repository</em>}' class.
@@ -359,13 +350,22 @@ public interface BuildPackage extends EPackage {
 	int PLATFORM__CONFIG = 2;
 
 	/**
+	 * The feature id for the '<em><b>Deltapack</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLATFORM__DELTAPACK = 3;
+
+	/**
 	 * The number of structural features of the '<em>Platform</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PLATFORM_FEATURE_COUNT = 3;
+	int PLATFORM_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.ConfigImpl <em>Config</em>}' class.
@@ -1109,17 +1109,6 @@ public interface BuildPackage extends EPackage {
 	EAttribute getBuild_LaunchVM();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Build#getDeltapack <em>Deltapack</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Deltapack</em>'.
-	 * @see org.eclipse.amalgam.releng.build.Build#getDeltapack()
-	 * @see #getBuild()
-	 * @generated
-	 */
-	EAttribute getBuild_Deltapack();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.releng.build.Build#getPromotion <em>Promotion</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1248,6 +1237,17 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPlatform_Config();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Platform#getDeltapack <em>Deltapack</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Deltapack</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Platform#getDeltapack()
+	 * @see #getPlatform()
+	 * @generated
+	 */
+	EAttribute getPlatform_Deltapack();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.amalgam.releng.build.Config <em>Config</em>}'.
@@ -1957,14 +1957,6 @@ public interface BuildPackage extends EPackage {
 		EAttribute BUILD__LAUNCH_VM = eINSTANCE.getBuild_LaunchVM();
 
 		/**
-		 * The meta object literal for the '<em><b>Deltapack</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute BUILD__DELTAPACK = eINSTANCE.getBuild_Deltapack();
-
-		/**
 		 * The meta object literal for the '<em><b>Promotion</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2063,6 +2055,14 @@ public interface BuildPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PLATFORM__CONFIG = eINSTANCE.getPlatform_Config();
+
+		/**
+		 * The meta object literal for the '<em><b>Deltapack</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PLATFORM__DELTAPACK = eINSTANCE.getPlatform_Deltapack();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.impl.ConfigImpl <em>Config</em>}' class.

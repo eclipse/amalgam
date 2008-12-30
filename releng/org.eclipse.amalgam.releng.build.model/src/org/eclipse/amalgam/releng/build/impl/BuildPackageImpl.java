@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackageImpl.java,v 1.7 2008/12/16 11:28:16 rgronback Exp $
+ * $Id: BuildPackageImpl.java,v 1.8 2008/12/30 20:03:10 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -397,17 +397,8 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBuild_Deltapack() {
-		return (EAttribute)buildEClass.getEStructuralFeatures().get(16);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getBuild_Promotion() {
-		return (EReference)buildEClass.getEStructuralFeatures().get(17);
+		return (EReference)buildEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -416,7 +407,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * @generated
 	 */
 	public EAttribute getBuild_BuilderURL() {
-		return (EAttribute)buildEClass.getEStructuralFeatures().get(18);
+		return (EAttribute)buildEClass.getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -425,7 +416,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * @generated
 	 */
 	public EReference getBuild_Buildmaster() {
-		return (EReference)buildEClass.getEStructuralFeatures().get(19);
+		return (EReference)buildEClass.getEStructuralFeatures().get(18);
 	}
 
 	/**
@@ -434,7 +425,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * @generated
 	 */
 	public EReference getBuild_DefaultMailList() {
-		return (EReference)buildEClass.getEStructuralFeatures().get(20);
+		return (EReference)buildEClass.getEStructuralFeatures().get(19);
 	}
 
 	/**
@@ -443,7 +434,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * @generated
 	 */
 	public EAttribute getBuild_Sendmail() {
-		return (EAttribute)buildEClass.getEStructuralFeatures().get(21);
+		return (EAttribute)buildEClass.getEStructuralFeatures().get(20);
 	}
 
 	/**
@@ -507,6 +498,15 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 */
 	public EReference getPlatform_Config() {
 		return (EReference)platformEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPlatform_Deltapack() {
+		return (EAttribute)platformEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1013,7 +1013,6 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		createEAttribute(buildEClass, BUILD__TIME);
 		createEReference(buildEClass, BUILD__COMPILER);
 		createEAttribute(buildEClass, BUILD__LAUNCH_VM);
-		createEAttribute(buildEClass, BUILD__DELTAPACK);
 		createEReference(buildEClass, BUILD__PROMOTION);
 		createEAttribute(buildEClass, BUILD__BUILDER_URL);
 		createEReference(buildEClass, BUILD__BUILDMASTER);
@@ -1028,6 +1027,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		createEAttribute(platformEClass, PLATFORM__FILE);
 		createEAttribute(platformEClass, PLATFORM__LOCATION);
 		createEReference(platformEClass, PLATFORM__CONFIG);
+		createEAttribute(platformEClass, PLATFORM__DELTAPACK);
 
 		configEClass = createEClass(CONFIG);
 		createEAttribute(configEClass, CONFIG__OS);
@@ -1143,7 +1143,6 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEAttribute(getBuild_Time(), ecorePackage.getEString(), "time", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBuild_Compiler(), this.getCompiler(), null, "compiler", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBuild_LaunchVM(), ecorePackage.getEString(), "launchVM", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBuild_Deltapack(), ecorePackage.getEString(), "deltapack", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBuild_Promotion(), this.getPromotion(), null, "promotion", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBuild_BuilderURL(), ecorePackage.getEString(), "builderURL", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBuild_Buildmaster(), this.getContact(), null, "buildmaster", null, 0, 1, Build.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1158,6 +1157,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEAttribute(getPlatform_File(), ecorePackage.getEString(), "file", null, 0, 1, Platform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPlatform_Location(), ecorePackage.getEString(), "location", null, 0, 1, Platform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPlatform_Config(), this.getConfig(), null, "config", null, 0, 1, Platform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPlatform_Deltapack(), ecorePackage.getEString(), "deltapack", null, 0, 1, Platform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(configEClass, Config.class, "Config", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConfig_Os(), this.getOS(), "os", null, 1, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

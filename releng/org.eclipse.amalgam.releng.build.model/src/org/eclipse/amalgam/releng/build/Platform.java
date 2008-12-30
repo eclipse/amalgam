@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: Platform.java,v 1.2 2008/11/26 11:35:40 rgronback Exp $
+ * $Id: Platform.java,v 1.3 2008/12/30 20:03:10 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.amalgam.releng.build.Platform#getFile <em>File</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Platform#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Platform#getConfig <em>Config</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.Platform#getDeltapack <em>Deltapack</em>}</li>
  * </ul>
  * </p>
  *
@@ -111,5 +112,31 @@ public interface Platform extends EObject {
 	 * @generated
 	 */
 	void setConfig(Config value);
+
+	/**
+	 * Returns the value of the '<em><b>Deltapack</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Deltapack</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Deltapack</em>' attribute.
+	 * @see #setDeltapack(String)
+	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getPlatform_Deltapack()
+	 * @model
+	 * @generated
+	 */
+	String getDeltapack();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.amalgam.releng.build.Platform#getDeltapack <em>Deltapack</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Deltapack</em>' attribute.
+	 * @see #getDeltapack()
+	 * @generated
+	 */
+	void setDeltapack(String value);
 
 } // Platform

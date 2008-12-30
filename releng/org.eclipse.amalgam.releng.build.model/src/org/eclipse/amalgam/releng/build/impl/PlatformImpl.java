@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: PlatformImpl.java,v 1.2 2008/11/26 11:35:39 rgronback Exp $
+ * $Id: PlatformImpl.java,v 1.3 2008/12/30 20:03:10 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.PlatformImpl#getFile <em>File</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.PlatformImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.PlatformImpl#getConfig <em>Config</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.PlatformImpl#getDeltapack <em>Deltapack</em>}</li>
  * </ul>
  * </p>
  *
@@ -90,6 +91,26 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 	 * @ordered
 	 */
 	protected Config config;
+
+	/**
+	 * The default value of the '{@link #getDeltapack() <em>Deltapack</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDeltapack()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DELTAPACK_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDeltapack() <em>Deltapack</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDeltapack()
+	 * @generated
+	 * @ordered
+	 */
+	protected String deltapack = DELTAPACK_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -195,6 +216,27 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getDeltapack() {
+		return deltapack;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDeltapack(String newDeltapack) {
+		String oldDeltapack = deltapack;
+		deltapack = newDeltapack;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.PLATFORM__DELTAPACK, oldDeltapack, deltapack));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -205,6 +247,8 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 			case BuildPackage.PLATFORM__CONFIG:
 				if (resolve) return getConfig();
 				return basicGetConfig();
+			case BuildPackage.PLATFORM__DELTAPACK:
+				return getDeltapack();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -225,6 +269,9 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 				return;
 			case BuildPackage.PLATFORM__CONFIG:
 				setConfig((Config)newValue);
+				return;
+			case BuildPackage.PLATFORM__DELTAPACK:
+				setDeltapack((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -247,6 +294,9 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 			case BuildPackage.PLATFORM__CONFIG:
 				setConfig((Config)null);
 				return;
+			case BuildPackage.PLATFORM__DELTAPACK:
+				setDeltapack(DELTAPACK_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -265,6 +315,8 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 				return LOCATION_EDEFAULT == null ? location != null : !LOCATION_EDEFAULT.equals(location);
 			case BuildPackage.PLATFORM__CONFIG:
 				return config != null;
+			case BuildPackage.PLATFORM__DELTAPACK:
+				return DELTAPACK_EDEFAULT == null ? deltapack != null : !DELTAPACK_EDEFAULT.equals(deltapack);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -283,6 +335,8 @@ public class PlatformImpl extends EObjectImpl implements Platform {
 		result.append(file);
 		result.append(", location: ");
 		result.append(location);
+		result.append(", deltapack: ");
+		result.append(deltapack);
 		result.append(')');
 		return result.toString();
 	}
