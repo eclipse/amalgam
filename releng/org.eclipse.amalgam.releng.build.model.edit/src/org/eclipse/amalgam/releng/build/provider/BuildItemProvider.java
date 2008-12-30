@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildItemProvider.java,v 1.5 2008/12/16 11:28:17 rgronback Exp $
+ * $Id: BuildItemProvider.java,v 1.6 2008/12/30 20:03:11 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -84,7 +84,6 @@ public class BuildItemProvider
 			addDatePropertyDescriptor(object);
 			addTimePropertyDescriptor(object);
 			addLaunchVMPropertyDescriptor(object);
-			addDeltapackPropertyDescriptor(object);
 			addBuilderURLPropertyDescriptor(object);
 			addSendmailPropertyDescriptor(object);
 		}
@@ -312,28 +311,6 @@ public class BuildItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Deltapack feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDeltapackPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Build_deltapack_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Build_deltapack_feature", "_UI_Build_type"),
-				 BuildPackage.Literals.BUILD__DELTAPACK,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Builder URL feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -459,7 +436,6 @@ public class BuildItemProvider
 			case BuildPackage.BUILD__DATE:
 			case BuildPackage.BUILD__TIME:
 			case BuildPackage.BUILD__LAUNCH_VM:
-			case BuildPackage.BUILD__DELTAPACK:
 			case BuildPackage.BUILD__BUILDER_URL:
 			case BuildPackage.BUILD__SENDMAIL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
