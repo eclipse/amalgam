@@ -142,14 +142,14 @@
 «DEFINE installDeltaPackTarget FOR Build»
 	<!-- Fetch and extract the delta pack to its pluginPath location -->
 	<target name="install.delta.pack">		
-		<available file="${buildRoot}/«deltapack»" property="skipDeltaPack" />
+		<available file="${buildRoot}/«base.deltapack»" property="skipDeltaPack" />
 		<antcall target="get.delta.pack"/>
-		<unzip src="${buildRoot}/«deltapack»" dest="${deltaPackLocation}"/>
+		<unzip src="${buildRoot}/«base.deltapack»" dest="${deltaPackLocation}"/>
 	</target>
 	
 	<target name="get.delta.pack" unless="skipDeltaPack">
 		<get src="${deltaPackURL}" 
-		     dest="${buildRoot}/«deltapack»" verbose="true" usetimestamp="true" />
+		     dest="${buildRoot}/«base.deltapack»" verbose="true" usetimestamp="true" />
 	</target>
 «ENDDEFINE»
 	

@@ -154,7 +154,7 @@ baseLocation=${base}/eclipse
 deltaPackLocation=${buildDirectory}/deltapack
 
 eclipseBaseURL=«base.location»«base.file»
-deltaPackURL=«base.location»«deltapack»
+deltaPackURL=«base.location»«base.deltapack»
 
 #Os/Ws/Arch/nl of the eclipse specified by baseLocation
 baseos=«base.config.os»

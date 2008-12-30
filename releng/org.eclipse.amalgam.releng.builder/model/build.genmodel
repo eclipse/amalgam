@@ -55,7 +55,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/time"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Build/compiler"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/launchVM"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/deltapack"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Build/promotion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/builderURL"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Build/buildmaster"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Build/defaultMailList"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Build/sendmail"/>
     </genClasses>
     <genClasses ecoreClass="build.ecore#//Repository" labelFeature="#//build/Repository/label">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Repository/location"/>
@@ -64,6 +68,8 @@
     <genClasses ecoreClass="build.ecore#//Platform">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Platform/file"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Platform/location"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Platform/config"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Platform/deltapack"/>
     </genClasses>
     <genClasses ecoreClass="build.ecore#//Config">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Config/os"/>
@@ -112,6 +118,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Compiler/verbose"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Compiler/failOnError"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Compiler/debugInfo"/>
+    </genClasses>
+    <genClasses ecoreClass="build.ecore#//Promotion">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Promotion/uploadDirectory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Promotion/downloadDirectory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Promotion/incubating"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Promotion/baseURL"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Promotion/buildAlias"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
