@@ -1,25 +1,27 @@
 «IMPORT 'http://www.eclipse.org/amalgam/2008/build'»
 «IMPORT 'http://www.eclipse.org/amalgam/2008/product'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «EXTENSION util»
+«EXTENSION xpt::StringOperations»
 
-«DEFINE Main FOR Build-»
+«DEFINE Main FOR build::Build-»
 <?xml version="1.0"?>
 <project default="main" basedir=".">
 	<!-- ===================================================================== -->
 	<!--                    NOTE: This a generated script                      -->
 	<!-- ===================================================================== -->
-«EXPAND initTarget FOR this»
-«EXPAND mainTarget FOR this»
-«EXPAND fetchBuilderTarget FOR this»
-«EXPAND buildProductTarget FOR this»
-«EXPAND runDirectorTarget FOR this»
-«EXPAND categorizeTarget FOR this»
-«EXPAND additions FOR this»
+«EXPAND initTarget FOR self»
+«EXPAND mainTarget FOR self»
+«EXPAND fetchBuilderTarget FOR self»
+«EXPAND buildProductTarget FOR self»
+«EXPAND runDirectorTarget FOR self»
+«EXPAND categorizeTarget FOR self»
+«EXPAND additions FOR self»
 </project>
 «ENDDEFINE»
 
-«DEFINE initTarget FOR Build»
+«DEFINE initTarget FOR build::Build»
 	<target name="init">
 		<property name="date" value="«date»"/>
 		<property name="time" value="«time»"/>
@@ -28,7 +30,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE mainTarget FOR Build»
+«DEFINE mainTarget FOR build::Build»
 	<target name="main" depends="init">
 		<antcall target="fetch.builder"/>
 		<antcall target="build.product">
@@ -43,13 +45,13 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE fetchBuilderTarget FOR Build»
+«DEFINE fetchBuilderTarget FOR build::Build»
 	<target name="fetch.builder"> 
 		<!-- No director app in normal basebuilder, so just use SDK -->
 		<get src="«builder.location»«builder.file»" 
 		     dest="${buildRoot}/«builder.file»" verbose="true" usetimestamp="true"/>
 		<mkdir dir="${basebuilder}"/>
-		«IF builder.file.endsWith("tar.gz") == true»
+		«IF builder.file.xpandEndsWith('tar.gz') = true»
 		<exec executable="tar">
 			<arg line="-xzf"/>
 			<arg line="${buildRoot}/«builder.file»"/>
@@ -61,7 +63,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE buildProductTarget FOR Build»
+«DEFINE buildProductTarget FOR build::Build»
 	<target name="build.product">
 		<property file="${buildRoot}/${target}/builder/build.properties"/>
 		<fail message="Could not load property 'product' from build.properties.  Did you generate it and customTargets.xml to ${buildRoot}/${target}/builder?" unless="product" />
@@ -70,13 +72,13 @@
 		<fail message="Could not find pde builder here: ${buildFile}" unless="buildFile" />
 		
 		<echo message="Configuring product «product.id» «product.version» with the following features:"/>
-«FOREACH product.features.feature AS feature-»
+«FOREACH product.features.feature->asSequence() AS feature-»
 		<echo message="   «feature.id» «feature.version»"/>
 «ENDFOREACH»
 		
 		<!-- First, run normal product build to fetch, compile, and generate metadata repository for p2 build -->
 		<exec executable="${basebuilder}/eclipse/eclipse" dir="${buildDirectory}/builder" failonerror="false">
-«IF launchVM != null && launchVM != ''-»
+«IF launchVM <> null and launchVM <> ''-»
 			<arg line="-vm «launchVM»"/>
 «ENDIF-»
 			<arg line="-application org.eclipse.ant.core.antRunner"/>
@@ -105,7 +107,7 @@
 		</delete>
 		
 		<!-- NOTE: when PDE build supports the configs property for product builds, this section can be simplified -->
-		«FOREACH configs AS config»
+		«FOREACH configs->asSequence() AS config»
 		<!-- Invoke p2 director to assemble the «config.os».«config.ws».«config.arch» product -->
 		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
 		<antcall target="run.director">
@@ -116,18 +118,18 @@
 			<param name="p2.version" value="«product.version»"/>
 		</antcall>
 		
-		«IF config.os.literal == "macosx"»
+		«IF config.os = 'macosx'»
 		<!-- FIXME: workaround for leftover Eclipse.app TODO: find/submit bug -->
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app" />
 		«ENDIF»
 		
-		«IF config.os.literal == "win32"»
-		<zip destfile="${buildDirectory}/${buildLabel}/«this.archiveName()»«config.archiveExtension()»" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
+		«IF config.os = 'win32'»
+		<zip destfile="${buildDirectory}/${buildLabel}/«archiveName(self)»«archiveExtension(config)»" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
 		«ELSE»
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/">
 			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar ${archivePrefix}"/>
 		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" zipfile="${buildDirectory}/${buildLabel}/«this.archiveName()»«config.archiveExtension()»"/>
+		<gzip src="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" zipfile="${buildDirectory}/${buildLabel}/«archiveName(self)»«archiveExtension(config)»"/>
 		<delete file="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" />
 		«ENDIF»
 		«ENDFOREACH»
@@ -143,11 +145,11 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE runDirectorTarget FOR Build»
+«DEFINE runDirectorTarget FOR build::Build»
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
 	<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
 		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
-«IF launchVM != null && launchVM != ''-»
+«IF launchVM <> null and launchVM <> ''-»
 			<arg line="-vm «launchVM»"/>
 «ENDIF-»
 			<arg line="-application org.eclipse.equinox.p2.director.app.application"/>
@@ -178,13 +180,13 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE categorizeTarget FOR Build»
+«DEFINE categorizeTarget FOR build::Build»
 	<!-- FIXME: workaround for bug 250974 : generate metadata using site.xml for categorization -->
 	<target name="categorize" depends="init">
 		<property file="${buildRoot}/${target}/builder/build.properties"/>
 		<move file="${buildDirectory}/site.xml" todir="${buildDirectory}/${buildLabel}/repo"/>
 		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
-«IF launchVM != null && launchVM != ''-»
+«IF launchVM <> null and launchVM <> ''-»
 			<arg line="-vm «launchVM»"/>
 «ENDIF-»
 			<arg line="-application org.eclipse.equinox.p2.metadata.generator.EclipseGenerator"/>
@@ -216,6 +218,6 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE additions FOR Build»
+«DEFINE additions FOR build::Build»
 «ENDDEFINE»
 	

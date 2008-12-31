@@ -1,0 +1,33 @@
+import xpt.StringOperations;
+
+modeltype build uses "http://www.eclipse.org/amalgam/2008/build";
+
+library util;
+
+helper buildLabel(b : build::Build) : String {
+	return b.type.repr() + b.date + '-' + b.time
+}
+
+helper buildId(b : build::Build) : String {
+	return getLauncherName(b) + '-' + buildLabel(b)
+}
+
+helper getLauncherName(b : build::Build) : String {
+	return b.product.launcher.name
+}
+
+helper displayVersion(b : build::Build) : String {
+	return (if b.promotion.buildAlias <> null and b.promotion.buildAlias.xpandLength() <> 0 then b.promotion.buildAlias else buildLabel(b) endif)
+}
+
+helper buildName(b : build::Build) : String {
+	return getLauncherName(b) + '-' + displayVersion(b)
+}
+
+helper archiveName(b : build::Build) : String {
+	return buildName(b) + '-' + (if b.promotion.incubating = true then 'incubation-' else '' endif)
+}
+
+helper archiveExtension(config : build::Config) : String {
+	return config.os.repr() + '-' + config.ws.repr() + '-' + config.arch.repr() + '.' + (if config.archiveFormat = 'tar' then config.archiveFormat.repr() + '.gz' else config.archiveFormat.repr() endif).repr()
+}

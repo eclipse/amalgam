@@ -30,7 +30,7 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.gmf.xpand.oawBuilder</name>
+			<name>org.eclipse.gmf.xpand.xpandBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>

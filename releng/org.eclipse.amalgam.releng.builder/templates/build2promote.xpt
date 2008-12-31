@@ -1,21 +1,22 @@
 «IMPORT 'http://www.eclipse.org/amalgam/2008/build'»
 «IMPORT 'http://www.eclipse.org/amalgam/2008/product'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
-«DEFINE Main FOR Build-»
+«DEFINE Main FOR build::Build-»
 <?xml version="1.0"?>
 <project default="publish" basedir=".">
 	<!-- ===================================================================== -->
 	<!--                    NOTE: This a generated script                      -->
 	<!--	TODO: support remote publishing									   -->
 	<!-- ===================================================================== -->
-«EXPAND initTarget FOR this»
-«EXPAND publishTarget FOR this»
-«EXPAND cleanTarget FOR this»
-«EXPAND additions FOR this»
+«EXPAND initTarget FOR self»
+«EXPAND publishTarget FOR self»
+«EXPAND cleanTarget FOR self»
+«EXPAND additions FOR self»
 </project>
 «ENDDEFINE»
 
-«DEFINE initTarget FOR Build»
+«DEFINE initTarget FOR build::Build»
 	<target name="init">
 		<property name="date" value="«date»"/>
 		<property name="time" value="«time»"/>
@@ -27,7 +28,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE publishTarget FOR Build»	
+«DEFINE publishTarget FOR build::Build»	
 	<target name="publish" depends="init,clean">
 		<copy file="${buildRoot}/«product.launcher.name»/«product.launcher.name».build.log.txt" todir="${targetDirectory}" />
 		<copy todir="${targetDirectory}">
@@ -38,7 +39,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE cleanTarget FOR Build»
+«DEFINE cleanTarget FOR build::Build»
 	<target name="clean" unless="noclean">
 		<delete>
 			<fileset dir="${targetDirectory}" includes="**/*"/>
@@ -46,5 +47,5 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE additions FOR Build»
+«DEFINE additions FOR build::Build»
 «ENDDEFINE»

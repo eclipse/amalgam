@@ -1,17 +1,19 @@
 «IMPORT 'http://www.eclipse.org/amalgam/2008/build'»
 «IMPORT 'http://www.eclipse.org/amalgam/2008/product'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «EXTENSION util»
+«EXTENSION xpt::StringOperations»
 
-«DEFINE Main FOR Build-»
+«DEFINE Main FOR build::Build-»
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-«EXPAND head FOR this»
-«EXPAND body FOR this»
+«EXPAND head FOR self»
+«EXPAND body FOR self»
 </html>
 «ENDDEFINE»
 
-«DEFINE head FOR Build»
+«DEFINE head FOR build::Build»
 <head>
 	<title>«label» downloads</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -19,26 +21,26 @@
 	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/visual.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/layout.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="/eclipse/eclipse.org-common/stylesheets/print.css" media="print" />
-«EXPAND script FOR this»
+«EXPAND script FOR self»
 </head>
 «ENDDEFINE»
 
-«DEFINE body FOR Build»
+«DEFINE body FOR build::Build»
 <body>
-«EXPAND header FOR this»
-«EXPAND topnav FOR this»
+«EXPAND header FOR self»
+«EXPAND topnav FOR self»
 <div id="topnavsep"></div>
-«EXPAND leftcol FOR this»
-«EXPAND rightcolumn FOR this»
+«EXPAND leftcol FOR self»
+«EXPAND rightcolumn FOR self»
 <div id="container"
-«EXPAND midcolumn FOR this»
+«EXPAND midcolumn FOR self»
 </div>
 <p><br/></p>
-«EXPAND footer FOR this»
+«EXPAND footer FOR self»
 </body>
 «ENDDEFINE»
 
-«DEFINE header FOR Build»
+«DEFINE header FOR build::Build»
 <div id="header">
 	<a href="http://www.eclipse.org/"><img src="/eclipse/eclipse.org-common/stylesheets/header_logo.gif" width="163" height="68" border="0" alt="Eclipse Logo" class="logo" /></a>
 	<div id="searchbar">
@@ -61,7 +63,7 @@
 </div>
 «ENDDEFINE»
 
-«DEFINE script FOR Build»
+«DEFINE script FOR build::Build»
 	<script type="text/javascript">
 		sfHover = function() {
 			var sfEls = document.getElementById("leftnav").getElementsByTagName("LI");
@@ -78,19 +80,19 @@
 	</script>
 «ENDDEFINE»
 
-«DEFINE topnav FOR Build»
+«DEFINE topnav FOR build::Build»
 <div id="topnav">
 	<ul>
 		<li><a href="http://www.eclipse.org/modeling/amalgam" target="_self">Amalgam Homepage</a></li>
 		<li class="tabstart">&#160;&#160;&#160;</li>
 		<li><a href="http://download.eclipse.org/modeling/amalgam/downloads/index.php" target="_self">Amalgam Downloads</a></li>
 		<li class="tabstartselected">&#160;&#160;&#160;</li>
-		<li><a class="tabselected">«label» Build «this.displayVersion()»</a></li>
+		<li><a class="tabselected">«label» Build «displayVersion(self)»</a></li>
 	</ul>
 </div>
 «ENDDEFINE»
 
-«DEFINE leftcol FOR Build»
+«DEFINE leftcol FOR build::Build»
 <div id="leftcol">
 	<ul id="leftnav">
 	<li><a href="#«label»">«label»</a></li>
@@ -103,9 +105,9 @@
 </div>
 «ENDDEFINE»
 
-«DEFINE rightcolumn FOR Build»
+«DEFINE rightcolumn FOR build::Build»
 <div id="rightcolumn">
-«IF promotion.incubating == true-»
+«IF promotion.incubating = true-»
 	<br/>
 	<div class="sideitem">
 	   <h6>Incubation</h6>
@@ -127,12 +129,12 @@
 </div>
 «ENDDEFINE»
 
-«DEFINE midcolumn FOR Build»
+«DEFINE midcolumn FOR build::Build»
 	<div id="midcolumn">
 		<table BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%" > 
 			<tr> 
 			  <td> 
-				<p><b><font face="Verdana" size="+3">«label» Build: «this.displayVersion()»</font></b><br> 
+				<p><b><font face="Verdana" size="+3">«label» Build: «displayVersion(self)»</font></b><br> 
 				These downloads are provided under the <a href="http://www.eclipse.org/legal/epl/notice.html">
 				<b>Eclipse Foundation Software User Agreement</b></a>.</p>
 			  </td>
@@ -141,26 +143,26 @@
 				<td width="75%">
 		   			The page provides access to the various sections of this build along with details
 					relating to its results.  Note that in addition to the product archives available from 
-					this page, this build of the «label» may be installed using p2 by pointing to this «EXPAND repoURL FOR this».
+					this page, this build of the «label» may be installed using p2 by pointing to this «EXPAND repoURL FOR self».
 				</td>
 			</tr>
 		</table>
 		<table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
 			<tr>
-			  <td colspan="2"><div class="homeitem3col"><h3><a name="«label»">«label» build «this.displayVersion()»</a></h3></div></td>
+			  <td colspan="2"><div class="homeitem3col"><h3><a name="«label»">«label» build «displayVersion(self)»</a></h3></div></td>
 			</tr>
-«FOREACH configs AS config»
+«FOREACH configs->asSequence() AS config»
 			<tr>
-			  «EXPAND downloadImage FOR this»«EXPAND downloadLink(config) FOR this»
+			  «EXPAND downloadImage FOR self»«EXPAND downloadLink(config) FOR self»
 			</tr>
 «ENDFOREACH»
 		</table>
-«EXPAND requirements FOR this»
+«EXPAND requirements FOR self»
 	  <hr class="clearer" />
 	</div>
 «ENDDEFINE»
 
-«DEFINE footer FOR Build»
+«DEFINE footer FOR build::Build»
 <div id="footer">
 	<ul id="footernav">
 		<li class="first"><a href="http://www.eclipse.org">Home</a></li>
@@ -171,19 +173,19 @@
 </div>
 «ENDDEFINE»
 
-«DEFINE repoURL FOR Build-»
-<a href="http://download.eclipse.org«promotion.downloadDirectory»«IF promotion.downloadDirectory.endsWith('drops/')»«this.buildLabel()»/«ENDIF»">URL</a>
+«DEFINE repoURL FOR build::Build-»
+<a href="http://download.eclipse.org«promotion.downloadDirectory»«IF promotion.downloadDirectory.xpandEndsWith('drops/')»«buildLabel(self)»/«ENDIF»">URL</a>
 «ENDDEFINE»
 
-«DEFINE downloadImage FOR Build-»
+«DEFINE downloadImage FOR build::Build-»
 <td><img align="top" src="http://www.eclipse.org/modeling/images/modeling_about.png"></td>
 «ENDDEFINE»
 
-«DEFINE downloadLink(Config config) FOR Build-»
-<td align="left"><a href="«promotion.baseURL»?file=«promotion.downloadDirectory»«IF promotion.downloadDirectory.endsWith('drops/')»«this.buildLabel()»/«ENDIF»«this.archiveName()»«config.archiveExtension()»">«this.archiveName()»«config.archiveExtension()»</a></td>
+«DEFINE downloadLink(config : build::Config) FOR build::Build-»
+<td align="left"><a href="«promotion.baseURL»?file=«promotion.downloadDirectory»«IF promotion.downloadDirectory.xpandEndsWith('drops/')»«buildLabel(self)»/«ENDIF»«archiveName(self)»«archiveExtension(config)»">«archiveName(self)»«archiveExtension(config)»</a></td>
 «ENDDEFINE»
 
-«DEFINE requirements FOR Build»
+«DEFINE requirements FOR build::Build»
 		<table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
 			<tr>
 			  <td><div class="homeitem3col"><h3>Feature Requirements</h3></div></td>
@@ -191,7 +193,7 @@
 		</table>
 				<p>The following features were installed into the build target:</p>
 				<ul class="midlist">
-«FOREACH contributions.features.select(f | f.repo.location != null) AS feature-»
+«FOREACH contributions.features->select(f | not f.repo.location.oclIsUndefined()) AS feature-»
   					<li><b>«feature.id»</b> («feature.version») installed from: <a href="«feature.repo.location»">«feature.repo.label»</a></li>
 «ENDFOREACH»
 				</ul>
@@ -202,7 +204,7 @@
 		</table>
 				<p>The following individual bundles were installed into the build target:</p>
 				<ul class="midlist">
-«FOREACH contributions.bundles.select(b | b.repo.location != null) AS bundle-»
+«FOREACH contributions.bundles->select(b | not b.repo.location.oclIsUndefined()) AS bundle-»
   					<li><b>«bundle.id»</b> («bundle.version») installed from: <a href="«bundle.repo.location»">«bundle.repo.label»</a></ul>
 «ENDFOREACH»				
 				</ul>

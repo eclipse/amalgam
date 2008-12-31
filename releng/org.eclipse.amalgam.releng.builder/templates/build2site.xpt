@@ -1,26 +1,27 @@
 «IMPORT 'http://www.eclipse.org/amalgam/2008/build'»
 «IMPORT 'http://www.eclipse.org/amalgam/2008/product'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
-«DEFINE Main FOR Build-»
+«DEFINE Main FOR build::Build-»
 <?xml version="1.0"?>
 <site mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/releases/galileo/site.xml&amp;format=xml&amp;protocol=http" pack200="true" digestURL="http://download.eclipse.org/releases/galileo/">
-«EXPAND description FOR this»
+«EXPAND description FOR self»
 «EXPAND category FOREACH categories»
 «EXPAND feature FOREACH categories.features»
 </site>
 «ENDDEFINE»
 
-«DEFINE description FOR Build»
+«DEFINE description FOR build::Build»
 <description url="http://www.eclipse.org/galileo/">This is the «label» update site.</description>
 «ENDDEFINE»
 
-«DEFINE category FOR Category»
+«DEFINE category FOR build::Category»
 <category-def name="«name»" label="«label»">
   <description>«description»</description>
 </category-def>
 «ENDDEFINE»
 
-«DEFINE feature FOR Feature»
+«DEFINE feature FOR build::Feature»
 <feature url="features/«id»_«version».jar" id="«id»" version="«version»">
   <category name="«category.name»"/>
 </feature>

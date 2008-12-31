@@ -1,47 +1,49 @@
 «IMPORT 'http://www.eclipse.org/amalgam/2008/build'»
 «IMPORT 'http://www.eclipse.org/amalgam/2008/product'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«EXTENSION xpt::StringOperations»
 
-«DEFINE Main FOR Build»
+«DEFINE Main FOR build::Build»
 <project name="«label» build targets and properties" default="noDefault">
 	<!-- ===================================================================== -->
 	<!--                    NOTE: This a generated script                      -->
 	<!-- ===================================================================== -->
-«EXPAND properties FOR this»
-«EXPAND imports FOR this»
-«EXPAND allElementsTarget FOR this»
-«EXPAND getBaseComponentsTarget FOR this»
-«EXPAND installDeltaPackTarget FOR this»
-«EXPAND getMapFilesTarget FOR this»
-«EXPAND tagMapFilesTarget FOR this»
-«EXPAND cleanTarget FOR this»
-«EXPAND gatherLogsTarget FOR this»
+«EXPAND properties FOR self»
+«EXPAND imports FOR self»
+«EXPAND allElementsTarget FOR self»
+«EXPAND getBaseComponentsTarget FOR self»
+«EXPAND installDeltaPackTarget FOR self»
+«EXPAND getMapFilesTarget FOR self»
+«EXPAND tagMapFilesTarget FOR self»
+«EXPAND cleanTarget FOR self»
+«EXPAND gatherLogsTarget FOR self»
 «EXPAND emailFeatureTargets FOREACH contributions»
 «EXPAND emailBundleTargets FOREACH contributions»
-«EXPAND preSetupTarget FOR this»
-«EXPAND postSetupTarget FOR this»
-«EXPAND preFetchTarget FOR this»
-«EXPAND postFetchTarget FOR this»
-«EXPAND preGenerateTarget FOR this»
-«EXPAND postGenerateTarget FOR this»
-«EXPAND preProcessTarget FOR this»
-«EXPAND postProcessTarget FOR this»
-«EXPAND preAssembleTarget FOR this»
-«EXPAND postAssembleTarget FOR this»
-«EXPAND prePackageTarget FOR this»
-«EXPAND postPackageTarget FOR this»
-«EXPAND postBuildTarget FOR this»
-«EXPAND installFeatureTarget FOR this»
-«EXPAND installBundleTarget FOR this»
-«EXPAND testTarget FOR this»
-«EXPAND publishTarget FOR this»
-«EXPAND noDefaultTarget FOR this»
-«EXPAND sendmailTarget FOR this»
-«EXPAND additions FOR this»
+«EXPAND preSetupTarget FOR self»
+«EXPAND postSetupTarget FOR self»
+«EXPAND preFetchTarget FOR self»
+«EXPAND postFetchTarget FOR self»
+«EXPAND preGenerateTarget FOR self»
+«EXPAND postGenerateTarget FOR self»
+«EXPAND preProcessTarget FOR self»
+«EXPAND postProcessTarget FOR self»
+«EXPAND preAssembleTarget FOR self»
+«EXPAND postAssembleTarget FOR self»
+«EXPAND prePackageTarget FOR self»
+«EXPAND postPackageTarget FOR self»
+«EXPAND postBuildTarget FOR self»
+«EXPAND installFeatureTarget FOR self»
+«EXPAND installBundleTarget FOR self»
+«EXPAND testTarget FOR self»
+«EXPAND publishTarget FOR self»
+«EXPAND noDefaultTarget FOR self»
+«EXPAND sendmailTarget FOR self»
+«EXPAND additions FOR self»
 </project>
 «ENDDEFINE»
 
-«DEFINE properties FOR Build»
-«IF sendmail == false»
+«DEFINE properties FOR build::Build»
+«IF sendmail = false»
 	<property name="nomail" value="true"/>
 «ENDIF»
 	<!-- ===================================================================== -->
@@ -52,24 +54,24 @@
 	<property name="allElementsFile" location="${eclipse.pdebuild.templates}/headless-build/allElements.xml"/>
 «ENDDEFINE»
 
-«DEFINE imports FOR Build»
+«DEFINE imports FOR build::Build»
 <import file="${allElementsFile}" />
 «ENDDEFINE»
 
-«DEFINE allElementsTarget FOR Build»
+«DEFINE allElementsTarget FOR build::Build»
 	<target name="allElements">
 		<antcall target="allElementsDelegator" />
 	</target>
 «ENDDEFINE»
 
-«DEFINE getBaseComponentsTarget FOR Build»
+«DEFINE getBaseComponentsTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- ===================================================================== -->
 	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
 		<get src="${eclipseBaseURL}" 
 			 dest="${buildRoot}/«base.file»" verbose="true" usetimestamp="true"/>
 		<mkdir dir="${base}"/>
-		«IF base.file.endsWith("tar.gz") == true»
+		«IF base.file.xpandEndsWith('tar.gz') = true»
 		<exec executable="tar">
 			<arg line="-xzf"/>
 			<arg line="${buildRoot}/«base.file»"/>
@@ -89,15 +91,15 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE processContributionsTarget FOR Contribution»
-«IF features.size() > 0 || bundles.size() > 0-»
-		<echo message="Installing contributions «FOREACH features AS feature SEPARATOR ", "-»«feature.id»«ENDFOREACH»."/>
-		«EXPAND installFeature FOREACH features.select(f | f.repo.location != null)»
-		«EXPAND installBundle FOREACH bundles.select(f | f.repo.location != null)»
+«DEFINE processContributionsTarget FOR build::Contribution»
+«IF features->size() > 0 or bundles->size() > 0-»
+		<echo message="Installing contributions «FOREACH features->asSequence() AS feature SEPARATOR ', '-»«feature.id»«ENDFOREACH»."/>
+		«EXPAND installFeature FOREACH features->select(f | not f.repo.location.oclIsUndefined())»
+		«EXPAND installBundle FOREACH bundles->select(f | not f.repo.location.oclIsUndefined())»
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE installFeature FOR Feature»
+«DEFINE installFeature FOR build::Feature»
 		<antcall target="install.feature">
 			<param name="feature.id" value="«id»"/>
 			<param name="feature.version" value="«version»"/>
@@ -105,7 +107,7 @@
 		</antcall>
 «ENDDEFINE»
 	
-«DEFINE installBundle FOR Bundle»
+«DEFINE installBundle FOR build::Bundle»
 		<antcall target="install.bundle">
 			<param name="bundle.id" value="«id»"/>
 			<param name="bundle.version" value="«version»"/>
@@ -113,11 +115,11 @@
 		</antcall>
 «ENDDEFINE»
 	
-«DEFINE emailFeatureTargets FOR Contribution»
-«FOREACH features.select(f | f.repo.location != null) AS feature»
+«DEFINE emailFeatureTargets FOR build::Contribution»
+«FOREACH features->select(f | not f.repo.location.oclIsUndefined())->asSequence() AS feature»
 	<target name="email.«feature.id».result" if="install.failed">
 		<antcall target="sendmail">
-			<param name="recipients" value="«FOREACH contacts AS contact SEPARATOR ","-»«contact.email»«ENDFOREACH»" />
+			<param name="recipients" value="«FOREACH contacts->asSequence() AS contact SEPARATOR ','-»«contact.email»«ENDFOREACH»" />
 			<param name="id" value="«feature.id»"/>
 			<param name="version" value="«feature.version»"/>
 			<param name="repo.location" value="«feature.repo.location»"/>
@@ -126,11 +128,11 @@
 «ENDFOREACH»
 «ENDDEFINE»
 
-«DEFINE emailBundleTargets FOR Contribution»
-«FOREACH bundles.select(b | b.repo.location != null) AS bundle»
+«DEFINE emailBundleTargets FOR build::Contribution»
+«FOREACH bundles->select(b | not b.repo.location.oclIsUndefined())->asSequence() AS bundle»
 	<target name="email.«bundle.id».result" if="install.failed">
 		<antcall target="sendmail">
-			<param name="recipients" value="«FOREACH contacts AS contact SEPARATOR ","-»«contact.email»«ENDFOREACH»" />
+			<param name="recipients" value="«FOREACH contacts->asSequence() AS contact SEPARATOR ','-»«contact.email»«ENDFOREACH»" />
 			<param name="id" value="«bundle.id»"/>
 			<param name="version" value="«bundle.version»"/>
 			<param name="repo.location" value="«bundle.repo.location»"/>
@@ -139,7 +141,7 @@
 «ENDFOREACH»
 «ENDDEFINE»
 	
-«DEFINE installDeltaPackTarget FOR Build»
+«DEFINE installDeltaPackTarget FOR build::Build»
 	<!-- Fetch and extract the delta pack to its pluginPath location -->
 	<target name="install.delta.pack">		
 		<available file="${buildRoot}/«base.deltapack»" property="skipDeltaPack" />
@@ -153,7 +155,7 @@
 	</target>
 «ENDDEFINE»
 	
-«DEFINE getMapFilesTarget FOR Build»
+«DEFINE getMapFilesTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Check out map files from correct repository -->
 	<!-- Replace values for mapsCheckoutTag as desired. -->
@@ -184,13 +186,13 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE tagMapFilesTarget FOR Build»
+«DEFINE tagMapFilesTarget FOR build::Build»
 	<target name="tagMapFiles" if="tagMaps">
 		<cvs dest="${buildDirectory}/maps/${mapsRoot}" command="tag ${mapsTagTag}" />
 	</target>
 «ENDDEFINE»
 
-«DEFINE cleanTarget FOR Build»
+«DEFINE cleanTarget FOR build::Build»
 	<target name="clean" unless="noclean">
 		<antcall target="allElements">
 			<param name="target" value="cleanElement" />
@@ -198,7 +200,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE gatherLogsTarget FOR Build»
+«DEFINE gatherLogsTarget FOR build::Build»
 	<target name="gatherLogs">
 		<mkdir dir="${buildDirectory}/${buildLabel}/compilelogs" />
 		<antcall target="allElements">
@@ -212,7 +214,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE preSetupTarget FOR Build»
+«DEFINE preSetupTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do before setup -->
 	<!-- ===================================================================== -->
@@ -220,7 +222,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE postSetupTarget FOR Build»
+«DEFINE postSetupTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do after setup but before starting the build proper -->
 	<!-- ===================================================================== -->
@@ -229,7 +231,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE preFetchTarget FOR Build»
+«DEFINE preFetchTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do before fetching the build elements -->
 	<!-- ===================================================================== -->
@@ -237,7 +239,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE postFetchTarget FOR Build»
+«DEFINE postFetchTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do after fetching the build elements -->
 	<!-- ===================================================================== -->
@@ -248,7 +250,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE preGenerateTarget FOR Build»
+«DEFINE preGenerateTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do before generating the build scripts. -->
 	<!-- ===================================================================== -->
@@ -256,7 +258,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE postGenerateTarget FOR Build»
+«DEFINE postGenerateTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do after generating the build scripts. -->
 	<!-- ===================================================================== -->
@@ -265,7 +267,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE preProcessTarget FOR Build»
+«DEFINE preProcessTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do before running the build.xmls for the elements being built. -->
 	<!-- ===================================================================== -->
@@ -273,7 +275,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE postProcessTarget FOR Build»
+«DEFINE postProcessTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do after running the build.xmls for the elements being built. -->
 	<!-- ===================================================================== -->
@@ -281,7 +283,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE preAssembleTarget FOR Build»
+«DEFINE preAssembleTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do before running assemble. -->
 	<!-- ===================================================================== -->
@@ -289,7 +291,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE postAssembleTarget FOR Build»
+«DEFINE postAssembleTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do after  running assemble. -->
 	<!-- ===================================================================== -->
@@ -297,7 +299,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE prePackageTarget FOR Build»
+«DEFINE prePackageTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do before running package. -->
 	<!-- ===================================================================== -->
@@ -305,7 +307,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE postPackageTarget FOR Build»
+«DEFINE postPackageTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do after  running package. -->
 	<!-- ===================================================================== -->
@@ -313,7 +315,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE postBuildTarget FOR Build»
+«DEFINE postBuildTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do after the build is done. -->
 	<!-- ===================================================================== -->
@@ -322,7 +324,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE installFeatureTarget FOR Build»
+«DEFINE installFeatureTarget FOR build::Build»
 	<target name="install.feature"> 
 		<!-- TODO: use if/when profileProperties is available to allow installation of features 
 		<p2.director 
@@ -333,7 +335,7 @@
 		/> -->
 		<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
 		<exec executable="${baseLocation}/eclipse" failonerror="false" resultproperty="install.return.code">
-«IF launchVM != null && launchVM != ''-»
+«IF launchVM <> null and launchVM <> ''-»
 			<arg line="-vm «launchVM»"/>
 «ENDIF-»
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
@@ -362,11 +364,11 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE installBundleTarget FOR Build»
+«DEFINE installBundleTarget FOR build::Build»
 	<target name="install.bundle"> 
 		<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
 		<exec executable="${baseLocation}/eclipse" failonerror="false" resultproperty="install.return.code">
-«IF launchVM != null && launchVM != ''»
+«IF launchVM <> null and launchVM <> ''»
 			<arg line="-vm «launchVM»"/>
 «ENDIF»
 			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
@@ -392,7 +394,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE testTarget FOR Build»
+«DEFINE testTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do to test the build results -->
 	<!-- ===================================================================== -->
@@ -400,7 +402,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE publishTarget FOR Build»
+«DEFINE publishTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Steps to do to publish the build results -->
 	<!-- ===================================================================== -->
@@ -408,7 +410,7 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE noDefaultTarget FOR Build»
+«DEFINE noDefaultTarget FOR build::Build»
 	<!-- ===================================================================== -->
 	<!-- Default target                                                        -->
 	<!-- ===================================================================== -->
@@ -417,15 +419,15 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE sendmailTarget FOR Build»
+«DEFINE sendmailTarget FOR build::Build»
 	<target name="sendmail" unless="nomail">
 		<copy file="${buildDirectory}/«product.launcher.name».build.log.txt" tofile="${buildRoot}/${buildId}.log.txt"/> 
-		<mail tolist="«buildmaster.email»,${recipients}«IF defaultMailList.size() > 0»,«FOREACH defaultMailList AS contact SEPARATOR ","-»«contact.name»«ENDFOREACH»«ENDIF»"
+		<mail tolist="«IF buildmaster <> null»«buildmaster.email»,«ENDIF»${recipients}«IF defaultMailList <> null and defaultMailList->notEmpty()»,«FOREACH defaultMailList->asSequence() AS contact SEPARATOR ','-»«contact.name»«ENDFOREACH»«ENDIF»"
               subject="«label» build failed"
               encoding="plain"
-              failonerror="false">
+              failonerror="false">«IF buildmaster <> null»
             <from name="«label» buildmaster [«buildmaster.name»]"
-                  address="«buildmaster.email»" />
+                  address="«buildmaster.email»" />«ENDIF»
                   <!-- TODO: add properties to model for accomodate log link and default email list, etc. -->
             <message>
             Contribution ${id} version ${version} failed to install from ${repo.location}.	
@@ -437,5 +439,5 @@
 	</target>
 «ENDDEFINE»
 
-«DEFINE additions FOR Build»
+«DEFINE additions FOR build::Build»
 «ENDDEFINE»

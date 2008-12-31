@@ -27,27 +27,27 @@
 		<mkdir dir="${basedir}/out/build/${product}/builder"/>
 		<zzz:template name="build2properties::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/resource/${project}/templates/"
+			templateroot="platform:/resource/${project}/templates/,platform:/resource/${project}/transformations/"
 			outfile="${basedir}/out/build/${product}/builder/build.properties"/>
 		<zzz:template name="build2customTargets::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/resource/${project}/templates/"
+			templateroot="platform:/resource/${project}/templates/,platform:/resource/${project}/transformations/"
 			outfile="${basedir}/out/build/${product}/builder/customTargets.xml"/>
 		<zzz:template name="build2script::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/resource/${project}/templates/"
+			templateroot="platform:/resource/${project}/templates/,platform:/resource/${project}/transformations/"
 			outfile="${basedir}/out/build/${product}/build.xml"/>
 		<zzz:template name="build2site::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/resource/${project}/templates/"
+			templateroot="platform:/resource/${project}/templates/,platform:/resource/${project}/transformations/"
 			outfile="${basedir}/out/build/${product}/site.xml"/>
 		<zzz:template name="build2page::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/resource/${project}/templates/"
+			templateroot="platform:/resource/${project}/templates/,platform:/resource/${project}/transformations/"
 			outfile="${basedir}/out/build/${product}/index.php"/>
 		<zzz:template name="build2promote::Main" 
 			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/resource/${project}/templates/"
+			templateroot="platform:/resource/${project}/templates/,platform:/resource/${project}/transformations/"
 			outfile="${basedir}/out/build/${product}/promote.xml"/>
 	</target>
 </project>
