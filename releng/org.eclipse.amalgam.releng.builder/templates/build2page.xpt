@@ -153,12 +153,13 @@
 			</tr>
 «FOREACH configs->asSequence() AS config»
 			<tr>
-			  «EXPAND downloadImage FOR self»«EXPAND downloadLink(config) FOR self»
+			  <td>«EXPAND downloadImage FOR self»«EXPAND downloadLink(config) FOR self»</td><td/>
 			</tr>
 «ENDFOREACH»
-		</table>
 «EXPAND requirements FOR self»
-	  <hr class="clearer" />
+«EXPAND contacts FOR self»
+		</table>
+	  	<hr class="clearer" />
 	</div>
 «ENDDEFINE»
 
@@ -178,35 +179,58 @@
 «ENDDEFINE»
 
 «DEFINE downloadImage FOR build::Build-»
-<td><img align="top" src="http://www.eclipse.org/modeling/images/modeling_about.png"></td>
+<img align="top" src="http://www.eclipse.org/modeling/images/modeling_about.png">
 «ENDDEFINE»
 
 «DEFINE downloadLink(config : build::Config) FOR build::Build-»
-<td align="left"><a href="«promotion.baseURL»?file=«promotion.downloadDirectory»«IF promotion.downloadDirectory.xpandEndsWith('drops/')»«buildLabel(self)»/«ENDIF»«archiveName(self)»«archiveExtension(config)»">«archiveName(self)»«archiveExtension(config)»</a></td>
+<a href="«promotion.baseURL»?file=«promotion.downloadDirectory»«IF promotion.downloadDirectory.xpandEndsWith('drops/')»«buildLabel(self)»/«ENDIF»«archiveName(self)»«archiveExtension(config)»">«archiveName(self)»«archiveExtension(config)»</a>
 «ENDDEFINE»
 
 «DEFINE requirements FOR build::Build»
-		<table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
 			<tr>
-			  <td><div class="homeitem3col"><h3>Feature Requirements</h3></div></td>
+			  <td colspan="2"><div class="homeitem3col"><h3>Installed Features</h3></div></td>
 			</tr>
-		</table>
-				<p>The following features were installed into the build target:</p>
-				<ul class="midlist">
-«FOREACH contributions.features->select(f | not f.repo.location.oclIsUndefined()) AS feature-»
-  					<li><b>«feature.id»</b> («feature.version») installed from: <a href="«feature.repo.location»">«feature.repo.label»</a></li>
+			<tr>
+«FOREACH categories AS category»
+				<td colspan="2">«category.name»</td>
+			</tr>
+«FOREACH category.features->select(f | not f.repo.location.oclIsUndefined()) AS feature-»
+			<tr>
+	  			<td><a href="«feature.repo.location»features/«feature.id»_«feature.version».jar">«feature.id»_«feature.version»</a></td><td><a href="«feature.repo.location»">«feature.repo.label»</a></td>
+	  		</tr>
 «ENDFOREACH»
-				</ul>
-		<table align="left" BORDER=0 CELLSPACING=5 CELLPADDING=2 WIDTH="100%">
+«ENDFOREACH»
 			<tr>
-			  <td><div class="homeitem3col"><h3>Bundle Requirements</h3></div></td>
+				<td colspan="2">Uncategorized</td>
 			</tr>
-		</table>
-				<p>The following individual bundles were installed into the build target:</p>
-				<ul class="midlist">
+«FOREACH contributions.features->select(f | not f.repo.location.oclIsUndefined())->asSet()->symmetricDifference(categories.features->select(f | not f.repo.location.oclIsUndefined())->asSet()) AS feature-»
+			<tr>
+	  			<td><a href="«feature.repo.location»features/«feature.id»_«feature.version».jar">«feature.id»_«feature.version»</a></td><td><a href="«feature.repo.location»">«feature.repo.label»</a></td>
+	  		</tr>
+«ENDFOREACH»
+			<tr>
+			  <td colspan="2"><div class="homeitem3col"><h3>Installed Bundles</h3></div></td>
+			</tr>
 «FOREACH contributions.bundles->select(b | not b.repo.location.oclIsUndefined()) AS bundle-»
-  					<li><b>«bundle.id»</b> («bundle.version») installed from: <a href="«bundle.repo.location»">«bundle.repo.label»</a></ul>
-«ENDFOREACH»				
-				</ul>
+			<tr>
+	  			<td><a href="«bundle.repo.location»features/«bundle.id»_«bundle.version».jar">«bundle.id»_«bundle.version»</a></td><td><a href="«bundle.repo.location»">«bundle.repo.label»</a></td>
+	  		</tr>
+«ENDFOREACH»
+		
+«ENDDEFINE»
+
+«DEFINE contacts FOR build::Build»
+			<tr>
+			  <td colspan="2"><div class="homeitem3col"><h3>Contribution Contacts</h3></div></td>
+			</tr>
+«FOREACH contributions AS contribution»
+«IF contribution.contacts->size() > 0»
+			<tr><td colspan="2">«contribution.label»</td></tr>
+«FOREACH contribution.contacts AS contact»
+			<tr><td/><td><a href="mailto:«contact.email»">«contact.name»</a></td></tr>
+«ENDFOREACH»
+«ENDIF»
+«ENDFOREACH»
+
 «ENDDEFINE»
 
