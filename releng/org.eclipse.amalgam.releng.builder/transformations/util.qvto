@@ -29,5 +29,5 @@ helper archiveName(b : build::Build) : String {
 }
 
 helper archiveExtension(config : build::Config) : String {
-	return config.os.repr() + '-' + config.ws.repr() + '-' + config.arch.repr() + '.' + (if config.archiveFormat = 'tar' then config.archiveFormat.repr() + '.gz' else config.archiveFormat.repr() endif).repr()
+	return config.os.repr() + '-' + config.ws.repr() + '-' + config.arch.repr() + '.' + (if config.archiveFormat.repr() = 'tar' then config.archiveFormat.repr() + '.gz' else config.archiveFormat.repr() endif).repr()
 }
