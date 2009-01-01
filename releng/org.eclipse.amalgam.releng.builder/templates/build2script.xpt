@@ -118,12 +118,12 @@
 			<param name="p2.version" value="«product.version»"/>
 		</antcall>
 		
-		«IF config.os = 'macosx'»
+		«IF config.os.repr() = 'macosx'»
 		<!-- FIXME: workaround for leftover Eclipse.app TODO: find/submit bug -->
 		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app" />
 		«ENDIF»
 		
-		«IF config.os = 'win32'»
+		«IF config.os.repr() = 'win32'»
 		<zip destfile="${buildDirectory}/${buildLabel}/«archiveName(self)»«archiveExtension(config)»" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
 		«ELSE»
 		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/">
