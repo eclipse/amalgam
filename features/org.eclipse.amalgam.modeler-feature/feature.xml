@@ -31,42 +31,42 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.uml2"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.1.0.v200805131030"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.uml2.common"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.5.0.v200812101400"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.uml2.common.edit"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.5.0.v200811251800"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.uml2.uml"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.0.0.v200812101400"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.uml2.uml.edit"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.0.0.v200812161100"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.uml2.uml.editor"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.0.0.v200812161100"
          unpack="false"/>
 
    <plugin
@@ -80,7 +80,7 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.amalgam.modeler"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.0.0.v20081021-1910"
          unpack="false"/>
 
    <plugin
