@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="modeler" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand">
+	
+	<tstamp/>
+	<property name="builder" value="org.eclipse.amalgam.releng.builder"/>
+	<property name="project" value="org.eclipse.amalgam.releng"/>
+	
+	<target name="main">
+		<antcall target="generate">
+			<param name="product" value="modeler"/>
+		</antcall>
+		<antcall target="generate">
+			<param name="product" value="dsltk"/>
+		</antcall>
+		<eclipse.refreshLocal resource="${project}" depth="infinite"/>
+	</target>
+		
+	<target name="generate">
+		<qvto.interpretedTransformation
+		     transformation="platform:/plugin/${builder}/transformations/processbuild.qvto">
+		     <targeturidef targeturi="platform:/resource/${project}/builder/${product}/${product}.product"/>
+		     <targeturidef targeturi="platform:/resource/${project}/builder/${product}/${product}.build"/>
+			 <targeturidef targeturi="platform:/resource/${project}/out/build/${product}/${product}.product"/>
+			 <targeturidef targeturi="platform:/resource/${project}/out/build/${product}/${product}.build"/>
+			 <configurationproperty name="date" value="${DSTAMP}"/>
+			 <configurationproperty name="time" value="${TSTAMP}"/>
+		</qvto.interpretedTransformation>
+		<mkdir dir="${basedir}/out/build/${product}/builder"/>
+		<zzz:template name="build2properties::Main" 
+			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
+			outfile="${basedir}/out/build/${product}/builder/build.properties"/>
+		<zzz:template name="build2customTargets::Main" 
+			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
+			outfile="${basedir}/out/build/${product}/builder/customTargets.xml"/>
+		<zzz:template name="build2script::Main" 
+			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
+			outfile="${basedir}/out/build/${product}/build.xml"/>
+		<zzz:template name="build2site::Main" 
+			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
+			outfile="${basedir}/out/build/${product}/site.xml"/>
+		<zzz:template name="build2page::Main" 
+			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
+			outfile="${basedir}/out/build/${product}/index.php"/>
+		<zzz:template name="build2promote::Main" 
+			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
+			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
+			outfile="${basedir}/out/build/${product}/promote.xml"/>
+	</target>
+</project>
