@@ -73,14 +73,14 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.uml2.uml.resources"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="3.0.0.v20081021-1910"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.amalgam.modeler"
          download-size="0"
          install-size="0"
-         version="3.0.0.v20081021-1910"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
