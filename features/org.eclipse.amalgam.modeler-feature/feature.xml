@@ -27,102 +27,57 @@ http://www.eclipse.org/legal/epl-v10.html
       <update label="%updateSiteName" url="http://download.eclipse.org/modeling/amalgam/updates/site.xml"/>
    </url>
 
-   <includes
-         id="org.eclipse.uml2.diagram"
-         version="0.0.0"/>
-
-   <requires>
-      <import plugin="org.eclipse.emf.ecore" version="2.4.0" match="compatible"/>
-      <import plugin="org.eclipse.core.runtime" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore.edit" version="2.3.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore.change" version="2.3.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore.xmi" version="2.4.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.mapping.ecore2xml" version="2.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.edit" version="2.4.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.edit.ui" version="2.4.0" match="compatible"/>
-      <import plugin="org.eclipse.ui.intro" version="3.2.200" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.update.configurator" version="3.2.200" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.update.core" version="3.2.200" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.forms" version="3.3.100" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.swt" version="3.4.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.jface" version="3.4.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.resources" version="3.4.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui" version="3.4.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.ide" version="3.4.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.search" version="3.4.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.navigator" version="3.3.101" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.help.ui" version="3.3.101" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.equinox.p2.core"/>
-      <import plugin="org.eclipse.equinox.p2.director"/>
-      <import plugin="org.eclipse.equinox.p2.engine"/>
-      <import plugin="org.eclipse.equinox.p2.garbagecollector"/>
-      <import plugin="org.eclipse.equinox.p2.metadata.repository"/>
-      <import plugin="org.eclipse.equinox.p2.metadata"/>
-      <import plugin="org.eclipse.osgi"/>
-      <import plugin="org.eclipse.equinox.p2.ui"/>
-      <import plugin="org.eclipse.equinox.p2.artifact.repository"/>
-      <import plugin="org.eclipse.equinox.common" version="3.5.0" match="compatible"/>
-      <import plugin="org.eclipse.equinox.frameworkadmin"/>
-      <import plugin="org.eclipse.equinox.simpleconfigurator.manipulator"/>
-      <import plugin="org.eclipse.equinox.p2.publisher"/>
-      <import plugin="org.eclipse.equinox.registry"/>
-      <import plugin="org.eclipse.ecf"/>
-      <import plugin="org.eclipse.core.jobs"/>
-      <import plugin="org.eclipse.osgi.services"/>
-      <import plugin="org.eclipse.core.net"/>
-      <import plugin="org.eclipse.emf.ocl"/>
-      <import plugin="org.eclipse.emf.query.ocl"/>
-      <import plugin="org.eclipse.ocl.ecore"/>
-      <import plugin="org.eclipse.emf.workspace"/>
-   </requires>
-
+   <includes id="org.eclipse.gmf" version="0.0.0"/>
+   <includes id="org.eclipse.ocl" version="0.0.0"/>
+   <includes id="org.eclipse.uml2.diagram" version="0.0.0"/>
+   
    <plugin
          id="org.eclipse.uml2"
          download-size="0"
          install-size="0"
-         version="2.1.0.v200805131030"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.uml2.common"
          download-size="0"
          install-size="0"
-         version="1.5.0.v200812101400"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.uml2.common.edit"
          download-size="0"
          install-size="0"
-         version="1.5.0.v200811251800"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.uml2.uml"
          download-size="0"
          install-size="0"
-         version="3.0.0.v200812101400"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.uml2.uml.edit"
          download-size="0"
          install-size="0"
-         version="3.0.0.v200812161100"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.uml2.uml.editor"
          download-size="0"
          install-size="0"
-         version="3.0.0.v200812161100"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.uml2.uml.resources"
          download-size="0"
          install-size="0"
-         version="3.0.0.v20081021-1910"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
