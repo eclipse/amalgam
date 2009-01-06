@@ -70,6 +70,10 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.core.jobs"/>
       <import plugin="org.eclipse.osgi.services"/>
       <import plugin="org.eclipse.core.net"/>
+      <import plugin="org.eclipse.emf.ocl"/>
+      <import plugin="org.eclipse.emf.query.ocl"/>
+      <import plugin="org.eclipse.ocl.ecore"/>
+      <import plugin="org.eclipse.emf.workspace"/>
    </requires>
 
    <plugin
