@@ -60,6 +60,10 @@ http://www.eclipse.org/legal/epl-v10.html
          version="0.0.0"/>
          
    <includes
+         id="org.eclipse.ocl"
+         version="0.0.0"/>
+         
+   <includes
          id="org.eclipse.emf.ocl"
          version="0.0.0"/>
          
@@ -130,11 +134,8 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
       <import plugin="org.eclipse.gmf.runtime.notation.providers"/>
-      <import plugin="org.eclipse.emf.ocl"/>
-      <import plugin="org.eclipse.emf.query.ocl"/>
       <import plugin="org.eclipse.gmf.runtime.draw2d.ui"/>
       <import plugin="org.eclipse.draw2d"/>
-      <import plugin="org.eclipse.ocl.ecore"/>
       <import plugin="org.eclipse.ui.navigator.resources"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing.render"/>
