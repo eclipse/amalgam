@@ -219,7 +219,7 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.uml2.diagram"
          download-size="0"
          install-size="0"
-         version="0.8.0.v200811170848"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
