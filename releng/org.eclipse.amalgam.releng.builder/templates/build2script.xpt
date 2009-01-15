@@ -17,6 +17,8 @@
 «EXPAND buildProductTarget FOR self»
 «EXPAND runDirectorTarget FOR self»
 «EXPAND categorizeTarget FOR self»
+«EXPAND packTarget FOR self»
+«EXPAND consolidateTarget FOR self»
 «EXPAND additions FOR self»
 </project>
 «ENDDEFINE»
@@ -26,22 +28,23 @@
 		<property name="date" value="«date»"/>
 		<property name="time" value="«time»"/>
 		<property name="buildRoot" value="«buildRoot»"/>
-		<property name="basebuilder" value="${buildRoot}/«product.launcher.name»/basebuilder"/>
+		<property name="target" value="«product.launcher.name»"/>
+		<property name="buildDirectory" value="${buildRoot}/${target}"/>
+		<property name="basebuilder" value="${buildDirectory}/basebuilder"/>
+		<property file="${buildRoot}/${target}/builder/build.properties"/>
 	</target>
 «ENDDEFINE»
 
 «DEFINE mainTarget FOR build::Build»
 	<target name="main" depends="init">
 		<antcall target="fetch.builder"/>
-		<antcall target="build.product">
-			<param name="target" value="«product.launcher.name»"/>
-			<param name="buildDirectory" value="${buildRoot}/«product.launcher.name»"/>
-		</antcall>
+		<antcall target="build.product"/>
+		<antcall target="pack"/>
 		<!-- FIXME: generate metadata using site.xml to provide categories until bug 250974 is resolved -->
-		<antcall target="categorize">
-			<param name="target" value="«product.launcher.name»"/>
-			<param name="buildDirectory" value="${buildRoot}/«product.launcher.name»"/>
-		</antcall>
+		<!-- FIXME: need to invoke metadata generator after pack even after categorization bug above is resolved? -->
+		<!-- FIXME: also, if -compress doesn't work, manually jar content and artifacts.xml -->
+		<antcall target="categorize"/>
+		<antcall target="consolidate"/>
 	</target>
 «ENDDEFINE»
 
@@ -65,7 +68,6 @@
 
 «DEFINE buildProductTarget FOR build::Build»
 	<target name="build.product">
-		<property file="${buildRoot}/${target}/builder/build.properties"/>
 		<fail message="Could not load property 'product' from build.properties.  Did you generate it and customTargets.xml to ${buildRoot}/${target}/builder?" unless="product" />
 		<fileset dir="${basebuilder}/eclipse/plugins" includes="org.eclipse.pde.build_*/scripts/productBuild/productBuild.xml" id="pde.plugin.path" />
 		<pathconvert property="buildFile" refid="pde.plugin.path" />
@@ -134,14 +136,7 @@
 		«ENDIF»
 		«ENDFOREACH»
 		
-		<delete dir="${buildDirectory}/${buildLabel}/p2"/>
-		
-		<!-- Consolidate artifacts for publish -->
-		<move file="${buildDirectory}/index.php" todir="${buildDirectory}/${buildLabel}"/>
-		<move file="${buildDirectory}/directory.txt" todir="${buildDirectory}/${buildLabel}"/>
-		<move file="${buildDirectory}/«product.launcher.name».build" todir="${buildDirectory}/${buildLabel}"/>
-		<move file="${buildDirectory}/«product.launcher.name».product" todir="${buildDirectory}/${buildLabel}"/>
-		
+		<delete dir="${buildDirectory}/${buildLabel}/p2"/>		
 	</target>
 «ENDDEFINE»
 
@@ -183,7 +178,6 @@
 «DEFINE categorizeTarget FOR build::Build»
 	<!-- FIXME: workaround for bug 250974 : generate metadata using site.xml for categorization -->
 	<target name="categorize" depends="init">
-		<property file="${buildRoot}/${target}/builder/build.properties"/>
 		<move file="${buildDirectory}/site.xml" todir="${buildDirectory}/${buildLabel}/repo"/>
 		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
 «IF launchVM <> null and launchVM <> ''-»
@@ -197,24 +191,57 @@
 			<arg line="-nosplash"/>
 			<arg line="--launcher.suppressErrors"/>
 			<arg line="-consoleLog"/>
+			<arg line="-compress"/>
 			<arg line="-reusePack200Files"/>
 			<arg line="-noDefaultIUs"/>
 			<arg line="-vmargs"/>
 			<arg line="-Xmx1024m"/>
 		</exec>
-		<!-- Zip the metadata, as -compress argument above didn't seem to do the trick -->
+		<!-- Zip the metadata, as -compress argument above didn't seem to do the trick 
 		<zip destfile="${buildDirectory}/${buildLabel}/content.jar"
        		 basedir="${buildDirectory}/${buildLabel}/repo"
        		 includes="content.xml"/>
        	<zip destfile="${buildDirectory}/${buildLabel}/artifacts.jar"
        		 basedir="${buildDirectory}/${buildLabel}/repo"
-       		 includes="artifacts.xml"/>
+       		 includes="artifacts.xml"/> 
         <delete file="${buildDirectory}/${buildLabel}/repo/content.xml" failonerror="false"/>
        	<delete file="${buildDirectory}/${buildLabel}/repo/artifacts.xml" failonerror="false"/>
-       	<move tofile="${buildDirectory}/${buildLabel}/binary" file="${buildDirectory}/${buildLabel}/repo/binary"/>
-       	<move tofile="${buildDirectory}/${buildLabel}/features" file="${buildDirectory}/${buildLabel}/repo/features"/>
-       	<move tofile="${buildDirectory}/${buildLabel}/plugins" file="${buildDirectory}/${buildLabel}/repo/plugins"/>
-  		<delete dir="${buildDirectory}/${buildLabel}/repo"/>
+       	-->
+	</target>
+«ENDDEFINE»
+
+«DEFINE packTarget FOR build::Build»
+	<!-- As packing can take a LONG time, must pass in -Dpack=true to run pack200 on repo -->
+	<target name="pack" depends="init" if="pack">
+		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
+«IF launchVM <> null and launchVM <> ''-»
+			<arg line="-vm «launchVM»"/>
+«ENDIF-»
+			<arg line="-application org.eclipse.update.core.siteOptimizer"/>
+			<arg line="-jarProcessor -verbose -pack -processAll -repack -outputDir ${buildDirectory}/${buildLabel}/repo"/>
+			<arg line="${buildDirectory}/${buildLabel}/repo" />
+			<arg line="-nosplash" />
+			<arg line="--launcher.suppressErrors" />
+			<arg line="-consoleLog" />
+			<arg line="-vmargs"/>
+			<arg line="-Xmx1024m"/>
+		</exec>
+	</target>	
+«ENDDEFINE»
+
+«DEFINE consolidateTarget FOR build::Build»
+	<target name="consolidate" depends="init">
+		<!-- Consolidate artifacts for publish -->
+		<move file="${buildDirectory}/index.php" todir="${buildDirectory}/${buildLabel}"/>
+		<move file="${buildDirectory}/directory.txt" todir="${buildDirectory}/${buildLabel}"/>
+		<move file="${buildDirectory}/«product.launcher.name».build" todir="${buildDirectory}/${buildLabel}"/>
+		<move file="${buildDirectory}/«product.launcher.name».product" todir="${buildDirectory}/${buildLabel}"/>
+		
+		<!-- flatten the repository -->
+		<move tofile="${buildRoot}/«product.launcher.name»/${buildLabel}/binary" file="${buildRoot}/«product.launcher.name»/${buildLabel}/repo/binary"/>
+       	<move tofile="${buildRoot}/«product.launcher.name»/${buildLabel}/features" file="${buildRoot}/«product.launcher.name»/${buildLabel}/repo/features"/>
+       	<move tofile="${buildRoot}/«product.launcher.name»/${buildLabel}/plugins" file="${buildRoot}/«product.launcher.name»/${buildLabel}/repo/plugins"/>
+  		<delete dir="${buildRoot}/«product.launcher.name»/${buildLabel}/repo"/>
 	</target>
 «ENDDEFINE»
 
