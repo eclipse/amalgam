@@ -108,11 +108,19 @@
 «ENDDEFINE»
 	
 «DEFINE installBundle FOR build::Bundle»
+		<!-- Simply copy the jar to the deltapack location, as typical use for installing individual bundle
+		     is for platform-specific configs. -->
+		<get src="«repo.location»plugins/«id»_«version».jar" 
+			 dest="${deltaPackLocation}/eclipse/plugins/«id»_«version».jar" verbose="true" usetimestamp="true"/>
+		<!-- Alternatively, installing bundles can be done using p2.  
+		     Note, if Eclipse-PlatformFilter is declared in the MANIFEST.MF 
+		     for other than the build machine's config, installation will fail.
 		<antcall target="install.bundle">
 			<param name="bundle.id" value="«id»"/>
 			<param name="bundle.version" value="«version»"/>
 			<param name="repo" value="«repo.location»"/>
 		</antcall>
+		-->
 «ENDDEFINE»
 	
 «DEFINE emailFeatureTargets FOR build::Contribution»
