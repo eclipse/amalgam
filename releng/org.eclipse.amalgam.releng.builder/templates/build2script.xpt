@@ -233,10 +233,10 @@
        	<move tofile="${buildRoot}/«product.launcher.name»/${buildLabel}/plugins" file="${buildRoot}/«product.launcher.name»/${buildLabel}/repo/plugins"/>
        	<!-- FIXME: Zip the metadata, as -compress argument above didn't seem to do the trick -->
 		<zip destfile="${buildDirectory}/${buildLabel}/content.jar"
-       		 basedir="${buildDirectory}/${buildLabel}"
+       		 basedir="${buildDirectory}/${buildLabel}/repo"
        		 includes="content.xml"/>
        	<zip destfile="${buildDirectory}/${buildLabel}/artifacts.jar"
-       		 basedir="${buildDirectory}/${buildLabel}"
+       		 basedir="${buildDirectory}/${buildLabel}/repo"
        		 includes="artifacts.xml"/>
   		<delete dir="${buildRoot}/«product.launcher.name»/${buildLabel}/repo"/>
 	</target>
