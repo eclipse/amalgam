@@ -105,7 +105,7 @@
 		 <wizard
 		   id="org.eclipse.amalgam.m2t.wizard.NewXpandTemplateFileWizard"
 		   name="%mt.xpand.wizard"
-		   class="org.eclipse.gmf.internal.xpand.editor.ui.NewTemplateFileWizard"
+		   class="org.eclipse.amalgam.internal.dsltk.wizards.NewTemplateFileWizard"
 		   category="org.eclipse.amalgam.transformation.wizardCategory"
 		   icon="icons/full/obj16/NewXPandTemplate.gif">
 	       <description>%mt.xpand.wizard.desc</description>

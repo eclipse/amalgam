@@ -19,6 +19,8 @@ public final class Messages extends NLS {
 	
 	private static final String BUNDLE_NAME= "org.eclipse.amalgam.internal.dsltk.wizards.Messages";//$NON-NLS-1$
 
+	public static String XpandWizard_description = null;
+	public static String XpandWizard_title = null;
 	public static String CreatingFolder = null;
 	public static String NewProjectCreationOperation_creating = null;
 	public static String DSLProjectWizard_title = null;

@@ -148,21 +148,6 @@ public class DSLProjectWizard extends Wizard implements INewWizard {
 					monitor.done();
 				}
 			}
-
-			private void createManifest(IProject project) throws IOException {
-				PrintStream manifest = new PrintStream(URIConverter.INSTANCE.createOutputStream(URI.createPlatformResourceURI("/" + project.getName() + "/" + MANIFEST_FOLDER + "/MANIFEST.MF", true),
-						null));
-				manifest.println("Manifest-Version: 1.0");
-				manifest.println("Bundle-ManifestVersion: 2");
-				manifest.print("Bundle-Name: ");
-				manifest.print(project.getName());
-				manifest.println(" Plug-in");
-				manifest.print("Bundle-SymbolicName: ");
-				manifest.println(project.getName());
-				manifest.println("Bundle-Version: 1.0.0.qualifier");
-				manifest.println("Bundle-RequiredExecutionEnvironment: J2SE-1.5");
-				manifest.close();
-			}
 		};
 
 		try {
@@ -184,6 +169,21 @@ public class DSLProjectWizard extends Wizard implements INewWizard {
 		}
 
 		return true;
+	}
+	
+	private void createManifest(IProject project) throws IOException {
+		PrintStream manifest = new PrintStream(URIConverter.INSTANCE.createOutputStream(URI.createPlatformResourceURI("/" + project.getName() + "/" + MANIFEST_FOLDER + "/MANIFEST.MF", true),
+				null));
+		manifest.println("Manifest-Version: 1.0");
+		manifest.println("Bundle-ManifestVersion: 2");
+		manifest.print("Bundle-Name: ");
+		manifest.print(project.getName());
+		manifest.println(" Plug-in");
+		manifest.print("Bundle-SymbolicName: ");
+		manifest.println(project.getName());
+		manifest.println("Bundle-Version: 1.0.0.qualifier");
+		manifest.println("Bundle-RequiredExecutionEnvironment: J2SE-1.5");
+		manifest.close();
 	}
 
 	private IContainer createFolder(String name, IProgressMonitor monitor) {
