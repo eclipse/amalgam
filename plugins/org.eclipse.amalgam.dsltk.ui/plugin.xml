@@ -111,21 +111,7 @@
 	       <description>%mt.xpand.wizard.desc</description>
 		   <selection class="org.eclipse.core.resources.IResource"/>
 		</wizard>
-	</extension> 
-	
-   <!-- Xtend Wizard 
-   <extension
-	      point = "org.eclipse.ui.newWizards">
-		 <wizard
-		   id="org.eclipse.amalgam.mt.wizard.NewXtendFileWizard"
-           category="org.eclipse.amalgam.transformation.wizardCategory"
-           class="org.eclipse.xtend.ui.wizard.NewXtendFileWizard"
-           icon="icons/full/obj16/NewXtendFile.gif"
-           name="%mt.xtend.wizard">
-	       <description>%mt.xtend.wizard.desc</description>
-		   <selection class="org.eclipse.core.resources.IResource"/>
-		</wizard>
-	</extension> -->
+	</extension>
    
    <!-- Operational QVT Transformation Wizards -->
    <extension
@@ -152,20 +138,6 @@
 		   <selection class="org.eclipse.core.resources.IResource"/>
 		</wizard>
 	</extension>
-
-   <!-- Model Workflow Engine Wizard 
-   <extension
-	      point = "org.eclipse.ui.newWizards">
-		 <wizard
-		   id="org.eclipse.amalgam.workflow.wizard.NewWorkflowFileWizard"
-		   name="%mt.workflow.wizard"
-           category="org.eclipse.amalgam.transformation.wizardCategory"
-           class="org.eclipse.emf.mwe.internal.ui.wizard.NewWorkflowFileWizard"
-           icon="icons/full/obj16/NewWorkflowFile.gif">
-	       <description>%mt.workflow.wizard.desc</description>
-		   <selection class="org.eclipse.core.resources.IResource"/>
-		</wizard>
-	</extension> -->
 	
    <!-- General Model Wizards -->
    <extension point="org.eclipse.ui.newWizards">
@@ -381,43 +353,6 @@
     <activityPatternBinding
           activityId="org.eclipse.amalgam.workflow.activity"
           pattern="org\.eclipse\.amalgam\.dsltk\.ui/org\.eclipse\.amalgam\.workflow\.wizard\.NewWorkflowFileWizard">
-    </activityPatternBinding>
-    
-    <!-- Hide MWE elements -->
-    <activity
-    	  description="%activity.mt.workflow.hide.desc"
-          id="org.eclipse.amalgam.hide.mt.mweActivity"
-          name="%activity.mt.workflow.hide">
-    </activity>
-    <activityPatternBinding
-          activityId="org.eclipse.amalgam.hide.mt.mweActivity"
-          pattern="org\.eclipse\.emf\.mwe\.ui/org\.eclipse\.emf\.mwe\.internal\.ui\.wizard\.NewWorkflowFileWizard">
-    </activityPatternBinding>
-    
-    <!-- Hide Xpand elements -->
-    <activity
-    	  description="%activity.mt.xpand.hide.desc"
-          id="org.eclipse.amalgam.hide.mt.xpandActivity"
-          name="%activity.mt.xpand.hide">
-    </activity>
-    <activityPatternBinding
-          activityId="org.eclipse.amalgam.hide.mt.xpandActivity"
-          pattern="org\.eclipse\.xpand\.ui/org\.eclipse\.xpand\.ui\.wizard\.NewTemplateFileWizard">
-    </activityPatternBinding>
-    
-    <!-- Hide Xtend and Check elements -->
-    <activity
-    	  description="%activity.mt.xtend.hide.desc"
-          id="org.eclipse.amalgam.hide.mt.xtend.activity"
-          name="%activity.mt.xtend.hide">
-    </activity>
-    <activityPatternBinding
-          activityId="org.eclipse.amalgam.hide.mt.xtend.activity"
-          pattern="org\.eclipse\.xtend\.ui/org\.eclipse\.xtend\.xtend\.wizard\.NewXtendFileWizard">
-    </activityPatternBinding>
-    <activityPatternBinding
-          activityId="org.eclipse.amalgam.hide.mt.xtend.activity"
-          pattern="org\.eclipse\.xtend\.check\.ui/org\.eclipse\.xtend\.check\.ui\.wizard\.NewCheckFileWizard">
     </activityPatternBinding>
     
     <!-- Hide QVTO elements -->
