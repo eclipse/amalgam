@@ -197,16 +197,6 @@
 			<arg line="-vmargs"/>
 			<arg line="-Xmx1024m"/>
 		</exec>
-		<!-- Zip the metadata, as -compress argument above didn't seem to do the trick 
-		<zip destfile="${buildDirectory}/${buildLabel}/content.jar"
-       		 basedir="${buildDirectory}/${buildLabel}/repo"
-       		 includes="content.xml"/>
-       	<zip destfile="${buildDirectory}/${buildLabel}/artifacts.jar"
-       		 basedir="${buildDirectory}/${buildLabel}/repo"
-       		 includes="artifacts.xml"/> 
-        <delete file="${buildDirectory}/${buildLabel}/repo/content.xml" failonerror="false"/>
-       	<delete file="${buildDirectory}/${buildLabel}/repo/artifacts.xml" failonerror="false"/>
-       	-->
 	</target>
 «ENDDEFINE»
 
@@ -218,7 +208,7 @@
 			<arg line="-vm «launchVM»"/>
 «ENDIF-»
 			<arg line="-application org.eclipse.update.core.siteOptimizer"/>
-			<arg line="-jarProcessor -verbose -pack -processAll -repack -outputDir ${buildDirectory}/${buildLabel}/repo"/>
+			<arg line="-jarProcessor -verbose -pack -processAll -outputDir ${buildDirectory}/${buildLabel}/repo"/>
 			<arg line="${buildDirectory}/${buildLabel}/repo" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
@@ -241,6 +231,13 @@
 		<move tofile="${buildRoot}/«product.launcher.name»/${buildLabel}/binary" file="${buildRoot}/«product.launcher.name»/${buildLabel}/repo/binary"/>
        	<move tofile="${buildRoot}/«product.launcher.name»/${buildLabel}/features" file="${buildRoot}/«product.launcher.name»/${buildLabel}/repo/features"/>
        	<move tofile="${buildRoot}/«product.launcher.name»/${buildLabel}/plugins" file="${buildRoot}/«product.launcher.name»/${buildLabel}/repo/plugins"/>
+       	<!-- FIXME: Zip the metadata, as -compress argument above didn't seem to do the trick -->
+		<zip destfile="${buildDirectory}/${buildLabel}/content.jar"
+       		 basedir="${buildDirectory}/${buildLabel}"
+       		 includes="content.xml"/>
+       	<zip destfile="${buildDirectory}/${buildLabel}/artifacts.jar"
+       		 basedir="${buildDirectory}/${buildLabel}"
+       		 includes="artifacts.xml"/>
   		<delete dir="${buildRoot}/«product.launcher.name»/${buildLabel}/repo"/>
 	</target>
 «ENDDEFINE»
