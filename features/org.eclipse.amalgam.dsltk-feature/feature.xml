@@ -28,18 +28,21 @@ http://www.eclipse.org/legal/epl-v10.html
    </url>
 
    <requires>
-      <import plugin="org.eclipse.core.runtime" version="3.3.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.ecore.editor"/>
-      <import plugin="org.eclipse.emf.importer"/>
-      <import plugin="org.eclipse.search" version="3.3.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.codegen.ecore.ui"/>
-      <import plugin="org.eclipse.m2m.qvt.oml.common"/>
-      <import plugin="org.eclipse.debug.ui" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.core.runtime" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.gmf.ecore.editor" version="2.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.importer" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.search" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.codegen.ecore.ui" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.common" version="1.0.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.debug.ui" version="3.5.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.core" version="3.4.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.m2m.qvt.oml" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.m2m.qvt.oml" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.ui" version="3.4.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.m2m.qvt.oml.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.gmf.bridge.ui" version="1.1.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.gmf.bridge.ui" version="1.2.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.gmf.xpand.editor" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.gmf.xpand" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.pde.ui" version="3.5.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.intro" version="3.2.200" match="greaterOrEqual"/>
       <import plugin="org.eclipse.update.configurator" version="3.2.200" match="greaterOrEqual"/>
       <import plugin="org.eclipse.update.core" version="3.2.200" match="greaterOrEqual"/>
@@ -49,12 +52,31 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.core.resources" version="3.4.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui" version="3.4.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide" version="3.4.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.search" version="3.4.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.navigator" version="3.3.101" match="greaterOrEqual"/>
       <import plugin="org.eclipse.help.ui" version="3.3.101" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.equinox.common"/>
+      <import plugin="org.eclipse.equinox.p2.core"/>
+      <import plugin="org.eclipse.equinox.p2.director"/>
+      <import plugin="org.eclipse.equinox.p2.engine"/>
+      <import plugin="org.eclipse.equinox.p2.garbagecollector"/>
+      <import plugin="org.eclipse.equinox.p2.metadata.repository"/>
+      <import plugin="org.eclipse.equinox.p2.metadata"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.equinox.p2.ui"/>
+      <import plugin="org.eclipse.equinox.p2.artifact.repository"/>
+      <import plugin="org.eclipse.equinox.common" version="3.5.0" match="compatible"/>
+      <import plugin="org.eclipse.equinox.frameworkadmin"/>
+      <import plugin="org.eclipse.equinox.p2.publisher"/>
       <import plugin="org.eclipse.equinox.registry"/>
       <import plugin="org.eclipse.ecf"/>
+      <import plugin="org.eclipse.core.jobs"/>
+      <import plugin="org.eclipse.osgi.services"/>
+      <import plugin="org.eclipse.core.net"/>
+      <import plugin="org.eclipse.jem.util" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.launching" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.debug.core" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.4.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore.xmi" version="2.4.0" match="compatible"/>
+      <import plugin="com.ibm.icu" version="3.8.1.1" match="compatible"/>
    </requires>
 
    <plugin
@@ -125,23 +147,37 @@ http://www.eclipse.org/legal/epl-v10.html
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.eclipse.jem"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.eclipse.jem.proxy"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.eclipse.jem.util"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.simpleconfigurator"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.simpleconfigurator.manipulator"
          download-size="0"
          install-size="0"
          version="0.0.0"
