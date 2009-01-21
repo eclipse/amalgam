@@ -6,13 +6,5 @@ Bundle-Localization: plugin
 Bundle-SymbolicName: org.eclipse.amalgam.examples.dsl.bpmn
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.emf.ecore,
- org.eclipse.xpand,
- org.eclipse.xtend,
- org.eclipse.xtend.typesystem.emf,
- org.eclipse.emf.mwe.core,
- org.eclipse.emf.mwe.utils,
- org.eclipse.emf.ecore.xmi,
- org.apache.commons.logging,
- org.antlr.runtime,
  org.eclipse.draw2d
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
