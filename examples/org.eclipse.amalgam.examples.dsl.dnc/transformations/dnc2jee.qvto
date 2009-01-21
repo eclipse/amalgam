@@ -5,7 +5,7 @@ modeltype java uses "java.xmi";
 
 transformation dnc2jee(in modelIn : dnc, out modelOut : java);
 
-import library Strings;
+import Strings;
 
 main() {
 	modelIn.rootObjects()[Package]->map toPackage();
@@ -103,7 +103,7 @@ mapping dnc::Archetype::toEntity() : java::JavaClass
 /**
  * Creates reference from association with annotations
  */
-mapping dnc::Association::toReference(inout class : java::JavaClass) : ecore::EReference 
+mapping dnc::Association::toReference(inout clazz : java::JavaClass) : ecore::EReference 
 	when {
 		not self.opposite.oclIsUndefined() and self.opposite.owner.isEntity()
 	} {
@@ -115,13 +115,13 @@ mapping dnc::Association::toReference(inout class : java::JavaClass) : ecore::ER
 		if (not self.opposite.oclIsUndefined() and self.opposite.owner.isEntity()) then {
 			if (self.upperBound = 1  and (self.opposite.upperBound = 1 or self.opposite.upperBound = 0)) then {
 				result.eAnnotations += toAnnotation('annotation', '@OneToOne(targetEntity=' + self.opposite.owner.fullyQualifiedName() + '.class)', null);
-				class.classImport += 'javax.persistence.OneToOne'.map toClass();	
+				clazz.classImport += 'javax.persistence.OneToOne'.map toClass();	
 			} endif; 
 			
 			if (self.upperBound = -1  and (self.opposite.upperBound = 1 or self.opposite.upperBound = 0)) then {
 				result.eAnnotations += toAnnotation('annotation', '@OneToMany(mappedBy="' + self.owner.name.toLowerCase() + 'Id")', null);	
 				result.eAnnotations += toAnnotation('collection', 'type', 'java.util.Collection');
-				class.classImport += 'javax.persistence.OneToMany'.map toClass();
+				clazz.classImport += 'javax.persistence.OneToMany'.map toClass();
 			} endif;
 			
 			var columnName : String := null;
@@ -130,15 +130,15 @@ mapping dnc::Association::toReference(inout class : java::JavaClass) : ecore::ER
 				result.eAnnotations += toAnnotation('annotation', '@Column(name="' + columnName  + '")', null)
 			} endif;
 		} endif;
-		class.methods += self.map toGetter();
-		class.methods += self.map toSetter();
+		clazz.methods += self.map toGetter();
+		clazz.methods += self.map toSetter();
 	}
 }
 
 /**
  * Creates reference/getter/setter from opposite reference with annotations
  */
-mapping oocore::Reference::toReference(inout class : java::JavaClass) : ecore::EReference
+mapping oocore::Reference::toReference(inout clazz : java::JavaClass) : ecore::EReference
 	when {
 		not self.opposite.oclIsUndefined() and self.opposite.owner.isEntity() and self.opposite.upperBound = -1
 	} {
@@ -150,8 +150,8 @@ mapping oocore::Reference::toReference(inout class : java::JavaClass) : ecore::E
 		if self.opposite.upperBound = -1 then {
 			result.eAnnotations += toAnnotation('annotation', '@ManyToOne', null);	
 			result.eAnnotations += toAnnotation('annotation', '@JoinColumn(name="' + self.opposite.owner.name.toUpperCase()  + '_ID")', null);
-			class.classImport += 'javax.persistence.ManyToOne'.map toClass();
-			class.classImport += 'javax.persistence.JoinColumn'.map toClass();
+			clazz.classImport += 'javax.persistence.ManyToOne'.map toClass();
+			clazz.classImport += 'javax.persistence.JoinColumn'.map toClass();
 		} endif;
 		
 		var columnName : String := null;
@@ -159,8 +159,8 @@ mapping oocore::Reference::toReference(inout class : java::JavaClass) : ecore::E
 			columnName := self.name.toColumnName();
 			result.eAnnotations += toAnnotation('annotation', '@Column(name="' + columnName  + '")', null)
 		} endif;
-		class.methods += self.map toGetter();
-		class.methods += self.map toSetter();
+		clazz.methods += self.map toGetter();
+		clazz.methods += self.map toSetter();
 	}
 }
 
@@ -208,7 +208,7 @@ mapping oocore::Reference::toSetter() : java::Method {
 /**
  * Creates field/getter/setter for attribute, with @Column annotation if required
  */
-mapping oocore::Attribute::toField(inout class : java::JavaClass) : java::Field {
+mapping oocore::Attribute::toField(inout clazz : java::JavaClass) : java::Field {
 	name := self.name;
 	eType := self.dataType.map toClass();
 	javaVisibility := self.visibility.toVisibility();
@@ -218,8 +218,8 @@ mapping oocore::Attribute::toField(inout class : java::JavaClass) : java::Field 
 			columnName := self.name.toColumnName();
 			result.eAnnotations += toAnnotation('annotation', '@Column(name = "' + columnName  + '")', null)
 		} endif;
-		class.methods += self.map toGetter();
-		class.methods += self.map toSetter();
+		clazz.methods += self.map toGetter();
+		clazz.methods += self.map toSetter();
 	}
 }
 
@@ -347,12 +347,12 @@ mapping oocore::Package::toPackage(child : java::JavaPackage) : java::JavaPackag
 /**
  * Creates ECore annotation for use by template
  */
-query toAnnotation(type:String, key:String, value:String) : ecore::EAnnotation {
+query toAnnotation(type:String, inkey:String, invalue:String) : ecore::EAnnotation {
 	return object ecore::EAnnotation {
 		source := type;
 		details += object ecore::EStringToStringMapEntry {
-			key := key;
-			value := value;
+			key := inkey;
+			value := invalue;
 		}
 	}
 }

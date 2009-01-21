@@ -15,17 +15,17 @@ package «preferencesPackageName»;
 public class «EXPAND className» extends org.eclipse.gmf.runtime.diagram.ui.preferences.AppearancePreferencePage {
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private String PINK_COLOR_LABEL = «EXPAND xpt::Externalizer::accessorCall("AppearancePreferencePage_pinkArchetypeColor_label") FOR editorGen»;
+	private String PINK_COLOR_LABEL = «EXPAND xpt::Externalizer::accessorCall('AppearancePreferencePage_pinkArchetypeColor_label') FOR editorGen»;
 	«EXPAND xpt::Common::generatedMemberComment»
-	private String YELLOW_COLOR_LABEL = «EXPAND xpt::Externalizer::accessorCall("AppearancePreferencePage_yellowArchetypeColor_label") FOR editorGen»;
+	private String YELLOW_COLOR_LABEL = «EXPAND xpt::Externalizer::accessorCall('AppearancePreferencePage_yellowArchetypeColor_label') FOR editorGen»;
 	«EXPAND xpt::Common::generatedMemberComment»
-	private String GREEN_COLOR_LABEL = «EXPAND xpt::Externalizer::accessorCall("AppearancePreferencePage_greenArchetypeColor_label") FOR editorGen»;
+	private String GREEN_COLOR_LABEL = «EXPAND xpt::Externalizer::accessorCall('AppearancePreferencePage_greenArchetypeColor_label') FOR editorGen»;
 	«EXPAND xpt::Common::generatedMemberComment»
-	private String BLUE_COLOR_LABEL = «EXPAND xpt::Externalizer::accessorCall("AppearancePreferencePage_blueArchetypeColor_label") FOR editorGen»;
+	private String BLUE_COLOR_LABEL = «EXPAND xpt::Externalizer::accessorCall('AppearancePreferencePage_blueArchetypeColor_label') FOR editorGen»;
 	«EXPAND xpt::Common::generatedMemberComment»
-	private String GRAY_COLOR_LABEL = «EXPAND xpt::Externalizer::accessorCall("AppearancePreferencePage_grayArchetypeColor_label") FOR editorGen»;
+	private String GRAY_COLOR_LABEL = «EXPAND xpt::Externalizer::accessorCall('AppearancePreferencePage_grayArchetypeColor_label') FOR editorGen»;
 	«EXPAND xpt::Common::generatedMemberComment»
-	private String ARCHETYPE_GROUPBOX_LABEL = «EXPAND xpt::Externalizer::accessorCall("AppearancePreferencePage_archetypeColorGroup_label") FOR editorGen»;
+	private String ARCHETYPE_GROUPBOX_LABEL = «EXPAND xpt::Externalizer::accessorCall('AppearancePreferencePage_archetypeColorGroup_label') FOR editorGen»;
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static final String PREF_MI_ARCHETYPE_COLOR = "Appearance.mi_ArchetypeColor";
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -160,19 +160,19 @@ public class «EXPAND className» extends org.eclipse.gmf.runtime.diagram.ui.prefe
 «ENDDEFINE»
 
 «DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::messageEntry("AppearancePreferencePage_archetypeColorGroup_label", "Archetype colors")-»
-«EXPAND xpt::Externalizer::messageEntry("AppearancePreferencePage_pinkArchetypeColor_label", "Pinks (moment-interval, mi-detail):")-»
-«EXPAND xpt::Externalizer::messageEntry("AppearancePreferencePage_yellowArchetypeColor_label", "Yellows (role):")-»
-«EXPAND xpt::Externalizer::messageEntry("AppearancePreferencePage_greenArchetypeColor_label", "Greens (party, place, thing):")-»
-«EXPAND xpt::Externalizer::messageEntry("AppearancePreferencePage_blueArchetypeColor_label", "Blues (description):")-»
-«EXPAND xpt::Externalizer::messageEntry("AppearancePreferencePage_grayArchetypeColor_label", "Plug-in point:")-»
+«EXPAND xpt::Externalizer::messageEntry('AppearancePreferencePage_archetypeColorGroup_label', 'Archetype colors')-»
+«EXPAND xpt::Externalizer::messageEntry('AppearancePreferencePage_pinkArchetypeColor_label', 'Pinks (moment-interval, mi-detail):')-»
+«EXPAND xpt::Externalizer::messageEntry('AppearancePreferencePage_yellowArchetypeColor_label', 'Yellows (role):')-»
+«EXPAND xpt::Externalizer::messageEntry('AppearancePreferencePage_greenArchetypeColor_label', 'Greens (party, place, thing):')-»
+«EXPAND xpt::Externalizer::messageEntry('AppearancePreferencePage_blueArchetypeColor_label', 'Blues (description):')-»
+«EXPAND xpt::Externalizer::messageEntry('AppearancePreferencePage_grayArchetypeColor_label', 'Plug-in point:')-»
 «ENDDEFINE»
 
 «DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::accessorField("AppearancePreferencePage_archetypeColorGroup_label")-»
-«EXPAND xpt::Externalizer::accessorField("AppearancePreferencePage_pinkArchetypeColor_label")-»
-«EXPAND xpt::Externalizer::accessorField("AppearancePreferencePage_yellowArchetypeColor_label")-»
-«EXPAND xpt::Externalizer::accessorField("AppearancePreferencePage_greenArchetypeColor_label")-»
-«EXPAND xpt::Externalizer::accessorField("AppearancePreferencePage_blueArchetypeColor_label")-»
-«EXPAND xpt::Externalizer::accessorField("AppearancePreferencePage_grayArchetypeColor_label")-»
+«EXPAND xpt::Externalizer::accessorField('AppearancePreferencePage_archetypeColorGroup_label')-»
+«EXPAND xpt::Externalizer::accessorField('AppearancePreferencePage_pinkArchetypeColor_label')-»
+«EXPAND xpt::Externalizer::accessorField('AppearancePreferencePage_yellowArchetypeColor_label')-»
+«EXPAND xpt::Externalizer::accessorField('AppearancePreferencePage_greenArchetypeColor_label')-»
+«EXPAND xpt::Externalizer::accessorField('AppearancePreferencePage_blueArchetypeColor_label')-»
+«EXPAND xpt::Externalizer::accessorField('AppearancePreferencePage_grayArchetypeColor_label')-»
 «ENDDEFINE»

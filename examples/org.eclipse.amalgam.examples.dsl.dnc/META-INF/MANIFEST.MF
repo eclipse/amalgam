@@ -6,18 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: org.eclipse.emf.ecore,
- org.eclipse.xpand,
- org.eclipse.xtend,
- org.eclipse.xtend.typesystem.emf,
- org.eclipse.emf.mwe.core,
- org.eclipse.emf.mwe.utils,
- org.eclipse.emf.ecore.xmi,
- org.apache.commons.logging,
- org.antlr.runtime,
- org.eclipse.core.runtime,
- org.eclipse.jface.text,
- org.eclipse.jdt.core
 Bundle-Vendor: %providerName
  
  

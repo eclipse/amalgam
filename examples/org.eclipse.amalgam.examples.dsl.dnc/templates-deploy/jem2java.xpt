@@ -1,31 +1,22 @@
-«IMPORT java»
-«IMPORT ecore»
+«IMPORT 'java.xmi'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «EXTENSION jemUtil»
+«EXTENSION xpt::StringOperations»
 
-«DEFINE Main FOR Collection[java::JavaPackage]»
-	«EXPAND package FOREACH this.typeSelect(JavaPackage)»
-«ENDDEFINE»
-
-«DEFINE package FOR java::JavaPackage-»
-	«EXPAND class FOREACH javaClasses.select(c | c.eAnnotations.first().source != 'library')»
-	«EXPAND package FOREACH eSubpackages.typeSelect(JavaPackage)»
-«ENDDEFINE»
-
-«DEFINE class FOR java::JavaClass-»
-«FILE this.fullyQualifiedPath()-»
-«IF javaPackage.isValid()-»
+«DEFINE Main FOR java::JavaClass-»
+«IF isValid(javaPackage)-»
 package «javaPackage.fullyQualifiedName()»;
 «ENDIF»
-«EXPAND import FOREACH classImport-»
+«EXPAND _import FOREACH classImport-»
 
 /**
-«EXPAND classComment FOREACH eAnnotations.select(a | a.source == 'description').details-»
+«EXPAND classComment FOREACH eAnnotations->select(a | a.source = 'description').details-»
  *
  * @generated
  */
-«EXPAND annotation FOREACH eAnnotations.select(a | a.source == 'annotation').details-»
-public class «name» «EXPAND extends FOR this-» «EXPAND implements FOR this-» {
+«EXPAND annotation FOREACH eAnnotations->select(a | a.source = 'annotation').details-»
+public class «name» «EXPAND _extends FOR self-» «EXPAND implements FOR self-» {
 
 «EXPAND field FOREACH fields-»
 
@@ -35,23 +26,22 @@ public class «name» «EXPAND extends FOR this-» «EXPAND implements FOR this-» {
 
 «EXPAND additions-»
 }
-«ENDFILE»
 «ENDDEFINE»
 
-«DEFINE extends FOR java::JavaClass-»
-«IF getSupertype() != null»extends «EXPAND superClass FOR getSupertype()-»«ENDIF-»
+«DEFINE _extends FOR java::JavaClass-»
+«IF getSupertype() <> null»extends «EXPAND superClass FOR getSupertype()-»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE implements FOR java::JavaClass-»
-«IF implementsInterfaces.size > 0»implements «EXPAND superClass FOREACH implementsInterfaces SEPARATOR ","-»«ENDIF-»
+«IF implementsInterfaces->size() > 0»implements «EXPAND superClass FOREACH implementsInterfaces SEPARATOR ','-»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE superClass FOR java::JavaClass-»
-«fullyQualifiedName(this)-»
+«self.fullyQualifiedName()-»
 «ENDDEFINE»
 
 «DEFINE classComment FOR ecore::EStringToStringMapEntry-»
-«IF key == null || key.length == 0-»
+«IF key = null or key.xpandLength() = 0-»
  * TODO: Enter description of the class here...«ELSE-»
  * «key-»
 «ENDIF»
@@ -62,49 +52,50 @@ public class «name» «EXPAND extends FOR this-» «EXPAND implements FOR this-» {
 «ENDDEFINE»
 
 «DEFINE field FOR java::Field-»
-«EXPAND generatedComment FOR this-»
-	«EXPAND annotation FOREACH eAnnotations.select(a | a.source == 'annotation').details-»
-	«javaVisibility.toString().toLowerCase()» «wrapIfCollection(this)» «name-»;
+«EXPAND generatedComment FOR self-»
+	«EXPAND annotation FOREACH eAnnotations->select(a | a.source = 'annotation').details-»
+  «javaVisibility.repr().toLower()» «wrapIfCollection(self)» «name»;
 «ENDDEFINE»
 
 «DEFINE reference FOR ecore::EReference-»
-«EXPAND generatedComment FOR this-»
-	«EXPAND annotation FOREACH eAnnotations.select(a | a.source == 'annotation').details-»
- 	private «wrapIfCollection(this)» «name-»; 
+«EXPAND generatedComment FOR self-»
+	«EXPAND annotation FOREACH eAnnotations->select(a | a.source = 'annotation').details-»
+ 	private «wrapIfCollection(self)» «name»; 
 «ENDDEFINE»
 
 «DEFINE method FOR java::Method-»
-«EXPAND generatedComment FOR this-»
- 	«EXPAND annotation FOREACH eAnnotations.select(a | a.source == 'annotation').details-»
- 	«javaVisibility.toString().toLowerCase()-» «wrapIfCollection(this)» «name-»(«EXPAND parameter FOREACH parameters SEPARATOR ','») {
-		«EXPAND block FOR source»
- 	}
+«EXPAND generatedComment FOR self-»
+ 	«EXPAND annotation FOREACH eAnnotations->select(a | a.source = 'annotation').details-»
+  «javaVisibility.repr().toLower()» «wrapIfCollection(self)» «name»(«EXPAND parameter FOREACH parameters SEPARATOR ','») {
+    «EXPAND block FOR source»
+  }
 «ENDDEFINE»
 
 «DEFINE parameter FOR java::JavaParameter-»
-«wrapIfCollection(this)» «name-»
+«wrapIfCollection(self)» «name-»
 «ENDDEFINE»
 
 «DEFINE block FOR java::Block-»
-		«this.source-»
+		«self.source-»
 		«EXPAND block FOREACH contents-»
 «ENDDEFINE»
 
 «DEFINE block FOR java::Comment-»
-		/*
-		 * «this.source»
-		 */
-		«EXPAND block FOREACH contents-»
+  /*
+   * «self.source»
+   */
+   «EXPAND block FOREACH contents-»
 «ENDDEFINE»
 
-«DEFINE generatedComment FOR Object-»
+«DEFINE generatedComment FOR OclAny-»
 	/**
  	 *@generated
  	 */
 «ENDDEFINE»
 
-«DEFINE import FOR java::JavaClass-»
-import «this.fullyQualifiedName() + ";\n"-»
+«DEFINE _import FOR java::JavaClass-»
+import «self.fullyQualifiedName() + ';
+'-»
 «ENDDEFINE»
 
 «DEFINE additions FOR java::JavaClass-»«ENDDEFINE»

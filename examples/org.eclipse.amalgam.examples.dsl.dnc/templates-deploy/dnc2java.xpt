@@ -1,19 +1,11 @@
-«IMPORT dnc»
-«IMPORT oocore»
+«IMPORT 'http://www.eclipse.org/2008/oocore'»
+«IMPORT 'http://www.eclipse.org/2008/dnc'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «EXTENSION dncUtil»
+«EXTENSION xpt::StringOperations»
 
-«DEFINE Main FOR oocore::Package»
-	«EXPAND package FOREACH contents.typeSelect(oocore::Package)»
-«ENDDEFINE»
-
-«DEFINE package FOR oocore::Package-»
-	«EXPAND entity FOREACH contents.typeSelect(dnc::Archetype).select(a | a.isEntity())»
-	«EXPAND package FOREACH contents.typeSelect(oocore::Package)»
-«ENDDEFINE»
-
-«DEFINE entity FOR dnc::Archetype-»
-«FILE this.fullyQualifiedPath() -»
+«DEFINE Main FOR dnc::Archetype-»
 «IF package.isValid()-»
 package «package.fullyQualifiedName()»;
 «ENDIF»
@@ -23,85 +15,86 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-«IF !features.typeSelect(dnc::Association).collect(a | a.upperBound == -1).isEmpty-»
+«IF not features[dnc::Association]->collect(a | a.upperBound = -1)->isEmpty()-»
 import javax.persistence.OneToMany;«ENDIF»
-«IF !features.typeSelect(dnc::Association).collect(a | a.upperBound == 1).isEmpty-»
+«IF not features[dnc::Association]->collect(a | a.upperBound = 1)->isEmpty()-»
 import javax.persistence.OneToOne;«ENDIF»
-«IF features.typeSelect(oocore::Reference).collect(a | a.opposite.metaType == dnc::Association && a.opposite.upperBound == -1).isEmpty-»
+«IF features[oocore::Reference]->collect(a | a.opposite.upperBound = -1)->isEmpty()-»
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;«ENDIF»
 
 /**
- * «IF description.length > 0-»«description-»«ELSE»TODO: Enter description of the class here...«ENDIF»
+ * «IF not self.description.oclIsUndefined() and description.length() > 0-»«description-»«ELSE»TODO: Enter description of the class here...«ENDIF»
  *
  * @generated
  */
 @Entity
-@Table(name="«EXPAND toColumnName FOR name-»")
-public class «name» «EXPAND extends FOR this-»implements java.io.Serializable«EXPAND implements FOR this-» {
+@Table(name="«EXPAND toColumnName FOR self.name»
+public class «name» «EXPAND extends FOR self-»implements java.io.Serializable«EXPAND implements FOR self-» {
 
-«EXPAND idAttribute FOR this-»
-«EXPAND attribute FOREACH features.typeSelect(oocore::Attribute)-»
-«EXPAND reference FOREACH features.typeSelect(oocore::Reference)-»
-«EXPAND idGetter FOR this-»
-«FOREACH features.typeSelect(oocore::StructuralFeature) AS feature-»
+«EXPAND idAttribute FOR self-»
+«EXPAND attribute FOREACH features[oocore::Attribute]-»
+«EXPAND reference FOREACH features[oocore::Reference]-»
+«EXPAND idGetter FOR self-»
+«FOREACH features[oocore::StructuralFeature] AS feature-»
 «EXPAND getter FOR feature-»
 «EXPAND setter FOR feature-»
 «ENDFOREACH»
 
-«EXPAND method FOREACH features.typeSelect(oocore::Operation)-»
+«EXPAND method FOREACH features[oocore::Operation]-»
 «EXPAND additions-»
 }
-«ENDFILE»
 «ENDDEFINE»
 
 «DEFINE extends FOR oocore::Class-»
-«IF !superclasses.isEmpty»extends «EXPAND superClass FOR superclasses.select(c | c.interface == false).first()-»«ENDIF-»
+«IF not superclasses->isEmpty()»extends «EXPAND superClass FOR self.superclasses->select(c | c.interface = false)->asSequence()->first()-»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE implements FOR oocore::Class-»
-«IF superclasses.select(c | c.interface == true).size > 0», «EXPAND superClass FOREACH superclasses.select(c | c.interface == true) SEPARATOR ","-»«ENDIF-»
+«IF superclasses->select(c | c.interface = true)->size() > 0», «EXPAND superClass FOREACH superclasses->select(c | c.interface = true) SEPARATOR ','-»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE superClass FOR oocore::Class-»
-«fullyQualifiedName(this)-»
+«self.fullyQualifiedName()-»
 «ENDDEFINE»
 
 «DEFINE idAttribute FOR oocore::Class-»
-«EXPAND generatedComment FOR this-»
+«EXPAND generatedComment FOR self-»
 	@Id 
-	@Column(name="«name.toUpperCase()-»_ID") 
+	@Column(name="«name.toUpper()»_ID") 
 	@GeneratedValue(strategy=GenerationType.AUTO) 
-	private int «name.toLowerCase()-»Id;
+	private int «name.toLower()»Id;
 «ENDDEFINE»
 
 «DEFINE attribute FOR oocore::Attribute-»
-«EXPAND generatedComment FOR this-»
-«IF name.toLowerCase() != name-»    @Column(name="«EXPAND toColumnName FOR name-»")«ENDIF»
-	«visibility.toString().toLowerCase()» «dataType.name» «name-»;
+«EXPAND generatedComment FOR self-»
+«IF name.toLower() != name»    
+    @Column(name="«EXPAND toColumnName FOR name-»«ENDIF»	«visibility.repr().toLower()» «dataType.name» «name»;
 «ENDDEFINE»
 
 «DEFINE reference FOR dnc::Association-»
-«IF this.type.isEntity()-»
-«EXPAND generatedComment FOR this-»
-«IF this.upperBound == -1-»    @OneToMany(mappedBy="«this.owner.name.toLowerCase()»Id")«ELSEIF this.upperBound == 1-»    @OneToOne(targetEntity=«this.opposite.owner.fullyQualifiedName()».class)«ENDIF»
- 	private «wrapIfCollection(this)» «name-»;
+«IF self.type.isEntity()-»
+«EXPAND generatedComment FOR self-»
+«IF self.upperBound = -1»    
+    @OneToMany(mappedBy="«self.owner.name.toLower()»Id")«ELSEIF self.upperBound = 1»    
+    @OneToOne(targetEntity=«self.opposite.owner.fullyQualifiedName()».class)«ENDIF»
+ 	private «self.wrapIfCollection()» «name»;
 «ENDIF»
 «ENDDEFINE»
 
 «DEFINE reference FOR oocore::Reference-»
-«IF this.generateReference()-»
-«EXPAND generatedComment FOR this-»
+«IF self.generateReference()-»
+«EXPAND generatedComment FOR self-»
     @ManyToOne
-    @JoinColumn(name="«this.owner.name.toUpperCase()»_ID")
- 	private «wrapIfCollection(this)» «name-»;
+    @JoinColumn(name="«self.owner.name.toUpper()»_ID")
+ 	private «self.wrapIfCollection()» «name»;
 «ENDIF»
 «ENDDEFINE»
 
 «DEFINE idGetter FOR oocore::Class-»
-«EXPAND generatedComment FOR this-»
- 	public int get«name.toFirstUpper()»Id() {
-		return «name.toLowerCase()»Id;		
+«EXPAND generatedComment FOR self-»
+ 	public int get«name.firstToUpper()»Id() {
+		return «name.toLower()»Id;		
  	}
 «ENDDEFINE»
 
@@ -112,56 +105,56 @@ public class «name» «EXPAND extends FOR this-»implements java.io.Serializable«EX
 «ENDDEFINE»
 
 «DEFINE getter FOR oocore::Attribute-»
-«EXPAND generatedComment FOR this-»
- 	public «this.dataType.name» get«name.toFirstUpper()»() {
+«EXPAND generatedComment FOR self-»
+ 	public «self.dataType.name» get«name.firstToUpper()»() {
 		return «name»;		
  	}
 «ENDDEFINE»
 
 «DEFINE setter FOR oocore::Attribute-»
-«EXPAND generatedComment FOR this-»
- 	public void set«name.toFirstUpper()»(«this.dataType.name» «name») {
+«EXPAND generatedComment FOR self-»
+ 	public void set«name.firstToUpper()»(«self.dataType.name» «name») {
 		this.«name» = «name»;
  	}
 «ENDDEFINE»
 
 «DEFINE getter FOR oocore::Reference-»
-«IF this.generateReference()-»
-«EXPAND generatedComment FOR this-»
- 	public «wrapIfCollection(this)» get«name.toFirstUpper()»() {
+«IF self.generateReference()-»
+«EXPAND generatedComment FOR self-»
+ 	public «self.wrapIfCollection()» get«name.firstToUpper()»() {
 		return «name»;		
  	}
 «ENDIF»
 «ENDDEFINE»
 
 «DEFINE setter FOR oocore::Reference-»
-«IF this.generateReference()-»
-«EXPAND generatedComment FOR this-»
- 	public void set«name.toFirstUpper()»(«wrapIfCollection(this)» «name») {
+«IF self.generateReference()-»
+«EXPAND generatedComment FOR self-»
+ 	public void set«name.firstToUpper()»(«self.wrapIfCollection()» «name») {
 		this.«name» = «name»;
  	}
 «ENDIF»
 «ENDDEFINE»
 
 «DEFINE method FOR oocore::Operation-»
-«EXPAND generatedComment FOR this-»
- 	«visibility.toString().toLowerCase()-» «wrapIfCollection(this)» «name-»(«EXPAND parameter FOREACH parameters SEPARATOR ','») {
+«EXPAND generatedComment FOR self-»
+ 	«visibility.repr().toLower()-» «self.wrapIfCollection()» «name-»(«EXPAND parameter FOREACH parameters SEPARATOR ','») {
 		//TODO: implement method
  	}
 «ENDDEFINE»
 
 «DEFINE parameter FOR oocore::Parameter-»
-«wrapIfCollection(this)» «name-»
+«self.wrapIfCollection()» «name-»
 «ENDDEFINE»
 
-«DEFINE generatedComment FOR Object-»
+«DEFINE generatedComment FOR oocore::NamedElement-»
 	/**
  	 *@generated
  	 */
 «ENDDEFINE»
 
 «DEFINE toColumnName FOR String-»
-«FOREACH this.toCharList() AS char ITERATOR i-»«IF i.counter0 == 0-»«char.toUpperCase()-»«ELSE-»«char.asColumnNameChar()-»«ENDIF-»«ENDFOREACH-»
+«'C_' + self.toUpper()-»")
 «ENDDEFINE»
 
 «DEFINE additions FOR dnc::Archetype-»«ENDDEFINE»

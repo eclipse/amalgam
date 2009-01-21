@@ -1,0 +1,38 @@
+import xpt.StringOperations;
+
+modeltype xmi uses "java.xmi";
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library jemUtil;
+
+helper rootPackages(roots : Collection(ecore::EObject)) : Sequence(xmi::JavaPackage) {
+	return (roots->collect(it | it))[xmi::JavaPackage]->asSequence()
+}
+
+helper gatherPackages(pkg : xmi::JavaPackage) : Sequence(xmi::JavaPackage) {
+	return let p = Sequence { pkg } in p->union((pkg.eSubpackages)[xmi::JavaPackage]->collect(it | gatherPackages(it))->flatten())
+}
+
+helper gatherClasses(roots : Collection(xmi::JavaPackage)) : Sequence(xmi::JavaClass) {
+	return let p = roots->collect(it | gatherPackages(it))->asSequence() in p.javaClasses
+}
+
+helper xmi::JavaPackage::fullyQualifiedName() : String {
+	return ''
+}
+
+helper xmi::JavaClass::fullyQualifiedName() : String {
+	return ''
+}
+
+helper fullyQualifiedPath(c : xmi::JavaClass) : String {
+	return ''
+}
+
+helper wrapIfCollection(element : ecore::ETypedElement) : String {
+	return ''
+}
+
+helper isValid(package : xmi::JavaPackage) : Boolean {
+	return package <> null and (package.name <> null and package.name.xpandLength() > 0)
+}

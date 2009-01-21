@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="modeler" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand">
+	
+	<target name="main">
+		<zzz:template name="dnc2java::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.examples.dsl.dnc/model/model.xmi#/" 
+			templateroot="platform:/resource/org.eclipse.amalgam.examples.dsl.dnc/templates-deploy/"
+			outfile=""/>
+		<eclipse.refreshLocal resource="org.eclipse.amalgam.examples.dsl.dnc" depth="infinite"/>
+	</target>
+
+</project>

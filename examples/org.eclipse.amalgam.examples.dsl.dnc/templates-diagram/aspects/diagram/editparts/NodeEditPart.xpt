@@ -1,15 +1,17 @@
-«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
+«IMPORT 'http://www.eclipse.org/gmf/2008/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
-«EXTENSION Utils»
+«EXTENSION Utilities»
 
 «AROUND additions FOR gmfgen::GenNode-»
-«EXPAND fieldPreferencePropertyChangeListener FOR this-»
-«EXPAND PreferencePropertyChangeListener FOR this-»
-«EXPAND addNotationalListeners FOR this-»
-«EXPAND updateArchetypeColor FOR this-»
-«EXPAND getPreferenceColor FOR this-»
-«EXPAND initPreferenceStoreListener FOR this-»
-«EXPAND setForegroundColorMethod FOR this-»
+«EXPAND fieldPreferencePropertyChangeListener FOR self-»
+«EXPAND PreferencePropertyChangeListener FOR self-»
+«EXPAND addNotationalListeners FOR self-»
+«EXPAND updateArchetypeColor FOR self-»
+«EXPAND getPreferenceColor FOR self-»
+«EXPAND initPreferenceStoreListener FOR self-»
+«EXPAND setForegroundColorMethod FOR self-»
 «ENDAROUND»
 
 «DEFINE fieldPreferencePropertyChangeListener FOR gmfgen::GenNode-»
@@ -21,7 +23,7 @@
 	«EXPAND xpt::Common::generatedClassComment-»
 	protected class PreferencePropertyChangeListener implements org.eclipse.jface.util.IPropertyChangeListener {
 		public void propertyChange(org.eclipse.jface.util.PropertyChangeEvent event) {
-			if (event.getProperty().equals(«EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName FOR diagram».«modelFacet.metaClass.ecoreClass.toPreferenceConstant()»)) {
+			if (event.getProperty().equals(«EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName FOR self.getDiagram()».«self.modelFacet.metaClass.ecoreClass.toPreferenceConstant()»)) {
 				updateArchetypeColor();
 			}
 		}
@@ -58,7 +60,7 @@
 	«EXPAND xpt::Common::generatedMemberComment-»
 	private org.eclipse.swt.graphics.Color getPreferenceColor() {
 		org.eclipse.jface.preference.IPreferenceStore preferenceStore = (org.eclipse.jface.preference.IPreferenceStore) getDiagramPreferencesHint().getPreferenceStore();
-		org.eclipse.swt.graphics.RGB archetypeColorPreference = org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, «EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName FOR diagram».«modelFacet.metaClass.ecoreClass.toPreferenceConstant()»);
+		org.eclipse.swt.graphics.RGB archetypeColorPreference = org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, «EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName FOR self.getDiagram()».«modelFacet.metaClass.ecoreClass.toPreferenceConstant()»);
 		return new org.eclipse.swt.graphics.Color(null, archetypeColorPreference);
 	}
 «ENDDEFINE»
