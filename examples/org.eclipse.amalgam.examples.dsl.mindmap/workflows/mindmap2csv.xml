@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="modeler" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand">
+	
+	<target name="main">
+		<zzz:template name="mindmap2csv::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.examples.dsl.mindmap/model/Map.xmi#/" 
+			templateroot="platform:/resource/org.eclipse.amalgam.examples.dsl.mindmap/templates-deploy/"
+			outfile="platform:/resource/org.eclipse.amalgam.examples.dsl.mindmap/out/mindmap.csv"/>
+		<eclipse.refreshLocal resource="org.eclipse.amalgam.examples.dsl.mindmap" depth="infinite"/>
+	</target>
+
+</project>

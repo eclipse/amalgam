@@ -20,13 +20,9 @@ mapping mindmap::Map::toRequirementsModel() : requirements::Model {
 }
 
 mapping mindmap::Topic::toRequirementGroup() : requirements::RequirementGroup {
-	init {
-		result := object requirements::RequirementGroup {
-			name := self.name;
-			id := 'G0' + this.grpCtr.toString();
-			requirements += self.subtopics.map toRequirement();
-		}
-	}
+	name := self.name;
+	id := 'G0' + this.grpCtr.toString();
+-- FIXME	requirements += self.subtopics.map toRequirement();
 	end {
 		this.grpCtr := grpCtr + 1;
 	}
