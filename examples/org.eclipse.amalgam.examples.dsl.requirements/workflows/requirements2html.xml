@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="modeler" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand">
+	
+	<target name="main">
+		<zzz:template name="requirements2html::Main" 
+			inputURI="platform:/resource/org.eclipse.amalgam.examples.dsl.requirements/model/Requirements.xmi#/" 
+			templateroot="platform:/resource/org.eclipse.amalgam.examples.dsl.requirements/templates-deploy/"
+			outfile="platform:/resource/org.eclipse.amalgam.examples.dsl.requirements/out/requirements.html"/>
+		<eclipse.refreshLocal resource="org.eclipse.amalgam.examples.dsl.requirements" depth="infinite"/>
+	</target>
+
+</project>

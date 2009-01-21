@@ -1,18 +1,18 @@
-«IMPORT tooltip»
-«IMPORT gmfgen»
-«IMPORT ecore»
-«IMPORT genmodel»
+«IMPORT 'http://www.eclipse.org/2008/tooltip'»
+«IMPORT 'http://www.eclipse.org/gmf/2008/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 
 «EXTENSION Utils»
 
-«DEFINE Main FOR Model»
+«DEFINE Main FOR tooltip::Model»
 «FOREACH tooltips AS tooltip»
 «EXPAND EditPolicy FOR tooltip»
 «ENDFOREACH»
 «ENDDEFINE»
 
 «DEFINE EditPolicy FOR tooltip::Tooltip»
-«FILE editpolicy.editPolicyQualifiedClassName.replaceAll("\\.", "/") + ".java"-»
+«FILE editpolicy.editPolicyQualifiedClassName.replace('\\.', '/') + '.java'-»
 package «packageName(editpolicy.editPolicyQualifiedClassName)»;
 
 import org.eclipse.draw2d.ColorConstants;
@@ -65,7 +65,7 @@ public class «className(editpolicy.editPolicyQualifiedClassName)» extends Graphi
 		«FOREACH elements AS element»
 		sb.append("«element.label»");
 		sb.append(": ");
-		sb.append(element.get«element.feature.ecoreFeature.name.toFirstUpper()»());
+		sb.append(element.get«element.feature.ecoreFeature.name.firstToUpper()»());
 		sb.append("\n\n");
 		«ENDFOREACH»
 		return sb.toString();

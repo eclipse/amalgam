@@ -1,7 +1,0 @@
-String packageName(String fqn) : 
-	fqn.subString(0, (fqn.length - className(fqn).length)-1)
-;
-
-String className(String fqn) :
-	fqn.split('\\.').last()
-;

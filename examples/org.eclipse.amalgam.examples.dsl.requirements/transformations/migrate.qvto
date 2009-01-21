@@ -1,18 +1,18 @@
-modeltype old 'strict' uses 'http://www.eclipse.org/2008/requirements';
-modeltype new 'strict' uses 'http://www.eclipse.org/2008a/requirements';
+modeltype older 'strict' uses 'http://www.eclipse.org/2008/requirements';
+modeltype newer 'strict' uses 'http://www.eclipse.org/2008a/requirements';
 
-transformation migrate(in oldModel : old, out newModel : new);
+transformation migrate(in oldModel : older, out newModel : newer);
 
 main() {
 	oldModel.rootObjects()[Model]->map toNew();
 }
 
-mapping old::Model::toNew() : new::Model {
+mapping older::Model::toNew() : newer::Model {
 	title := self.title;
 	elements += self.groups.map toGroup();
 }
 
-mapping old::RequirementGroup::toGroup() : new::RequirementGroup {
+mapping older::RequirementGroup::toGroup() : newer::RequirementGroup {
 	name := self.name;
 	id := self.id;
 	description := self.description;
@@ -20,7 +20,7 @@ mapping old::RequirementGroup::toGroup() : new::RequirementGroup {
 	children += self.requirements.map toRequirement();
 }
 
-mapping old::Requirement::toRequirement() : new::Requirement {
+mapping older::Requirement::toRequirement() : newer::Requirement {
 	id := self.id;
 	name := self.title;
 	description := self.description;
@@ -32,16 +32,16 @@ mapping old::Requirement::toRequirement() : new::Requirement {
 	comments += self.comments.map toComment();
 	
 --  try clone here, rather than invoke a mapping
-	version := self.version.clone()->oclAsType(new::Version)->any(true);
+	version := self.version.clone()->oclAsType(newer::Version)->any(true);
 --	version := self.version.map toVersion();
 
-	dependencies += self.dependencies.late resolve(new::Requirement);
+	dependencies += self.dependencies.late resolve(newer::Requirement);
 	scenario := self.scenario;
 	state := self.state.toState();
 	resolution := self.resolution.toResolution();
 }
 
-mapping old::Comment::toComment() : new::Comment {
+mapping older::Comment::toComment() : newer::Comment {
 	subject := self.subject;
 	body := self.body;
 	author := self.author;
@@ -49,52 +49,52 @@ mapping old::Comment::toComment() : new::Comment {
 	children += self.children.map toComment();
 }
 
-mapping old::Version::toVersion() : new::Version {
+mapping older::Version::toVersion() : newer::Version {
 	major := self.major;
 	minor := self.minor;
 	service := self.service;
 }
 
-query old::State::toState() : new::State {
-	var state : new::State := null;
+query older::State::toState() : newer::State {
+	var state : newer::State := null;
 	switch {
-	       (self = old::State::NEW) ? state := new::State::NEW;
-	       (self = old::State::REVIEWED) ? state := new::State::REVIEWED;
-	       (self = old::State::APPROVED) ? state := new::State::APPROVED;
-	       (self = old::State::RESOLVED) ? state := new::State::RESOLVED;
+	       (self = older::State::NEW) ? state := newer::State::NEW;
+	       (self = older::State::REVIEWED) ? state := newer::State::REVIEWED;
+	       (self = older::State::APPROVED) ? state := newer::State::APPROVED;
+	       (self = older::State::RESOLVED) ? state := newer::State::RESOLVED;
 	       else ? assert fatal (false) with log('State unsupported', self);
 	};
 	return state;
 }
 
-query old::Type::toType() : new::Type {
-	var type : new::Type := null;
+query older::Type::toType() : newer::Type {
+	var type : newer::Type := null;
 	switch {
-	       (self = old::Type::FUNCTIONAL) ? type := new::Type::FUNCTIONAL;
-	       (self = old::Type::NONFUNCTIONAL) ? type := new::Type::NONFUNCTIONAL;
+	       (self = older::Type::FUNCTIONAL) ? type := newer::Type::FUNCTIONAL;
+	       (self = older::Type::NONFUNCTIONAL) ? type := newer::Type::NONFUNCTIONAL;
 	       else ? assert fatal (false) with log('Type unsupported', self);
 	};
 	return type;
 }
 
-query old::Priority::toPriority() : new::Priority {
-	var priority : new::Priority := null;
+query older::Priority::toPriority() : newer::Priority {
+	var priority : newer::Priority := null;
 	switch {
-	       (self = old::Priority::HIGH) ? priority := new::Priority::HIGH;
-	       (self = old::Priority::MEDIUM) ? priority := new::Priority::MEDIUM;
-	       (self = old::Priority::LOW) ? priority := new::Priority::LOW;
+	       (self = older::Priority::HIGH) ? priority := newer::Priority::HIGH;
+	       (self = older::Priority::MEDIUM) ? priority := newer::Priority::MEDIUM;
+	       (self = older::Priority::LOW) ? priority := newer::Priority::LOW;
 	       else ? assert fatal (false) with log('Priority unsupported', self);
 	};
 	return priority;
 }
 
-query old::Resolution::toResolution() : new::Resolution {
-	var resolution : new::Resolution := null;
+query older::Resolution::toResolution() : newer::Resolution {
+	var resolution : newer::Resolution := null;
 	switch {
-	       (self = old::Resolution::INVALID) ? resolution := new::Resolution::INVALID;
-	       (self = old::Resolution::ACCEPTED) ? resolution := new::Resolution::ACCEPTED;
-	       (self = old::Resolution::IMPLEMENTED) ? resolution := new::Resolution::IMPLEMENTED;
-	       (self = old::Resolution::LATER) ? resolution := new::Resolution::LATER;
+	       (self = older::Resolution::INVALID) ? resolution := newer::Resolution::INVALID;
+	       (self = older::Resolution::ACCEPTED) ? resolution := newer::Resolution::ACCEPTED;
+	       (self = older::Resolution::IMPLEMENTED) ? resolution := newer::Resolution::IMPLEMENTED;
+	       (self = older::Resolution::LATER) ? resolution := newer::Resolution::LATER;
 	       else ? assert fatal (false) with log('Resolution unsupported', self);
 	};
 	return resolution;

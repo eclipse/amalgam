@@ -40,13 +40,12 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.xtend.shared.ui.xtendBuilder</name>
+			<name>org.eclipse.gmf.xpand.xpandBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>org.eclipse.xtend.shared.ui.xtendXPandNature</nature>
 		<nature>org.eclipse.m2m.qvt.oml.project.TransformationNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.pde.PluginNature</nature>
