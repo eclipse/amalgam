@@ -35,7 +35,3 @@ plugin@org.eclipse.amalgam.releng.build.model.editor=v20081115-1515,:pserver:ano
 plugin@org.eclipse.amalgam.releng.product.model=v20081115-1515,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/releng/org.eclipse.amalgam.releng.product.model
 plugin@org.eclipse.amalgam.releng.product.model.edit=v20081115-1515,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/releng/org.eclipse.amalgam.releng.product.model.edit
 plugin@org.eclipse.amalgam.releng.product.model.editor=v20081115-1515,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/releng/org.eclipse.amalgam.releng.product.model.editor
-
-!*** Test Galileo build *****************************************************************
-feature@org.eclipse.galileo=v20081115-1515,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.galileo-feature
-plugin@org.eclipse.galileo=v20081115-1515,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/plugins/org.eclipse.galileo
