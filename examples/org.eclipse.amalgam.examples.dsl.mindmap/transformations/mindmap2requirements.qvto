@@ -1,5 +1,5 @@
-modeltype mindmap 'strict' uses 'http://www.eclipse.org/2008/mindmap';
-modeltype requirements 'strict' uses 'http://www.eclipse.org/2008/requirements';
+modeltype mindmap uses 'http://www.eclipse.org/2008/mindmap';
+modeltype requirements uses 'http://www.eclipse.org/2008/requirements';
 
 transformation mindmap2requirements(in inModel : mindmap, out outModel : requirements);
 
@@ -22,7 +22,8 @@ mapping mindmap::Map::toRequirementsModel() : requirements::Model {
 mapping mindmap::Topic::toRequirementGroup() : requirements::RequirementGroup {
 	name := self.name;
 	id := 'G0' + this.grpCtr.toString();
--- FIXME	requirements += self.subtopics.map toRequirement();
+	-- FIXME: why does this require result prefix now when it didn't used to?
+	result.requirements += self.subtopics.map toRequirement();
 	end {
 		this.grpCtr := grpCtr + 1;
 	}
