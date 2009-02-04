@@ -419,71 +419,7 @@
                id="org.eclipse.gmf.ecore.part.EcoreInitDiagramFileActionID">
          </action>
       </objectContribution>
-   </extension>   
-   
-<!-- Begin Java/PDE content from org.eclipse.sdk (the rest is found in amalgam.common.ui) -->
-   <extension
-       point="org.eclipse.ui.activities">
-      <activityPatternBinding
-            activityId="org.eclipse.javaDevelopment"
-            pattern="org\.eclipse\.jdt\.debug/debugModel">
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.javaDevelopment"
-            pattern="org\.eclipse\.jdt\..*/.*">
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.javaDevelopment"
-            pattern="org\.eclipse\.jdt/.*">
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.javaDevelopment"
-            pattern="org\.eclipse\.jdt\.core/javanature">
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.plugInDevelopment"
-            pattern="org\.eclipse\.pde\..*/.*">
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.plugInDevelopment"
-            pattern="org\.eclipse\.pde/.*">
-      </activityPatternBinding>
-      
-      <activityPatternBinding
-            activityId="org.eclipse.plugInDevelopment"
-            pattern="org\.eclipse\.pde/PluginNature">
-      </activityPatternBinding>
-      
-      <category
-            name="%activity.cat.development"
-            description="%activity.cat.development.desc"
-            id="org.eclipse.categories.developmentCategory">
-      </category>
-      
-      <categoryActivityBinding
-            activityId="org.eclipse.plugInDevelopment"
-            categoryId="org.eclipse.categories.developmentCategory">
-      </categoryActivityBinding>
-      
-      <categoryActivityBinding
-            activityId="org.eclipse.javaDevelopment"
-            categoryId="org.eclipse.categories.developmentCategory">
-      </categoryActivityBinding>
-
-      <defaultEnablement
-            id="org.eclipse.javaDevelopment">
-      </defaultEnablement>
-      
-      <defaultEnablement
-            id="org.eclipse.plugInDevelopment">
-      </defaultEnablement>    
    </extension>
-   <!-- end org.eclipse.sdk copy section -->
    
    <!-- hide ant wizard and User Assistance items - Moved from javaDevelopment to new category -->
    <extension
