@@ -6,8 +6,9 @@
 		<zzz:template name="mindmap2csv::Main" 
 			inputURI="platform:/resource/org.eclipse.amalgam.examples.dsl.mindmap/model/Mindmap.xmi#/" 
 			templateroot="platform:/resource/org.eclipse.amalgam.examples.dsl.mindmap/templates-deploy/"
-			outfile="platform:/resource/org.eclipse.amalgam.examples.dsl.mindmap/out/mindmap.csv"/>
-		<eclipse.refreshLocal resource="org.eclipse.amalgam.examples.dsl.mindmap" depth="infinite"/>
+			outfile="../out/mindmap.csv">
+			<metamodel nsUri="http://www.eclipse.org/2008/mindmap" location="platform:/resource/org.eclipse.amalgam.examples.dsl.mindmap/model/mindmap.ecore"/>
+		</zzz:template>
 	</target>
 
 </project>
