@@ -53,9 +53,9 @@
     <repositories location="http://download.eclipse.org/webtools/milestones/" label="WebTools milestones"/>
     <repositories location="http://download.eclipse.org/webtools/downloads/drops/R3.1/I-3.1-20090131041147/updateSite/" label="WebTools interim"/>
     <repositories location="http://download.eclipse.org/tools/gef/updates/interim/" label="GEF Interim"/>
-    <bundles id="org.eclipse.jem" version="2.0.300.v200901272200" repo="//@contributions.0/@repositories.2"/>
-    <bundles id="org.eclipse.jem.proxy" version="2.0.100.v200806051600" repo="//@contributions.0/@repositories.2"/>
-    <bundles id="org.eclipse.jem.util" version="2.0.200.v200901261500" repo="//@contributions.0/@repositories.2"/>
+    <bundles id="org.eclipse.jem" version="2.0.300.v200901272200" repo="//@contributions.0/@repositories.3"/>
+    <bundles id="org.eclipse.jem.proxy" version="2.0.100.v200806051600" repo="//@contributions.0/@repositories.3"/>
+    <bundles id="org.eclipse.jem.util" version="2.0.200.v200901261500" repo="//@contributions.0/@repositories.3"/>
   </contributions>
   <contributions href="../modeling-repos.build#/"/>
   <product href="dsltk.product#/"/>
