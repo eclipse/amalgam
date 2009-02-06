@@ -1,54 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="modeler" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand">
-	
-	<tstamp/>
-	<property name="builder" value="org.eclipse.amalgam.releng.builder"/>
-	<property name="project" value="org.eclipse.amalgam.releng"/>
+<project name="galileo" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand">
+	<!-- Note that the properties in this file are specified for running on build.eclipse.org -->
+	<property name="buildRoot" value="/shared/galileo/build"/>
+	<property name="dsltkLabel" value="I20090116-1518"/>
+	<property name="dsltkAlias" value="I20090116-1518"/> <!-- Typically different for S-builds, e.g. 1.0.0M4, otherwise same as dsltkLabel-->
 	
 	<target name="main">
-		<antcall target="generate">
-			<param name="product" value="modeler"/>
-		</antcall>
-		<antcall target="generate">
-			<param name="product" value="dsltk"/>
-		</antcall>
-		<eclipse.refreshLocal resource="${project}" depth="infinite"/>
+		<antcall target="fetch.generator"/>
+		<antcall target="generate"/>
+		<delete dir="${buildRoot}/dsltk"/>
+		<move file="${basedir}/out/build/dsltk" todir="${buildRoot}"/>
+		<delete dir="${basedir}/out"/>
 	</target>
-		
+				
+	<target name="fetch.generator"> 
+		<get src="http://download.eclipse.org/modeling/amalgam/dsltk/downloads/drops/${dsltkLabel}/dsltk-${dsltkAlias}-incubation-linux-gtk-ppc.tar.gz" 
+		     dest="${buildRoot}/dsltk-${dsltkAlias}-incubation-linux-gtk-ppc.tar.gz" verbose="true" usetimestamp="true"/>
+		<mkdir dir="${buildRoot}/generator"/>
+		<exec executable="tar">
+			<arg line="-xzf"/>
+			<arg line="${buildRoot}/dsltk-${dsltkAlias}-incubation-linux-gtk-ppc.tar.gz"/>
+			<arg line="-C ${buildRoot}/generator"/>
+		</exec>
+	</target>
+	
 	<target name="generate">
-		<qvto.interpretedTransformation
-		     transformation="platform:/plugin/${builder}/transformations/processbuild.qvto">
-		     <targeturidef targeturi="platform:/resource/${project}/builder/${product}/${product}.product"/>
-		     <targeturidef targeturi="platform:/resource/${project}/builder/${product}/${product}.build"/>
-			 <targeturidef targeturi="platform:/resource/${project}/out/build/${product}/${product}.product"/>
-			 <targeturidef targeturi="platform:/resource/${project}/out/build/${product}/${product}.build"/>
-			 <configurationproperty name="date" value="${DSTAMP}"/>
-			 <configurationproperty name="time" value="${TSTAMP}"/>
-		</qvto.interpretedTransformation>
-		<mkdir dir="${basedir}/out/build/${product}/builder"/>
-		<zzz:template name="build2properties::Main" 
-			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
-			outfile="${basedir}/out/build/${product}/builder/build.properties"/>
-		<zzz:template name="build2customTargets::Main" 
-			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
-			outfile="${basedir}/out/build/${product}/builder/customTargets.xml"/>
-		<zzz:template name="build2script::Main" 
-			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
-			outfile="${basedir}/out/build/${product}/build.xml"/>
-		<zzz:template name="build2site::Main" 
-			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
-			outfile="${basedir}/out/build/${product}/site.xml"/>
-		<zzz:template name="build2page::Main" 
-			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
-			outfile="${basedir}/out/build/${product}/index.php"/>
-		<zzz:template name="build2promote::Main" 
-			inputURI="platform:/resource/${project}/out/build/${product}/${product}.build#/" 
-			templateroot="platform:/plugin/${builder}/templates/,platform:/plugin/${builder}/transformations/"
-			outfile="${basedir}/out/build/${product}/promote.xml"/>
+		<exec executable="${buildRoot}/generator/dsltk/dsltk" dir="${buildRoot}/generator/dsltk/" failonerror="false">
+			<arg line="-vm /shared/common/ibm-java2-ppc-50/bin"/>
+			<arg line="-application org.eclipse.ant.core.antRunner"/>
+			<arg line="-buildfile ${buildRoot}/dsltk-config/generate.xml" />
+			<arg line="-nosplash" />
+			<arg line="--launcher.suppressErrors" />
+			<arg line="-consoleLog" />
+			<arg line="-vmargs"/>
+			<arg line="-Xmx1024m" />
+		</exec>
 	</target>
+	
 </project>
