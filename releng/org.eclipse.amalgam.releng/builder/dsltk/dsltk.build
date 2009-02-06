@@ -17,7 +17,7 @@
     <features id="org.eclipse.emf.sdk" version="2.5.0.v200902031500" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
-    <features id="org.eclipse.ecf.core" version="3.0.0.v20090126-1723"/>
+    <features id="org.eclipse.ecf.core" version="3.0.0.v20090126-1723" repo="//@contributions.0/@repositories.0"/>
     <features id="org.eclipse.uml2.sdk" version="3.0.0.v200901161500" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.1"/>
     </features>
