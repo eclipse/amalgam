@@ -7,8 +7,8 @@
 	<target name="main">
 		<qvto.interpretedTransformation
 		     transformation="platform:/plugin/org.eclipse.amalgam.releng.builder/transformations/processbuild.qvto">
-		     <targeturidef targeturi="file:/${basedir}/${product}.product"/>
-		     <targeturidef targeturi="file:/${basedir}/${product}.build"/>
+		     <targeturidef targeturi="file:/${basedir}/builder/dsltk/${product}.product"/>
+		     <targeturidef targeturi="file:/${basedir}/builder/dsltk/${product}.build"/>
 			 <targeturidef targeturi="file:/${basedir}/out/build/${product}/${product}.product"/>
 			 <targeturidef targeturi="file:/${basedir}/out/build/${product}/${product}.build"/>
 			 <configurationproperty name="date" value="${DSTAMP}"/>
