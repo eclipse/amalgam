@@ -76,7 +76,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.debug.core" version="3.3.0" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore" version="2.4.0" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore.xmi" version="2.4.0" match="compatible"/>
-      <import plugin="com.ibm.icu" version="3.8.1.1" match="compatible"/>
+      <import plugin="com.ibm.icu" version="4.0.0" match="compatible"/>
    </requires>
 
    <plugin
