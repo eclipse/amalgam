@@ -62,7 +62,7 @@ query older::State::toState() : newer::State {
 	       (self = older::State::REVIEWED) ? state := newer::State::REVIEWED;
 	       (self = older::State::APPROVED) ? state := newer::State::APPROVED;
 	       (self = older::State::RESOLVED) ? state := newer::State::RESOLVED;
-	       else ? assert fatal (false) with log('State unsupported', self);
+--	       else ? assert fatal (false) with log('State unsupported', self);
 	};
 	return state;
 }
@@ -72,7 +72,7 @@ query older::Type::toType() : newer::Type {
 	switch {
 	       (self = older::Type::FUNCTIONAL) ? type := newer::Type::FUNCTIONAL;
 	       (self = older::Type::NONFUNCTIONAL) ? type := newer::Type::NONFUNCTIONAL;
-	       else ? assert fatal (false) with log('Type unsupported', self);
+--	       else ? assert fatal (false) with log('Type unsupported', self);
 	};
 	return type;
 }
@@ -83,7 +83,7 @@ query older::Priority::toPriority() : newer::Priority {
 	       (self = older::Priority::HIGH) ? priority := newer::Priority::HIGH;
 	       (self = older::Priority::MEDIUM) ? priority := newer::Priority::MEDIUM;
 	       (self = older::Priority::LOW) ? priority := newer::Priority::LOW;
-	       else ? assert fatal (false) with log('Priority unsupported', self);
+--	       else ? assert fatal (false) with log('Priority unsupported', self);
 	};
 	return priority;
 }
@@ -95,7 +95,7 @@ query older::Resolution::toResolution() : newer::Resolution {
 	       (self = older::Resolution::ACCEPTED) ? resolution := newer::Resolution::ACCEPTED;
 	       (self = older::Resolution::IMPLEMENTED) ? resolution := newer::Resolution::IMPLEMENTED;
 	       (self = older::Resolution::LATER) ? resolution := newer::Resolution::LATER;
-	       else ? assert fatal (false) with log('Resolution unsupported', self);
+--	       else ? assert fatal (false) with log('Resolution unsupported', self);
 	};
 	return resolution;
 }
