@@ -19,6 +19,7 @@
 «EXPAND categorizeTarget FOR self»
 «EXPAND packTarget FOR self»
 «EXPAND consolidateTarget FOR self»
+«EXPAND fixpermTarget FOR self»
 «EXPAND additions FOR self»
 </project>
 «ENDDEFINE»
@@ -45,6 +46,7 @@
 		<!-- FIXME: also, if -compress doesn't work, manually jar content and artifacts.xml -->
 		<antcall target="categorize"/>
 		<antcall target="consolidate"/>
+		<antcall target="fixperm"/>
 	</target>
 «ENDDEFINE»
 
@@ -239,6 +241,15 @@
        		 basedir="${buildDirectory}/${buildLabel}/repo"
        		 includes="artifacts.xml"/>
   		<delete dir="${buildRoot}/«product.launcher.name»/${buildLabel}/repo"/>
+	</target>
+«ENDDEFINE»
+
+«DEFINE fixpermTarget FOR build::Build»
+	<target name="fixperm" if="">
+		<chmod dir="${buildDirectory}" perm="a+rx" type="dir" maxparallel="300"
+       			includes="${buildLabel}/**"/>
+		<chmod dir="${buildDirectory}/${buildLabel}" perm="a+r" type="file" maxparallel="300"
+       			includes="${buildLabel}/**"/>
 	</target>
 «ENDDEFINE»
 
