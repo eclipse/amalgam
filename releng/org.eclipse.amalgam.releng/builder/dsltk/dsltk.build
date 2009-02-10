@@ -33,13 +33,13 @@
       <repo href="../modeling-repos.build#//@repositories.6"/>
     </features>
     <features id="org.eclipse.gmf.sdk" version="2.2.0.v20090114-0940-7C7B3BLtnT1tgipuC4V4kGfvVV02" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.3"/>
+      <repo href="../modeling-repos.build#//@repositories.0"/>
     </features>
     <features id="org.eclipse.gmf.sdk.experimental" version="1.1.1.v20090114-0940-7A3BiEdsPnSWfCxjwKLZ1dd1gZ" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.3"/>
+      <repo href="../modeling-repos.build#//@repositories.0"/>
     </features>
     <features id="org.eclipse.gmf.xpand" version="2.0.0.v20090114-0940-7879-CcNBC-BMDc7NjKY">
-      <repo href="../modeling-repos.build#//@repositories.3"/>
+      <repo href="../modeling-repos.build#//@repositories.0"/>
     </features>
     <features id="org.eclipse.emf.teneo.sdk" version="1.0.1.v200901081641-3-287D4JELbabMYObLWf3_udVVFG">
       <repo href="../modeling-repos.build#//@repositories.5"/>
