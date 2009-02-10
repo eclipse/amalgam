@@ -18,6 +18,7 @@
 «EXPAND runDirectorTarget FOR self»
 «EXPAND categorizeTarget FOR self»
 «EXPAND packTarget FOR self»
+«EXPAND emailDirectorFailureTarget FOR self»
 «EXPAND consolidateTarget FOR self»
 «EXPAND fixpermTarget FOR self»
 «EXPAND additions FOR self»
@@ -123,8 +124,10 @@
 		</antcall>
 		
 		«IF config.os.repr() = 'macosx'»
-		<!-- FIXME: workaround for leftover Eclipse.app TODO: find/submit bug -->
-		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app" />
+		<!-- FIXME: workaround for leftover Eclipse.app [260644] -->
+		<copy file="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app/Contents/MacOS/eclipse.ini"
+		      tofile="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/«product.launcher.name».app/Contents/MacOS/«product.launcher.name».ini" overwrite="true"/>
+<!--		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app" /> -->
 		«ENDIF»
 		
 		«IF config.os.repr() = 'win32'»
@@ -145,7 +148,7 @@
 «DEFINE runDirectorTarget FOR build::Build»
 	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
 	<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
-		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false">
+		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false" resultproperty="director.return.code">
 «IF launchVM <> null and launchVM <> ''-»
 			<arg line="-vm «launchVM»"/>
 «ENDIF-»
@@ -172,8 +175,32 @@
 			<arg line="-Xmx1024m"/>
 		</exec>
 		
+		<condition property="director.failed">
+			<not><equals arg1="${director.return.code}" arg2="0"/></not>
+		</condition>
+		
 		<!-- delete the metadata cache as well as the artifacts for unzipped bundles -->
 		<delete failonerror="false" includeEmptyDirs="true" dir="${p2.director.install.path}/p2/org.eclipse.equinox.p2.core/cache"/>
+		
+		<antcall target="email.director.failure"/>
+	</target>
+«ENDDEFINE»
+
+«DEFINE emailDirectorFailureTarget FOR build::Build»
+	<target name="email.director.failure" if="director.failed" unless="nomail">
+		<copy file="${buildDirectory}/«product.launcher.name».build.log.txt" tofile="${buildRoot}/${buildId}.log.txt"/>
+		<mail tolist="«IF buildmaster <> null»«buildmaster.email»«ENDIF»"
+              subject="«label» build failed"
+              encoding="plain"
+              failonerror="false">«IF buildmaster <> null»
+            <from name="«label» buildmaster [«buildmaster.name»]"
+                  address="«buildmaster.email»" />«ENDIF»
+                  <!-- TODO: add properties to model for accomodate log link and default email list, etc. -->
+            <message>Director failed to create product!
+			Check the log file for more information: «builderURL»${buildId}.log.txt.
+            </message>
+        </mail>
+        <fail message="Creation of product failed! Email sent."/>
 	</target>
 «ENDDEFINE»
 
@@ -248,7 +275,7 @@
 	<target name="fixperm" if="">
 		<chmod dir="${buildDirectory}" perm="a+rx" type="dir" maxparallel="300"
        			includes="${buildLabel}/**"/>
-		<chmod dir="${buildDirectory}/${buildLabel}" perm="a+r" type="file" maxparallel="300"
+		<chmod dir="${buildDirectory}" perm="a+r" type="file" maxparallel="300"
        			includes="${buildLabel}/**"/>
 	</target>
 «ENDDEFINE»
