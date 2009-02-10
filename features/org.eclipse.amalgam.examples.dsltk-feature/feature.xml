@@ -3,7 +3,7 @@
       id="org.eclipse.amalgam.examples.dsltk"
       label="%featureName"
       version="1.0.0.qualifier"
-      provider-name="%featureProvider">
+      provider-name="%providerName">
 
    <description url="http://www.eclipse.org/modeling/amalgam">
       %description
