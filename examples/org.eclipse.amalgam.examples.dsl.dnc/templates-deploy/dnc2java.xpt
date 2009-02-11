@@ -1,5 +1,5 @@
-«IMPORT 'http://www.eclipse.org/2008/oocore'»
 «IMPORT 'http://www.eclipse.org/2008/dnc'»
+«IMPORT 'http://www.eclipse.org/2008/oocore'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «EXTENSION dncUtil»
@@ -19,7 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;«ENDIF»
 «IF not features[dnc::Association]->collect(a | a.upperBound = 1)->isEmpty()-»
 import javax.persistence.OneToOne;«ENDIF»
-«IF features[oocore::Reference]->collect(a | a.opposite.upperBound = -1)->isEmpty()-»
+«IF features[dnc::Association]->collect(a | a.opposite.upperBound = -1)->isEmpty()-»
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;«ENDIF»
 
@@ -46,11 +46,11 @@ public class «name» «EXPAND extends FOR self-»implements java.io.Serializable«EX
 }
 «ENDDEFINE»
 
-«DEFINE extends FOR oocore::Class-»
+«DEFINE extends FOR dnc::Archetype-»
 «IF not superclasses->isEmpty()»extends «EXPAND superClass FOR self.superclasses->select(c | c.interface = false)->asSequence()->first()-»«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE implements FOR oocore::Class-»
+«DEFINE implements FOR dnc::Archetype-»
 «IF superclasses->select(c | c.interface = true)->size() > 0», «EXPAND superClass FOREACH superclasses->select(c | c.interface = true) SEPARATOR ','-»«ENDIF-»
 «ENDDEFINE»
 
@@ -58,7 +58,7 @@ public class «name» «EXPAND extends FOR self-»implements java.io.Serializable«EX
 «self.fullyQualifiedName()-»
 «ENDDEFINE»
 
-«DEFINE idAttribute FOR oocore::Class-»
+«DEFINE idAttribute FOR dnc::Archetype-»
 «EXPAND generatedComment FOR self-»
 	@Id 
 	@Column(name="«name.toUpper()»_ID") 
