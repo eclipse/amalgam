@@ -13,8 +13,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.mwe.core.WorkflowRunner;
-import org.eclipse.emf.mwe.core.monitor.NullProgressMonitor;
+//import org.eclipse.emf.mwe.core.WorkflowRunner;
+//import org.eclipse.emf.mwe.core.monitor.NullProgressMonitor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -55,8 +55,8 @@ public class TransformDnc2Java implements IObjectActionDelegate {
 				Map<String, String> properties = new HashMap<String, String>();
 				properties.put("model", URI.createPlatformResourceURI(file.getFullPath().toString(), true).toString());
 				properties.put("out", Platform.getLocation().toOSString() + file.getParent().getFullPath());
-				new WorkflowRunner().run(url.getPath(), new NullProgressMonitor(), properties, null);
-				file.getParent().refreshLocal(IResource.DEPTH_ONE, new org.eclipse.core.runtime.NullProgressMonitor());
+//				new WorkflowRunner().run(url.getPath(), new NullProgressMonitor(), properties, null);
+//				file.getParent().refreshLocal(IResource.DEPTH_ONE, new org.eclipse.core.runtime.NullProgressMonitor());
 			}
 		} catch (Exception ex) {
 			handleError(ex);
