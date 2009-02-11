@@ -274,10 +274,10 @@ mapping oocore::Classifier::toReturnStatement() : java::Statement {
 	init {
 		var statement : String := null;
 		switch {
-			(self.oclIsUndefined()) ? statement := '';
-			(self.oclIsKindOf(oocore::Class)) ? statement := 'return null;';
-			(self.oclIsTypeOf(oocore::Datatype)) ? statement := 'return ' + self.oclAsType(oocore::Datatype).defaultLiteral + ';';
-			else ? assert fatal (false) with log('No return type found', self);
+			case (self.oclIsUndefined()) statement := '';
+			case (self.oclIsKindOf(oocore::Class)) statement := 'return null;';
+			case (self.oclIsTypeOf(oocore::Datatype)) statement := 'return ' + self.oclAsType(oocore::Datatype).defaultLiteral + ';';
+			else assert fatal (false) with log('No return type found', self);
 		};
 	}
 	source := statement;
