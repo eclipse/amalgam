@@ -48,8 +48,8 @@ product=${buildDirectory}/«product.launcher.name».product
 runPackager=true
 
 generate.p2.metadata=true
-p2.metadata.repo=file:${buildDirectory}/${buildLabel}/repo
-p2.artifact.repo=file:${buildDirectory}/${buildLabel}/repo
+p2.metadata.repo=file://${buildDirectory}/${buildLabel}/repo
+p2.artifact.repo=file://${buildDirectory}/${buildLabel}/repo
 p2.metadata.repo.name=«product.name» Metadata Repository
 p2.artifact.repo.name=«product.name» Artifact Repository
 p2.profile=«product.launcher.name»Profile
