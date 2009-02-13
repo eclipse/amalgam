@@ -32,7 +32,7 @@
     <features id="org.eclipse.amalgam.modeler" version="1.0.0.qualifier"/>
     <features id="org.eclipse.amalgam.examples.modeler" version="1.0.0.qualifier" category="//@categories.0"/>
     <features id="org.eclipse.stp.sca.feature.amalgamation" version="1.1.0.200810141327" category="//@categories.0" repo="//@contributions.0/@repositories.1"/>
-    <features id="org.eclipse.uml2.diagram" version="0.9.0.v200901051820" category="//@categories.0">
+    <features id="org.eclipse.uml2.diagram" version="0.9.0.v200902121704" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.1"/>
     </features>
     <features id="org.eclipse.stp.bpmn.feature" version="1.0.0.200806121858-4--7E77c7UAEAcQc" repo="//@contributions.0/@repositories.2"/>
