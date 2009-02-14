@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="galileo" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand">
+<project name="amalgam" default="dsltk" xmlns:zzz="eclipse.org/gmf/2008/xpand">
 	<!-- Note that the properties in this file are specified for running on build.eclipse.org -->
 	<property name="buildRoot" value="/shared/galileo/build"/>
 	<property name="dsltkLabel" value="I20090212-1336"/>
 	<property name="dsltkAlias" value="I20090212-1336"/> <!-- Typically different for S-builds, e.g. 1.0.0M4, otherwise same as dsltkLabel-->
 	
-	<target name="main">
+	<!-- Builds dsltk product -->
+	<target name="dsltk">
 		<antcall target="fetch.generator"/>
-		<antcall target="generate"/>
+		<antcall target="generate">
+			<param name="product" value="dsltk"/>
+		</antcall>
 		<delete dir="${buildRoot}/dsltk"/>
 		<move file="${basedir}/out/build/dsltk" todir="${buildRoot}"/>
+		<delete dir="${basedir}/out"/>
+		
+		<!-- temp -->
+		<delete dir="${buildRoot}/dsltk-config"/>
+	</target>
+	
+	<!-- Builds modeler product -->
+	<target name="modeler">
+		<antcall target="fetch.generator"/>
+		<antcall target="generate">
+			<param name="product" value="modeler"/>
+		</antcall>
+		<delete dir="${buildRoot}/modeler"/>
+		<move file="${basedir}/out/build/modeler" todir="${buildRoot}"/>
 		<delete dir="${basedir}/out"/>
 	</target>
 				
@@ -28,12 +45,13 @@
 		<exec executable="${buildRoot}/generator/dsltk/dsltk" dir="${buildRoot}/generator/dsltk/" failonerror="false">
 			<arg line="-vm /shared/common/ibm-java2-ppc-50/bin"/>
 			<arg line="-application org.eclipse.ant.core.antRunner"/>
-			<arg line="-buildfile ${buildRoot}/dsltk-config/generate.xml" />
+			<arg line="-buildfile ${buildRoot}/amalgam-config/generate.xml" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
 			<arg line="-consoleLog" />
 			<arg line="-vmargs"/>
 			<arg line="-Xmx1024m" />
+			<arg line="-Dproduct=${product}"/>
 		</exec>
 	</target>
 	
