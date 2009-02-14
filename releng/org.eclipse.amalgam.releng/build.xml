@@ -14,9 +14,6 @@
 		<delete dir="${buildRoot}/dsltk"/>
 		<move file="${basedir}/out/build/dsltk" todir="${buildRoot}"/>
 		<delete dir="${basedir}/out"/>
-		
-		<!-- temp -->
-		<delete dir="${buildRoot}/dsltk-config"/>
 	</target>
 	
 	<!-- Builds modeler product -->
