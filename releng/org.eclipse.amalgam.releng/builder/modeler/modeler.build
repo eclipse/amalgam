@@ -14,7 +14,7 @@
     <features id="org.eclipse.help" version="1.1.0.v20090202-7e7eCGFEx2XZg_Ytaz-2C3I"/>
     <features id="org.eclipse.cvs" version="1.1.100.v20090123-7E79FBV9BJ99pAKG_13J33"/>
     <features id="org.eclipse.gef" version="3.5.0.v20080806-1610-679-8092A6664F377A73566" repo="//@contributions.0/@repositories.0"/>
-    <features id="org.eclipse.emf" version="2.5.0.v200902031500">
+    <features id="org.eclipse.emf" version="2.5.0.v200902031500" inProduct="false">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
     <features id="org.eclipse.ecf.core" version="3.0.0.v20090126-1723" repo="//@contributions.0/@repositories.3"/>
