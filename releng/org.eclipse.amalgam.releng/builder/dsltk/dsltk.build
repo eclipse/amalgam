@@ -41,9 +41,6 @@
     <features id="org.eclipse.gmf.xpand" version="2.0.0.v20090114-0940-7879-CcNBC-BOGd7NjPX">
       <repo href="../modeling-repos.build#//@repositories.3"/>
     </features>
-    <features id="org.eclipse.emf.teneo.sdk" version="1.0.1.v200901081641-3-287D4JELbabMYObLWf3_udVVFG">
-      <repo href="../modeling-repos.build#//@repositories.5"/>
-    </features>
     <features id="org.eclipse.amalgam.dsltk" version=""/>
     <features id="org.eclipse.amalgam.examples.dsltk" version=""/>
     <features id="org.eclipse.amalgam.builder" version=""/>
