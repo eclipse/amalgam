@@ -28,18 +28,18 @@
     <features id="org.eclipse.emf.emfqtv.all.sdk" version="1.3.0.v200901271819-4778Z90GCMMEHd_ETTaTWy4q7vXc" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
-    <features id="org.eclipse.gef.sdk" version="3.5.0.v20080806-1610-7B7H-97OO5c7YCeFHMDc_OOYKJJV" category="//@categories.0" repo="//@contributions.0/@repositories.1"/>
-    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090206-1900-7F-F9wCGYp9qz-hvVwba8Z0N8mEH" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.6"/>
+    <features id="org.eclipse.gef.sdk" version="3.5.0.v20080806-1610-7D7I-99PLPLNJRNQINJDeISNeOKI" category="//@categories.0" repo="//@contributions.0/@repositories.4"/>
+    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090219-1600-7F-F9wCIYp9rvoz0b5gVNq6OdrMI" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.12"/>
     </features>
-    <features id="org.eclipse.gmf.sdk" version="2.2.0.v20090114-0940-7C7B3BLtnT1tgipuC4V4kHhjTWz0" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.0"/>
+    <features id="org.eclipse.gmf.sdk" version="2.2.0.v20090114-0940-7C7B3BLtnT1tgipuC4VH_ep2Sd63" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.3"/>
     </features>
-    <features id="org.eclipse.gmf.sdk.experimental" version="1.1.1.v20090114-0940-7A3BiEdsPnSWgCtjwGMU1dd1gZ" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.0"/>
+    <features id="org.eclipse.gmf.sdk.experimental" version="1.1.1.v20090114-0940-7A3BiEdsPnSWhEz-jwIKh1dd1gZ" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.3"/>
     </features>
-    <features id="org.eclipse.gmf.xpand" version="2.0.0.v20090114-0940-7879-CcNBC-BMDc7NjKY">
-      <repo href="../modeling-repos.build#//@repositories.0"/>
+    <features id="org.eclipse.gmf.xpand" version="2.0.0.v20090114-0940-7879-CcNBC-BOGd7NjPX">
+      <repo href="../modeling-repos.build#//@repositories.3"/>
     </features>
     <features id="org.eclipse.emf.teneo.sdk" version="1.0.1.v200901081641-3-287D4JELbabMYObLWf3_udVVFG">
       <repo href="../modeling-repos.build#//@repositories.5"/>
@@ -52,13 +52,12 @@
     </features>
     <repositories location="http://download.eclipse.org/rt/ecf/integration/v20090126-1723/update/site.xml" label="ECF updates"/>
     <repositories location="http://download.eclipse.org/tools/gef/updates/milestones/" label="GEF milestones"/>
-    <repositories location="http://download.eclipse.org/modeling/amalgam/temp/repo/" label="Xpand/MWE temporary updates"/>
     <repositories location="http://download.eclipse.org/webtools/milestones/" label="WebTools milestones"/>
     <repositories location="http://download.eclipse.org/webtools/downloads/drops/R3.1/I-3.1-20090131041147/updateSite/" label="WebTools interim"/>
     <repositories location="http://download.eclipse.org/tools/gef/updates/interim/" label="GEF Interim"/>
-    <bundles id="org.eclipse.jem" version="2.0.300.v200901272200" repo="//@contributions.0/@repositories.3"/>
-    <bundles id="org.eclipse.jem.proxy" version="2.0.100.v200806051600" repo="//@contributions.0/@repositories.3"/>
-    <bundles id="org.eclipse.jem.util" version="2.0.200.v200901261500" repo="//@contributions.0/@repositories.3"/>
+    <bundles id="org.eclipse.jem" version="2.0.300.v200901272200" repo="//@contributions.0/@repositories.2"/>
+    <bundles id="org.eclipse.jem.proxy" version="2.0.100.v200806051600" repo="//@contributions.0/@repositories.2"/>
+    <bundles id="org.eclipse.jem.util" version="2.0.200.v200901261500" repo="//@contributions.0/@repositories.2"/>
   </contributions>
   <contributions href="../modeling-repos.build#/"/>
   <product href="dsltk.product#/"/>
