@@ -112,6 +112,7 @@
   <eClassifiers xsi:type="ecore:EEnum" name="ARCH">
     <eLiterals name="x86"/>
     <eLiterals name="ppc" value="1"/>
+    <eLiterals name="x86_64" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ArchiveFormat">
     <eLiterals name="zip"/>
