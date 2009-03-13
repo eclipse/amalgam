@@ -21,7 +21,7 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.m2m.qvt.oml.QvtBuilder</name>
+			<name>org.eclipse.m2m.qvt.oml.project.QVTOBuilder</name>
 			<arguments>
 				<dictionary>
 					<key>src_container</key>
@@ -56,11 +56,11 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>org.eclipse.m2m.qvt.oml.project.TransformationNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
+		<nature>org.eclipse.m2m.qvt.oml.project.QVTONature</nature>
 	</natures>
 </projectDescription>
