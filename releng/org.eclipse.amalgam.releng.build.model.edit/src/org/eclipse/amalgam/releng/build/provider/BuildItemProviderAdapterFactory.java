@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildItemProviderAdapterFactory.java,v 1.2 2008/12/06 03:59:48 rgronback Exp $
+ * $Id: BuildItemProviderAdapterFactory.java,v 1.3 2009/03/13 11:09:26 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -408,7 +408,7 @@ public class BuildItemProviderAdapterFactory extends BuildAdapterFactory impleme
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class) || (((Class<?>)type).isInstance(adapter))) {
+			if (!(type instanceof Class<?>) || (((Class<?>)type).isInstance(adapter))) {
 				return adapter;
 			}
 		}
