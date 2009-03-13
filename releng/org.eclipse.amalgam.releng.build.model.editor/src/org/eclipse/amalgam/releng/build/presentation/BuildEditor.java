@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildEditor.java,v 1.1 2008/11/24 20:38:02 rgronback Exp $
+ * $Id: BuildEditor.java,v 1.2 2009/03/13 11:09:28 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.presentation;
 
@@ -504,31 +504,31 @@ public class BuildEditor
 						}
 					}
 
-					ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();
+					final ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();
 					delta.accept(visitor);
 
 					if (!visitor.getRemovedResources().isEmpty()) {
-						removedResources.addAll(visitor.getRemovedResources());
-						if (!isDirty()) {
-							getSite().getShell().getDisplay().asyncExec
-								(new Runnable() {
-									 public void run() {
+						getSite().getShell().getDisplay().asyncExec
+							(new Runnable() {
+								 public void run() {
+									 removedResources.addAll(visitor.getRemovedResources());
+									 if (!isDirty()) {
 										 getSite().getPage().closeEditor(BuildEditor.this, false);
 									 }
-								 });
-						}
+								 }
+							 });
 					}
 
 					if (!visitor.getChangedResources().isEmpty()) {
-						changedResources.addAll(visitor.getChangedResources());
-						if (getSite().getPage().getActiveEditor() == BuildEditor.this) {
-							getSite().getShell().getDisplay().asyncExec
-								(new Runnable() {
-									 public void run() {
+						getSite().getShell().getDisplay().asyncExec
+							(new Runnable() {
+								 public void run() {
+									 changedResources.addAll(visitor.getChangedResources());
+									 if (getSite().getPage().getActiveEditor() == BuildEditor.this) {
 										 handleActivate();
 									 }
-								 });
-						}
+								 }
+							 });
 					}
 				}
 				catch (CoreException exception) {
@@ -762,11 +762,6 @@ public class BuildEditor
 		// Make sure it's okay.
 		//
 		if (theSelection != null && !theSelection.isEmpty()) {
-			// I don't know if this should be run this deferred
-			// because we might have to give the editor a chance to process the viewer update events
-			// and hence to update the views first.
-			//
-			//
 			Runnable runnable =
 				new Runnable() {
 					public void run() {
@@ -777,7 +772,7 @@ public class BuildEditor
 						}
 					}
 				};
-			runnable.run();
+			getSite().getShell().getDisplay().asyncExec(runnable);
 		}
 	}
 
