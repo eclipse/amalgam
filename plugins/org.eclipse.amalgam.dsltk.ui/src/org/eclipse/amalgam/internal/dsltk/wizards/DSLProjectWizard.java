@@ -32,9 +32,9 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.m2m.internal.qvt.oml.builder.QvtBuilderConfig;
-import org.eclipse.m2m.internal.qvt.oml.common.nature.TransformationNature;
-import org.eclipse.m2m.internal.qvt.oml.common.project.NatureUtils;
+import org.eclipse.m2m.internal.qvt.oml.project.QVTOProjectPlugin;
+import org.eclipse.m2m.internal.qvt.oml.project.builder.QVTOBuilderConfig;
+import org.eclipse.m2m.internal.qvt.oml.project.nature.NatureUtils;
 import org.eclipse.pde.core.build.IBuildEntry;
 import org.eclipse.pde.internal.core.natures.PDE;
 import org.eclipse.ui.INewWizard;
@@ -129,8 +129,8 @@ public class DSLProjectWizard extends Wizard implements INewWizard {
 					createFolder(DIAGRAMS_FOLDER, monitor);
 
 					// configure QVT folder and nature
-					QvtBuilderConfig.getConfig(project).setSourceContainer(createFolder(TRANSFORMATIONS_FOLDER, monitor));
-					NatureUtils.addNature(project, TransformationNature.ID);
+					QVTOBuilderConfig.getConfig(project).setSourceContainer(createFolder(TRANSFORMATIONS_FOLDER, monitor));
+					NatureUtils.addNature(project, QVTOProjectPlugin.NATURE_ID);
 
 					// configure Xpand folder and builder
 					createFolder(TEMPLATES_FOLDER, monitor);
