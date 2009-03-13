@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: ARCH.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: ARCH.java,v 1.2 2009/03/13 11:09:27 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -47,7 +47,15 @@ public enum ARCH implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PPC(1, "ppc", "ppc");
+	PPC(1, "ppc", "ppc"), /**
+	 * The '<em><b>X86 64</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #X86_64_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	X86_64(2, "x86_64", "x86_64");
 
 	/**
 	 * The '<em><b>X86</b></em>' literal value.
@@ -80,6 +88,21 @@ public enum ARCH implements Enumerator {
 	public static final int PPC_VALUE = 1;
 
 	/**
+	 * The '<em><b>X86 64</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>X86 64</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #X86_64
+	 * @model name="x86_64"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int X86_64_VALUE = 2;
+
+	/**
 	 * An array of all the '<em><b>ARCH</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -89,6 +112,7 @@ public enum ARCH implements Enumerator {
 		new ARCH[] {
 			X86,
 			PPC,
+			X86_64,
 		};
 
 	/**
@@ -141,6 +165,7 @@ public enum ARCH implements Enumerator {
 		switch (value) {
 			case X86_VALUE: return X86;
 			case PPC_VALUE: return PPC;
+			case X86_64_VALUE: return X86_64;
 		}
 		return null;
 	}

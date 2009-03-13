@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildFactory.java,v 1.2 2008/12/06 03:59:50 rgronback Exp $
+ * $Id: BuildFactory.java,v 1.3 2009/03/13 11:09:27 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -129,7 +129,7 @@ public interface BuildFactory extends EFactory {
 	 * @return a new object of class '<em>Compiler</em>'.
 	 * @generated
 	 */
-	org.eclipse.amalgam.releng.build.Compiler createCompiler();
+	Compiler createCompiler();
 
 	/**
 	 * Returns a new object of class '<em>Promotion</em>'.

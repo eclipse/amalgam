@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: PromotionImpl.java,v 1.3 2008/12/15 21:09:05 rgronback Exp $
+ * $Id: PromotionImpl.java,v 1.4 2009/03/13 11:09:27 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -278,7 +278,7 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 			case BuildPackage.PROMOTION__DOWNLOAD_DIRECTORY:
 				return getDownloadDirectory();
 			case BuildPackage.PROMOTION__INCUBATING:
-				return isIncubating() ? Boolean.TRUE : Boolean.FALSE;
+				return isIncubating();
 			case BuildPackage.PROMOTION__BASE_URL:
 				return getBaseURL();
 			case BuildPackage.PROMOTION__BUILD_ALIAS:
@@ -302,7 +302,7 @@ public class PromotionImpl extends EObjectImpl implements Promotion {
 				setDownloadDirectory((String)newValue);
 				return;
 			case BuildPackage.PROMOTION__INCUBATING:
-				setIncubating(((Boolean)newValue).booleanValue());
+				setIncubating((Boolean)newValue);
 				return;
 			case BuildPackage.PROMOTION__BASE_URL:
 				setBaseURL((String)newValue);

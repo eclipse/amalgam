@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackageImpl.java,v 1.8 2008/12/30 20:03:10 rgronback Exp $
+ * $Id: BuildPackageImpl.java,v 1.9 2009/03/13 11:09:27 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -1237,6 +1237,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEEnum(archEEnum, org.eclipse.amalgam.releng.build.ARCH.class, "ARCH");
 		addEEnumLiteral(archEEnum, org.eclipse.amalgam.releng.build.ARCH.X86);
 		addEEnumLiteral(archEEnum, org.eclipse.amalgam.releng.build.ARCH.PPC);
+		addEEnumLiteral(archEEnum, org.eclipse.amalgam.releng.build.ARCH.X86_64);
 
 		initEEnum(archiveFormatEEnum, ArchiveFormat.class, "ArchiveFormat");
 		addEEnumLiteral(archiveFormatEEnum, ArchiveFormat.ZIP);

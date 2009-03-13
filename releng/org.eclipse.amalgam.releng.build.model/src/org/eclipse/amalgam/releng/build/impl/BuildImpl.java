@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildImpl.java,v 1.6 2008/12/30 20:03:10 rgronback Exp $
+ * $Id: BuildImpl.java,v 1.7 2009/03/13 11:09:27 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -1108,7 +1108,7 @@ public class BuildImpl extends EObjectImpl implements Build {
 			case BuildPackage.BUILD__DEFAULT_MAIL_LIST:
 				return getDefaultMailList();
 			case BuildPackage.BUILD__SENDMAIL:
-				return isSendmail() ? Boolean.TRUE : Boolean.FALSE;
+				return isSendmail();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1188,7 +1188,7 @@ public class BuildImpl extends EObjectImpl implements Build {
 				getDefaultMailList().addAll((Collection<? extends Contact>)newValue);
 				return;
 			case BuildPackage.BUILD__SENDMAIL:
-				setSendmail(((Boolean)newValue).booleanValue());
+				setSendmail((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

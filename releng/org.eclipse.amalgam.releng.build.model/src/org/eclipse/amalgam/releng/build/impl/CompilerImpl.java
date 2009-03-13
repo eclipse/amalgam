@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: CompilerImpl.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: CompilerImpl.java,v 1.2 2009/03/13 11:09:27 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -321,11 +321,11 @@ public class CompilerImpl extends EObjectImpl implements org.eclipse.amalgam.rel
 			case BuildPackage.COMPILER__TARGET_VERSION:
 				return getTargetVersion();
 			case BuildPackage.COMPILER__VERBOSE:
-				return isVerbose() ? Boolean.TRUE : Boolean.FALSE;
+				return isVerbose();
 			case BuildPackage.COMPILER__FAIL_ON_ERROR:
-				return isFailOnError() ? Boolean.TRUE : Boolean.FALSE;
+				return isFailOnError();
 			case BuildPackage.COMPILER__DEBUG_INFO:
-				return isDebugInfo() ? Boolean.TRUE : Boolean.FALSE;
+				return isDebugInfo();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -348,13 +348,13 @@ public class CompilerImpl extends EObjectImpl implements org.eclipse.amalgam.rel
 				setTargetVersion((String)newValue);
 				return;
 			case BuildPackage.COMPILER__VERBOSE:
-				setVerbose(((Boolean)newValue).booleanValue());
+				setVerbose((Boolean)newValue);
 				return;
 			case BuildPackage.COMPILER__FAIL_ON_ERROR:
-				setFailOnError(((Boolean)newValue).booleanValue());
+				setFailOnError((Boolean)newValue);
 				return;
 			case BuildPackage.COMPILER__DEBUG_INFO:
-				setDebugInfo(((Boolean)newValue).booleanValue());
+				setDebugInfo((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

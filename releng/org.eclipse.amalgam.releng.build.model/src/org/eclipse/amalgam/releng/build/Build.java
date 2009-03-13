@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: Build.java,v 1.6 2008/12/30 20:03:10 rgronback Exp $
+ * $Id: Build.java,v 1.7 2009/03/13 11:09:27 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -393,12 +393,12 @@ public interface Build extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Compiler</em>' containment reference.
-	 * @see #setCompiler(org.eclipse.amalgam.releng.build.Compiler)
+	 * @see #setCompiler(Compiler)
 	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getBuild_Compiler()
 	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
-	org.eclipse.amalgam.releng.build.Compiler getCompiler();
+	Compiler getCompiler();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.amalgam.releng.build.Build#getCompiler <em>Compiler</em>}' containment reference.
@@ -408,7 +408,7 @@ public interface Build extends EObject {
 	 * @see #getCompiler()
 	 * @generated
 	 */
-	void setCompiler(org.eclipse.amalgam.releng.build.Compiler value);
+	void setCompiler(Compiler value);
 
 	/**
 	 * Returns the value of the '<em><b>Launch VM</b></em>' attribute.

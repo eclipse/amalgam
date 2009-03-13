@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: FeatureImpl.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: FeatureImpl.java,v 1.2 2009/03/13 11:09:27 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -354,7 +354,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
 				if (resolve) return getRepo();
 				return basicGetRepo();
 			case BuildPackage.FEATURE__IN_PRODUCT:
-				return isInProduct() ? Boolean.TRUE : Boolean.FALSE;
+				return isInProduct();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -380,7 +380,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
 				setRepo((Repository)newValue);
 				return;
 			case BuildPackage.FEATURE__IN_PRODUCT:
-				setInProduct(((Boolean)newValue).booleanValue());
+				setInProduct((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
