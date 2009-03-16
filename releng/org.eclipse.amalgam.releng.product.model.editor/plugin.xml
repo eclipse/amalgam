@@ -12,7 +12,7 @@
    Contributors:
       Borland Software Corporation - initial API and implementation
 
- $Id: plugin.xml,v 1.1 2008/11/24 20:39:17 rgronback Exp $
+ $Id: plugin.xml,v 1.2 2009/03/16 14:48:20 rgronback Exp $
 -->
 
 <plugin>
@@ -22,24 +22,24 @@
             id="org.eclipse.emf.ecore.Wizard.category.ID"
             name="%_UI_Wizard_category"/>
       <wizard
-            id="org.eclipse.amalgam.releng.build.presentation.BuildModelWizardID"
-            name="%_UI_BuildModelWizard_label"
-            class="org.eclipse.amalgam.releng.build.presentation.BuildModelWizard"
-            category="org.eclipse.emf.ecore.Wizard.category.ID"
-            icon="icons/full/obj16/BuildModelFile.gif">
-         <description>%_UI_BuildModelWizard_description</description>
+            id="org.eclipse.amalgam.releng.product.presentation.ProductModelWizardID"
+            name="%_UI_ProductModelWizard_label"
+            class="org.eclipse.amalgam.releng.product.presentation.ProductModelWizard"
+            category="org.eclipse.amalgam.models.wizardCategory"
+            icon="icons/full/obj16/ProductModelFile.gif">
+         <description>%_UI_ProductModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
    </extension>
 
    <extension point="org.eclipse.ui.editors">
       <editor
-            id="org.eclipse.amalgam.releng.build.presentation.BuildEditorID"
-            name="%_UI_BuildEditor_label"
-            icon="icons/full/obj16/BuildModelFile.gif"
-            extensions="build"
-            class="org.eclipse.amalgam.releng.build.presentation.BuildEditor"
-            contributorClass="org.eclipse.amalgam.releng.build.presentation.BuildActionBarContributor">
+            id="org.eclipse.amalgam.releng.product.presentation.ProductEditorID"
+            name="%_UI_ProductEditor_label"
+            icon="icons/full/obj16/ProductModelFile.gif"
+            extensions="product"
+            class="org.eclipse.amalgam.releng.product.presentation.ProductEditor"
+            contributorClass="org.eclipse.amalgam.releng.product.presentation.ProductActionBarContributor">
       </editor>
    </extension>
 

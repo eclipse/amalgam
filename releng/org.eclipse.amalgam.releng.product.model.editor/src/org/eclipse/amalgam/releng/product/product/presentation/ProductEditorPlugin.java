@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: ProductEditorPlugin.java,v 1.1 2008/11/24 20:39:17 rgronback Exp $
+ * $Id: ProductEditorPlugin.java,v 1.2 2009/03/16 14:48:20 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.product.product.presentation;
 
