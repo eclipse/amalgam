@@ -12,7 +12,7 @@
    Contributors:
       Borland Software Corporation - initial API and implementation
 
- $Id: plugin.xml,v 1.1 2008/11/24 20:38:02 rgronback Exp $
+ $Id: plugin.xml,v 1.2 2009/03/16 14:48:20 rgronback Exp $
 -->
 
 <plugin>
@@ -25,7 +25,7 @@
             id="org.eclipse.amalgam.releng.build.presentation.BuildModelWizardID"
             name="%_UI_BuildModelWizard_label"
             class="org.eclipse.amalgam.releng.build.presentation.BuildModelWizard"
-            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            category="org.eclipse.amalgam.models.wizardCategory"
             icon="icons/full/obj16/BuildModelFile.gif">
          <description>%_UI_BuildModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
