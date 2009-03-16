@@ -219,12 +219,16 @@
           pattern="org\.eclipse\.amalgam\.dsltk\.ui/org\.eclipse\.amalgam\.dsl\.diagram\..*">
     </activityPatternBinding>
     
-    <!-- Hide GMF elements - no category binding -->
+    <!-- Hide GMF elements -->
     <activity
     	  description="%activity.dsl.gmf.hide.desc"
           id="org.eclipse.amalgam.hide.dsl.gmf.activity"
           name="%activity.dsl.gmf.hide">
     </activity>
+    <categoryActivityBinding
+          activityId="org.eclipse.amalgam.hide.dsl.gmf.activity"
+          categoryId="org.eclipse.categories.developmentCategory">
+    </categoryActivityBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.hide.dsl.gmf.activity"
           pattern="org\.eclipse\.gmf\.ecore\.editor/org\.eclipse\.gmf\.ecore\.editor\.InitDiagram">
@@ -361,6 +365,10 @@
           id="org.eclipse.amalgam.hide.mt.qvto.activity"
           name="%activity.mt.qvto.hide">
     </activity>
+    <categoryActivityBinding
+          activityId="org.eclipse.amalgam.hide.mt.qvto.activity"
+          categoryId="org.eclipse.categories.developmentCategory">
+    </categoryActivityBinding>
     <activityPatternBinding
           activityId="org.eclipse.amalgam.hide.mt.qvto.activity"
           pattern="org\.eclipse\.m2m\.qvt\.oml\.ui/org\.eclipse\.m2m\.qvt\.oml\.ui\.wizards\.NewQVTTransformationWizard">
