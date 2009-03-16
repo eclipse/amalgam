@@ -121,6 +121,20 @@
    	</activityPatternBinding>
   </extension>
   
+  <!-- Hide elements of ECF - no category binding-->
+   <extension
+       point="org.eclipse.ui.activities">
+    <activity
+    	  description="%activity.ecf.hide.desc"
+          id="org.eclipse.amalgam.hide.ecf.activity"
+          name="%activity.ecf.hide">
+    </activity>
+    <activityPatternBinding
+          activityId="org.eclipse.amalgam.hide.ecf.activity"
+          pattern="org\.eclipse\.ecf\..*/.*">
+    </activityPatternBinding>
+  </extension>
+  
   <!-- UML modeling activity definition -->
    <extension
        point="org.eclipse.ui.activities">
