@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: ProductItemProviderAdapterFactory.java,v 1.1 2008/11/24 20:38:53 rgronback Exp $
+ * $Id: ProductItemProviderAdapterFactory.java,v 1.2 2009/03/17 17:55:06 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.product.provider;
 
@@ -592,7 +592,7 @@ public class ProductItemProviderAdapterFactory extends ProductAdapterFactory imp
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class) || (((Class<?>)type).isInstance(adapter))) {
+			if (!(type instanceof Class<?>) || (((Class<?>)type).isInstance(adapter))) {
 				return adapter;
 			}
 		}
