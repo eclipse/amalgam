@@ -31,6 +31,7 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="build.ecore#//ARCH">
       <genEnumLiterals ecoreEnumLiteral="build.ecore#//ARCH/x86"/>
       <genEnumLiterals ecoreEnumLiteral="build.ecore#//ARCH/ppc"/>
+      <genEnumLiterals ecoreEnumLiteral="build.ecore#//ARCH/x86_64"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="build.ecore#//ArchiveFormat">
       <genEnumLiterals ecoreEnumLiteral="build.ecore#//ArchiveFormat/zip"/>
