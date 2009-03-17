@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: ProductModelWizard.java,v 1.2 2009/03/16 14:48:20 rgronback Exp $
+ * $Id: ProductModelWizard.java,v 1.3 2009/03/17 17:55:05 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.product.presentation;
 
@@ -408,8 +408,7 @@ public class ProductModelWizard extends Wizard implements INewWizard {
 		 * @generated
 		 */
 		public void createControl(Composite parent) {
-			Composite composite = new Composite(parent, SWT.NONE);
-			{
+			Composite composite = new Composite(parent, SWT.NONE); {
 				GridLayout layout = new GridLayout();
 				layout.numColumns = 1;
 				layout.verticalSpacing = 12;
