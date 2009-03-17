@@ -30,7 +30,7 @@
       <repo href="../modeling-repos.build#//@repositories.13"/>
     </features>
     <features id="org.eclipse.gef.sdk" version="3.5.0.v20080806-1610-7D7I-99PLPLNJRNQINJDeISNeOKI" category="//@categories.0" repo="//@contributions.0/@repositories.4"/>
-    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090316-1930-7N--CLrFgFfJobIxuOeWUDrcXLqT" category="//@categories.0">
+    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090219-1600-7G-F8NCNrFhBjKpjL3ZOaZUkedTP" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.12"/>
     </features>
     <features id="org.eclipse.gmf.sdk" version="2.2.0.v20090114-0940-7C7B3BLunT1tiiquB1WC_so2Sgz-" category="//@categories.0">
