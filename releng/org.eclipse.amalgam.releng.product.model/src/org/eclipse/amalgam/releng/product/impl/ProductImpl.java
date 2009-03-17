@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: ProductImpl.java,v 1.1 2008/11/24 20:38:29 rgronback Exp $
+ * $Id: ProductImpl.java,v 1.2 2009/03/17 17:55:07 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.product.impl;
 
@@ -868,7 +868,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 			case ProductPackage.PRODUCT__APPLICATION:
 				return getApplication();
 			case ProductPackage.PRODUCT__USE_FEATURES:
-				return isUseFeatures() ? Boolean.TRUE : Boolean.FALSE;
+				return isUseFeatures();
 			case ProductPackage.PRODUCT__VM:
 				return getVm();
 			case ProductPackage.PRODUCT__LAUNCHER:
@@ -915,7 +915,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 				setApplication((String)newValue);
 				return;
 			case ProductPackage.PRODUCT__USE_FEATURES:
-				setUseFeatures(((Boolean)newValue).booleanValue());
+				setUseFeatures((Boolean)newValue);
 				return;
 			case ProductPackage.PRODUCT__VM:
 				setVm((VirtualMachine)newValue);

@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: WinIconImpl.java,v 1.1 2008/11/24 20:38:29 rgronback Exp $
+ * $Id: WinIconImpl.java,v 1.2 2009/03/17 17:55:07 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.product.impl;
 
@@ -236,7 +236,7 @@ public class WinIconImpl extends EObjectImpl implements WinIcon {
 			case ProductPackage.WIN_ICON__BMP:
 				return getBmp();
 			case ProductPackage.WIN_ICON__USE_ICO:
-				return isUseIco() ? Boolean.TRUE : Boolean.FALSE;
+				return isUseIco();
 			case ProductPackage.WIN_ICON__ICO:
 				return getIco();
 		}
@@ -255,7 +255,7 @@ public class WinIconImpl extends EObjectImpl implements WinIcon {
 				setBmp((Bitmap)newValue);
 				return;
 			case ProductPackage.WIN_ICON__USE_ICO:
-				setUseIco(((Boolean)newValue).booleanValue());
+				setUseIco((Boolean)newValue);
 				return;
 			case ProductPackage.WIN_ICON__ICO:
 				setIco((Icon)newValue);

@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: PluginImpl.java,v 1.1 2008/11/24 20:38:29 rgronback Exp $
+ * $Id: PluginImpl.java,v 1.2 2009/03/17 17:55:07 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.product.impl;
 
@@ -150,7 +150,7 @@ public class PluginImpl extends EObjectImpl implements Plugin {
 			case ProductPackage.PLUGIN__ID:
 				return getId();
 			case ProductPackage.PLUGIN__FRAGMENT:
-				return isFragment() ? Boolean.TRUE : Boolean.FALSE;
+				return isFragment();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -167,7 +167,7 @@ public class PluginImpl extends EObjectImpl implements Plugin {
 				setId((String)newValue);
 				return;
 			case ProductPackage.PLUGIN__FRAGMENT:
-				setFragment(((Boolean)newValue).booleanValue());
+				setFragment((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
