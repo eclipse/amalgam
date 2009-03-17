@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="amalgam" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand">
+<project name="amalgam" default="main" xmlns:zzz="eclipse.org/gmf/2008/xpand" xmlns:qvto="http://www.eclipse.org/qvt/1.0.0/Operational">
 	
 	<tstamp/>
 	<property name="product" value="dsltk"/> <!-- default is dsltk -->
 		
 	<target name="main">
-		<qvto.interpretedTransformation
-		     transformation="platform:/plugin/org.eclipse.amalgam.releng.builder/transformations/processbuild.qvto">
-		     <targeturidef targeturi="file:/${basedir}/builder/${product}/${product}.product"/>
-		     <targeturidef targeturi="file:/${basedir}/builder/${product}/${product}.build"/>
-			 <targeturidef targeturi="file:/${basedir}/out/build/${product}/${product}.product"/>
-			 <targeturidef targeturi="file:/${basedir}/out/build/${product}/${product}.build"/>
-			 <configurationproperty name="date" value="${DSTAMP}"/>
-			 <configurationproperty name="time" value="${TSTAMP}"/>
-		</qvto.interpretedTransformation>
+		<qvto:transformation
+		     uri="platform:/plugin/org.eclipse.amalgam.releng.builder/transformations/processbuild.qvto">
+		     <in uri="file:/${basedir}/builder/${product}/${product}.product"/>
+		     <in uri="file:/${basedir}/builder/${product}/${product}.build"/>
+			 <out uri="file:/${basedir}/out/build/${product}/${product}.product"/>
+			 <out uri="file:/${basedir}/out/build/${product}/${product}.build"/>
+			 <configProperty name="date" value="${DSTAMP}"/>
+			 <configProperty name="time" value="${TSTAMP}"/>
+		</qvto:transformation>
 		
 		<mkdir dir="${basedir}/out/build/${product}/builder"/>
 
