@@ -351,9 +351,8 @@
 			<arg line="--launcher.suppressErrors" />
 			<arg line="-consoleLog" />
 			<arg line="-installIU ${feature.id}.feature.group" />
-			<!-- explicitly indicate destination and profile until [268185] is resolved -->
+			<!-- explicitly indicate destination until [268185] is resolved -->
 			<arg line="-destination file://${baseLocation}/eclipse"/>
-			<arg line="-profile SDKProfile"/>
 			<!-- NOTE: using no version parameter seems to install the latest (first? arbitrary?) version of the feature. 
 					   note: having 0.0.0 as the version is not the same as no value, unfortunately -->
 			<arg line="-version ${feature.version}" /> 
@@ -387,9 +386,8 @@
 			<arg line="--launcher.suppressErrors" />
 			<arg line="-consoleLog" />
 			<arg line="-installIU ${bundle.id}" />
-			<!-- explicitly indicate destination and profile until [268185] is resolved -->
+			<!-- explicitly indicate destinationuntil [268185] is resolved -->
 			<arg line="-destination file://${baseLocation}/eclipse"/>
-			<arg line="-profile SDKProfile"/>
 			<arg line="-version ${bundle.version}" /> 
 			<!-- Until someone splits the two, assume metadata and artifact repo are the same -->
 			<arg line="-metadataRepository ${repo}" />
