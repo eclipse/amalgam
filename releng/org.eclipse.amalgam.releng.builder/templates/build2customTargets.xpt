@@ -352,7 +352,7 @@
 			<arg line="-consoleLog" />
 			<arg line="-installIU ${feature.id}.feature.group" />
 			<!-- explicitly indicate destination until [268185] is resolved -->
-			<arg line="-destination file://${baseLocation}"/>
+			<arg line="-destination ${baseLocation}"/>
 			<!-- NOTE: using no version parameter seems to install the latest (first? arbitrary?) version of the feature. 
 					   note: having 0.0.0 as the version is not the same as no value, unfortunately -->
 			<arg line="-version ${feature.version}" /> 
@@ -387,7 +387,7 @@
 			<arg line="-consoleLog" />
 			<arg line="-installIU ${bundle.id}" />
 			<!-- explicitly indicate destinationuntil [268185] is resolved -->
-			<arg line="-destination file://${baseLocation}"/>
+			<arg line="-destination ${baseLocation}"/>
 			<arg line="-version ${bundle.version}" /> 
 			<!-- Until someone splits the two, assume metadata and artifact repo are the same -->
 			<arg line="-metadataRepository ${repo}" />
