@@ -16,21 +16,21 @@
     <features id="org.eclipse.jdt" version="3.5.0.v20090202-7p84FGDFHmHulDaDz-tFp1nr"/>
     <features id="org.eclipse.pde" version="3.5.0.v20090123-7Z7YF8NFE-z0VXeYpohDfFNL"/>
     <features id="org.eclipse.cvs" version="1.1.100.v20090123-7E79FBV9BJ99pAKG_13J33" category="//@categories.0"/>
-    <features id="org.eclipse.emf.sdk" version="2.5.0.v200902031500">
+    <features id="org.eclipse.emf.sdk" version="2.5.0.v200903161215">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
     <features id="org.eclipse.ecf.core" version="3.0.0.v20090126-1723" category="//@categories.0" repo="//@contributions.0/@repositories.0"/>
-    <features id="org.eclipse.uml2.sdk" version="3.0.0.v200901161500" category="//@categories.0">
+    <features id="org.eclipse.uml2.sdk" version="3.0.0.v200903141901" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.1"/>
     </features>
     <features id="org.eclipse.ocl.all.sdk" version="1.3.0.v200901271800-787B8aA3PRRgQUXlKrYh3z-n_MGh">
-      <repo href="../modeling-repos.build#//@repositories.9"/>
+      <repo href="../modeling-repos.build#//@repositories.1"/>
     </features>
-    <features id="org.eclipse.emf.emfqtv.all.sdk" version="1.3.0.v200901271819-3778Y9-FL4VAbPPIYbZHuz0wJa_P" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.13"/>
+    <features id="org.eclipse.emf.emfqtv.all.sdk" version="1.3.0.v200901271819-4778Z90GCMMEHd_ETTaTWy5p0uVS" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
-    <features id="org.eclipse.gef.sdk" version="3.5.0.v20080806-1610-7D7I-99PLPLNJRNQINJDeISNeOKI" category="//@categories.0" repo="//@contributions.0/@repositories.4"/>
-    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090316-1930-7N--CLrFgFfJobIxuOeWUDrcXLqT" category="//@categories.0">
+    <features id="org.eclipse.gef.sdk" version="3.5.0.v20090316-1158-7D7I-99PLPMNESNQIIOMfISMgPKI" category="//@categories.0" repo="//@contributions.0/@repositories.1"/>
+    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090316-1930-7N--CLrFgFfJobIxuQoWUIxcXLqT" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.12"/>
     </features>
     <features id="org.eclipse.gmf.sdk" version="2.2.0.v20090114-0940-7C7B3BLunT1tiiquB1WC_so2Sgz-" category="//@categories.0">
