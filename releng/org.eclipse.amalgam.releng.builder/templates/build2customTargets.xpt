@@ -363,6 +363,7 @@
 			<arg line="-vmargs"/>
 			<arg line="-Xmx1024m" />
 			<arg line="-Declipse.p2.MD5Check=false"/>
+			<arg line="-Declipse.p2.mirrors=false"/>
 		</exec>
 		
 		<condition property="install.failed">
@@ -395,6 +396,7 @@
 			<arg line="-vmargs"/>
 			<arg line="-Xmx1024m" />
 			<arg line="-Declipse.p2.MD5Check=false"/>
+			<arg line="-Declipse.p2.mirrors=false"/>
 		</exec>
 		
 		<condition property="install.failed">
