@@ -19,7 +19,7 @@
     <features id="org.eclipse.emf.sdk" version="2.5.0.v200903161215">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
-    <features id="org.eclipse.ecf.core" version="3.0.0.v20090318-2259" category="//@categories.0" repo="//@contributions.0/@repositories.0"/>
+    <features id="org.eclipse.ecf.core" version="3.0.0.v20090319-0801" category="//@categories.0" repo="//@contributions.0/@repositories.0"/>
     <features id="org.eclipse.uml2.sdk" version="3.0.0.v200903141901" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.1"/>
     </features>
