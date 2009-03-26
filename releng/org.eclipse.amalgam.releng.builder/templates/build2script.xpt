@@ -123,13 +123,6 @@
 			<param name="p2.version" value="«product.version»"/>
 		</antcall>
 		
-		«IF config.os.repr() = 'macosx'»
-		<!-- FIXME: workaround for leftover Eclipse.app [260644] -->
-		<copy file="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app/Contents/MacOS/eclipse.ini"
-		      tofile="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/«product.launcher.name».app/Contents/MacOS/«product.launcher.name».ini" overwrite="true"/>
-<!--		<delete dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}/Eclipse.app" /> -->
-		«ENDIF»
-		
 		«IF config.os.repr() = 'win32'»
 		<zip destfile="${buildDirectory}/${buildLabel}/«archiveName(self)»«archiveExtension(config)»" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
 		«ELSE»
