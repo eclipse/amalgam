@@ -19,7 +19,7 @@
     <features id="org.eclipse.emf.sdk" version="2.5.0.v200903161215">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
-    <features id="org.eclipse.ecf.core" version="3.0.0.v20090319-0801" category="//@categories.0" repo="//@contributions.0/@repositories.0"/>
+    <features id="org.eclipse.equinox.p2.user.ui" version="1.1.0.v20090212-7Y2FUGFS4vz-1Fz0P7pTB7KU" category="//@categories.0"/>
     <features id="org.eclipse.uml2.sdk" version="3.0.0.v200903141901" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.1"/>
     </features>
@@ -29,7 +29,7 @@
     <features id="org.eclipse.emf.emfqtv.all.sdk" version="1.3.0.v200901271819-4778Z90GCMMEHd_ETTaTWy5p0uVS" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
-    <features id="org.eclipse.gef.sdk" version="3.5.0.v20090316-1158-7D7I-99PLPMNESNQIIOMfISMgPKI" category="//@categories.0" repo="//@contributions.0/@repositories.1"/>
+    <features id="org.eclipse.gef.sdk" version="3.5.0.v20090316-1158-7D7I-99PLPMNESNQIIOMfISMgPKI" category="//@categories.0" repo="//@contributions.0/@repositories.0"/>
     <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090316-1930-7N--CLrFgFfJofIxtQoWUIxcXLqT" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.6"/>
     </features>
@@ -48,14 +48,13 @@
     <features id="org.eclipse.emf.ocl.examples" version="1.3.0.v200901271800-478-9oB55W58BQ8T55">
       <repo href="../modeling-repos.build#//@repositories.1"/>
     </features>
-    <repositories location="http://www.eclipse.org/external/rt/ecf/3.0/3.5/updateSite/site.xml" label="ECF updates"/>
     <repositories location="http://download.eclipse.org/tools/gef/updates/milestones/" label="GEF milestones"/>
     <repositories location="http://download.eclipse.org/webtools/milestones/" label="WebTools milestones"/>
     <repositories location="http://download.eclipse.org/webtools/downloads/drops/R3.1/I-3.1-20090131041147/updateSite/" label="WebTools interim"/>
     <repositories location="http://download.eclipse.org/tools/gef/updates/interim/" label="GEF Interim"/>
-    <bundles id="org.eclipse.jem" version="2.0.300.v200901272200" repo="//@contributions.0/@repositories.2"/>
-    <bundles id="org.eclipse.jem.proxy" version="2.0.200.v200903022030" repo="//@contributions.0/@repositories.2"/>
-    <bundles id="org.eclipse.jem.util" version="2.0.200.v200901261500" repo="//@contributions.0/@repositories.2"/>
+    <bundles id="org.eclipse.jem" version="2.0.300.v200901272200" repo="//@contributions.0/@repositories.1"/>
+    <bundles id="org.eclipse.jem.proxy" version="2.0.200.v200903022030" repo="//@contributions.0/@repositories.1"/>
+    <bundles id="org.eclipse.jem.util" version="2.0.200.v200901261500" repo="//@contributions.0/@repositories.1"/>
   </contributions>
   <contributions href="../modeling-repos.build#/"/>
   <product href="dsltk.product#/"/>
