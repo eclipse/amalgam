@@ -15,12 +15,10 @@
 «EXPAND mainTarget FOR self»
 «EXPAND fetchBuilderTarget FOR self»
 «EXPAND buildProductTarget FOR self»
-«EXPAND runDirectorTarget FOR self»
 «EXPAND categorizeTarget FOR self»
 «EXPAND packTarget FOR self»
-«EXPAND emailDirectorFailureTarget FOR self»
+«EXPAND emailProductFailureTarget FOR self»
 «EXPAND consolidateTarget FOR self»
-«EXPAND fixpermTarget FOR self»
 «EXPAND additions FOR self»
 </project>
 «ENDDEFINE»
@@ -47,7 +45,6 @@
 		<!-- FIXME: also, if -compress doesn't work, manually jar content and artifacts.xml -->
 		<antcall target="categorize"/>
 		<antcall target="consolidate"/>
-		<antcall target="fixperm"/>
 	</target>
 «ENDDEFINE»
 
@@ -81,8 +78,8 @@
 		<echo message="   «feature.id» «feature.version»"/>
 «ENDFOREACH»
 		
-		<!-- First, run normal product build to fetch, compile, and generate metadata repository for p2 build -->
-		<exec executable="${basebuilder}/eclipse/eclipse" dir="${buildDirectory}/builder" failonerror="false">
+		<!-- Run product build to fetch, compile, and generate p2 repository -->
+		<exec executable="${basebuilder}/eclipse/eclipse" dir="${buildDirectory}/builder" resultproperty="product.return.code">
 «IF launchVM <> null and launchVM <> ''-»
 			<arg line="-vm «launchVM»"/>
 «ENDIF-»
@@ -105,82 +102,27 @@
 			<arg value="-DbuildLabel=${buildLabel}"/>
 		</exec>
 		
-		<!-- We don't really need the zips produced by the product build, so delete -->
-		<!-- FIXME: we really shouldn't need to produce them at all -->
-		<delete >
-		    <fileset dir="${buildDirectory}/${buildLabel}" includes="**/*.zip"/>
-		</delete>
+		<condition property="product.failed">
+			<not><equals arg1="${product.return.code}" arg2="0"/></not>
+		</condition>
 		
-		<!-- NOTE: when PDE build supports the configs property for product builds, this section can be simplified -->
-		«FOREACH configs->asSequence() AS config»
-		<!-- Invoke p2 director to assemble the «config.os».«config.ws».«config.arch» product -->
-		<mkdir dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
-		<antcall target="run.director">
-			<param name="p2.director.install.path" value="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}"/>
-			<param name="p2.os" value="«config.os»"/>
-			<param name="p2.ws" value="«config.ws»"/>
-			<param name="p2.arch" value="«config.arch»"/>
-			<param name="p2.version" value="«product.version»"/>
-		</antcall>
+		<antcall target="email.product.failure"/>
+				
+		«FOREACH configs->asSequence() AS config»		
+		«IF config.os.repr() = 'macosx' or config.os.repr() = 'linux'»
+		<!-- FIXME: rename archive to tar.gz instead of zip for macosx and linux -->
+		<move file="${buildDirectory}/${buildLabel}/${buildId}-«config.os».«config.ws».«config.arch».zip" tofile="${buildDirectory}/${buildLabel}/«archiveName(self)»«archiveExtension(config)»"/>
 		
-		«IF config.os.repr() = 'win32'»
-		<zip destfile="${buildDirectory}/${buildLabel}/«archiveName(self)»«archiveExtension(config)»" basedir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/${archivePrefix}" />
-		«ELSE»
-		<exec executable="tar" dir="${buildDirectory}/${buildLabel}/p2/tmp/«config.os».«config.ws».«config.arch»/">
-			<arg line="${tarargs}-cf ${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar ${archivePrefix}"/>
-		</exec>
-		<gzip src="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" zipfile="${buildDirectory}/${buildLabel}/«archiveName(self)»«archiveExtension(config)»"/>
-		<delete file="${buildDirectory}/${buildLabel}/p2/${buildId}.«config.os».«config.ws».«config.arch».tar" />
+		<!-- FIXME: correct permissions on launcher for macosx -->
+		
 		«ENDIF»
 		«ENDFOREACH»
 		
-		<delete dir="${buildDirectory}/${buildLabel}/p2"/>		
 	</target>
 «ENDDEFINE»
 
-«DEFINE runDirectorTarget FOR build::Build»
-	<target name="run.director"> <!-- Note, there is a p2.director Ant task, but apparently not complete -->
-	<!-- FIXME: eclipse.p2.MD5Check=false is workaround for bug [253713] -->
-		<exec executable="${basebuilder}/eclipse/eclipse" failonerror="false" resultproperty="director.return.code">
-«IF launchVM <> null and launchVM <> ''-»
-			<arg line="-vm «launchVM»"/>
-«ENDIF-»
-			<arg line="-application org.eclipse.equinox.p2.director.app.application"/>
-			<arg line="-nosplash"/>
-			<arg line="--launcher.suppressErrors"/>
-			<arg line="-consoleLog"/>
-			<arg line="-p2.flavor ${p2.flavor}"/>
-			<arg line="-installIU ${p2.IU}"/>
-			<arg line="-version ${p2.version}"/>
-			<arg line="-p2.os ${p2.os}"/>
-			<arg line="-p2.ws ${p2.ws}"/>
-			<arg line="-p2.arch ${p2.arch}"/>
-			<arg line="-roaming"/>
-			<arg line="-profile ${p2.profile}"/>
-			<arg line="-profileProperties org.eclipse.update.install.features=true"/>
-			<arg line="-metadataRepository ${p2.metadata.repo}"/>
-			<arg line="-artifactRepository ${p2.artifact.repo}"/>
-			<arg line="-destination ${p2.director.install.path}"/>
-			<arg line="-bundlepool ${p2.director.install.path}"/>
-			<arg line="-vmargs"/>
-			<arg line="-Declipse.p2.data.area=${p2.director.install.path}/p2"/>
-			<arg line="-Declipse.p2.MD5Check=false"/>
-			<arg line="-Xmx1024m"/>
-		</exec>
-		
-		<condition property="director.failed">
-			<not><equals arg1="${director.return.code}" arg2="0"/></not>
-		</condition>
-		
-		<!-- delete the metadata cache as well as the artifacts for unzipped bundles -->
-		<delete failonerror="false" includeEmptyDirs="true" dir="${p2.director.install.path}/p2/org.eclipse.equinox.p2.core/cache"/>
-		
-		<antcall target="email.director.failure"/>
-	</target>
-«ENDDEFINE»
-
-«DEFINE emailDirectorFailureTarget FOR build::Build»
-	<target name="email.director.failure" if="director.failed" unless="nomail">
+«DEFINE emailProductFailureTarget FOR build::Build»
+	<target name="email.product.failure" if="product.failed" unless="nomail">
 		<copy file="${buildDirectory}/«product.launcher.name».build.log.txt" tofile="${buildRoot}/${buildId}.log.txt"/>
 		<mail tolist="«IF buildmaster <> null»«buildmaster.email»«ENDIF»"
               subject="«label» build failed"
@@ -189,7 +131,7 @@
             <from name="«label» buildmaster [«buildmaster.name»]"
                   address="«buildmaster.email»" />«ENDIF»
                   <!-- TODO: add properties to model for accomodate log link and default email list, etc. -->
-            <message>Director failed to create product!
+            <message>Product build failed!
 			Check the log file for more information: «builderURL»${buildId}.log.txt.
             </message>
         </mail>
@@ -261,15 +203,6 @@
        		 basedir="${buildDirectory}/${buildLabel}/repo"
        		 includes="artifacts.xml"/>
   		<delete dir="${buildRoot}/«product.launcher.name»/${buildLabel}/repo"/>
-	</target>
-«ENDDEFINE»
-
-«DEFINE fixpermTarget FOR build::Build»
-	<target name="fixperm" if="">
-		<chmod dir="${buildDirectory}" perm="a+rx" type="dir" maxparallel="300"
-       			includes="${buildLabel}/**"/>
-		<chmod dir="${buildDirectory}" perm="a+r" type="file" maxparallel="300"
-       			includes="${buildLabel}/**"/>
 	</target>
 «ENDDEFINE»
 
