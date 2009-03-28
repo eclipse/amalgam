@@ -56,18 +56,10 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.core.resources" version="3.4.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui" version="3.4.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide" version="3.4.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.search" version="3.4.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.navigator" version="3.3.101" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.help.ui" version="3.3.101" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.ecore.xmi" version="2.3.0" match="compatible"/>
-      <import plugin="org.eclipse.core.runtime" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.jem.util" version="2.0.0" match="compatible"/>
       <import plugin="org.eclipse.jdt.launching" version="3.2.0" match="compatible"/>
-      <import plugin="org.eclipse.jdt.core" version="3.3.0" match="compatible"/>
       <import plugin="org.eclipse.debug.core" version="3.3.0" match="compatible"/>
-      <import plugin="org.eclipse.core.runtime" version="3.3.0" match="compatible"/>
-      <import plugin="org.eclipse.core.runtime" version="3.4.0" match="compatible"/>
-      <import plugin="org.eclipse.core.resources" version="3.4.0" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore" version="2.4.0" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore.xmi" version="2.4.0" match="compatible"/>
       <import plugin="org.eclipse.equinox.common" version="3.5.0" match="compatible"/>
@@ -86,13 +78,11 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.equinox.p2.directorywatcher"/>
       <import plugin="org.eclipse.equinox.p2.engine"/>
       <import plugin="org.eclipse.equinox.p2.metadata"/>
-      <import plugin="org.eclipse.ui" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.help.ui" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.help.base" version="3.1.0" match="compatible"/>
       <import plugin="org.eclipse.ui.cheatsheets" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.ui.ide.application" version="1.0.0" match="compatible"/>
       <import plugin="org.eclipse.m2m.qvt.oml.project" version="1.0.100" match="greaterOrEqual"/>
-      <import plugin="com.ibm.icu" version="3.8.1.1" match="compatible"/>
       <import plugin="org.apache.commons.logging"/>
       <import plugin="org.eclipse.ecf.provider.filetransfer" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.equinox.simpleconfigurator"/>
