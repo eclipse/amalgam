@@ -36,7 +36,7 @@
 			<arg line="${buildRoot}/dsltk-${dsltkAlias}-incubation-linux-gtk-ppc.tar.gz"/>
 			<arg line="-C ${buildRoot}/generator"/>
 		</exec>
-		<!-- FIXME: workaround for wrong permissions on launcher TODO: log bug -->
+		<!-- FIXME: workaround for wrong permissions on launcher [218377] -->
 		<chmod file="${buildRoot}/generator/dsltk/dsltk" perm="ugo+rx"/>
 	</target>
 	
