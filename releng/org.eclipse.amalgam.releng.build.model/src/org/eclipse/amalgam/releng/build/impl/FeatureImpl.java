@@ -9,10 +9,11 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: FeatureImpl.java,v 1.2 2009/03/13 11:09:27 rgronback Exp $
+ * $Id: FeatureImpl.java,v 1.3 2009/04/17 23:42:56 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
+import java.util.Collection;
 import org.eclipse.amalgam.releng.build.BuildPackage;
 import org.eclipse.amalgam.releng.build.Category;
 import org.eclipse.amalgam.releng.build.Feature;
@@ -21,11 +22,14 @@ import org.eclipse.amalgam.releng.build.Repository;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -86,14 +90,14 @@ public class FeatureImpl extends EObjectImpl implements Feature {
 	protected String version = VERSION_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
+	 * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getCategory()
 	 * @generated
 	 * @ordered
 	 */
-	protected Category category;
+	protected EList<Category> category;
 
 	/**
 	 * The cached value of the '{@link #getRepo() <em>Repo</em>}' reference.
@@ -191,59 +195,11 @@ public class FeatureImpl extends EObjectImpl implements Feature {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Category getCategory() {
-		if (category != null && category.eIsProxy()) {
-			InternalEObject oldCategory = (InternalEObject)category;
-			category = (Category)eResolveProxy(oldCategory);
-			if (category != oldCategory) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BuildPackage.FEATURE__CATEGORY, oldCategory, category));
-			}
+	public EList<Category> getCategory() {
+		if (category == null) {
+			category = new EObjectWithInverseResolvingEList.ManyInverse<Category>(Category.class, this, BuildPackage.FEATURE__CATEGORY, BuildPackage.CATEGORY__FEATURES);
 		}
 		return category;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Category basicGetCategory() {
-		return category;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetCategory(Category newCategory, NotificationChain msgs) {
-		Category oldCategory = category;
-		category = newCategory;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BuildPackage.FEATURE__CATEGORY, oldCategory, newCategory);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCategory(Category newCategory) {
-		if (newCategory != category) {
-			NotificationChain msgs = null;
-			if (category != null)
-				msgs = ((InternalEObject)category).eInverseRemove(this, BuildPackage.CATEGORY__FEATURES, Category.class, msgs);
-			if (newCategory != null)
-				msgs = ((InternalEObject)newCategory).eInverseAdd(this, BuildPackage.CATEGORY__FEATURES, Category.class, msgs);
-			msgs = basicSetCategory(newCategory, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BuildPackage.FEATURE__CATEGORY, newCategory, newCategory));
 	}
 
 	/**
@@ -310,13 +266,12 @@ public class FeatureImpl extends EObjectImpl implements Feature {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case BuildPackage.FEATURE__CATEGORY:
-				if (category != null)
-					msgs = ((InternalEObject)category).eInverseRemove(this, BuildPackage.CATEGORY__FEATURES, Category.class, msgs);
-				return basicSetCategory((Category)otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCategory()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -330,7 +285,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case BuildPackage.FEATURE__CATEGORY:
-				return basicSetCategory(null, msgs);
+				return ((InternalEList<?>)getCategory()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -348,8 +303,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
 			case BuildPackage.FEATURE__VERSION:
 				return getVersion();
 			case BuildPackage.FEATURE__CATEGORY:
-				if (resolve) return getCategory();
-				return basicGetCategory();
+				return getCategory();
 			case BuildPackage.FEATURE__REPO:
 				if (resolve) return getRepo();
 				return basicGetRepo();
@@ -364,6 +318,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -374,7 +329,8 @@ public class FeatureImpl extends EObjectImpl implements Feature {
 				setVersion((String)newValue);
 				return;
 			case BuildPackage.FEATURE__CATEGORY:
-				setCategory((Category)newValue);
+				getCategory().clear();
+				getCategory().addAll((Collection<? extends Category>)newValue);
 				return;
 			case BuildPackage.FEATURE__REPO:
 				setRepo((Repository)newValue);
@@ -401,7 +357,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
 				setVersion(VERSION_EDEFAULT);
 				return;
 			case BuildPackage.FEATURE__CATEGORY:
-				setCategory((Category)null);
+				getCategory().clear();
 				return;
 			case BuildPackage.FEATURE__REPO:
 				setRepo((Repository)null);
@@ -426,7 +382,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
 			case BuildPackage.FEATURE__VERSION:
 				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
 			case BuildPackage.FEATURE__CATEGORY:
-				return category != null;
+				return category != null && !category.isEmpty();
 			case BuildPackage.FEATURE__REPO:
 				return repo != null;
 			case BuildPackage.FEATURE__IN_PRODUCT:

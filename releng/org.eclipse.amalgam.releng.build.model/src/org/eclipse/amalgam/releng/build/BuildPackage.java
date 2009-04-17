@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackage.java,v 1.8 2008/12/30 20:03:10 rgronback Exp $
+ * $Id: BuildPackage.java,v 1.9 2009/04/17 23:42:56 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -653,7 +653,7 @@ public interface BuildPackage extends EPackage {
 	int FEATURE__VERSION = 1;
 
 	/**
-	 * The feature id for the '<em><b>Category</b></em>' reference.
+	 * The feature id for the '<em><b>Category</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1530,10 +1530,10 @@ public interface BuildPackage extends EPackage {
 	EAttribute getFeature_Version();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.amalgam.releng.build.Feature#getCategory <em>Category</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.amalgam.releng.build.Feature#getCategory <em>Category</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Category</em>'.
+	 * @return the meta object for the reference list '<em>Category</em>'.
 	 * @see org.eclipse.amalgam.releng.build.Feature#getCategory()
 	 * @see #getFeature()
 	 * @generated
@@ -2285,7 +2285,7 @@ public interface BuildPackage extends EPackage {
 		EAttribute FEATURE__VERSION = eINSTANCE.getFeature_Version();
 
 		/**
-		 * The meta object literal for the '<em><b>Category</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: CategoryImpl.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: CategoryImpl.java,v 1.2 2009/04/17 23:42:56 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -209,7 +209,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 	 */
 	public EList<Feature> getFeatures() {
 		if (features == null) {
-			features = new EObjectWithInverseResolvingEList<Feature>(Feature.class, this, BuildPackage.CATEGORY__FEATURES, BuildPackage.FEATURE__CATEGORY);
+			features = new EObjectWithInverseResolvingEList.ManyInverse<Feature>(Feature.class, this, BuildPackage.CATEGORY__FEATURES, BuildPackage.FEATURE__CATEGORY);
 		}
 		return features;
 	}

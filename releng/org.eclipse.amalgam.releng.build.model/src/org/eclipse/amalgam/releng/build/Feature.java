@@ -9,10 +9,11 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: Feature.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: Feature.java,v 1.2 2009/04/17 23:42:56 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -89,7 +90,8 @@ public interface Feature extends EObject {
 	void setVersion(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Category</b></em>' reference.
+	 * Returns the value of the '<em><b>Category</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.amalgam.releng.build.Category}.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.amalgam.releng.build.Category#getFeatures <em>Features</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -97,24 +99,13 @@ public interface Feature extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Category</em>' reference.
-	 * @see #setCategory(Category)
+	 * @return the value of the '<em>Category</em>' reference list.
 	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getFeature_Category()
 	 * @see org.eclipse.amalgam.releng.build.Category#getFeatures
 	 * @model opposite="features"
 	 * @generated
 	 */
-	Category getCategory();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.amalgam.releng.build.Feature#getCategory <em>Category</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Category</em>' reference.
-	 * @see #getCategory()
-	 * @generated
-	 */
-	void setCategory(Category value);
+	EList<Category> getCategory();
 
 	/**
 	 * Returns the value of the '<em><b>Repo</b></em>' reference.
