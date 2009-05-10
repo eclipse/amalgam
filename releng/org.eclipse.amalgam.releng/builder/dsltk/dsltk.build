@@ -12,15 +12,15 @@
   <categories name="DSL Toolkit" label="DSL Toolkit" description="A collection of modeling capabilities for designing and developing model-driven applications." features="//@contributions.0/@features.6 //@contributions.0/@features.4 //@contributions.0/@features.7 //@contributions.0/@features.10 //@contributions.0/@features.13 //@contributions.0/@features.9 //@contributions.0/@features.11 //@contributions.0/@features.12 //@contributions.0/@features.14"/>
   <contributions label="DSL Toolkit">
     <contacts name="Richard Gronback" email="richard.gronback@borland.com"/>
-    <features id="org.eclipse.platform" version="3.5.0.v20090423-9hD9G1HFtGfZq3hr3z-N27lx_0OoTX1vOJV"/>
-    <features id="org.eclipse.help" version="1.1.0.v20090407-7e7eFAlFEx2XZoYfy0DGmHJ"/>
-    <features id="org.eclipse.jdt" version="3.5.0.v20090429-1800b-7r88FEeFJePytbdpFz0FckXVh"/>
-    <features id="org.eclipse.pde" version="3.5.0.v20090123-7Z7YF8NFE-z0VXhWU26Hu8gY"/>
-    <features id="org.eclipse.cvs" version="1.1.100.v20090407-7E79FBV9BJ99r9QNC37N7c" category="//@categories.0"/>
+    <features id="org.eclipse.platform" version="3.5.0.v20090507-9fEdG1HFtGcZl4hGHprkwQJed8lnr0Qq"/>
+    <features id="org.eclipse.help" version="1.1.0.v20090407-7e7eFAlFEx2XZoYgvudDcFH"/>
+    <features id="org.eclipse.jdt" version="3.5.0.v20090508-2000-7r88FEeFJePytfe-qZFjtXS"/>
+    <features id="org.eclipse.pde" version="3.5.0.v20090123-7Z7YF8NFE-z0VXhWbiOJz-PPK"/>
+    <features id="org.eclipse.cvs" version="1.1.100.v20090407-7E79FBV9BJ99r9SHS3BF7N" category="//@categories.0"/>
     <features id="org.eclipse.emf.sdk" version="2.5.0.v200905041408">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
-    <features id="org.eclipse.equinox.p2.user.ui" version="1.1.0.v20090429-2126-7Z2FUGFT0z0-3R0z07TUiks6" category="//@categories.0"/>
+    <features id="org.eclipse.equinox.p2.user.ui" version="1.1.0.v20090507-2000b-7Z2FUGFT0z0-3R1C_hUgsIM" category="//@categories.0"/>
     <features id="org.eclipse.uml2.sdk" version="3.0.0.v200905041045" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.1"/>
     </features>
