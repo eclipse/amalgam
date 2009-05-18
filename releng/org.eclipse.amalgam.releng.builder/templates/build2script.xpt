@@ -45,8 +45,6 @@
 		<!-- FIXME: also, if -compress doesn't work, manually jar content and artifacts.xml -->
 		<antcall target="categorize"/>
 		<antcall target="consolidate"/>
-		<!-- FIXME: only needed on Hudson builder @ build.eclipse.org due to permission issues -->
-		<ant antfile="build.xml" dir="../"/>
 	</target>
 «ENDDEFINE»
 
