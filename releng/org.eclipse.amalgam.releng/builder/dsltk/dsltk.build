@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<build:Build xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" type="S" buildRoot="/shared/galileo/build" fetchTag="CVS=HEAD" label="DSL Toolkit" base="//@platforms.2" builder="//@platforms.1" date="set by build" time="set by build" launchVM="/shared/common/ibm-java2-ppc-50/bin" builderURL="http://build.eclipse.org/galileo/build/" sendmail="true">
-  <platforms file="eclipse-SDK-3.5M7-linux-gtk-ppc.tar.gz" location="http://download.eclipse.org/eclipse/downloads/drops/S-3.5M7-200904302300/" config="//@configs.0" deltapack="eclipse-3.5M7-delta-pack.zip"/>
+<build:Build xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" type="S" buildRoot="/shared/galileo/build" fetchTag="CVS=HEAD" label="DSL Toolkit" base="//@platforms.0" builder="//@platforms.1" date="set by build" time="set by build" launchVM="/shared/common/ibm-java2-ppc-50/bin" builderURL="http://build.eclipse.org/galileo/build/" sendmail="true">
+  <platforms file="eclipse-SDK-3.5RC1-linux-gtk-ppc.tar.gz" location="http://download.eclipse.org/eclipse/downloads/drops/S-3.5RC1-200905151143/" config="//@configs.0" deltapack="eclipse-3.5RC1-delta-pack.zip"/>
   <platforms file="eclipse-SDK-3.5M6-linux-gtk-ppc.tar.gz" location="http://download.eclipse.org/eclipse/downloads/drops/S-3.5M6-200903130100/" config="//@configs.0" deltapack="eclipse-3.5M6-delta-pack.zip"/>
-  <platforms file="eclipse-SDK-I20090515-1143-linux-gtk-ppc.tar.gz" location="http://download.eclipse.org/eclipse/downloads/drops/I20090515-1143/" config="//@configs.0" deltapack="eclipse-I20090515-1143-delta-pack.zip"/>
   <configs os="linux" ws="gtk" arch="ppc" archiveFormat="tar"/>
   <configs os="macosx" ws="cocoa" arch="x86_64" archiveFormat="tar"/>
   <configs os="macosx" ws="cocoa" archiveFormat="tar"/>
@@ -18,7 +17,7 @@
     <features id="org.eclipse.pde" version="3.5.0.v20090123-7Z7YF8NFE-z0VXhWU26Hu8gY"/>
     <features id="org.eclipse.cvs" version="1.1.100.v20090407-7E79FBV9BJ99r9QNC37N7c" category="//@categories.0"/>
     <features id="org.eclipse.equinox.p2.user.ui" version="1.1.0.v20090429-2126-7Z2FUGFT0z0-3R0z07TUiks6" category="//@categories.0"/>
-    <features id="org.eclipse.emf.sdk" version="2.5.0.v200905041408">
+    <features id="org.eclipse.emf.sdk" version="2.5.0.v200905172106">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
     <features id="org.eclipse.uml2.sdk" version="3.0.0.v200905041045" category="//@categories.0">
