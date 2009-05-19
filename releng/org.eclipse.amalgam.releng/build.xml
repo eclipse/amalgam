@@ -2,8 +2,8 @@
 <project name="amalgam" default="dsltk" xmlns:zzz="eclipse.org/gmf/2008/xpand">
 	<!-- Note that the properties in this file are specified for running on build.eclipse.org -->
 	<property name="buildRoot" value="/shared/galileo/build"/>
-	<property name="dsltkLabel" value="I20090417-1945"/>
-	<property name="dsltkAlias" value="I20090417-1945"/> <!-- Typically different for S-builds, e.g. 1.0.0M4, otherwise same as dsltkLabel-->
+	<property name="dsltkLabel" value="I20090519-1104"/>
+	<property name="dsltkAlias" value="I20090519-1104"/> <!-- Typically different for S-builds, e.g. 1.0.0M4, otherwise same as dsltkLabel-->
 	
 	<!-- Builds dsltk product -->
 	<target name="dsltk">
