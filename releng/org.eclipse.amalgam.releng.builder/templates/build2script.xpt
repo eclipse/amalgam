@@ -45,6 +45,11 @@
 		<!-- FIXME: also, if -compress doesn't work, manually jar content and artifacts.xml -->
 		<antcall target="categorize"/>
 		<antcall target="consolidate"/>
+		<!-- FIXME: workaround to correct permissions on build.eclipse.org -->
+		<chmod dir="${buildRoot}" perm="a+rx" type="dir" maxparallel="300"
+       			includes="«product.launcher.name»/**"/>
+		<chmod dir="${buildRoot}" perm="a+r" type="file" maxparallel="300"
+       			includes="«product.launcher.name»/**"/>
 	</target>
 «ENDDEFINE»
 
