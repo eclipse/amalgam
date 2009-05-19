@@ -111,7 +111,7 @@
 		«FOREACH configs->asSequence() AS config»		
 		«IF config.os.repr() = 'macosx' or config.os.repr() = 'linux'»
 		<!-- FIXME: rename archive to tar.gz instead of zip for macosx and linux -->
-		<move file="${buildDirectory}/${buildLabel}/«archiveName(self)»-«config.os».«config.ws».«config.arch».zip" tofile="${buildDirectory}/${buildLabel}/«archiveName(self)»«archiveExtension(config)»"/>
+		<move file="${buildDirectory}/${buildLabel}/«archiveName(self)»«config.os».«config.ws».«config.arch».zip" tofile="${buildDirectory}/${buildLabel}/«archiveName(self)»«archiveExtension(config)»"/>
 		
 		<!-- FIXME: correct permissions on launcher for macosx -->
 		
