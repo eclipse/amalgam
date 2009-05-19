@@ -65,7 +65,7 @@ resolution.devMode=false
 archivePrefix=«product.launcher.name»
 
 #Set the name of the archive that will result from the product build.
-archiveNamePrefix=«buildName(self)»
+archiveNamePrefix=«archiveName(self)»
 
 # The location underwhich all of the build output will be collected.
 collectingFolder=${archivePrefix}
