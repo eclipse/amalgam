@@ -9,22 +9,20 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: Bundle.java,v 1.2 2009/05/20 18:12:35 rgronback Exp $
+ * $Id: Product.java,v 1.1 2009/05/20 18:12:35 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Bundle</b></em>'.
+ * A representation of the model object '<em><b>Product</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.eclipse.amalgam.releng.build.BuildPackage#getBundle()
+ * @see org.eclipse.amalgam.releng.build.BuildPackage#getProduct()
  * @model
  * @generated
  */
-public interface Bundle extends InstallationUnit {
-
-} // Bundle
+public interface Product extends InstallationUnit {
+} // Product

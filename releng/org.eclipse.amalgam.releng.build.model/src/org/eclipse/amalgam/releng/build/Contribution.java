@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: Contribution.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: Contribution.java,v 1.2 2009/05/20 18:12:35 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.amalgam.releng.build.Contribution#getLabel <em>Label</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Contribution#getRepositories <em>Repositories</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.Contribution#getBundles <em>Bundles</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.Contribution#getProducts <em>Products</em>}</li>
  * </ul>
  * </p>
  *
@@ -127,5 +128,21 @@ public interface Contribution extends EObject {
 	 * @generated
 	 */
 	EList<Bundle> getBundles();
+
+	/**
+	 * Returns the value of the '<em><b>Products</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.amalgam.releng.build.Bundle}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Products</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Products</em>' containment reference list.
+	 * @see org.eclipse.amalgam.releng.build.BuildPackage#getContribution_Products()
+	 * @model containment="true" resolveProxies="true"
+	 * @generated
+	 */
+	EList<Bundle> getProducts();
 
 } // Contribution

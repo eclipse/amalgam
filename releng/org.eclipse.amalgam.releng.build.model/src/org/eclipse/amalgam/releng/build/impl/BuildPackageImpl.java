@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackageImpl.java,v 1.10 2009/04/17 23:42:56 rgronback Exp $
+ * $Id: BuildPackageImpl.java,v 1.11 2009/05/20 18:12:35 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -24,8 +24,10 @@ import org.eclipse.amalgam.releng.build.Config;
 import org.eclipse.amalgam.releng.build.Contact;
 import org.eclipse.amalgam.releng.build.Contribution;
 import org.eclipse.amalgam.releng.build.Feature;
+import org.eclipse.amalgam.releng.build.InstallationUnit;
 import org.eclipse.amalgam.releng.build.Map;
 import org.eclipse.amalgam.releng.build.Platform;
+import org.eclipse.amalgam.releng.build.Product;
 import org.eclipse.amalgam.releng.build.Promotion;
 import org.eclipse.amalgam.releng.build.Repository;
 
@@ -131,6 +133,20 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * @generated
 	 */
 	private EClass promotionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass installationUnitEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass productEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -694,6 +710,15 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getContribution_Products() {
+		return (EReference)contributionEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getContact() {
 		return contactEClass;
 	}
@@ -730,35 +755,8 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeature_Id() {
-		return (EAttribute)featureEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getFeature_Version() {
-		return (EAttribute)featureEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getFeature_Category() {
-		return (EReference)featureEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFeature_Repo() {
-		return (EReference)featureEClass.getEStructuralFeatures().get(3);
+		return (EReference)featureEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -767,7 +765,7 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 * @generated
 	 */
 	public EAttribute getFeature_InProduct() {
-		return (EAttribute)featureEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)featureEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -777,33 +775,6 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 */
 	public EClass getBundle() {
 		return bundleEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getBundle_Id() {
-		return (EAttribute)bundleEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getBundle_Version() {
-		return (EAttribute)bundleEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getBundle_Repo() {
-		return (EReference)bundleEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -921,6 +892,51 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 	 */
 	public EAttribute getPromotion_BuildAlias() {
 		return (EAttribute)promotionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getInstallationUnit() {
+		return installationUnitEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInstallationUnit_Id() {
+		return (EAttribute)installationUnitEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInstallationUnit_Version() {
+		return (EAttribute)installationUnitEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInstallationUnit_Repo() {
+		return (EReference)installationUnitEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getProduct() {
+		return productEClass;
 	}
 
 	/**
@@ -1052,22 +1068,17 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		createEAttribute(contributionEClass, CONTRIBUTION__LABEL);
 		createEReference(contributionEClass, CONTRIBUTION__REPOSITORIES);
 		createEReference(contributionEClass, CONTRIBUTION__BUNDLES);
+		createEReference(contributionEClass, CONTRIBUTION__PRODUCTS);
 
 		contactEClass = createEClass(CONTACT);
 		createEAttribute(contactEClass, CONTACT__NAME);
 		createEAttribute(contactEClass, CONTACT__EMAIL);
 
 		featureEClass = createEClass(FEATURE);
-		createEAttribute(featureEClass, FEATURE__ID);
-		createEAttribute(featureEClass, FEATURE__VERSION);
 		createEReference(featureEClass, FEATURE__CATEGORY);
-		createEReference(featureEClass, FEATURE__REPO);
 		createEAttribute(featureEClass, FEATURE__IN_PRODUCT);
 
 		bundleEClass = createEClass(BUNDLE);
-		createEAttribute(bundleEClass, BUNDLE__ID);
-		createEAttribute(bundleEClass, BUNDLE__VERSION);
-		createEReference(bundleEClass, BUNDLE__REPO);
 
 		compilerEClass = createEClass(COMPILER);
 		createEAttribute(compilerEClass, COMPILER__ARGS);
@@ -1083,6 +1094,13 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		createEAttribute(promotionEClass, PROMOTION__INCUBATING);
 		createEAttribute(promotionEClass, PROMOTION__BASE_URL);
 		createEAttribute(promotionEClass, PROMOTION__BUILD_ALIAS);
+
+		installationUnitEClass = createEClass(INSTALLATION_UNIT);
+		createEAttribute(installationUnitEClass, INSTALLATION_UNIT__ID);
+		createEAttribute(installationUnitEClass, INSTALLATION_UNIT__VERSION);
+		createEReference(installationUnitEClass, INSTALLATION_UNIT__REPO);
+
+		productEClass = createEClass(PRODUCT);
 
 		// Create enums
 		buildTypeEEnum = createEEnum(BUILD_TYPE);
@@ -1124,6 +1142,9 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		featureEClass.getESuperTypes().add(this.getInstallationUnit());
+		bundleEClass.getESuperTypes().add(this.getInstallationUnit());
+		productEClass.getESuperTypes().add(this.getInstallationUnit());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(buildEClass, Build.class, "Build", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1182,22 +1203,17 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEAttribute(getContribution_Label(), ecorePackage.getEString(), "label", null, 0, 1, Contribution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContribution_Repositories(), this.getRepository(), null, "repositories", null, 0, -1, Contribution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContribution_Bundles(), this.getBundle(), null, "bundles", null, 0, -1, Contribution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContribution_Products(), this.getBundle(), null, "products", null, 0, -1, Contribution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(contactEClass, Contact.class, "Contact", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getContact_Name(), ecorePackage.getEString(), "name", null, 0, 1, Contact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContact_Email(), ecorePackage.getEString(), "email", null, 0, 1, Contact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureEClass, Feature.class, "Feature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFeature_Id(), ecorePackage.getEString(), "id", null, 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeature_Version(), ecorePackage.getEString(), "version", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeature_Category(), this.getCategory(), this.getCategory_Features(), "category", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeature_Repo(), this.getRepository(), null, "repo", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeature_InProduct(), ecorePackage.getEBoolean(), "inProduct", "true", 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(bundleEClass, Bundle.class, "Bundle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBundle_Id(), ecorePackage.getEString(), "id", null, 1, 1, Bundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBundle_Version(), ecorePackage.getEString(), "version", null, 0, 1, Bundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBundle_Repo(), this.getRepository(), null, "repo", null, 0, 1, Bundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(compilerEClass, org.eclipse.amalgam.releng.build.Compiler.class, "Compiler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCompiler_Args(), ecorePackage.getEString(), "args", null, 0, 1, org.eclipse.amalgam.releng.build.Compiler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1213,6 +1229,13 @@ public class BuildPackageImpl extends EPackageImpl implements BuildPackage {
 		initEAttribute(getPromotion_Incubating(), ecorePackage.getEBoolean(), "incubating", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPromotion_BaseURL(), ecorePackage.getEString(), "baseURL", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPromotion_BuildAlias(), ecorePackage.getEString(), "buildAlias", null, 0, 1, Promotion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(installationUnitEClass, InstallationUnit.class, "InstallationUnit", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getInstallationUnit_Id(), ecorePackage.getEString(), "id", null, 1, 1, InstallationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInstallationUnit_Version(), ecorePackage.getEString(), "version", null, 0, 1, InstallationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInstallationUnit_Repo(), this.getRepository(), null, "repo", null, 0, 1, InstallationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(productEClass, Product.class, "Product", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(buildTypeEEnum, BuildType.class, "BuildType");

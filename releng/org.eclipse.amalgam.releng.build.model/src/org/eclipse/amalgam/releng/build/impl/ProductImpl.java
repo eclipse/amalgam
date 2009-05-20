@@ -9,38 +9,31 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BundleImpl.java,v 1.2 2009/05/20 18:12:35 rgronback Exp $
+ * $Id: ProductImpl.java,v 1.1 2009/05/20 18:12:35 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
 import org.eclipse.amalgam.releng.build.BuildPackage;
-import org.eclipse.amalgam.releng.build.Bundle;
-import org.eclipse.amalgam.releng.build.Repository;
-
-import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.amalgam.releng.build.Product;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Bundle</b></em>'.
+ * An implementation of the model object '<em><b>Product</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class BundleImpl extends InstallationUnitImpl implements Bundle {
+public class ProductImpl extends InstallationUnitImpl implements Product {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BundleImpl() {
+	protected ProductImpl() {
 		super();
 	}
 
@@ -51,7 +44,7 @@ public class BundleImpl extends InstallationUnitImpl implements Bundle {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return BuildPackage.Literals.BUNDLE;
+		return BuildPackage.Literals.PRODUCT;
 	}
 
-} //BundleImpl
+} //ProductImpl

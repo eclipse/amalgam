@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildSwitch.java,v 1.2 2008/12/06 03:59:50 rgronback Exp $
+ * $Id: BuildSwitch.java,v 1.3 2009/05/20 18:12:35 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.util;
 
@@ -23,8 +23,10 @@ import org.eclipse.amalgam.releng.build.Config;
 import org.eclipse.amalgam.releng.build.Contact;
 import org.eclipse.amalgam.releng.build.Contribution;
 import org.eclipse.amalgam.releng.build.Feature;
+import org.eclipse.amalgam.releng.build.InstallationUnit;
 import org.eclipse.amalgam.releng.build.Map;
 import org.eclipse.amalgam.releng.build.Platform;
+import org.eclipse.amalgam.releng.build.Product;
 import org.eclipse.amalgam.releng.build.Promotion;
 import org.eclipse.amalgam.releng.build.Repository;
 import org.eclipse.emf.ecore.EClass;
@@ -155,12 +157,14 @@ public class BuildSwitch<T> {
 			case BuildPackage.FEATURE: {
 				Feature feature = (Feature)theEObject;
 				T result = caseFeature(feature);
+				if (result == null) result = caseInstallationUnit(feature);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case BuildPackage.BUNDLE: {
 				Bundle bundle = (Bundle)theEObject;
 				T result = caseBundle(bundle);
+				if (result == null) result = caseInstallationUnit(bundle);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -173,6 +177,19 @@ public class BuildSwitch<T> {
 			case BuildPackage.PROMOTION: {
 				Promotion promotion = (Promotion)theEObject;
 				T result = casePromotion(promotion);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case BuildPackage.INSTALLATION_UNIT: {
+				InstallationUnit installationUnit = (InstallationUnit)theEObject;
+				T result = caseInstallationUnit(installationUnit);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case BuildPackage.PRODUCT: {
+				Product product = (Product)theEObject;
+				T result = caseProduct(product);
+				if (result == null) result = caseInstallationUnit(product);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -357,6 +374,36 @@ public class BuildSwitch<T> {
 	 * @generated
 	 */
 	public T casePromotion(Promotion object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Installation Unit</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Installation Unit</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInstallationUnit(InstallationUnit object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Product</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Product</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseProduct(Product object) {
 		return null;
 	}
 

@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildPackage.java,v 1.9 2009/04/17 23:42:56 rgronback Exp $
+ * $Id: BuildPackage.java,v 1.10 2009/05/20 18:12:35 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -579,13 +579,22 @@ public interface BuildPackage extends EPackage {
 	int CONTRIBUTION__BUNDLES = 4;
 
 	/**
+	 * The feature id for the '<em><b>Products</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTRIBUTION__PRODUCTS = 5;
+
+	/**
 	 * The number of structural features of the '<em>Contribution</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTRIBUTION_FEATURE_COUNT = 5;
+	int CONTRIBUTION_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.ContactImpl <em>Contact</em>}' class.
@@ -625,6 +634,52 @@ public interface BuildPackage extends EPackage {
 	int CONTACT_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.InstallationUnitImpl <em>Installation Unit</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.amalgam.releng.build.impl.InstallationUnitImpl
+	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getInstallationUnit()
+	 * @generated
+	 */
+	int INSTALLATION_UNIT = 12;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTALLATION_UNIT__ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Version</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTALLATION_UNIT__VERSION = 1;
+
+	/**
+	 * The feature id for the '<em><b>Repo</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTALLATION_UNIT__REPO = 2;
+
+	/**
+	 * The number of structural features of the '<em>Installation Unit</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTALLATION_UNIT_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.FeatureImpl <em>Feature</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -641,7 +696,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__ID = 0;
+	int FEATURE__ID = INSTALLATION_UNIT__ID;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -650,16 +705,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__VERSION = 1;
-
-	/**
-	 * The feature id for the '<em><b>Category</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE__CATEGORY = 2;
+	int FEATURE__VERSION = INSTALLATION_UNIT__VERSION;
 
 	/**
 	 * The feature id for the '<em><b>Repo</b></em>' reference.
@@ -668,7 +714,16 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__REPO = 3;
+	int FEATURE__REPO = INSTALLATION_UNIT__REPO;
+
+	/**
+	 * The feature id for the '<em><b>Category</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__CATEGORY = INSTALLATION_UNIT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>In Product</b></em>' attribute.
@@ -677,7 +732,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__IN_PRODUCT = 4;
+	int FEATURE__IN_PRODUCT = INSTALLATION_UNIT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Feature</em>' class.
@@ -686,7 +741,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_FEATURE_COUNT = 5;
+	int FEATURE_FEATURE_COUNT = INSTALLATION_UNIT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.BundleImpl <em>Bundle</em>}' class.
@@ -705,7 +760,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUNDLE__ID = 0;
+	int BUNDLE__ID = INSTALLATION_UNIT__ID;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -714,7 +769,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUNDLE__VERSION = 1;
+	int BUNDLE__VERSION = INSTALLATION_UNIT__VERSION;
 
 	/**
 	 * The feature id for the '<em><b>Repo</b></em>' reference.
@@ -723,7 +778,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUNDLE__REPO = 2;
+	int BUNDLE__REPO = INSTALLATION_UNIT__REPO;
 
 	/**
 	 * The number of structural features of the '<em>Bundle</em>' class.
@@ -732,7 +787,7 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUNDLE_FEATURE_COUNT = 3;
+	int BUNDLE_FEATURE_COUNT = INSTALLATION_UNIT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.CompilerImpl <em>Compiler</em>}' class.
@@ -872,6 +927,52 @@ public interface BuildPackage extends EPackage {
 	int PROMOTION_FEATURE_COUNT = 5;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.impl.ProductImpl <em>Product</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.amalgam.releng.build.impl.ProductImpl
+	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getProduct()
+	 * @generated
+	 */
+	int PRODUCT = 13;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRODUCT__ID = INSTALLATION_UNIT__ID;
+
+	/**
+	 * The feature id for the '<em><b>Version</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRODUCT__VERSION = INSTALLATION_UNIT__VERSION;
+
+	/**
+	 * The feature id for the '<em><b>Repo</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRODUCT__REPO = INSTALLATION_UNIT__REPO;
+
+	/**
+	 * The number of structural features of the '<em>Product</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRODUCT_FEATURE_COUNT = INSTALLATION_UNIT_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.BuildType <em>Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -879,7 +980,7 @@ public interface BuildPackage extends EPackage {
 	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getBuildType()
 	 * @generated
 	 */
-	int BUILD_TYPE = 12;
+	int BUILD_TYPE = 14;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.OS <em>OS</em>}' enum.
@@ -889,7 +990,7 @@ public interface BuildPackage extends EPackage {
 	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getOS()
 	 * @generated
 	 */
-	int OS = 13;
+	int OS = 15;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.WS <em>WS</em>}' enum.
@@ -899,7 +1000,7 @@ public interface BuildPackage extends EPackage {
 	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getWS()
 	 * @generated
 	 */
-	int WS = 14;
+	int WS = 16;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.ARCH <em>ARCH</em>}' enum.
@@ -909,7 +1010,7 @@ public interface BuildPackage extends EPackage {
 	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getARCH()
 	 * @generated
 	 */
-	int ARCH = 15;
+	int ARCH = 17;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.amalgam.releng.build.ArchiveFormat <em>Archive Format</em>}' enum.
@@ -919,7 +1020,7 @@ public interface BuildPackage extends EPackage {
 	 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getArchiveFormat()
 	 * @generated
 	 */
-	int ARCHIVE_FORMAT = 16;
+	int ARCHIVE_FORMAT = 18;
 
 
 	/**
@@ -1466,6 +1567,17 @@ public interface BuildPackage extends EPackage {
 	EReference getContribution_Bundles();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.amalgam.releng.build.Contribution#getProducts <em>Products</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Products</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Contribution#getProducts()
+	 * @see #getContribution()
+	 * @generated
+	 */
+	EReference getContribution_Products();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.amalgam.releng.build.Contact <em>Contact</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1508,28 +1620,6 @@ public interface BuildPackage extends EPackage {
 	EClass getFeature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Feature#getId <em>Id</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Id</em>'.
-	 * @see org.eclipse.amalgam.releng.build.Feature#getId()
-	 * @see #getFeature()
-	 * @generated
-	 */
-	EAttribute getFeature_Id();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Feature#getVersion <em>Version</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Version</em>'.
-	 * @see org.eclipse.amalgam.releng.build.Feature#getVersion()
-	 * @see #getFeature()
-	 * @generated
-	 */
-	EAttribute getFeature_Version();
-
-	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.amalgam.releng.build.Feature#getCategory <em>Category</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1539,17 +1629,6 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFeature_Category();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.amalgam.releng.build.Feature#getRepo <em>Repo</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Repo</em>'.
-	 * @see org.eclipse.amalgam.releng.build.Feature#getRepo()
-	 * @see #getFeature()
-	 * @generated
-	 */
-	EReference getFeature_Repo();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Feature#isInProduct <em>In Product</em>}'.
@@ -1571,39 +1650,6 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getBundle();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Bundle#getId <em>Id</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Id</em>'.
-	 * @see org.eclipse.amalgam.releng.build.Bundle#getId()
-	 * @see #getBundle()
-	 * @generated
-	 */
-	EAttribute getBundle_Id();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.Bundle#getVersion <em>Version</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Version</em>'.
-	 * @see org.eclipse.amalgam.releng.build.Bundle#getVersion()
-	 * @see #getBundle()
-	 * @generated
-	 */
-	EAttribute getBundle_Version();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.amalgam.releng.build.Bundle#getRepo <em>Repo</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Repo</em>'.
-	 * @see org.eclipse.amalgam.releng.build.Bundle#getRepo()
-	 * @see #getBundle()
-	 * @generated
-	 */
-	EReference getBundle_Repo();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.amalgam.releng.build.Compiler <em>Compiler</em>}'.
@@ -1745,6 +1791,59 @@ public interface BuildPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPromotion_BuildAlias();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.amalgam.releng.build.InstallationUnit <em>Installation Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Installation Unit</em>'.
+	 * @see org.eclipse.amalgam.releng.build.InstallationUnit
+	 * @generated
+	 */
+	EClass getInstallationUnit();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.InstallationUnit#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.amalgam.releng.build.InstallationUnit#getId()
+	 * @see #getInstallationUnit()
+	 * @generated
+	 */
+	EAttribute getInstallationUnit_Id();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.releng.build.InstallationUnit#getVersion <em>Version</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Version</em>'.
+	 * @see org.eclipse.amalgam.releng.build.InstallationUnit#getVersion()
+	 * @see #getInstallationUnit()
+	 * @generated
+	 */
+	EAttribute getInstallationUnit_Version();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.amalgam.releng.build.InstallationUnit#getRepo <em>Repo</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Repo</em>'.
+	 * @see org.eclipse.amalgam.releng.build.InstallationUnit#getRepo()
+	 * @see #getInstallationUnit()
+	 * @generated
+	 */
+	EReference getInstallationUnit_Repo();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.amalgam.releng.build.Product <em>Product</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Product</em>'.
+	 * @see org.eclipse.amalgam.releng.build.Product
+	 * @generated
+	 */
+	EClass getProduct();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.amalgam.releng.build.BuildType <em>Type</em>}'.
@@ -2233,6 +2332,14 @@ public interface BuildPackage extends EPackage {
 		EReference CONTRIBUTION__BUNDLES = eINSTANCE.getContribution_Bundles();
 
 		/**
+		 * The meta object literal for the '<em><b>Products</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTRIBUTION__PRODUCTS = eINSTANCE.getContribution_Products();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.impl.ContactImpl <em>Contact</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2269,36 +2376,12 @@ public interface BuildPackage extends EPackage {
 		EClass FEATURE = eINSTANCE.getFeature();
 
 		/**
-		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FEATURE__ID = eINSTANCE.getFeature_Id();
-
-		/**
-		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FEATURE__VERSION = eINSTANCE.getFeature_Version();
-
-		/**
 		 * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference FEATURE__CATEGORY = eINSTANCE.getFeature_Category();
-
-		/**
-		 * The meta object literal for the '<em><b>Repo</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FEATURE__REPO = eINSTANCE.getFeature_Repo();
 
 		/**
 		 * The meta object literal for the '<em><b>In Product</b></em>' attribute feature.
@@ -2317,30 +2400,6 @@ public interface BuildPackage extends EPackage {
 		 * @generated
 		 */
 		EClass BUNDLE = eINSTANCE.getBundle();
-
-		/**
-		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute BUNDLE__ID = eINSTANCE.getBundle_Id();
-
-		/**
-		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute BUNDLE__VERSION = eINSTANCE.getBundle_Version();
-
-		/**
-		 * The meta object literal for the '<em><b>Repo</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference BUNDLE__REPO = eINSTANCE.getBundle_Repo();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.impl.CompilerImpl <em>Compiler</em>}' class.
@@ -2449,6 +2508,50 @@ public interface BuildPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PROMOTION__BUILD_ALIAS = eINSTANCE.getPromotion_BuildAlias();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.impl.InstallationUnitImpl <em>Installation Unit</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.amalgam.releng.build.impl.InstallationUnitImpl
+		 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getInstallationUnit()
+		 * @generated
+		 */
+		EClass INSTALLATION_UNIT = eINSTANCE.getInstallationUnit();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INSTALLATION_UNIT__ID = eINSTANCE.getInstallationUnit_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INSTALLATION_UNIT__VERSION = eINSTANCE.getInstallationUnit_Version();
+
+		/**
+		 * The meta object literal for the '<em><b>Repo</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INSTALLATION_UNIT__REPO = eINSTANCE.getInstallationUnit_Repo();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.impl.ProductImpl <em>Product</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.amalgam.releng.build.impl.ProductImpl
+		 * @see org.eclipse.amalgam.releng.build.impl.BuildPackageImpl#getProduct()
+		 * @generated
+		 */
+		EClass PRODUCT = eINSTANCE.getProduct();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.amalgam.releng.build.BuildType <em>Type</em>}' enum.

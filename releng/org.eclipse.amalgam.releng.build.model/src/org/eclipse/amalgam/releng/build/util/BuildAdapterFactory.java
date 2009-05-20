@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: BuildAdapterFactory.java,v 1.2 2008/12/06 03:59:50 rgronback Exp $
+ * $Id: BuildAdapterFactory.java,v 1.3 2009/05/20 18:12:35 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.util;
 
@@ -21,8 +21,10 @@ import org.eclipse.amalgam.releng.build.Config;
 import org.eclipse.amalgam.releng.build.Contact;
 import org.eclipse.amalgam.releng.build.Contribution;
 import org.eclipse.amalgam.releng.build.Feature;
+import org.eclipse.amalgam.releng.build.InstallationUnit;
 import org.eclipse.amalgam.releng.build.Map;
 import org.eclipse.amalgam.releng.build.Platform;
+import org.eclipse.amalgam.releng.build.Product;
 import org.eclipse.amalgam.releng.build.Promotion;
 import org.eclipse.amalgam.releng.build.Repository;
 import org.eclipse.emf.common.notify.Adapter;
@@ -135,6 +137,14 @@ public class BuildAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter casePromotion(Promotion object) {
 				return createPromotionAdapter();
+			}
+			@Override
+			public Adapter caseInstallationUnit(InstallationUnit object) {
+				return createInstallationUnitAdapter();
+			}
+			@Override
+			public Adapter caseProduct(Product object) {
+				return createProductAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -321,6 +331,34 @@ public class BuildAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPromotionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.amalgam.releng.build.InstallationUnit <em>Installation Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.amalgam.releng.build.InstallationUnit
+	 * @generated
+	 */
+	public Adapter createInstallationUnitAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.amalgam.releng.build.Product <em>Product</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.amalgam.releng.build.Product
+	 * @generated
+	 */
+	public Adapter createProductAdapter() {
 		return null;
 	}
 

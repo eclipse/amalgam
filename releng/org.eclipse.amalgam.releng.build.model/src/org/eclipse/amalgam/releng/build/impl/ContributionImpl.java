@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: ContributionImpl.java,v 1.1 2008/11/24 20:36:44 rgronback Exp $
+ * $Id: ContributionImpl.java,v 1.2 2009/05/20 18:12:35 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.ContributionImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.ContributionImpl#getRepositories <em>Repositories</em>}</li>
  *   <li>{@link org.eclipse.amalgam.releng.build.impl.ContributionImpl#getBundles <em>Bundles</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.releng.build.impl.ContributionImpl#getProducts <em>Products</em>}</li>
  * </ul>
  * </p>
  *
@@ -113,6 +114,16 @@ public class ContributionImpl extends EObjectImpl implements Contribution {
 	 * @ordered
 	 */
 	protected EList<Bundle> bundles;
+
+	/**
+	 * The cached value of the '{@link #getProducts() <em>Products</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProducts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Bundle> products;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -207,6 +218,18 @@ public class ContributionImpl extends EObjectImpl implements Contribution {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Bundle> getProducts() {
+		if (products == null) {
+			products = new EObjectContainmentEList.Resolving<Bundle>(Bundle.class, this, BuildPackage.CONTRIBUTION__PRODUCTS);
+		}
+		return products;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -218,6 +241,8 @@ public class ContributionImpl extends EObjectImpl implements Contribution {
 				return ((InternalEList<?>)getRepositories()).basicRemove(otherEnd, msgs);
 			case BuildPackage.CONTRIBUTION__BUNDLES:
 				return ((InternalEList<?>)getBundles()).basicRemove(otherEnd, msgs);
+			case BuildPackage.CONTRIBUTION__PRODUCTS:
+				return ((InternalEList<?>)getProducts()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -240,6 +265,8 @@ public class ContributionImpl extends EObjectImpl implements Contribution {
 				return getRepositories();
 			case BuildPackage.CONTRIBUTION__BUNDLES:
 				return getBundles();
+			case BuildPackage.CONTRIBUTION__PRODUCTS:
+				return getProducts();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -272,6 +299,10 @@ public class ContributionImpl extends EObjectImpl implements Contribution {
 				getBundles().clear();
 				getBundles().addAll((Collection<? extends Bundle>)newValue);
 				return;
+			case BuildPackage.CONTRIBUTION__PRODUCTS:
+				getProducts().clear();
+				getProducts().addAll((Collection<? extends Bundle>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -299,6 +330,9 @@ public class ContributionImpl extends EObjectImpl implements Contribution {
 			case BuildPackage.CONTRIBUTION__BUNDLES:
 				getBundles().clear();
 				return;
+			case BuildPackage.CONTRIBUTION__PRODUCTS:
+				getProducts().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -321,6 +355,8 @@ public class ContributionImpl extends EObjectImpl implements Contribution {
 				return repositories != null && !repositories.isEmpty();
 			case BuildPackage.CONTRIBUTION__BUNDLES:
 				return bundles != null && !bundles.isEmpty();
+			case BuildPackage.CONTRIBUTION__PRODUCTS:
+				return products != null && !products.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
