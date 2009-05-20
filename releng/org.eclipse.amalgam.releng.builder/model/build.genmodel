@@ -95,23 +95,17 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Contribution/label"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Contribution/repositories"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Contribution/bundles"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference build.ecore#//Contribution/products"/>
     </genClasses>
     <genClasses ecoreClass="build.ecore#//Contact">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Contact/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Contact/email"/>
     </genClasses>
     <genClasses ecoreClass="build.ecore#//Feature">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Feature/id"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Feature/version"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Feature/category"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Feature/repo"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Feature/inProduct"/>
     </genClasses>
-    <genClasses ecoreClass="build.ecore#//Bundle">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Bundle/id"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Bundle/version"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//Bundle/repo"/>
-    </genClasses>
+    <genClasses ecoreClass="build.ecore#//Bundle"/>
     <genClasses ecoreClass="build.ecore#//Compiler">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Compiler/args"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Compiler/sourceVersion"/>
@@ -127,5 +121,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Promotion/baseURL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//Promotion/buildAlias"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="build.ecore#//InstallationUnit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//InstallationUnit/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute build.ecore#//InstallationUnit/version"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference build.ecore#//InstallationUnit/repo"/>
+    </genClasses>
+    <genClasses ecoreClass="build.ecore#//Product"/>
   </genPackages>
 </genmodel:GenModel>
