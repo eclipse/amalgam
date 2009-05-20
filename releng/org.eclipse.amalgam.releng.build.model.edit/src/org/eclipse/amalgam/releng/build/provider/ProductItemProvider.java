@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: FeatureItemProvider.java,v 1.2 2009/05/20 18:12:37 rgronback Exp $
+ * $Id: ProductItemProvider.java,v 1.1 2009/05/20 18:12:37 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -17,32 +17,25 @@ package org.eclipse.amalgam.releng.build.provider;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.amalgam.releng.build.BuildPackage;
-import org.eclipse.amalgam.releng.build.Feature;
+import org.eclipse.amalgam.releng.build.Product;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.ResourceLocator;
-
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.amalgam.releng.build.Feature} object.
+ * This is the item provider adapter for a {@link org.eclipse.amalgam.releng.build.Product} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureItemProvider
+public class ProductItemProvider
 	extends InstallationUnitItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -56,7 +49,7 @@ public class FeatureItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureItemProvider(AdapterFactory adapterFactory) {
+	public ProductItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -71,65 +64,19 @@ public class FeatureItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addCategoryPropertyDescriptor(object);
-			addInProductPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Category feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addCategoryPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Feature_category_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Feature_category_feature", "_UI_Feature_type"),
-				 BuildPackage.Literals.FEATURE__CATEGORY,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the In Product feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addInProductPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Feature_inProduct_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Feature_inProduct_feature", "_UI_Feature_type"),
-				 BuildPackage.Literals.FEATURE__IN_PRODUCT,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns Feature.gif.
+	 * This returns Product.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Feature"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Product"));
 	}
 
 	/**
@@ -140,10 +87,10 @@ public class FeatureItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Feature)object).getId();
+		String label = ((Product)object).getId();
 		return label == null || label.length() == 0 ?
-			getString("_UI_Feature_type") :
-			getString("_UI_Feature_type") + " " + label;
+			getString("_UI_Product_type") :
+			getString("_UI_Product_type") + " " + label;
 	}
 
 	/**
@@ -156,12 +103,6 @@ public class FeatureItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(Feature.class)) {
-			case BuildPackage.FEATURE__IN_PRODUCT:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 

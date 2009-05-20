@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: ContributionItemProvider.java,v 1.1 2008/11/24 20:37:38 rgronback Exp $
+ * $Id: ContributionItemProvider.java,v 1.2 2009/05/20 18:12:37 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -117,6 +117,7 @@ public class ContributionItemProvider
 			childrenFeatures.add(BuildPackage.Literals.CONTRIBUTION__FEATURES);
 			childrenFeatures.add(BuildPackage.Literals.CONTRIBUTION__REPOSITORIES);
 			childrenFeatures.add(BuildPackage.Literals.CONTRIBUTION__BUNDLES);
+			childrenFeatures.add(BuildPackage.Literals.CONTRIBUTION__PRODUCTS);
 		}
 		return childrenFeatures;
 	}
@@ -178,6 +179,7 @@ public class ContributionItemProvider
 			case BuildPackage.CONTRIBUTION__FEATURES:
 			case BuildPackage.CONTRIBUTION__REPOSITORIES:
 			case BuildPackage.CONTRIBUTION__BUNDLES:
+			case BuildPackage.CONTRIBUTION__PRODUCTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -214,6 +216,34 @@ public class ContributionItemProvider
 			(createChildParameter
 				(BuildPackage.Literals.CONTRIBUTION__BUNDLES,
 				 BuildFactory.eINSTANCE.createBundle()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(BuildPackage.Literals.CONTRIBUTION__PRODUCTS,
+				 BuildFactory.eINSTANCE.createBundle()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == BuildPackage.Literals.CONTRIBUTION__BUNDLES ||
+			childFeature == BuildPackage.Literals.CONTRIBUTION__PRODUCTS;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**
