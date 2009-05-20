@@ -55,7 +55,7 @@
     <repositories location="http://download.eclipse.org/tools/gef/updates/interim/" label="GEF Interim"/>
     <bundles id="org.eclipse.jem" version="2.0.300.v200901272200" repo="//@contributions.0/@repositories.2"/>
     <bundles id="org.eclipse.jem.proxy" version="2.0.200.v200903022030" repo="//@contributions.0/@repositories.2"/>
-    <bundles id="org.eclipse.jem.util" version="2.0.200.v200901261500" repo="//@contributions.0/@repositories.2"/>
+    <bundles id="org.eclipse.jem.util" version="2.0.200.v200905140200" repo="//@contributions.0/@repositories.2"/>
   </contributions>
   <contributions href="../modeling-repos.build#/"/>
   <product href="dsltk.product#/"/>
