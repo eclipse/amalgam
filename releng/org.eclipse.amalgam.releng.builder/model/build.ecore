@@ -85,7 +85,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="bundles" upperBound="-1"
         eType="#//Bundle" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="products" upperBound="-1"
-        eType="#//Bundle" containment="true"/>
+        eType="#//Product" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Contact">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
