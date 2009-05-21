@@ -7,7 +7,7 @@
   <configs os="linux" ws="gtk" archiveFormat="tar"/>
   <configs os="linux" ws="gtk" arch="ppc" archiveFormat="tar"/>
   <map root="org.eclipse.amalgam/releng/org.eclipse.amalgam.releng" repo=":pserver:anonymous@dev.eclipse.org/cvsroot/modeling" tag="HEAD"/>
-  <categories name="Modeler" label="Modeler" description="A lightweight modeling solution that includes UML, BPMN, and SCA modeling." features="//@contributions.0/@features.10 //@contributions.0/@features.12 //@contributions.0/@features.11 //@contributions.0/@features.13 //@contributions.0/@features.14"/>
+  <categories name="Modeler" label="Modeler" description="A lightweight modeling solution that includes UML, BPMN, and SCA modeling." features="//@contributions.0/@features.9 //@contributions.0/@features.11 //@contributions.0/@features.10 //@contributions.0/@features.12 //@contributions.0/@features.13"/>
   <contributions label="Modeler">
     <contacts name="Richard Gronback" email="richard.gronback@borland.com"/>
     <features id="org.eclipse.platform" version="3.5.0.v20090513-9fEdG1HFtGcZlCVLSVqmsTcdv4RgTlPeD"/>
@@ -17,7 +17,6 @@
     <features id="org.eclipse.emf" version="2.5.0.v200905172106" inProduct="false">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
-    <features id="org.eclipse.ecf.core" version="3.0.0.v20090513-0832" repo="//@contributions.0/@repositories.3"/>
     <features id="org.eclipse.uml2" version="3.0.0.v200905151700" inProduct="false">
       <repo href="../modeling-repos.build#//@repositories.1"/>
     </features>
