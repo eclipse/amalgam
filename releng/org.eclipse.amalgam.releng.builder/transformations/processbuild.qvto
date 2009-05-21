@@ -8,13 +8,13 @@ configuration property time : String;
 
 main() {
 	inBuild.rootObjects()[Build].map toBuild();
-	inProduct.rootObjects()[Product].map toProduct();
-	outProduct.rootObjects()[Product].features.map toFeatures();
+	inProduct.rootObjects()[product::Product].map toProduct();
+	outProduct.rootObjects()[product::Product].features.map toFeatures();
 }
 
 mapping product::Product::toProduct() : product::Product@outProduct {
 	init {
-		result := self.deepclone().oclAsType(Product);
+		result := self.deepclone().oclAsType(product::Product);
 		var v : String := self.version;
 		if (v.endsWith('qualifier')) then {
 			v := self.version.substringBefore('qualifier') + 'v' + this.date + this.time;
@@ -38,7 +38,7 @@ mapping build::Build::toBuild() : build::Build@outBuild {
 }
 
 mapping inout build::Build::updateProductReference() {
-	product := outProduct.rootObjects()![Product];
+	product := outProduct.rootObjects()![product::Product];
 }
 
 mapping inout product::Features::toFeatures() {
