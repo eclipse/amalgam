@@ -94,6 +94,7 @@
 «DEFINE processContributionsTarget FOR build::Contribution»
 «IF features->size() > 0 or bundles->size() > 0-»
 		<echo message="Installing contributions «FOREACH features->asSequence() AS feature SEPARATOR ', '-»«feature.id»«ENDFOREACH»."/>
+		<!-- TODO: switch to using new option to install multiple IUs with a single director call -->
 		«EXPAND installFeature FOREACH features->select(f | not f.repo.location.oclIsUndefined())»
 		«EXPAND installBundle FOREACH bundles->select(f | not f.repo.location.oclIsUndefined())»
 «ENDIF-»
@@ -346,7 +347,7 @@
 «IF launchVM <> null and launchVM <> ''-»
 			<arg line="-vm «launchVM»"/>
 «ENDIF-»
-			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
+			<arg line="-application org.eclipse.equinox.p2.director" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
 			<arg line="-consoleLog" />
@@ -383,7 +384,7 @@
 «IF launchVM <> null and launchVM <> ''»
 			<arg line="-vm «launchVM»"/>
 «ENDIF»
-			<arg line="-application org.eclipse.equinox.p2.director.app.application" />
+			<arg line="-application org.eclipse.equinox.p2.director" />
 			<arg line="-nosplash" />
 			<arg line="--launcher.suppressErrors" />
 			<arg line="-consoleLog" />
