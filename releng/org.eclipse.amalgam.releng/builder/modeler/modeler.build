@@ -36,10 +36,10 @@
     <features id="org.eclipse.uml2.diagram" version="0.9.0.v200905080854" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.1"/>
     </features>
-    <features id="org.eclipse.stp.bpmn.feature" version="1.1.0.200902111537-43-7E77g7EAAAQIY" repo="//@contributions.0/@repositories.2" category="//@categories.0"/>
+    <features id="org.eclipse.stp.bpmn.feature" version="1.0.0.200806121858-4--7E77c7UAEAcQc" repo="//@contributions.0/@repositories.2" category="//@categories.0"/>
     <repositories location="http://download.eclipse.org/tools/gef/updates/milestones/" label="GEF milestones"/>
     <repositories location="http://download.eclipse.org/stp/sca/amalgam/" label="SCA updates"/>
-    <repositories location="http://download.eclipse.org/stp/updates/galileo" label="STP updates"/>
+    <repositories location="http://download.eclipse.org/stp/updates/ganymede" label="STP updates"/>
     <repositories location="http://download.eclipse.org/rt/ecf/3.0/3.5/repo" label="ECF updates"/>
   </contributions>
   <contributions href="../modeling-repos.build#/"/>
