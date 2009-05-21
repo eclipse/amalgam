@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: Contribution.java,v 1.2 2009/05/20 18:12:35 rgronback Exp $
+ * $Id: Contribution.java,v 1.3 2009/05/21 12:57:50 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build;
 
@@ -131,7 +131,7 @@ public interface Contribution extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Products</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.amalgam.releng.build.Bundle}.
+	 * The list contents are of type {@link org.eclipse.amalgam.releng.build.Product}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Products</em>' containment reference list isn't clear,
@@ -143,6 +143,6 @@ public interface Contribution extends EObject {
 	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
-	EList<Bundle> getProducts();
+	EList<Product> getProducts();
 
 } // Contribution

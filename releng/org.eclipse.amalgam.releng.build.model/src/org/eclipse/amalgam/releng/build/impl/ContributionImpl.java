@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: ContributionImpl.java,v 1.2 2009/05/20 18:12:35 rgronback Exp $
+ * $Id: ContributionImpl.java,v 1.3 2009/05/21 12:57:50 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.impl;
 
@@ -20,6 +20,7 @@ import org.eclipse.amalgam.releng.build.Bundle;
 import org.eclipse.amalgam.releng.build.Contact;
 import org.eclipse.amalgam.releng.build.Contribution;
 import org.eclipse.amalgam.releng.build.Feature;
+import org.eclipse.amalgam.releng.build.Product;
 import org.eclipse.amalgam.releng.build.Repository;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -123,7 +124,7 @@ public class ContributionImpl extends EObjectImpl implements Contribution {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Bundle> products;
+	protected EList<Product> products;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -218,9 +219,9 @@ public class ContributionImpl extends EObjectImpl implements Contribution {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Bundle> getProducts() {
+	public EList<Product> getProducts() {
 		if (products == null) {
-			products = new EObjectContainmentEList.Resolving<Bundle>(Bundle.class, this, BuildPackage.CONTRIBUTION__PRODUCTS);
+			products = new EObjectContainmentEList.Resolving<Product>(Product.class, this, BuildPackage.CONTRIBUTION__PRODUCTS);
 		}
 		return products;
 	}
@@ -301,7 +302,7 @@ public class ContributionImpl extends EObjectImpl implements Contribution {
 				return;
 			case BuildPackage.CONTRIBUTION__PRODUCTS:
 				getProducts().clear();
-				getProducts().addAll((Collection<? extends Bundle>)newValue);
+				getProducts().addAll((Collection<? extends Product>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
