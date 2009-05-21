@@ -9,7 +9,7 @@
  *   Contributors:
  *      Borland Software Corporation - initial API and implementation
  *
- * $Id: ContributionItemProvider.java,v 1.2 2009/05/20 18:12:37 rgronback Exp $
+ * $Id: ContributionItemProvider.java,v 1.3 2009/05/21 12:57:52 rgronback Exp $
  */
 package org.eclipse.amalgam.releng.build.provider;
 
@@ -220,30 +220,7 @@ public class ContributionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(BuildPackage.Literals.CONTRIBUTION__PRODUCTS,
-				 BuildFactory.eINSTANCE.createBundle()));
-	}
-
-	/**
-	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
-		Object childFeature = feature;
-		Object childObject = child;
-
-		boolean qualify =
-			childFeature == BuildPackage.Literals.CONTRIBUTION__BUNDLES ||
-			childFeature == BuildPackage.Literals.CONTRIBUTION__PRODUCTS;
-
-		if (qualify) {
-			return getString
-				("_UI_CreateChild_text2",
-				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
-		}
-		return super.getCreateChildText(owner, feature, child, selection);
+				 BuildFactory.eINSTANCE.createProduct()));
 	}
 
 	/**
