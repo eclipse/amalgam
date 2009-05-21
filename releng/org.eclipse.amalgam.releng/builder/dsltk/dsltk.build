@@ -36,13 +36,13 @@
     <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090316-1930-7N--CLrFgFfMoLJ0CHNWTbz0hXLq" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.6"/>
     </features>
-    <features id="org.eclipse.gmf.sdk" version="2.2.0.v20090114-0940-7C7B3BLunT1tiiquB4Wd3BnArq7y" category="//@categories.0">
+    <features id="org.eclipse.gmf.sdk" version="2.2.0.v20090114-0940-7C7B3BLunT1tiiquB4Wf6DrsM7hh" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.0"/>
     </features>
-    <features id="org.eclipse.gmf.sdk.experimental" version="1.1.1.v20090114-0940-7A3BiEdsPnSWnE-jyCHk1dd1gZ" category="//@categories.0">
+    <features id="org.eclipse.gmf.sdk.experimental" version="1.1.1.v20090114-0940-7A3BiEdsPnSWqFojy8Le1dd1gZ" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.0"/>
     </features>
-    <features id="org.eclipse.gmf.xpand" version="2.0.0.v20090317-0630-7879-CcNBC-BZEe7OuMT" category="//@categories.0">
+    <features id="org.eclipse.gmf.xpand" version="2.0.0.v20090317-0630-7879-CcNBC-B_Hb7OoOR" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.0"/>
     </features>
     <features id="org.eclipse.amalgam.dsltk" version="1.0.0.qualifier"/>
