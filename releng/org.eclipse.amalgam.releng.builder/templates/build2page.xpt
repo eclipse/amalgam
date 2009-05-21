@@ -183,7 +183,7 @@
 «ENDDEFINE»
 
 «DEFINE downloadLink(config : build::Config) FOR build::Build-»
-<a href="«promotion.baseURL»?file=«promotion.downloadDirectory»«IF promotion.downloadDirectory.xpandEndsWith('drops/')»«buildLabel(self)»/«ENDIF»«archiveName(self)»«archiveExtension(config)»">«archiveName(self)»«archiveExtension(config)»</a>
+<a href="«promotion.baseURL»?file=«promotion.downloadDirectory»«IF promotion.downloadDirectory.xpandEndsWith('drops/')»«buildLabel(self)»/«ENDIF»«archiveName(self)»-«archiveExtension(config)»">«archiveName(self)»-«archiveExtension(config)»</a>
 «ENDDEFINE»
 
 «DEFINE requirements FOR build::Build»

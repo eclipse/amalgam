@@ -25,7 +25,7 @@ helper buildName(b : build::Build) : String {
 }
 
 helper archiveName(b : build::Build) : String {
-	return buildName(b) + '-' + (if b.promotion.incubating = true then 'incubation-' else '' endif)
+	return buildName(b) + '-' + (if b.promotion.incubating = true then 'incubation' else '' endif)
 }
 
 helper archiveExtension(config : build::Config) : String {
