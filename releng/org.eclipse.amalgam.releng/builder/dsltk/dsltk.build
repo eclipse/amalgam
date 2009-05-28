@@ -16,7 +16,7 @@
     <features id="org.eclipse.pde" version="3.5.0.v20090123-7Z7YF8NFE-z0VXhWbol9W6JF"/>
     <features id="org.eclipse.cvs" version="1.1.100.v20090514-7E79FBV9BJ99r9SHS3BF7N" category="//@categories.0"/>
     <features id="org.eclipse.equinox.p2.user.ui" version="1.1.0.v20090507-2000b-7Z2Fb3FT0z0-3R1JdSTXilM" category="//@categories.0"/>
-    <features id="org.eclipse.emf.sdk" version="2.5.0.v200905172106">
+    <features id="org.eclipse.emf.sdk" version="2.5.0.v200905251338">
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
     <features id="org.eclipse.uml2.sdk" version="3.0.0.v200905151700" category="//@categories.0">
@@ -32,7 +32,7 @@
       <repo href="../modeling-repos.build#//@repositories.2"/>
     </features>
     <features id="org.eclipse.gef.sdk" version="3.5.0.v20090422-2346-7G7O-A5WNWYQIaLUbWggiJZdeOMM" repo="//@contributions.0/@repositories.1" category="//@categories.0"/>
-    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090316-1930-7N--CLrFgFfMoLJ0CHNWTbz0hXLq" category="//@categories.0">
+    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090316-1930-7N--CLrFgFfNpRJ2OZfVguKcXLqT" category="//@categories.0">
       <repo href="../modeling-repos.build#//@repositories.6"/>
     </features>
     <features id="org.eclipse.gmf.sdk" version="2.2.0.v20090114-0940-7C7B3BLunT1tiiquB4WmFdvcz0oE" category="//@categories.0">
