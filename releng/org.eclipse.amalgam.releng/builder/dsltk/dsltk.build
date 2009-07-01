@@ -1,64 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<build:Build xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" type="I" buildRoot="/shared/galileo/build" fetchTag="CVS=HEAD" label="DSL Toolkit" base="//@platforms.0" builder="//@platforms.0" date="set by build" time="set by build" launchVM="/shared/common/ibm-java2-ppc-50/bin" builderURL="http://build.eclipse.org/galileo/build/" sendmail="true">
-  <platforms file="eclipse-SDK-3.5RC1-linux-gtk-ppc.tar.gz" location="http://download.eclipse.org/eclipse/downloads/drops/S-3.5RC1-200905151143/" config="//@configs.0" deltapack="eclipse-3.5RC1-delta-pack.zip"/>
+<build:Build xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:build="http://www.eclipse.org/amalgam/2008/build" type="S" buildRoot="/shared/galileo/build" fetchTag="CVS=HEAD" label="DSL Toolkit" base="//@platforms.0" builder="//@platforms.0" date="set by build" time="set by build" launchVM="/shared/common/ibm-java2-ppc-50/bin" builderURL="http://build.eclipse.org/galileo/build/" sendmail="true">
+  <platforms file="eclipse-SDK-3.5-linux-gtk-ppc.tar.gz" location="http://download.eclipse.org/eclipse/downloads/drops/R-3.5-200906111540/" config="//@configs.0" deltapack="eclipse-3.5-delta-pack.zip"/>
   <configs os="linux" ws="gtk" arch="ppc" archiveFormat="tar"/>
   <configs os="macosx" ws="cocoa" arch="x86_64" archiveFormat="tar"/>
   <configs os="macosx" ws="cocoa" archiveFormat="tar"/>
   <configs os="linux" ws="gtk" archiveFormat="tar"/>
   <configs/>
+  <configs os="linux" ws="gtk" arch="x86_64" archiveFormat="tar"/>
   <map root="org.eclipse.amalgam/releng/org.eclipse.amalgam.releng" repo=":pserver:anonymous@dev.eclipse.org/cvsroot/modeling" tag="HEAD"/>
   <categories name="DSL Toolkit" label="DSL Toolkit" description="A collection of modeling capabilities for designing and developing model-driven applications." features="//@contributions.0/@features.5 //@contributions.0/@features.4 //@contributions.0/@features.7 //@contributions.0/@features.11 //@contributions.0/@features.14 //@contributions.0/@features.10 //@contributions.0/@features.12 //@contributions.0/@features.13 //@contributions.0/@features.15"/>
   <contributions label="DSL Toolkit">
     <contacts name="Richard Gronback" email="richard.gronback@borland.com"/>
-    <features id="org.eclipse.platform" version="3.5.0.v20090513-9fEdG1HFtGcZlCVLSVqmsTcdv4RgTlPeD"/>
-    <features id="org.eclipse.help" version="1.1.0.v20090407-7e7eFAlFEx2XZoYitqd9cLH"/>
-    <features id="org.eclipse.jdt" version="3.5.0.v20090514-7r88FEeFJePytkF1wvDorXU1"/>
-    <features id="org.eclipse.pde" version="3.5.0.v20090123-7Z7YF8NFE-z0VXhWbol9W6JF"/>
-    <features id="org.eclipse.cvs" version="1.1.100.v20090514-7E79FBV9BJ99r9SHS3BF7N" category="//@categories.0"/>
-    <features id="org.eclipse.equinox.p2.user.ui" version="1.1.0.v20090507-2000b-7Z2Fb3FT0z0-3R1JdSTXilM" category="//@categories.0"/>
-    <features id="org.eclipse.emf.sdk" version="2.5.0.v200905251338">
-      <repo href="../modeling-repos.build#//@repositories.2"/>
+    <features id="org.eclipse.platform" version="3.5.0.v20090611a-9gEeG1HFtQcmRThO4O3aR_fqSMvJR2sJ"/>
+    <features id="org.eclipse.help" version="1.1.0.v20090602-7e7eFAlFEx2XZoYqwI68e2F"/>
+    <features id="org.eclipse.jdt" version="3.5.0.v20090527-2000-7r88FEeFJePyvYeA33DjZ_c1"/>
+    <features id="org.eclipse.pde" version="3.5.0.v20090123-7Z7_F8NFE-z0VXhWiu-8Qb95"/>
+    <features id="org.eclipse.cvs" version="1.1.100.v20090514-7E79FEc9BJ99r9YFR6JOEF" category="//@categories.0"/>
+    <features id="org.eclipse.equinox.p2.user.ui" version="1.1.0.v20090605-1440-7u6Fb3FbPbJP5MjJjZgifk" category="//@categories.0"/>
+    <features id="org.eclipse.emf.sdk" version="2.5.0.v200906151043">
+      <repo href="../modeling-repos.build#//@repositories.5"/>
     </features>
-    <features id="org.eclipse.uml2.sdk" version="3.0.0.v200905151700" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.1"/>
+    <features id="org.eclipse.uml2.sdk" version="3.0.0.v200906011111" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.8"/>
     </features>
-    <features id="org.eclipse.ocl.all.sdk" version="1.3.0.v200901271800-787B8aA3PRRgQUXlKrYh3z-n_MGh">
-      <repo href="../modeling-repos.build#//@repositories.1"/>
+    <features id="org.eclipse.ocl.all.sdk" version="1.3.0.v200901271800-787B8aA3PRRgQUXlKwbe1tshdIma">
+      <repo href="../modeling-repos.build#//@repositories.8"/>
     </features>
     <features id="org.eclipse.emf.ocl.examples" version="1.3.0.v200901271800-478-9oB55W58BQ8T55">
-      <repo href="../modeling-repos.build#//@repositories.1"/>
+      <repo href="../modeling-repos.build#//@repositories.8"/>
     </features>
     <features id="org.eclipse.emf.emfqtv.all.sdk" version="1.3.0.v200901271819-4778Z90GCMMEJcbDOSZTWy5p0uVS" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.2"/>
+      <repo href="../modeling-repos.build#//@repositories.5"/>
     </features>
-    <features id="org.eclipse.gef.sdk" version="3.5.0.v20090422-2346-7G7O-A5WNWYQIaLUbWggiJZdeOMM" repo="//@contributions.0/@repositories.1" category="//@categories.0"/>
-    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090316-1930-7N--CLrFgFfNpRJ2OZfVguKcXLqT" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.6"/>
+    <features id="org.eclipse.gef.sdk" version="3.5.0.v20090422-2346-7G7O-A5WNWYQIaLUbWhghJaamPKQ" repo="//@contributions.0/@repositories.6" category="//@categories.0"/>
+    <features id="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0.v20090316-1930-7N--CLrFgFfNpRJ4OVlVbmHcXLqT" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.11"/>
     </features>
-    <features id="org.eclipse.gmf.sdk" version="2.2.0.v20090114-0940-7C7B3BLunT1tiiquB4WmFdvcz0oE" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.0"/>
+    <features id="org.eclipse.gmf.sdk" version="2.2.0.v20090114-0940-7C7B3BLund3tnivqKNVdZqeqJTs5" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.10"/>
     </features>
-    <features id="org.eclipse.gmf.sdk.experimental" version="1.1.1.v20090114-0940-7A3BiEdsPnSWrFmjy8Le1dd1gZ" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.0"/>
+    <features id="org.eclipse.gmf.sdk.experimental" version="1.1.1.v20090114-0940-7A3BiEdvPnTX0udLf4Le70gFk0bx" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.10"/>
     </features>
-    <features id="org.eclipse.gmf.xpand" version="2.0.0.v20090317-0630-7879-CcNBC-B_KQ7PoNW" category="//@categories.0">
-      <repo href="../modeling-repos.build#//@repositories.0"/>
+    <features id="org.eclipse.gmf.xpand" version="2.0.0.v20090317-0630-7879-CcNBC-BdHa7NkNM" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.10"/>
     </features>
     <features id="org.eclipse.amalgam.dsltk" version="1.0.0.qualifier"/>
     <features id="org.eclipse.amalgam.examples.dsltk" version="1.0.0.qualifier"/>
     <features id="org.eclipse.amalgam.builder" version="1.0.0.qualifier"/>
     <repositories location="http://download.eclipse.org/eclipse/updates/3.5milestones/" label="Platform 3.5 Milestones"/>
-    <repositories location="http://download.eclipse.org/tools/gef/updates/milestones/" label="GEF milestones"/>
     <repositories location="http://download.eclipse.org/webtools/milestones/" label="WebTools milestones"/>
     <repositories location="http://download.eclipse.org/webtools/downloads/drops/R3.1/I-3.1-20090131041147/updateSite/" label="WebTools interim"/>
+    <repositories location="http://download.eclipse.org/webtools/updates/" label="WebTools releases"/>
     <repositories location="http://download.eclipse.org/tools/gef/updates/interim/" label="GEF Interim"/>
-    <bundles id="org.eclipse.jem" version="2.0.300.v200901272200" repo="//@contributions.0/@repositories.2"/>
-    <bundles id="org.eclipse.jem.proxy" version="2.0.200.v200903022030" repo="//@contributions.0/@repositories.2"/>
-    <bundles id="org.eclipse.jem.util" version="2.0.200.v200905140200" repo="//@contributions.0/@repositories.2"/>
+    <repositories location="http://download.eclipse.org/tools/gef/updates/milestones/" label="GEF milestones"/>
+    <repositories location="http://download.eclipse.org/tools/gef/updates/releases/" label="GEF releases"/>
+    <bundles id="org.eclipse.jem" version="2.0.300.v200901272200" repo="//@contributions.0/@repositories.3"/>
+    <bundles id="org.eclipse.jem.proxy" version="2.0.200.v200903022030" repo="//@contributions.0/@repositories.3"/>
+    <bundles id="org.eclipse.jem.util" version="2.0.200.v200905140200" repo="//@contributions.0/@repositories.3"/>
   </contributions>
   <contributions href="../modeling-repos.build#/"/>
   <product href="dsltk.product#/"/>
   <compiler args="-warn:-serial,discouraged,unchecked,raw,intfAnnotation,varargsCast -showversion -enableJavadoc -encoding ISO-8859-1"/>
-  <promotion uploadDirectory="/home/www/modeling/amalgam/dsltk/downloads/drops/${buildLabel}" downloadDirectory="/modeling/amalgam/dsltk/downloads/drops/" incubating="true" baseURL="http://www.eclipse.org/downloads/download.php" buildAlias=""/>
+  <promotion uploadDirectory="/home/www/modeling/amalgam/dsltk/downloads/drops/${buildLabel}" downloadDirectory="/modeling/amalgam/dsltk/downloads/drops/" incubating="true" baseURL="http://www.eclipse.org/downloads/download.php" buildAlias="1.0.0M8"/>
   <buildmaster name="Richard Gronback" email="richard.gronback@borland.com"/>
 </build:Build>
