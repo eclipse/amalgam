@@ -8,7 +8,7 @@
   <configs/>
   <configs os="linux" ws="gtk" arch="x86_64" archiveFormat="tar"/>
   <map root="org.eclipse.amalgam/releng/org.eclipse.amalgam.releng" repo=":pserver:anonymous@dev.eclipse.org/cvsroot/modeling" tag="HEAD"/>
-  <categories name="DSL Toolkit" label="DSL Toolkit" description="A collection of modeling capabilities for designing and developing model-driven applications." features="//@contributions.0/@features.5 //@contributions.0/@features.4 //@contributions.0/@features.7 //@contributions.0/@features.11 //@contributions.0/@features.14 //@contributions.0/@features.10 //@contributions.0/@features.12 //@contributions.0/@features.13 //@contributions.0/@features.15"/>
+  <categories name="DSL Toolkit" label="DSL Toolkit" description="A collection of modeling capabilities for designing and developing model-driven applications." features="//@contributions.0/@features.5 //@contributions.0/@features.4 //@contributions.0/@features.7 //@contributions.0/@features.11 //@contributions.0/@features.14 //@contributions.0/@features.10 //@contributions.0/@features.12 //@contributions.0/@features.13 //@contributions.0/@features.15 //@contributions.0/@features.19 //@contributions.0/@features.20 //@contributions.0/@features.21"/>
   <contributions label="DSL Toolkit">
     <contacts name="Richard Gronback" email="richard.gronback@borland.com"/>
     <features id="org.eclipse.platform" version="3.5.0.v20090611a-9gEeG1HFtQcmRThO4O3aR_fqSMvJR2sJ"/>
@@ -48,6 +48,11 @@
     <features id="org.eclipse.amalgam.dsltk" version="1.0.0.qualifier"/>
     <features id="org.eclipse.amalgam.examples.dsltk" version="1.0.0.qualifier"/>
     <features id="org.eclipse.amalgam.builder" version="1.0.0.qualifier"/>
+    <features id="org.eclipse.emf.mwe.sdk" version="0.7.0.v200906160748" category="//@categories.0">
+      <repo href="../modeling-repos.build#//@repositories.7"/>
+    </features>
+    <features id="org.eclipse.xpand.sdk" version="0.7.0.v200906160952" repo="//@contributions.0/@repositories.7" category="//@categories.0"/>
+    <features id="rg.eclipse.xtext.sdk" version="0.7.0.v200906161042" repo="//@contributions.0/@repositories.8" category="//@categories.0"/>
     <repositories location="http://download.eclipse.org/eclipse/updates/3.5milestones/" label="Platform 3.5 Milestones"/>
     <repositories location="http://download.eclipse.org/webtools/milestones/" label="WebTools milestones"/>
     <repositories location="http://download.eclipse.org/webtools/downloads/drops/R3.1/I-3.1-20090131041147/updateSite/" label="WebTools interim"/>
@@ -55,6 +60,8 @@
     <repositories location="http://download.eclipse.org/tools/gef/updates/interim/" label="GEF Interim"/>
     <repositories location="http://download.eclipse.org/tools/gef/updates/milestones/" label="GEF milestones"/>
     <repositories location="http://download.eclipse.org/tools/gef/updates/releases/" label="GEF releases"/>
+    <repositories location="http://download.eclipse.org/modeling/m2t/updates/releases/" label="M2T releases"/>
+    <repositories location="http://download.eclipse.org/modeling/tmf/updates/releases/" label="TMF releases"/>
     <bundles id="org.eclipse.jem" version="2.0.300.v200901272200" repo="//@contributions.0/@repositories.3"/>
     <bundles id="org.eclipse.jem.proxy" version="2.0.200.v200903022030" repo="//@contributions.0/@repositories.3"/>
     <bundles id="org.eclipse.jem.util" version="2.0.200.v200905140200" repo="//@contributions.0/@repositories.3"/>

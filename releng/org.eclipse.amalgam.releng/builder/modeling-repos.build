@@ -7,7 +7,7 @@
   <repositories location="http://download.eclipse.org/modeling/emft/updates/milestones/" label="EMFT milestones"/>
   <repositories location="http://download.eclipse.org/modeling/emf/updates/releases/" label="EMF releases"/>
   <repositories location="http://download.eclipse.org/modeling/m2m/updates/milestones/" label="M2M milestones"/>
-  <repositories location="http://download.eclipse.org/modeling/emft/updates/releases/" label="EMFT milestones"/>
+  <repositories location="http://download.eclipse.org/modeling/emft/updates/releases/" label="EMFT releases"/>
   <repositories location="http://download.eclipse.org/modeling/mdt/updates/releases/" label="MDT releases"/>
   <repositories location="http://download.eclipse.org/modeling/mdt/updates/interim/" label="MDT interim"/>
   <repositories location="http://download.eclipse.org/modeling/gmf/updates/releases/" label="GMF releases"/>
