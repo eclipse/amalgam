@@ -17,7 +17,7 @@
     <features id="org.eclipse.pde" version="3.5.0.v20090123-7Z7_F8NFE-z0VXhWiu-8Qb95"/>
     <features id="org.eclipse.cvs" version="1.1.100.v20090514-7E79FEc9BJ99r9YFR6JOEF" category="//@categories.0"/>
     <features id="org.eclipse.equinox.p2.user.ui" version="1.1.0.v20090605-1440-7u6Fb3FbPbJP5MjJjZgifk" category="//@categories.0"/>
-    <features id="org.eclipse.emf.sdk" version="2.5.0.v200906151043">
+    <features id="org.eclipse.emf.all" version="2.5.0.v200906151043">
       <repo href="../modeling-repos.build#//@repositories.5"/>
     </features>
     <features id="org.eclipse.uml2.sdk" version="3.0.0.v200906011111" category="//@categories.0">
