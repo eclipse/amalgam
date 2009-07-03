@@ -52,7 +52,7 @@
       <repo href="../modeling-repos.build#//@repositories.7"/>
     </features>
     <features id="org.eclipse.xpand.sdk" version="0.7.0.v200906160952" repo="//@contributions.0/@repositories.7" category="//@categories.0"/>
-    <features id="rg.eclipse.xtext.sdk" version="0.7.0.v200906161042" repo="//@contributions.0/@repositories.8" category="//@categories.0"/>
+    <features id="org.eclipse.xtext.sdk" version="0.7.0.v200906161042" repo="//@contributions.0/@repositories.8" category="//@categories.0"/>
     <repositories location="http://download.eclipse.org/eclipse/updates/3.5milestones/" label="Platform 3.5 Milestones"/>
     <repositories location="http://download.eclipse.org/webtools/milestones/" label="WebTools milestones"/>
     <repositories location="http://download.eclipse.org/webtools/downloads/drops/R3.1/I-3.1-20090131041147/updateSite/" label="WebTools interim"/>
