@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<discovery:DiscoveryDefinition xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:discovery="http://www.eclipse.org/amalgamation/discovery/1.0">
+  <categories name="Model Transformation">
+    <components name="ATL" provider="Eclipse.org" siteURL="http://download.eclipse.org/modeling/m2m/updates/releases/" description="ATL is .." id="org.eclipse.m2m.atl.sdk" license="EPL" groups="//@filters.1"/>
+    <components name="Acceleo" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="Acceleo is an implementation of the MTL OMG standard" id="org.eclipse.acceleo.sdk" license="EPL" groups="//@filters.1"/>
+  </categories>
+  <categories name="Model Editing" description="" relevance="3">
+    <components name="XText" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="Xtext allows you to define a textual syntax for your domain specific model." id="org.eclipse.xtext.sdk" license="EPL" groups="//@filters.2 //@filters.1 //@filters.0"/>
+  </categories>
+  <categories name="Framework" description="" relevance="2">
+    <components name="EMF" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="EMF is .." id="org.eclipse.emf.ecore" license="EPL" groups="//@filters.2"/>
+  </categories>
+  <filters name="Incubation"/>
+  <filters name="Tool"/>
+  <filters name="Framework"/>
+</discovery:DiscoveryDefinition>
