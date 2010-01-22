@@ -27,7 +27,6 @@ import org.eclipse.amalgam.discovery.Category;
 import org.eclipse.amalgam.discovery.DiscoveryDefinition;
 import org.eclipse.amalgam.discovery.DiscoveryUIPlugin;
 import org.eclipse.amalgam.discovery.Group;
-import org.eclipse.amalgam.discovery.ImageDef;
 import org.eclipse.amalgam.discovery.InstallableComponent;
 import org.eclipse.amalgam.discovery.Overview;
 import org.eclipse.amalgam.discovery.core.AvailabilityUpdater;
@@ -204,9 +203,13 @@ public class DiscoveryViewer {
             configureLook(iconLabel, background);
             GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(iconLabel);
 
-            if (connector.getImage() != null) {
-                iconImage = computeIconImage(connector.eResource(), connector.getImage(), 32, false);
+            if (connector.getImage32() != null) {
+                iconImage = computeIconImage(connector.eResource(), connector.getImage32(), 32, false);
                 if (iconImage != null) {
+                    if (connector.isIncubation()) {
+                        iconImage = new DecorationOverlayIcon(iconImage, DiscoveryImages.OVERLAY_INCUBATION_32, IDecoration.BOTTOM_LEFT).createImage();
+                        disposables.add(iconImage);
+                    }
                     iconLabel.setImage(iconImage);
                 }
             }
@@ -215,7 +218,10 @@ public class DiscoveryViewer {
             configureLook(nameLabel, background);
             GridDataFactory.fillDefaults().grab(true, false).align(SWT.BEGINNING, SWT.CENTER).applyTo(nameLabel);
             nameLabel.setFont(h2Font);
-            nameLabel.setText(connector.getName());
+            if (connector.isIncubation())
+                nameLabel.setText(connector.getName() + " (Incubation)");
+            else
+                nameLabel.setText(connector.getName());
 
             providerLabel = new Link(connectorContainer, SWT.RIGHT);
             configureLook(providerLabel, background);
@@ -243,12 +249,13 @@ public class DiscoveryViewer {
 
             GridDataFactory.fillDefaults().grab(true, false).span(3, 1).hint(100, SWT.DEFAULT).applyTo(description);
             String descriptionText = connector.getDescription();
-            int maxDescriptionLength = 162;
-            if (descriptionText.length() > maxDescriptionLength) {
-                descriptionText = descriptionText.substring(0, maxDescriptionLength);
+            if (descriptionText != null) {
+                int maxDescriptionLength = 162;
+                if (descriptionText.length() > maxDescriptionLength) {
+                    descriptionText = descriptionText.substring(0, maxDescriptionLength);
+                }
+                description.setText(descriptionText.replaceAll("(\\r\\n)|\\n|\\r", " ")); //$NON-NLS-1$ //$NON-NLS-2$
             }
-            description.setText(descriptionText.replaceAll("(\\r\\n)|\\n|\\r", " ")); //$NON-NLS-1$ //$NON-NLS-2$
-
             // always disabled color to make it less prominent
             providerLabel.setForeground(colorDisabled);
 
@@ -302,6 +309,7 @@ public class DiscoveryViewer {
             if (!connectorContainer.isDisposed()) {
                 updateAvailability();
             }
+
         }
 
         public void updateAvailability() {
@@ -406,7 +414,7 @@ public class DiscoveryViewer {
     private final Map<Group, Boolean> connectorDescriptorKindToVisibility = new HashMap<Group, Boolean>();
 
     {
-       
+
     }
 
     private boolean complete;
@@ -438,7 +446,8 @@ public class DiscoveryViewer {
         setComplete(false);
         for (Group kind : getDiscovery().getFilters()) {
             connectorDescriptorKindToVisibility.put(kind, true);
-        };       
+        }
+        ;
     }
 
     public void addSelectionChangedListener(ISelectionChangedListener listener) {
@@ -460,20 +469,7 @@ public class DiscoveryViewer {
         filterTextChanged();
     }
 
-    private Image computeIconImage(Resource discoverySource, ImageDef icon, int dimension, boolean fallback) {
-        String imagePath;
-        switch (dimension) {
-        case 48:
-            imagePath = icon.getImage48();
-            if (imagePath != null || !fallback) {
-                break;
-            }
-        case 32:
-            imagePath = icon.getImage32();
-            break;
-        default:
-            throw new IllegalArgumentException();
-        }
+    private Image computeIconImage(Resource discoverySource, String imagePath, int dimension, boolean fallback) {
         if (imagePath != null && imagePath.length() > 0) {
             URI uri = discoverySource.getURI();
             URI trimed = uri.trimSegments(1);
@@ -841,8 +837,8 @@ public class DiscoveryViewer {
                     GridLayoutFactory.fillDefaults().numColumns(3).margins(5, 5).equalWidth(false).applyTo(categoryHeaderContainer);
 
                     Label iconLabel = new Label(categoryHeaderContainer, SWT.NULL);
-                    if (category.getImage() != null) {
-                        Image image = computeIconImage(category.eResource(), category.getImage(), 48, true);
+                    if (category.getImage48() != null) {
+                        Image image = computeIconImage(category.eResource(), category.getImage48(), 48, true);
                         if (image != null) {
                             iconLabel.setImage(image);
                         }
@@ -1175,10 +1171,10 @@ public class DiscoveryViewer {
     }
 
     private boolean isFiltered(InstallableComponent descriptor) {
-        boolean kindFiltered = true;
+        boolean kindFiltered = false;
         for (Group kind : descriptor.getGroups()) {
-            if (isVisible(kind)) {
-                kindFiltered = false;
+            if (!isVisible(kind)) {
+                kindFiltered = true;
                 break;
             }
         }

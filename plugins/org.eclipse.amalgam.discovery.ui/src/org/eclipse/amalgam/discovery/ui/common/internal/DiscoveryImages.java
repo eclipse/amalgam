@@ -34,7 +34,10 @@ public class DiscoveryImages {
      */
     public static final ImageDescriptor OVERLAY_WARNING_32 = create(T_OVR_32, "message_warning.gif"); //$NON-NLS-1$
 
+    public static final ImageDescriptor OVERLAY_INCUBATION_32 = create(T_OVR_32, "incubation.gif");
+    
     public static final ImageDescriptor MESSAGE_INFO = create(T_OBJ_16, "message_info.gif"); //$NON-NLS-1$
+
 
     private static ImageDescriptor create(String prefix, String name) {
         try {
