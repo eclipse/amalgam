@@ -28,7 +28,7 @@
                id="org.eclipse.amalgam.discovery.modeling.toolbars.sampleToolbar">
             <command
                   commandId="org.eclipse.amalgam.discovery.modeling.commands.discoveryCommand"
-                  icon="icons/sample.gif"
+                  icon="icons/modeling16.png"
                   id="org.eclipse.amalgam.discovery.modeling.toolbars.discoveryCommand"
                   tooltip="Launch Modeling Discovery UI">
             </command>

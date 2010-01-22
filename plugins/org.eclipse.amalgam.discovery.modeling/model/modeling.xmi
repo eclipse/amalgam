@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="ASCII"?>
 <discovery:DiscoveryDefinition xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:discovery="http://www.eclipse.org/amalgamation/discovery/1.0">
-  <categories name="Model Transformation">
-    <components name="ATL" provider="Eclipse.org" siteURL="http://download.eclipse.org/modeling/m2m/updates/releases/" description="ATL is .." id="org.eclipse.m2m.atl.sdk" license="EPL" groups="//@filters.1"/>
-    <components name="Acceleo" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="Acceleo is an implementation of the MTL OMG standard" id="org.eclipse.acceleo.sdk" license="EPL" groups="//@filters.1"/>
+  <categories name="Model To Text" description="Model to Text (also known as code generation) tools and languages." relevance="6" image48="">
+    <components name="Acceleo" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="Acceleo is a standard-based template language focused on usability and pragmatism." id="org.eclipse.acceleo.sdk" license="EPL" groups="//@filters.0 //@filters.1" image32="images/acceleo.png" incubation="true">
+      <overview summary=" Acceleo is a pragmatic implementation of the Object Management Group (OMG) MOF Model to Text Language (MTL) standard.&#xA;&#xA;You do not need to be an expert to start using the plug-ins and create your first code generator : using the provided example projects and the powerful completion feature of the Acceleo editor, it is very easy to get started once you understand the basic principles. " screenshot="images/bugzilla-screenshot-320x240.png"/>
+    </components>
+    <components name="Jet" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="The JET component provides code generation framework &amp; facilities with a JSP-like syntax." id="org.eclipse.jet.sdk" license="EPL" groups="//@filters.1"/>
+    <components name="Xpand" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="XPand is a statically-typed template language originally developped as part of the OpenArchitectureWare project." id="org.eclipse.xpand.sdk" license="EPL" groups="//@filters.0" incubation="true"/>
   </categories>
-  <categories name="Model Editing" description="" relevance="3">
-    <components name="XText" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="Xtext allows you to define a textual syntax for your domain specific model." id="org.eclipse.xtext.sdk" license="EPL" groups="//@filters.2 //@filters.1 //@filters.0"/>
+  <categories name="Model To Model" description="Model to Model tools and transformation languages." image48="">
+    <components name="ATL" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="ATL is model transformation language providing ways to produce a set of target models from a set of source models. " id="org.eclipse.m2m.atl.sdk" license="EPL" image32="images/atl.png">
+      <overview summary=" ATL (ATLAS Transformation Language) is a model transformation language and toolkit. In the field of Model-Driven Engineering (MDE), ATL provides ways to produce a set of target models from a set of source models.&#xA;&#xA;Developed on top of the Eclipse platform, the ATL Integrated Environnement (IDE) provides a number of standard development tools (syntax highlighting, debugger, etc.) that aims to ease development of ATL transformations. " url="http://www.eclipse.org/m2m/atl/"/>
+    </components>
+    <components name="Operational QVT" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="QVT Operational Mapping is a transformation language standardized by the OMG." license="EPL" groups="//@filters.1"/>
   </categories>
-  <categories name="Framework" description="" relevance="2">
-    <components name="EMF" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="EMF is .." id="org.eclipse.emf.ecore" license="EPL" groups="//@filters.2"/>
+  <categories name="Concrete Syntax Development" description="Tools and frameworks to develop dedicated modeling tools. " relevance="4">
+    <components name="Extended Editing Framework" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" description="EEF (Extended Editing Framework) is a presentation framework for EMF models. " license="EPL" groups="//@filters.0" image32="images/eef.png" incubation="true">
+      <overview summary="The Extended Editing Framework aims at giving another way to improve the EMF model creation phase by providing new services dedicated to editing and using more appealing editing elements. The way to obtain these services and elements is based on a generative approach similar to the EMF.Edit one. The framework provides advanced editing components for the properties of EMF elements and a default generation based on standard metamodels using these components." screenshot="images/eef-screenshot-320x240.png" url="http://www.eclipse.org/modeling/emft/?project=eef"/>
+    </components>
+    <components name="Graphical Modeling Framework Tooling" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" license="EPL" image32="images/gmf.png"/>
+    <components name="XText" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" id="" license="EPL" groups="//@filters.0" incubation="true"/>
+  </categories>
+  <categories name="Modeler" description="Modeling environment tools." relevance="3">
+    <components name="Papyrus UML" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" id="" license="EPL" groups="//@filters.0" incubation="true"/>
+  </categories>
+  <categories name=" Runtime and Tools" description="Modeling related runtimes and frameworks." relevance="2">
+    <components name="Connected Data Objects Repository" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" license="EPL"/>
+    <components name="Model Workflow Engine" provider="Eclipse.org" siteURL="http://download.eclipse.org/releases/helios/" id="" license="EPL" groups="//@filters.0" incubation="true"/>
+  </categories>
+  <categories name="Reverse Engineering" description="Tools focused on getting models from source code." relevance="1">
+    <components name="MoDisCo" siteURL="http://download.eclipse.org/releases/helios/" id="org.eclipse.modisco.sdk" groups="//@filters.0" image32="" incubation="true"/>
   </categories>
   <filters name="Incubation"/>
-  <filters name="Tool"/>
-  <filters name="Framework"/>
+  <filters name="Standard Based"/>
 </discovery:DiscoveryDefinition>
