@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: InstallableComponent.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: InstallableComponent.java,v 1.2 2010/01/22 17:04:48 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getSiteURL <em>Site URL</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getOverview <em>Overview</em>}</li>
- *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getImage <em>Image</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getCategory <em>Category</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getLicense <em>License</em>}</li>
@@ -39,6 +38,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#isAvailable <em>Available</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#isInstalled <em>Installed</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getGroups <em>Groups</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getImage32 <em>Image32</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#isIncubation <em>Incubation</em>}</li>
  * </ul>
  * </p>
  *
@@ -136,7 +137,7 @@ public interface InstallableComponent extends EObject {
      * @return the value of the '<em>Description</em>' attribute.
      * @see #setDescription(String)
      * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getInstallableComponent_Description()
-     * @model required="true"
+     * @model
      * @generated
      */
     String getDescription();
@@ -168,6 +169,59 @@ public interface InstallableComponent extends EObject {
     EList<Group> getGroups();
 
     /**
+     * Returns the value of the '<em><b>Image32</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Image32</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Image32</em>' attribute.
+     * @see #setImage32(String)
+     * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getInstallableComponent_Image32()
+     * @model
+     * @generated
+     */
+    String getImage32();
+
+    /**
+     * Sets the value of the '{@link org.eclipse.amalgam.discovery.InstallableComponent#getImage32 <em>Image32</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Image32</em>' attribute.
+     * @see #getImage32()
+     * @generated
+     */
+    void setImage32(String value);
+
+    /**
+     * Returns the value of the '<em><b>Incubation</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Incubation</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Incubation</em>' attribute.
+     * @see #setIncubation(boolean)
+     * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getInstallableComponent_Incubation()
+     * @model default="false" required="true"
+     * @generated
+     */
+    boolean isIncubation();
+
+    /**
+     * Sets the value of the '{@link org.eclipse.amalgam.discovery.InstallableComponent#isIncubation <em>Incubation</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Incubation</em>' attribute.
+     * @see #isIncubation()
+     * @generated
+     */
+    void setIncubation(boolean value);
+
+    /**
      * Returns the value of the '<em><b>Overview</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
@@ -192,32 +246,6 @@ public interface InstallableComponent extends EObject {
      * @generated
      */
     void setOverview(Overview value);
-
-    /**
-     * Returns the value of the '<em><b>Image</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Image</em>' containment reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Image</em>' containment reference.
-     * @see #setImage(ImageDef)
-     * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getInstallableComponent_Image()
-     * @model containment="true"
-     * @generated
-     */
-    ImageDef getImage();
-
-    /**
-     * Sets the value of the '{@link org.eclipse.amalgam.discovery.InstallableComponent#getImage <em>Image</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Image</em>' containment reference.
-     * @see #getImage()
-     * @generated
-     */
-    void setImage(ImageDef value);
 
     /**
      * Returns the value of the '<em><b>Category</b></em>' container reference.

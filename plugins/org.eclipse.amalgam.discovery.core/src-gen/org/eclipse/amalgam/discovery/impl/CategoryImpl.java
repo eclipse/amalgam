@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: CategoryImpl.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: CategoryImpl.java,v 1.2 2010/01/22 17:04:48 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.impl;
 
@@ -18,21 +18,15 @@ import java.util.Collection;
 
 import org.eclipse.amalgam.discovery.Category;
 import org.eclipse.amalgam.discovery.DiscoveryPackage;
-import org.eclipse.amalgam.discovery.ImageDef;
 import org.eclipse.amalgam.discovery.InstallableComponent;
 import org.eclipse.amalgam.discovery.Overview;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -47,8 +41,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.eclipse.amalgam.discovery.impl.CategoryImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.CategoryImpl#getComponents <em>Components</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.CategoryImpl#getRelevance <em>Relevance</em>}</li>
- *   <li>{@link org.eclipse.amalgam.discovery.impl.CategoryImpl#getImage <em>Image</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.CategoryImpl#getOverview <em>Overview</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.discovery.impl.CategoryImpl#getImage48 <em>Image48</em>}</li>
  * </ul>
  * </p>
  *
@@ -126,16 +120,6 @@ public class CategoryImpl extends MinimalEObjectImpl implements Category {
     protected Integer relevance = RELEVANCE_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getImage() <em>Image</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getImage()
-     * @generated
-     * @ordered
-     */
-    protected ImageDef image;
-
-    /**
      * The cached value of the '{@link #getOverview() <em>Overview</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -144,6 +128,26 @@ public class CategoryImpl extends MinimalEObjectImpl implements Category {
      * @ordered
      */
     protected Overview overview;
+
+    /**
+     * The default value of the '{@link #getImage48() <em>Image48</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getImage48()
+     * @generated
+     * @ordered
+     */
+    protected static final String IMAGE48_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getImage48() <em>Image48</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getImage48()
+     * @generated
+     * @ordered
+     */
+    protected String image48 = IMAGE48_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -244,49 +248,6 @@ public class CategoryImpl extends MinimalEObjectImpl implements Category {
      * <!-- end-user-doc -->
      * @generated
      */
-    public ImageDef getImage() {
-        return image;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain basicSetImage(ImageDef newImage, NotificationChain msgs) {
-        ImageDef oldImage = image;
-        image = newImage;
-        if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DiscoveryPackage.CATEGORY__IMAGE, oldImage, newImage);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
-        }
-        return msgs;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setImage(ImageDef newImage) {
-        if (newImage != image) {
-            NotificationChain msgs = null;
-            if (image != null)
-                msgs = ((InternalEObject)image).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiscoveryPackage.CATEGORY__IMAGE, null, msgs);
-            if (newImage != null)
-                msgs = ((InternalEObject)newImage).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiscoveryPackage.CATEGORY__IMAGE, null, msgs);
-            msgs = basicSetImage(newImage, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DiscoveryPackage.CATEGORY__IMAGE, newImage, newImage));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public Overview getOverview() {
         return overview;
     }
@@ -330,6 +291,27 @@ public class CategoryImpl extends MinimalEObjectImpl implements Category {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getImage48() {
+        return image48;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setImage48(String newImage48) {
+        String oldImage48 = image48;
+        image48 = newImage48;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, DiscoveryPackage.CATEGORY__IMAGE48, oldImage48, image48));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -350,8 +332,6 @@ public class CategoryImpl extends MinimalEObjectImpl implements Category {
         switch (featureID) {
             case DiscoveryPackage.CATEGORY__COMPONENTS:
                 return ((InternalEList<?>)getComponents()).basicRemove(otherEnd, msgs);
-            case DiscoveryPackage.CATEGORY__IMAGE:
-                return basicSetImage(null, msgs);
             case DiscoveryPackage.CATEGORY__OVERVIEW:
                 return basicSetOverview(null, msgs);
         }
@@ -374,10 +354,10 @@ public class CategoryImpl extends MinimalEObjectImpl implements Category {
                 return getComponents();
             case DiscoveryPackage.CATEGORY__RELEVANCE:
                 return getRelevance();
-            case DiscoveryPackage.CATEGORY__IMAGE:
-                return getImage();
             case DiscoveryPackage.CATEGORY__OVERVIEW:
                 return getOverview();
+            case DiscoveryPackage.CATEGORY__IMAGE48:
+                return getImage48();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -404,11 +384,11 @@ public class CategoryImpl extends MinimalEObjectImpl implements Category {
             case DiscoveryPackage.CATEGORY__RELEVANCE:
                 setRelevance((Integer)newValue);
                 return;
-            case DiscoveryPackage.CATEGORY__IMAGE:
-                setImage((ImageDef)newValue);
-                return;
             case DiscoveryPackage.CATEGORY__OVERVIEW:
                 setOverview((Overview)newValue);
+                return;
+            case DiscoveryPackage.CATEGORY__IMAGE48:
+                setImage48((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -434,11 +414,11 @@ public class CategoryImpl extends MinimalEObjectImpl implements Category {
             case DiscoveryPackage.CATEGORY__RELEVANCE:
                 setRelevance(RELEVANCE_EDEFAULT);
                 return;
-            case DiscoveryPackage.CATEGORY__IMAGE:
-                setImage((ImageDef)null);
-                return;
             case DiscoveryPackage.CATEGORY__OVERVIEW:
                 setOverview((Overview)null);
+                return;
+            case DiscoveryPackage.CATEGORY__IMAGE48:
+                setImage48(IMAGE48_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -460,10 +440,10 @@ public class CategoryImpl extends MinimalEObjectImpl implements Category {
                 return components != null && !components.isEmpty();
             case DiscoveryPackage.CATEGORY__RELEVANCE:
                 return RELEVANCE_EDEFAULT == null ? relevance != null : !RELEVANCE_EDEFAULT.equals(relevance);
-            case DiscoveryPackage.CATEGORY__IMAGE:
-                return image != null;
             case DiscoveryPackage.CATEGORY__OVERVIEW:
                 return overview != null;
+            case DiscoveryPackage.CATEGORY__IMAGE48:
+                return IMAGE48_EDEFAULT == null ? image48 != null : !IMAGE48_EDEFAULT.equals(image48);
         }
         return super.eIsSet(featureID);
     }
@@ -484,6 +464,8 @@ public class CategoryImpl extends MinimalEObjectImpl implements Category {
         result.append(description);
         result.append(", relevance: ");
         result.append(relevance);
+        result.append(", image48: ");
+        result.append(image48);
         result.append(')');
         return result.toString();
     }

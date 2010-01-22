@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryFactory.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: DiscoveryFactory.java,v 1.2 2010/01/22 17:04:48 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -50,15 +50,6 @@ public interface DiscoveryFactory extends EFactory {
      * @generated
      */
     Overview createOverview();
-
-    /**
-     * Returns a new object of class '<em>Image Def</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Image Def</em>'.
-     * @generated
-     */
-    ImageDef createImageDef();
 
     /**
      * Returns a new object of class '<em>Category</em>'.

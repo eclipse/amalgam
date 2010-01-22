@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryAdapterFactory.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: DiscoveryAdapterFactory.java,v 1.2 2010/01/22 17:04:48 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.util;
 
@@ -88,10 +88,6 @@ public class DiscoveryAdapterFactory extends AdapterFactoryImpl {
                 return createOverviewAdapter();
             }
             @Override
-            public Adapter caseImageDef(ImageDef object) {
-                return createImageDefAdapter();
-            }
-            @Override
             public Adapter caseCategory(Category object) {
                 return createCategoryAdapter();
             }
@@ -148,20 +144,6 @@ public class DiscoveryAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createOverviewAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.eclipse.amalgam.discovery.ImageDef <em>Image Def</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.eclipse.amalgam.discovery.ImageDef
-     * @generated
-     */
-    public Adapter createImageDefAdapter() {
         return null;
     }
 

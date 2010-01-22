@@ -18,7 +18,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/siteURL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/overview"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/image"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/category"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/license"/>
@@ -26,23 +25,21 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/available"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/installed"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/groups"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/image32"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/incubation"/>
     </genClasses>
     <genClasses ecoreClass="discovery.ecore#//Overview">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Overview/summary"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Overview/screenshot"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Overview/url"/>
     </genClasses>
-    <genClasses ecoreClass="discovery.ecore#//ImageDef">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//ImageDef/image32"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//ImageDef/image48"/>
-    </genClasses>
     <genClasses ecoreClass="discovery.ecore#//Category">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Category/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Category/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//Category/components"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Category/relevance"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//Category/image"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//Category/overview"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Category/image48"/>
     </genClasses>
     <genClasses ecoreClass="discovery.ecore#//DiscoveryDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//DiscoveryDefinition/categories"/>

@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryPackageImpl.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: DiscoveryPackageImpl.java,v 1.2 2010/01/22 17:04:47 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.impl;
 
@@ -19,16 +19,12 @@ import org.eclipse.amalgam.discovery.DiscoveryDefinition;
 import org.eclipse.amalgam.discovery.DiscoveryFactory;
 import org.eclipse.amalgam.discovery.DiscoveryPackage;
 import org.eclipse.amalgam.discovery.Group;
-import org.eclipse.amalgam.discovery.ImageDef;
 import org.eclipse.amalgam.discovery.InstallableComponent;
 import org.eclipse.amalgam.discovery.Overview;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -51,13 +47,6 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
      * @generated
      */
     private EClass overviewEClass = null;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass imageDefEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -192,7 +181,25 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
      * @generated
      */
     public EReference getInstallableComponent_Groups() {
-        return (EReference)installableComponentEClass.getEStructuralFeatures().get(12);
+        return (EReference)installableComponentEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getInstallableComponent_Image32() {
+        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getInstallableComponent_Incubation() {
+        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(13);
     }
 
     /**
@@ -209,7 +216,7 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getInstallableComponent_Image() {
+    public EReference getInstallableComponent_Category() {
         return (EReference)installableComponentEClass.getEStructuralFeatures().get(5);
     }
 
@@ -218,17 +225,8 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getInstallableComponent_Category() {
-        return (EReference)installableComponentEClass.getEStructuralFeatures().get(6);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getInstallableComponent_Id() {
-        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -237,7 +235,7 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
      * @generated
      */
     public EAttribute getInstallableComponent_License() {
-        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -246,7 +244,7 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
      * @generated
      */
     public EAttribute getInstallableComponent_Selected() {
-        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -255,7 +253,7 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
      * @generated
      */
     public EAttribute getInstallableComponent_Available() {
-        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -264,7 +262,7 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
      * @generated
      */
     public EAttribute getInstallableComponent_Installed() {
-        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(11);
+        return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(10);
     }
 
     /**
@@ -301,33 +299,6 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
      */
     public EAttribute getOverview_Url() {
         return (EAttribute)overviewEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getImageDef() {
-        return imageDefEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getImageDef_Image32() {
-        return (EAttribute)imageDefEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getImageDef_Image48() {
-        return (EAttribute)imageDefEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -380,7 +351,7 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCategory_Image() {
+    public EReference getCategory_Overview() {
         return (EReference)categoryEClass.getEStructuralFeatures().get(4);
     }
 
@@ -389,8 +360,8 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCategory_Overview() {
-        return (EReference)categoryEClass.getEStructuralFeatures().get(5);
+    public EAttribute getCategory_Image48() {
+        return (EAttribute)categoryEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -472,7 +443,6 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
         createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__SITE_URL);
         createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__DESCRIPTION);
         createEReference(installableComponentEClass, INSTALLABLE_COMPONENT__OVERVIEW);
-        createEReference(installableComponentEClass, INSTALLABLE_COMPONENT__IMAGE);
         createEReference(installableComponentEClass, INSTALLABLE_COMPONENT__CATEGORY);
         createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__ID);
         createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__LICENSE);
@@ -480,23 +450,21 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
         createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__AVAILABLE);
         createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__INSTALLED);
         createEReference(installableComponentEClass, INSTALLABLE_COMPONENT__GROUPS);
+        createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__IMAGE32);
+        createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__INCUBATION);
 
         overviewEClass = createEClass(OVERVIEW);
         createEAttribute(overviewEClass, OVERVIEW__SUMMARY);
         createEAttribute(overviewEClass, OVERVIEW__SCREENSHOT);
         createEAttribute(overviewEClass, OVERVIEW__URL);
 
-        imageDefEClass = createEClass(IMAGE_DEF);
-        createEAttribute(imageDefEClass, IMAGE_DEF__IMAGE32);
-        createEAttribute(imageDefEClass, IMAGE_DEF__IMAGE48);
-
         categoryEClass = createEClass(CATEGORY);
         createEAttribute(categoryEClass, CATEGORY__NAME);
         createEAttribute(categoryEClass, CATEGORY__DESCRIPTION);
         createEReference(categoryEClass, CATEGORY__COMPONENTS);
         createEAttribute(categoryEClass, CATEGORY__RELEVANCE);
-        createEReference(categoryEClass, CATEGORY__IMAGE);
         createEReference(categoryEClass, CATEGORY__OVERVIEW);
+        createEAttribute(categoryEClass, CATEGORY__IMAGE48);
 
         discoveryDefinitionEClass = createEClass(DISCOVERY_DEFINITION);
         createEReference(discoveryDefinitionEClass, DISCOVERY_DEFINITION__CATEGORIES);
@@ -540,9 +508,8 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
         initEAttribute(getInstallableComponent_Name(), ecorePackage.getEString(), "name", null, 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getInstallableComponent_Provider(), ecorePackage.getEString(), "provider", null, 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getInstallableComponent_SiteURL(), ecorePackage.getEString(), "siteURL", null, 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getInstallableComponent_Description(), ecorePackage.getEString(), "description", null, 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getInstallableComponent_Description(), ecorePackage.getEString(), "description", null, 0, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getInstallableComponent_Overview(), this.getOverview(), null, "overview", null, 0, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getInstallableComponent_Image(), this.getImageDef(), null, "image", null, 0, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getInstallableComponent_Category(), this.getCategory(), this.getCategory_Components(), "category", null, 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getInstallableComponent_Id(), ecorePackage.getEString(), "id", null, 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getInstallableComponent_License(), ecorePackage.getEString(), "license", null, 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -550,15 +517,13 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
         initEAttribute(getInstallableComponent_Available(), ecorePackage.getEBoolean(), "available", "false", 1, 1, InstallableComponent.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getInstallableComponent_Installed(), ecorePackage.getEBoolean(), "installed", "false", 1, 1, InstallableComponent.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getInstallableComponent_Groups(), this.getGroup(), null, "groups", null, 0, -1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getInstallableComponent_Image32(), ecorePackage.getEString(), "image32", null, 0, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getInstallableComponent_Incubation(), ecorePackage.getEBoolean(), "incubation", "false", 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(overviewEClass, Overview.class, "Overview", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getOverview_Summary(), ecorePackage.getEString(), "summary", null, 1, 1, Overview.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getOverview_Screenshot(), ecorePackage.getEString(), "screenshot", null, 0, 1, Overview.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getOverview_Url(), ecorePackage.getEString(), "url", "http://www.eclipse.org/modeling", 1, 1, Overview.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(imageDefEClass, ImageDef.class, "ImageDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getImageDef_Image32(), ecorePackage.getEString(), "image32", null, 1, 1, ImageDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getImageDef_Image48(), ecorePackage.getEString(), "image48", null, 1, 1, ImageDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(categoryEClass, Category.class, "Category", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getCategory_Name(), ecorePackage.getEString(), "name", null, 1, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -566,8 +531,8 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
         initEReference(getCategory_Components(), this.getInstallableComponent(), this.getInstallableComponent_Category(), "components", null, 0, -1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         getCategory_Components().getEKeys().add(this.getInstallableComponent_Name());
         initEAttribute(getCategory_Relevance(), ecorePackage.getEIntegerObject(), "relevance", "5", 1, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCategory_Image(), this.getImageDef(), null, "image", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCategory_Overview(), this.getOverview(), null, "overview", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCategory_Image48(), ecorePackage.getEString(), "image48", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(discoveryDefinitionEClass, DiscoveryDefinition.class, "DiscoveryDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getDiscoveryDefinition_Categories(), this.getCategory(), null, "categories", null, 0, -1, DiscoveryDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

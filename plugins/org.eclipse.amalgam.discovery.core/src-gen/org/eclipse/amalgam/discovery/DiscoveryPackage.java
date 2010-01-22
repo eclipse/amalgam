@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryPackage.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: DiscoveryPackage.java,v 1.2 2010/01/22 17:04:48 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -124,22 +124,13 @@ public interface DiscoveryPackage extends EPackage {
     int INSTALLABLE_COMPONENT__OVERVIEW = 4;
 
     /**
-     * The feature id for the '<em><b>Image</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INSTALLABLE_COMPONENT__IMAGE = 5;
-
-    /**
      * The feature id for the '<em><b>Category</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int INSTALLABLE_COMPONENT__CATEGORY = 6;
+    int INSTALLABLE_COMPONENT__CATEGORY = 5;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -148,7 +139,7 @@ public interface DiscoveryPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INSTALLABLE_COMPONENT__ID = 7;
+    int INSTALLABLE_COMPONENT__ID = 6;
 
     /**
      * The feature id for the '<em><b>License</b></em>' attribute.
@@ -157,7 +148,7 @@ public interface DiscoveryPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INSTALLABLE_COMPONENT__LICENSE = 8;
+    int INSTALLABLE_COMPONENT__LICENSE = 7;
 
     /**
      * The feature id for the '<em><b>Selected</b></em>' attribute.
@@ -166,7 +157,7 @@ public interface DiscoveryPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INSTALLABLE_COMPONENT__SELECTED = 9;
+    int INSTALLABLE_COMPONENT__SELECTED = 8;
 
     /**
      * The feature id for the '<em><b>Available</b></em>' attribute.
@@ -175,7 +166,7 @@ public interface DiscoveryPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INSTALLABLE_COMPONENT__AVAILABLE = 10;
+    int INSTALLABLE_COMPONENT__AVAILABLE = 9;
 
     /**
      * The feature id for the '<em><b>Installed</b></em>' attribute.
@@ -184,7 +175,7 @@ public interface DiscoveryPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INSTALLABLE_COMPONENT__INSTALLED = 11;
+    int INSTALLABLE_COMPONENT__INSTALLED = 10;
 
     /**
      * The feature id for the '<em><b>Groups</b></em>' reference list.
@@ -193,7 +184,25 @@ public interface DiscoveryPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INSTALLABLE_COMPONENT__GROUPS = 12;
+    int INSTALLABLE_COMPONENT__GROUPS = 11;
+
+    /**
+     * The feature id for the '<em><b>Image32</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INSTALLABLE_COMPONENT__IMAGE32 = 12;
+
+    /**
+     * The feature id for the '<em><b>Incubation</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INSTALLABLE_COMPONENT__INCUBATION = 13;
 
     /**
      * The number of structural features of the '<em>Installable Component</em>' class.
@@ -202,7 +211,7 @@ public interface DiscoveryPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int INSTALLABLE_COMPONENT_FEATURE_COUNT = 13;
+    int INSTALLABLE_COMPONENT_FEATURE_COUNT = 14;
 
     /**
      * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.OverviewImpl <em>Overview</em>}' class.
@@ -251,43 +260,6 @@ public interface DiscoveryPackage extends EPackage {
     int OVERVIEW_FEATURE_COUNT = 3;
 
     /**
-     * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.ImageDefImpl <em>Image Def</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.amalgam.discovery.impl.ImageDefImpl
-     * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getImageDef()
-     * @generated
-     */
-    int IMAGE_DEF = 2;
-
-    /**
-     * The feature id for the '<em><b>Image32</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int IMAGE_DEF__IMAGE32 = 0;
-
-    /**
-     * The feature id for the '<em><b>Image48</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int IMAGE_DEF__IMAGE48 = 1;
-
-    /**
-     * The number of structural features of the '<em>Image Def</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int IMAGE_DEF_FEATURE_COUNT = 2;
-
-    /**
      * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.CategoryImpl <em>Category</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -295,7 +267,7 @@ public interface DiscoveryPackage extends EPackage {
      * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getCategory()
      * @generated
      */
-    int CATEGORY = 3;
+    int CATEGORY = 2;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -334,22 +306,22 @@ public interface DiscoveryPackage extends EPackage {
     int CATEGORY__RELEVANCE = 3;
 
     /**
-     * The feature id for the '<em><b>Image</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CATEGORY__IMAGE = 4;
-
-    /**
      * The feature id for the '<em><b>Overview</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CATEGORY__OVERVIEW = 5;
+    int CATEGORY__OVERVIEW = 4;
+
+    /**
+     * The feature id for the '<em><b>Image48</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CATEGORY__IMAGE48 = 5;
 
     /**
      * The number of structural features of the '<em>Category</em>' class.
@@ -368,7 +340,7 @@ public interface DiscoveryPackage extends EPackage {
      * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getDiscoveryDefinition()
      * @generated
      */
-    int DISCOVERY_DEFINITION = 4;
+    int DISCOVERY_DEFINITION = 3;
 
     /**
      * The feature id for the '<em><b>Categories</b></em>' containment reference list.
@@ -405,7 +377,7 @@ public interface DiscoveryPackage extends EPackage {
      * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getGroup()
      * @generated
      */
-    int GROUP = 5;
+    int GROUP = 4;
 
 
     /**
@@ -493,6 +465,28 @@ public interface DiscoveryPackage extends EPackage {
     EReference getInstallableComponent_Groups();
 
     /**
+     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getImage32 <em>Image32</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Image32</em>'.
+     * @see org.eclipse.amalgam.discovery.InstallableComponent#getImage32()
+     * @see #getInstallableComponent()
+     * @generated
+     */
+    EAttribute getInstallableComponent_Image32();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#isIncubation <em>Incubation</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Incubation</em>'.
+     * @see org.eclipse.amalgam.discovery.InstallableComponent#isIncubation()
+     * @see #getInstallableComponent()
+     * @generated
+     */
+    EAttribute getInstallableComponent_Incubation();
+
+    /**
      * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.discovery.InstallableComponent#getOverview <em>Overview</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -502,17 +496,6 @@ public interface DiscoveryPackage extends EPackage {
      * @generated
      */
     EReference getInstallableComponent_Overview();
-
-    /**
-     * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.discovery.InstallableComponent#getImage <em>Image</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Image</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#getImage()
-     * @see #getInstallableComponent()
-     * @generated
-     */
-    EReference getInstallableComponent_Image();
 
     /**
      * Returns the meta object for the container reference '{@link org.eclipse.amalgam.discovery.InstallableComponent#getCategory <em>Category</em>}'.
@@ -624,38 +607,6 @@ public interface DiscoveryPackage extends EPackage {
     EAttribute getOverview_Url();
 
     /**
-     * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.ImageDef <em>Image Def</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Image Def</em>'.
-     * @see org.eclipse.amalgam.discovery.ImageDef
-     * @generated
-     */
-    EClass getImageDef();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.ImageDef#getImage32 <em>Image32</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Image32</em>'.
-     * @see org.eclipse.amalgam.discovery.ImageDef#getImage32()
-     * @see #getImageDef()
-     * @generated
-     */
-    EAttribute getImageDef_Image32();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.ImageDef#getImage48 <em>Image48</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Image48</em>'.
-     * @see org.eclipse.amalgam.discovery.ImageDef#getImage48()
-     * @see #getImageDef()
-     * @generated
-     */
-    EAttribute getImageDef_Image48();
-
-    /**
      * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.Category <em>Category</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -710,17 +661,6 @@ public interface DiscoveryPackage extends EPackage {
     EAttribute getCategory_Relevance();
 
     /**
-     * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.discovery.Category#getImage <em>Image</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Image</em>'.
-     * @see org.eclipse.amalgam.discovery.Category#getImage()
-     * @see #getCategory()
-     * @generated
-     */
-    EReference getCategory_Image();
-
-    /**
      * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.discovery.Category#getOverview <em>Overview</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -730,6 +670,17 @@ public interface DiscoveryPackage extends EPackage {
      * @generated
      */
     EReference getCategory_Overview();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Category#getImage48 <em>Image48</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Image48</em>'.
+     * @see org.eclipse.amalgam.discovery.Category#getImage48()
+     * @see #getCategory()
+     * @generated
+     */
+    EAttribute getCategory_Image48();
 
     /**
      * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.DiscoveryDefinition <em>Definition</em>}'.
@@ -857,20 +808,28 @@ public interface DiscoveryPackage extends EPackage {
         EReference INSTALLABLE_COMPONENT__GROUPS = eINSTANCE.getInstallableComponent_Groups();
 
         /**
+         * The meta object literal for the '<em><b>Image32</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute INSTALLABLE_COMPONENT__IMAGE32 = eINSTANCE.getInstallableComponent_Image32();
+
+        /**
+         * The meta object literal for the '<em><b>Incubation</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute INSTALLABLE_COMPONENT__INCUBATION = eINSTANCE.getInstallableComponent_Incubation();
+
+        /**
          * The meta object literal for the '<em><b>Overview</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
         EReference INSTALLABLE_COMPONENT__OVERVIEW = eINSTANCE.getInstallableComponent_Overview();
-
-        /**
-         * The meta object literal for the '<em><b>Image</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference INSTALLABLE_COMPONENT__IMAGE = eINSTANCE.getInstallableComponent_Image();
 
         /**
          * The meta object literal for the '<em><b>Category</b></em>' container reference feature.
@@ -955,32 +914,6 @@ public interface DiscoveryPackage extends EPackage {
         EAttribute OVERVIEW__URL = eINSTANCE.getOverview_Url();
 
         /**
-         * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.ImageDefImpl <em>Image Def</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.eclipse.amalgam.discovery.impl.ImageDefImpl
-         * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getImageDef()
-         * @generated
-         */
-        EClass IMAGE_DEF = eINSTANCE.getImageDef();
-
-        /**
-         * The meta object literal for the '<em><b>Image32</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute IMAGE_DEF__IMAGE32 = eINSTANCE.getImageDef_Image32();
-
-        /**
-         * The meta object literal for the '<em><b>Image48</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute IMAGE_DEF__IMAGE48 = eINSTANCE.getImageDef_Image48();
-
-        /**
          * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.CategoryImpl <em>Category</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -1023,20 +956,20 @@ public interface DiscoveryPackage extends EPackage {
         EAttribute CATEGORY__RELEVANCE = eINSTANCE.getCategory_Relevance();
 
         /**
-         * The meta object literal for the '<em><b>Image</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference CATEGORY__IMAGE = eINSTANCE.getCategory_Image();
-
-        /**
          * The meta object literal for the '<em><b>Overview</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
         EReference CATEGORY__OVERVIEW = eINSTANCE.getCategory_Overview();
+
+        /**
+         * The meta object literal for the '<em><b>Image48</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CATEGORY__IMAGE48 = eINSTANCE.getCategory_Image48();
 
         /**
          * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.DiscoveryDefinitionImpl <em>Definition</em>}' class.

@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryFactoryImpl.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: DiscoveryFactoryImpl.java,v 1.2 2010/01/22 17:04:47 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.impl;
 
@@ -70,7 +70,6 @@ public class DiscoveryFactoryImpl extends EFactoryImpl implements DiscoveryFacto
         switch (eClass.getClassifierID()) {
             case DiscoveryPackage.INSTALLABLE_COMPONENT: return createInstallableComponent();
             case DiscoveryPackage.OVERVIEW: return createOverview();
-            case DiscoveryPackage.IMAGE_DEF: return createImageDef();
             case DiscoveryPackage.CATEGORY: return createCategory();
             case DiscoveryPackage.DISCOVERY_DEFINITION: return createDiscoveryDefinition();
             case DiscoveryPackage.GROUP: return createGroup();
@@ -97,16 +96,6 @@ public class DiscoveryFactoryImpl extends EFactoryImpl implements DiscoveryFacto
     public Overview createOverview() {
         OverviewImpl overview = new OverviewImpl();
         return overview;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public ImageDef createImageDef() {
-        ImageDefImpl imageDef = new ImageDefImpl();
-        return imageDef;
     }
 
     /**

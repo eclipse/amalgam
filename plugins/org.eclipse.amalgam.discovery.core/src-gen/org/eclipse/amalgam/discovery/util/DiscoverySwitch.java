@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoverySwitch.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: DiscoverySwitch.java,v 1.2 2010/01/22 17:04:48 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.util;
 
@@ -107,12 +107,6 @@ public class DiscoverySwitch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case DiscoveryPackage.IMAGE_DEF: {
-                ImageDef imageDef = (ImageDef)theEObject;
-                T result = caseImageDef(imageDef);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
             case DiscoveryPackage.CATEGORY: {
                 Category category = (Category)theEObject;
                 T result = caseCategory(category);
@@ -162,21 +156,6 @@ public class DiscoverySwitch<T> {
      * @generated
      */
     public T caseOverview(Overview object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Image Def</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Image Def</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseImageDef(ImageDef object) {
         return null;
     }
 

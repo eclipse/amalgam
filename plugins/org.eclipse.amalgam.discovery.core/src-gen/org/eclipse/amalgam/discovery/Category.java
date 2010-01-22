@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: Category.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: Category.java,v 1.2 2010/01/22 17:04:48 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -30,8 +30,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.amalgam.discovery.Category#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.Category#getComponents <em>Components</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.Category#getRelevance <em>Relevance</em>}</li>
- *   <li>{@link org.eclipse.amalgam.discovery.Category#getImage <em>Image</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.Category#getOverview <em>Overview</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.discovery.Category#getImage48 <em>Image48</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,32 +138,6 @@ public interface Category extends EObject {
     void setRelevance(Integer value);
 
     /**
-     * Returns the value of the '<em><b>Image</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Image</em>' containment reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Image</em>' containment reference.
-     * @see #setImage(ImageDef)
-     * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getCategory_Image()
-     * @model containment="true"
-     * @generated
-     */
-    ImageDef getImage();
-
-    /**
-     * Sets the value of the '{@link org.eclipse.amalgam.discovery.Category#getImage <em>Image</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Image</em>' containment reference.
-     * @see #getImage()
-     * @generated
-     */
-    void setImage(ImageDef value);
-
-    /**
      * Returns the value of the '<em><b>Overview</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
@@ -188,5 +162,31 @@ public interface Category extends EObject {
      * @generated
      */
     void setOverview(Overview value);
+
+    /**
+     * Returns the value of the '<em><b>Image48</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Image48</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Image48</em>' attribute.
+     * @see #setImage48(String)
+     * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getCategory_Image48()
+     * @model
+     * @generated
+     */
+    String getImage48();
+
+    /**
+     * Sets the value of the '{@link org.eclipse.amalgam.discovery.Category#getImage48 <em>Image48</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Image48</em>' attribute.
+     * @see #getImage48()
+     * @generated
+     */
+    void setImage48(String value);
 
 } // Category
