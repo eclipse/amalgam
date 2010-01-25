@@ -1,0 +1,16 @@
+!***************  Project CONTRIBUTION  ******************************************************** 
+
+!*** Special entries from eclipse
+plugin@org.eclipse.test=v20080313,:pserver:anonymous@dev.eclipse.org:/cvsroot/eclipse,
+fragment@org.eclipse.ant.optional.junit=v20070202,:pserver:anonymous@dev.eclipse.org:/cvsroot/eclipse,
+
+!*** Default entries
+
+!*** plugins, features and fragments
+
+feature@org.eclipse.amalgam.discovery=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/features/org.eclipse.amalgam.discovery-feature
+
+plugin@org.eclipse.amalgam.discovery.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/plugins/org.eclipse.amalgam.discovery.core
+plugin@org.eclipse.amalgam.discovery.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/plugins/org.eclipse.amalgam.discovery.ui
+plugin@org.eclipse.amalgam.discovery.modeling=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.amalgam/plugins/org.eclipse.amalgam.discovery.modeling
+

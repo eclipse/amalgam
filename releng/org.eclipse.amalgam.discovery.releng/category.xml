@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description>
+      To install these features, point Eclipse at this site.
+   </description>
+   <feature url="features/org.eclipse.amalgam.discovery_${org.eclipse.amalgam.discovery.version}.jar" id="org.eclipse.amalgam.discovery" version="${org.eclipse.amalgam.discovery.version}">
+      <category name="amalgam.discovery"/>
+   </feature>
+ 
+   <category-def name="amalgam.discovery" label="Amalgamation Discovery">
+      <description>
+         Contains all the features related to modeling components discovery.
+      </description>
+   </category-def>   
+</site>
