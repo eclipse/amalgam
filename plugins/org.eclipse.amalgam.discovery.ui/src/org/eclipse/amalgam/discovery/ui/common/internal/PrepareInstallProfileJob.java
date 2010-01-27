@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.amalgam.discovery.DiscoveryUIPlugin;
 import org.eclipse.amalgam.discovery.InstallableComponent;
 import org.eclipse.amalgam.discovery.ui.wizards.internal.Messages;
 import org.eclipse.core.runtime.CoreException;
@@ -62,7 +63,7 @@ import org.eclipse.swt.widgets.Display;
  * @author Steffen Pingel
  */
 @SuppressWarnings("restriction")
-class PrepareInstallProfileJob implements IRunnableWithProgress {
+public class PrepareInstallProfileJob implements IRunnableWithProgress {
 
     private static final String P2_FEATURE_GROUP_SUFFIX = ".feature.group"; //$NON-NLS-1$
 
@@ -72,7 +73,7 @@ class PrepareInstallProfileJob implements IRunnableWithProgress {
 
     private Set<URI> repositoryLocations;
 
-    public PrepareInstallProfileJob(List<InstallableComponent> installableConnectors) {
+    public PrepareInstallProfileJob(Collection<InstallableComponent> installableConnectors) {
         if (installableConnectors == null || installableConnectors.isEmpty()) {
             throw new IllegalArgumentException();
         }
@@ -165,10 +166,10 @@ class PrepareInstallProfileJob implements IRunnableWithProgress {
 
         } catch (URISyntaxException e) {
             // should never happen, since we already validated URLs.
-            throw new CoreException(new Status(IStatus.ERROR, DiscoveryUi.ID_PLUGIN, Messages.InstallConnectorsJob_unexpectedError_url, e));
+            throw new CoreException(new Status(IStatus.ERROR, DiscoveryUIPlugin.PLUGIN_ID, Messages.InstallConnectorsJob_unexpectedError_url, e));
         } catch (MalformedURLException e) {
             // should never happen, since we already validated URLs.
-            throw new CoreException(new Status(IStatus.ERROR, DiscoveryUi.ID_PLUGIN, Messages.InstallConnectorsJob_unexpectedError_url, e));
+            throw new CoreException(new Status(IStatus.ERROR, DiscoveryUIPlugin.PLUGIN_ID, Messages.InstallConnectorsJob_unexpectedError_url, e));
         } finally {
             monitor.done();
         }
@@ -214,7 +215,7 @@ class PrepareInstallProfileJob implements IRunnableWithProgress {
                 if (detailedMessage.length() > 0) {
                     detailedMessage += Messages.InstallConnectorsJob_commaSeparator;
                 }
-                detailedMessage += NLS.bind(Messages.PrepareInstallProfileJob_notFoundDescriptorDetail, new Object[] { descriptor.getName(), unavailableIds.toString(), descriptor.getSiteUrl() });
+                detailedMessage += NLS.bind(Messages.PrepareInstallProfileJob_notFoundDescriptorDetail, new Object[] { descriptor.getName(), unavailableIds.toString(), descriptor.getSiteURL() });
             }
         }
 
@@ -230,7 +231,7 @@ class PrepareInstallProfileJob implements IRunnableWithProgress {
                 }
             });
             if (!okayToProceed[0]) {
-                throw new CoreException(new Status(IStatus.ERROR, DiscoveryUi.ID_PLUGIN, NLS.bind(Messages.InstallConnectorsJob_connectorsNotAvailable, detailedMessage), null));
+                throw new CoreException(new Status(IStatus.ERROR, DiscoveryUIPlugin.PLUGIN_ID, NLS.bind(Messages.InstallConnectorsJob_connectorsNotAvailable, detailedMessage), null));
             }
         }
     }
@@ -312,8 +313,8 @@ class PrepareInstallProfileJob implements IRunnableWithProgress {
         RepositoryTracker repositoryTracker = ProvisioningUI.getDefaultUI().getRepositoryTracker();
         repositoryLocations = new HashSet<URI>();
         monitor.setWorkRemaining(installableConnectors.size() * 5);
-        for (ConnectorDescriptor descriptor : installableConnectors) {
-            URI uri = new URL(descriptor.getSiteUrl()).toURI();
+        for (InstallableComponent descriptor : installableConnectors) {
+            URI uri = new URL(descriptor.getSiteURL()).toURI();
             if (repositoryLocations.add(uri)) {
                 checkCancelled(monitor);
                 repositoryTracker.addRepository(uri, null, session);
