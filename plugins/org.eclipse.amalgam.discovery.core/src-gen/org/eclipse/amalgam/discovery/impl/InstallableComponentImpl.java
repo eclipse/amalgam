@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: InstallableComponentImpl.java,v 1.2 2010/01/22 17:04:48 cbrun Exp $
+ * $Id: InstallableComponentImpl.java,v 1.3 2010/01/27 14:36:07 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.impl;
 
@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -149,24 +150,14 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
     protected Overview overview;
 
     /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+     * The cached value of the '{@link #getId() <em>Id</em>}' attribute list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
      */
-    protected static final String ID_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
-    protected String id = ID_EDEFAULT;
+    protected EList<String> id;
 
     /**
      * The default value of the '{@link #getLicense() <em>License</em>}' attribute.
@@ -544,20 +535,11 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getId() {
+    public EList<String> getId() {
+        if (id == null) {
+            id = new EDataTypeUniqueEList<String>(String.class, this, DiscoveryPackage.INSTALLABLE_COMPONENT__ID);
+        }
         return id;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setId(String newId) {
-        String oldId = id;
-        id = newId;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DiscoveryPackage.INSTALLABLE_COMPONENT__ID, oldId, id));
     }
 
     /**
@@ -758,7 +740,8 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
                 setCategory((Category)newValue);
                 return;
             case DiscoveryPackage.INSTALLABLE_COMPONENT__ID:
-                setId((String)newValue);
+                getId().clear();
+                getId().addAll((Collection<? extends String>)newValue);
                 return;
             case DiscoveryPackage.INSTALLABLE_COMPONENT__LICENSE:
                 setLicense((String)newValue);
@@ -813,7 +796,7 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
                 setCategory((Category)null);
                 return;
             case DiscoveryPackage.INSTALLABLE_COMPONENT__ID:
-                setId(ID_EDEFAULT);
+                getId().clear();
                 return;
             case DiscoveryPackage.INSTALLABLE_COMPONENT__LICENSE:
                 setLicense(LICENSE_EDEFAULT);
@@ -861,7 +844,7 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
             case DiscoveryPackage.INSTALLABLE_COMPONENT__CATEGORY:
                 return getCategory() != null;
             case DiscoveryPackage.INSTALLABLE_COMPONENT__ID:
-                return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+                return id != null && !id.isEmpty();
             case DiscoveryPackage.INSTALLABLE_COMPONENT__LICENSE:
                 return LICENSE_EDEFAULT == null ? license != null : !LICENSE_EDEFAULT.equals(license);
             case DiscoveryPackage.INSTALLABLE_COMPONENT__SELECTED:

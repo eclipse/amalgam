@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryPackage.java,v 1.2 2010/01/22 17:04:48 cbrun Exp $
+ * $Id: DiscoveryPackage.java,v 1.3 2010/01/27 14:36:07 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -133,7 +133,7 @@ public interface DiscoveryPackage extends EPackage {
     int INSTALLABLE_COMPONENT__CATEGORY = 5;
 
     /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * The feature id for the '<em><b>Id</b></em>' attribute list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -509,10 +509,10 @@ public interface DiscoveryPackage extends EPackage {
     EReference getInstallableComponent_Category();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getId <em>Id</em>}'.
+     * Returns the meta object for the attribute list '{@link org.eclipse.amalgam.discovery.InstallableComponent#getId <em>Id</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Id</em>'.
+     * @return the meta object for the attribute list '<em>Id</em>'.
      * @see org.eclipse.amalgam.discovery.InstallableComponent#getId()
      * @see #getInstallableComponent()
      * @generated
@@ -840,7 +840,7 @@ public interface DiscoveryPackage extends EPackage {
         EReference INSTALLABLE_COMPONENT__CATEGORY = eINSTANCE.getInstallableComponent_Category();
 
         /**
-         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Id</b></em>' attribute list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

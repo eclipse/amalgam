@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: InstallableComponent.java,v 1.2 2010/01/22 17:04:48 cbrun Exp $
+ * $Id: InstallableComponent.java,v 1.3 2010/01/27 14:36:07 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -276,30 +276,20 @@ public interface InstallableComponent extends EObject {
     void setCategory(Category value);
 
     /**
-     * Returns the value of the '<em><b>Id</b></em>' attribute.
+     * Returns the value of the '<em><b>Id</b></em>' attribute list.
+     * The list contents are of type {@link java.lang.String}.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Id</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Id</em>' attribute.
-     * @see #setId(String)
+     * @return the value of the '<em>Id</em>' attribute list.
      * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getInstallableComponent_Id()
      * @model required="true"
      * @generated
      */
-    String getId();
-
-    /**
-     * Sets the value of the '{@link org.eclipse.amalgam.discovery.InstallableComponent#getId <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Id</em>' attribute.
-     * @see #getId()
-     * @generated
-     */
-    void setId(String value);
+    EList<String> getId();
 
     /**
      * Returns the value of the '<em><b>License</b></em>' attribute.
