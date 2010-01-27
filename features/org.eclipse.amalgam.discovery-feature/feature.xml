@@ -5,7 +5,7 @@
       version="1.0.0.qualifier"
       provider-name="Eclipse Modeling Project">
 
-  <description url="http://www.eclipse.org/modeling/amalgam">
+   <description url="http://www.eclipse.org/modeling/amalgam">
       %description
    </description>
 
@@ -21,5 +21,26 @@ http://www.eclipse.org/legal/epl-v10.html
    <license url="%licenseURL">
       %license
    </license>
+
+   <plugin
+         id="org.eclipse.amalgam.discovery.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.amalgam.discovery.modeling"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.amalgam.discovery.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
