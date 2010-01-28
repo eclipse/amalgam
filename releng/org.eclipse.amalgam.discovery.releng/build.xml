@@ -66,6 +66,10 @@
 		<ant antfile="${relengCommonBuilderDir}/buildAll.xml" target="runEclipse" dir="${relengCommonBuilderDir}" />
 		<antcall target="cleanUp" inheritall="true" />
 	</target>
+	
+	<copy todir="${writableBuildRoot}/last">
+	  <fileset dir="${buildDir}"/>
+	</copy>
 
 	<target name="init">
 		<delete dir="${writableBuildRoot}/" includes="${buildType}*/**" includeemptydirs="true" />
