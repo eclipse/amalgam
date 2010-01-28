@@ -65,11 +65,10 @@
 		<property name="relengCommonBuilderDir" value="${workspaceDir}/org.eclipse.dash.common.releng" />
 		<ant antfile="${relengCommonBuilderDir}/buildAll.xml" target="runEclipse" dir="${relengCommonBuilderDir}" />
 		<antcall target="cleanUp" inheritall="true" />
+		<copy todir="${writableBuildRoot}/last">
+			  <fileset dir="${buildDir}"/>
+		</copy>
 	</target>
-	
-	<copy todir="${writableBuildRoot}/last">
-	  <fileset dir="${buildDir}"/>
-	</copy>
 
 	<target name="init">
 		<delete dir="${writableBuildRoot}/" includes="${buildType}*/**" includeemptydirs="true" />
