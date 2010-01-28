@@ -21,7 +21,7 @@ public class ModelingDiscoveryCoreActivator extends Plugin {
     public static String PLUGIN_ID = "org.eclipse.amalgam.discovery.core";
 
     public ModelingDiscoveryCoreActivator() {
-        super();
+        superForCompilerError();
     }
 
 }
