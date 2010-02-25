@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryFactory.java,v 1.2 2010/01/22 17:04:48 cbrun Exp $
+ * $Id: DiscoveryFactory.java,v 1.3 2010/02/25 15:50:40 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -26,65 +26,74 @@ import org.eclipse.emf.ecore.EFactory;
  */
 public interface DiscoveryFactory extends EFactory {
     /**
-     * The singleton instance of the factory.
-     * <!-- begin-user-doc -->
+	 * The singleton instance of the factory.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     DiscoveryFactory eINSTANCE = org.eclipse.amalgam.discovery.impl.DiscoveryFactoryImpl.init();
 
     /**
-     * Returns a new object of class '<em>Installable Component</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Installable Component</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Installable Component</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Installable Component</em>'.
+	 * @generated
+	 */
     InstallableComponent createInstallableComponent();
 
     /**
-     * Returns a new object of class '<em>Overview</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Overview</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Overview</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Overview</em>'.
+	 * @generated
+	 */
     Overview createOverview();
 
     /**
-     * Returns a new object of class '<em>Category</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Category</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Category</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Category</em>'.
+	 * @generated
+	 */
     Category createCategory();
 
     /**
-     * Returns a new object of class '<em>Definition</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Definition</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Definition</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Definition</em>'.
+	 * @generated
+	 */
     DiscoveryDefinition createDiscoveryDefinition();
 
     /**
-     * Returns a new object of class '<em>Group</em>'.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Group</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Group</em>'.
-     * @generated
-     */
+	 * @return a new object of class '<em>Group</em>'.
+	 * @generated
+	 */
     Group createGroup();
 
     /**
-     * Returns the package supported by this factory.
-     * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Message</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Message</em>'.
+	 * @generated
+	 */
+	Message createMessage();
+
+				/**
+	 * Returns the package supported by this factory.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the package supported by this factory.
-     * @generated
-     */
+	 * @return the package supported by this factory.
+	 * @generated
+	 */
     DiscoveryPackage getDiscoveryPackage();
 
 } //DiscoveryFactory

@@ -12,6 +12,10 @@
   <foreignModel>discovery.ecore</foreignModel>
   <genPackages prefix="Discovery" basePackage="org.eclipse.amalgam" disposableProviderFactory="true"
       ecorePackage="discovery.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="discovery.ecore#//Severity">
+      <genEnumLiterals ecoreEnumLiteral="discovery.ecore#//Severity/info"/>
+      <genEnumLiterals ecoreEnumLiteral="discovery.ecore#//Severity/warning"/>
+    </genEnums>
     <genClasses ecoreClass="discovery.ecore#//InstallableComponent">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/provider"/>
@@ -27,6 +31,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/groups"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/image32"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/incubation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/messages"/>
     </genClasses>
     <genClasses ecoreClass="discovery.ecore#//Overview">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Overview/summary"/>
@@ -47,6 +52,11 @@
     </genClasses>
     <genClasses ecoreClass="discovery.ecore#//Group">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Group/name"/>
+    </genClasses>
+    <genClasses ecoreClass="discovery.ecore#//Message">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Message/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Message/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Message/icon"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

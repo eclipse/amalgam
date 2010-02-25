@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: Group.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: Group.java,v 1.2 2010/02/25 15:50:40 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -34,29 +34,29 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Group extends EObject {
     /**
-     * Returns the value of the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Name</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Name</em>' attribute.
-     * @see #setName(String)
-     * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getGroup_Name()
-     * @model required="true"
-     * @generated
-     */
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getGroup_Name()
+	 * @model required="true"
+	 * @generated
+	 */
     String getName();
 
     /**
-     * Sets the value of the '{@link org.eclipse.amalgam.discovery.Group#getName <em>Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.eclipse.amalgam.discovery.Group#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Name</em>' attribute.
-     * @see #getName()
-     * @generated
-     */
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
     void setName(String value);
 
 } // Group

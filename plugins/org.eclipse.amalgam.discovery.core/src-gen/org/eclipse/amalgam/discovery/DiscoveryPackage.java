@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryPackage.java,v 1.3 2010/01/27 14:36:07 cbrun Exp $
+ * $Id: DiscoveryPackage.java,v 1.4 2010/02/25 15:50:40 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -37,715 +37,845 @@ import org.eclipse.emf.ecore.EReference;
  */
 public interface DiscoveryPackage extends EPackage {
     /**
-     * The package name.
-     * <!-- begin-user-doc -->
+	 * The package name.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     String eNAME = "discovery";
 
     /**
-     * The package namespace URI.
-     * <!-- begin-user-doc -->
+	 * The package namespace URI.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     String eNS_URI = "http://www.eclipse.org/amalgamation/discovery/1.0";
 
     /**
-     * The package namespace name.
-     * <!-- begin-user-doc -->
+	 * The package namespace name.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     String eNS_PREFIX = "discovery";
 
     /**
-     * The singleton instance of the package.
-     * <!-- begin-user-doc -->
+	 * The singleton instance of the package.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     DiscoveryPackage eINSTANCE = org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl.init();
 
     /**
-     * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl <em>Installable Component</em>}' class.
-     * <!-- begin-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl <em>Installable Component</em>}' class.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.amalgam.discovery.impl.InstallableComponentImpl
-     * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getInstallableComponent()
-     * @generated
-     */
+	 * @see org.eclipse.amalgam.discovery.impl.InstallableComponentImpl
+	 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getInstallableComponent()
+	 * @generated
+	 */
     int INSTALLABLE_COMPONENT = 0;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__NAME = 0;
 
     /**
-     * The feature id for the '<em><b>Provider</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Provider</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__PROVIDER = 1;
 
     /**
-     * The feature id for the '<em><b>Site URL</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Site URL</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__SITE_URL = 2;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__DESCRIPTION = 3;
 
     /**
-     * The feature id for the '<em><b>Overview</b></em>' containment reference.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Overview</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__OVERVIEW = 4;
 
     /**
-     * The feature id for the '<em><b>Category</b></em>' container reference.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Category</b></em>' container reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__CATEGORY = 5;
 
     /**
-     * The feature id for the '<em><b>Id</b></em>' attribute list.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__ID = 6;
 
     /**
-     * The feature id for the '<em><b>License</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>License</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__LICENSE = 7;
 
     /**
-     * The feature id for the '<em><b>Selected</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Selected</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__SELECTED = 8;
 
     /**
-     * The feature id for the '<em><b>Available</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Available</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__AVAILABLE = 9;
 
     /**
-     * The feature id for the '<em><b>Installed</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Installed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__INSTALLED = 10;
 
     /**
-     * The feature id for the '<em><b>Groups</b></em>' reference list.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Groups</b></em>' reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__GROUPS = 11;
 
     /**
-     * The feature id for the '<em><b>Image32</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Image32</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__IMAGE32 = 12;
 
     /**
-     * The feature id for the '<em><b>Incubation</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Incubation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int INSTALLABLE_COMPONENT__INCUBATION = 13;
 
     /**
-     * The number of structural features of the '<em>Installable Component</em>' class.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Messages</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTALLABLE_COMPONENT__MESSAGES = 14;
+
+				/**
+	 * The number of structural features of the '<em>Installable Component</em>' class.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INSTALLABLE_COMPONENT_FEATURE_COUNT = 14;
+	 * @generated
+	 * @ordered
+	 */
+    int INSTALLABLE_COMPONENT_FEATURE_COUNT = 15;
 
     /**
-     * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.OverviewImpl <em>Overview</em>}' class.
-     * <!-- begin-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.OverviewImpl <em>Overview</em>}' class.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.amalgam.discovery.impl.OverviewImpl
-     * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getOverview()
-     * @generated
-     */
+	 * @see org.eclipse.amalgam.discovery.impl.OverviewImpl
+	 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getOverview()
+	 * @generated
+	 */
     int OVERVIEW = 1;
 
     /**
-     * The feature id for the '<em><b>Summary</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Summary</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int OVERVIEW__SUMMARY = 0;
 
     /**
-     * The feature id for the '<em><b>Screenshot</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Screenshot</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int OVERVIEW__SCREENSHOT = 1;
 
     /**
-     * The feature id for the '<em><b>Url</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Url</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int OVERVIEW__URL = 2;
 
     /**
-     * The number of structural features of the '<em>Overview</em>' class.
-     * <!-- begin-user-doc -->
+	 * The number of structural features of the '<em>Overview</em>' class.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int OVERVIEW_FEATURE_COUNT = 3;
 
     /**
-     * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.CategoryImpl <em>Category</em>}' class.
-     * <!-- begin-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.CategoryImpl <em>Category</em>}' class.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.amalgam.discovery.impl.CategoryImpl
-     * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getCategory()
-     * @generated
-     */
+	 * @see org.eclipse.amalgam.discovery.impl.CategoryImpl
+	 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getCategory()
+	 * @generated
+	 */
     int CATEGORY = 2;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int CATEGORY__NAME = 0;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int CATEGORY__DESCRIPTION = 1;
 
     /**
-     * The feature id for the '<em><b>Components</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Components</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int CATEGORY__COMPONENTS = 2;
 
     /**
-     * The feature id for the '<em><b>Relevance</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Relevance</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int CATEGORY__RELEVANCE = 3;
 
     /**
-     * The feature id for the '<em><b>Overview</b></em>' containment reference.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Overview</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int CATEGORY__OVERVIEW = 4;
 
     /**
-     * The feature id for the '<em><b>Image48</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Image48</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int CATEGORY__IMAGE48 = 5;
 
     /**
-     * The number of structural features of the '<em>Category</em>' class.
-     * <!-- begin-user-doc -->
+	 * The number of structural features of the '<em>Category</em>' class.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int CATEGORY_FEATURE_COUNT = 6;
 
     /**
-     * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.DiscoveryDefinitionImpl <em>Definition</em>}' class.
-     * <!-- begin-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.DiscoveryDefinitionImpl <em>Definition</em>}' class.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.amalgam.discovery.impl.DiscoveryDefinitionImpl
-     * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getDiscoveryDefinition()
-     * @generated
-     */
+	 * @see org.eclipse.amalgam.discovery.impl.DiscoveryDefinitionImpl
+	 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getDiscoveryDefinition()
+	 * @generated
+	 */
     int DISCOVERY_DEFINITION = 3;
 
     /**
-     * The feature id for the '<em><b>Categories</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Categories</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int DISCOVERY_DEFINITION__CATEGORIES = 0;
 
     /**
-     * The feature id for the '<em><b>Filters</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Filters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int DISCOVERY_DEFINITION__FILTERS = 1;
 
     /**
-     * The number of structural features of the '<em>Definition</em>' class.
-     * <!-- begin-user-doc -->
+	 * The number of structural features of the '<em>Definition</em>' class.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int DISCOVERY_DEFINITION_FEATURE_COUNT = 2;
 
     /**
-     * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.GroupImpl <em>Group</em>}' class.
-     * <!-- begin-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.GroupImpl <em>Group</em>}' class.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.amalgam.discovery.impl.GroupImpl
-     * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getGroup()
-     * @generated
-     */
+	 * @see org.eclipse.amalgam.discovery.impl.GroupImpl
+	 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getGroup()
+	 * @generated
+	 */
     int GROUP = 4;
 
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int GROUP__NAME = 0;
 
     /**
-     * The number of structural features of the '<em>Group</em>' class.
-     * <!-- begin-user-doc -->
+	 * The number of structural features of the '<em>Group</em>' class.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
+	 * @generated
+	 * @ordered
+	 */
     int GROUP_FEATURE_COUNT = 1;
 
 
     /**
-     * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.InstallableComponent <em>Installable Component</em>}'.
-     * <!-- begin-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.MessageImpl <em>Message</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.amalgam.discovery.impl.MessageImpl
+	 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getMessage()
+	 * @generated
+	 */
+	int MESSAGE = 5;
+
+				/**
+	 * The feature id for the '<em><b>Title</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE__TITLE = 0;
+
+				/**
+	 * The feature id for the '<em><b>Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE__MESSAGE = 1;
+
+				/**
+	 * The feature id for the '<em><b>Icon</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE__ICON = 2;
+
+				/**
+	 * The number of structural features of the '<em>Message</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_FEATURE_COUNT = 3;
+
+				/**
+	 * The meta object id for the '{@link org.eclipse.amalgam.discovery.Severity <em>Severity</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.amalgam.discovery.Severity
+	 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getSeverity()
+	 * @generated
+	 */
+	int SEVERITY = 6;
+
+
+				/**
+	 * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.InstallableComponent <em>Installable Component</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Installable Component</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent
-     * @generated
-     */
+	 * @return the meta object for class '<em>Installable Component</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent
+	 * @generated
+	 */
     EClass getInstallableComponent();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getName <em>Name</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Name</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#getName()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getName()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EAttribute getInstallableComponent_Name();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getProvider <em>Provider</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getProvider <em>Provider</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Provider</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#getProvider()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Provider</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getProvider()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EAttribute getInstallableComponent_Provider();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getSiteURL <em>Site URL</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getSiteURL <em>Site URL</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Site URL</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#getSiteURL()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Site URL</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getSiteURL()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EAttribute getInstallableComponent_SiteURL();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getDescription <em>Description</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Description</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#getDescription()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getDescription()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EAttribute getInstallableComponent_Description();
 
     /**
-     * Returns the meta object for the reference list '{@link org.eclipse.amalgam.discovery.InstallableComponent#getGroups <em>Groups</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the reference list '{@link org.eclipse.amalgam.discovery.InstallableComponent#getGroups <em>Groups</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Groups</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#getGroups()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the reference list '<em>Groups</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getGroups()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EReference getInstallableComponent_Groups();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getImage32 <em>Image32</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getImage32 <em>Image32</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Image32</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#getImage32()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Image32</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getImage32()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EAttribute getInstallableComponent_Image32();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#isIncubation <em>Incubation</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#isIncubation <em>Incubation</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Incubation</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#isIncubation()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Incubation</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#isIncubation()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EAttribute getInstallableComponent_Incubation();
 
     /**
-     * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.discovery.InstallableComponent#getOverview <em>Overview</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.amalgam.discovery.InstallableComponent#getMessages <em>Messages</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Messages</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getMessages()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
+	EReference getInstallableComponent_Messages();
+
+				/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.discovery.InstallableComponent#getOverview <em>Overview</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Overview</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#getOverview()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the containment reference '<em>Overview</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getOverview()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EReference getInstallableComponent_Overview();
 
     /**
-     * Returns the meta object for the container reference '{@link org.eclipse.amalgam.discovery.InstallableComponent#getCategory <em>Category</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the container reference '{@link org.eclipse.amalgam.discovery.InstallableComponent#getCategory <em>Category</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the container reference '<em>Category</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#getCategory()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the container reference '<em>Category</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getCategory()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EReference getInstallableComponent_Category();
 
     /**
-     * Returns the meta object for the attribute list '{@link org.eclipse.amalgam.discovery.InstallableComponent#getId <em>Id</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute list '{@link org.eclipse.amalgam.discovery.InstallableComponent#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute list '<em>Id</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#getId()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the attribute list '<em>Id</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getId()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EAttribute getInstallableComponent_Id();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getLicense <em>License</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getLicense <em>License</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>License</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#getLicense()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>License</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getLicense()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EAttribute getInstallableComponent_License();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#isSelected <em>Selected</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#isSelected <em>Selected</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Selected</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#isSelected()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Selected</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#isSelected()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EAttribute getInstallableComponent_Selected();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#isAvailable <em>Available</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#isAvailable <em>Available</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Available</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#isAvailable()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Available</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#isAvailable()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EAttribute getInstallableComponent_Available();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#isInstalled <em>Installed</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#isInstalled <em>Installed</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Installed</em>'.
-     * @see org.eclipse.amalgam.discovery.InstallableComponent#isInstalled()
-     * @see #getInstallableComponent()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Installed</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#isInstalled()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
     EAttribute getInstallableComponent_Installed();
 
     /**
-     * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.Overview <em>Overview</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.Overview <em>Overview</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Overview</em>'.
-     * @see org.eclipse.amalgam.discovery.Overview
-     * @generated
-     */
+	 * @return the meta object for class '<em>Overview</em>'.
+	 * @see org.eclipse.amalgam.discovery.Overview
+	 * @generated
+	 */
     EClass getOverview();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Overview#getSummary <em>Summary</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Overview#getSummary <em>Summary</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Summary</em>'.
-     * @see org.eclipse.amalgam.discovery.Overview#getSummary()
-     * @see #getOverview()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Summary</em>'.
+	 * @see org.eclipse.amalgam.discovery.Overview#getSummary()
+	 * @see #getOverview()
+	 * @generated
+	 */
     EAttribute getOverview_Summary();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Overview#getScreenshot <em>Screenshot</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Overview#getScreenshot <em>Screenshot</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Screenshot</em>'.
-     * @see org.eclipse.amalgam.discovery.Overview#getScreenshot()
-     * @see #getOverview()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Screenshot</em>'.
+	 * @see org.eclipse.amalgam.discovery.Overview#getScreenshot()
+	 * @see #getOverview()
+	 * @generated
+	 */
     EAttribute getOverview_Screenshot();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Overview#getUrl <em>Url</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Overview#getUrl <em>Url</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Url</em>'.
-     * @see org.eclipse.amalgam.discovery.Overview#getUrl()
-     * @see #getOverview()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Url</em>'.
+	 * @see org.eclipse.amalgam.discovery.Overview#getUrl()
+	 * @see #getOverview()
+	 * @generated
+	 */
     EAttribute getOverview_Url();
 
     /**
-     * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.Category <em>Category</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.Category <em>Category</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Category</em>'.
-     * @see org.eclipse.amalgam.discovery.Category
-     * @generated
-     */
+	 * @return the meta object for class '<em>Category</em>'.
+	 * @see org.eclipse.amalgam.discovery.Category
+	 * @generated
+	 */
     EClass getCategory();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Category#getName <em>Name</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Category#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Name</em>'.
-     * @see org.eclipse.amalgam.discovery.Category#getName()
-     * @see #getCategory()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.amalgam.discovery.Category#getName()
+	 * @see #getCategory()
+	 * @generated
+	 */
     EAttribute getCategory_Name();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Category#getDescription <em>Description</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Category#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Description</em>'.
-     * @see org.eclipse.amalgam.discovery.Category#getDescription()
-     * @see #getCategory()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see org.eclipse.amalgam.discovery.Category#getDescription()
+	 * @see #getCategory()
+	 * @generated
+	 */
     EAttribute getCategory_Description();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.eclipse.amalgam.discovery.Category#getComponents <em>Components</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.amalgam.discovery.Category#getComponents <em>Components</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Components</em>'.
-     * @see org.eclipse.amalgam.discovery.Category#getComponents()
-     * @see #getCategory()
-     * @generated
-     */
+	 * @return the meta object for the containment reference list '<em>Components</em>'.
+	 * @see org.eclipse.amalgam.discovery.Category#getComponents()
+	 * @see #getCategory()
+	 * @generated
+	 */
     EReference getCategory_Components();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Category#getRelevance <em>Relevance</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Category#getRelevance <em>Relevance</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Relevance</em>'.
-     * @see org.eclipse.amalgam.discovery.Category#getRelevance()
-     * @see #getCategory()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Relevance</em>'.
+	 * @see org.eclipse.amalgam.discovery.Category#getRelevance()
+	 * @see #getCategory()
+	 * @generated
+	 */
     EAttribute getCategory_Relevance();
 
     /**
-     * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.discovery.Category#getOverview <em>Overview</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.discovery.Category#getOverview <em>Overview</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Overview</em>'.
-     * @see org.eclipse.amalgam.discovery.Category#getOverview()
-     * @see #getCategory()
-     * @generated
-     */
+	 * @return the meta object for the containment reference '<em>Overview</em>'.
+	 * @see org.eclipse.amalgam.discovery.Category#getOverview()
+	 * @see #getCategory()
+	 * @generated
+	 */
     EReference getCategory_Overview();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Category#getImage48 <em>Image48</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Category#getImage48 <em>Image48</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Image48</em>'.
-     * @see org.eclipse.amalgam.discovery.Category#getImage48()
-     * @see #getCategory()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Image48</em>'.
+	 * @see org.eclipse.amalgam.discovery.Category#getImage48()
+	 * @see #getCategory()
+	 * @generated
+	 */
     EAttribute getCategory_Image48();
 
     /**
-     * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.DiscoveryDefinition <em>Definition</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.DiscoveryDefinition <em>Definition</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Definition</em>'.
-     * @see org.eclipse.amalgam.discovery.DiscoveryDefinition
-     * @generated
-     */
+	 * @return the meta object for class '<em>Definition</em>'.
+	 * @see org.eclipse.amalgam.discovery.DiscoveryDefinition
+	 * @generated
+	 */
     EClass getDiscoveryDefinition();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.eclipse.amalgam.discovery.DiscoveryDefinition#getCategories <em>Categories</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.amalgam.discovery.DiscoveryDefinition#getCategories <em>Categories</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Categories</em>'.
-     * @see org.eclipse.amalgam.discovery.DiscoveryDefinition#getCategories()
-     * @see #getDiscoveryDefinition()
-     * @generated
-     */
+	 * @return the meta object for the containment reference list '<em>Categories</em>'.
+	 * @see org.eclipse.amalgam.discovery.DiscoveryDefinition#getCategories()
+	 * @see #getDiscoveryDefinition()
+	 * @generated
+	 */
     EReference getDiscoveryDefinition_Categories();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.eclipse.amalgam.discovery.DiscoveryDefinition#getFilters <em>Filters</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.amalgam.discovery.DiscoveryDefinition#getFilters <em>Filters</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Filters</em>'.
-     * @see org.eclipse.amalgam.discovery.DiscoveryDefinition#getFilters()
-     * @see #getDiscoveryDefinition()
-     * @generated
-     */
+	 * @return the meta object for the containment reference list '<em>Filters</em>'.
+	 * @see org.eclipse.amalgam.discovery.DiscoveryDefinition#getFilters()
+	 * @see #getDiscoveryDefinition()
+	 * @generated
+	 */
     EReference getDiscoveryDefinition_Filters();
 
     /**
-     * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.Group <em>Group</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.Group <em>Group</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Group</em>'.
-     * @see org.eclipse.amalgam.discovery.Group
-     * @generated
-     */
+	 * @return the meta object for class '<em>Group</em>'.
+	 * @see org.eclipse.amalgam.discovery.Group
+	 * @generated
+	 */
     EClass getGroup();
 
     /**
-     * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Group#getName <em>Name</em>}'.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Group#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Name</em>'.
-     * @see org.eclipse.amalgam.discovery.Group#getName()
-     * @see #getGroup()
-     * @generated
-     */
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.amalgam.discovery.Group#getName()
+	 * @see #getGroup()
+	 * @generated
+	 */
     EAttribute getGroup_Name();
 
     /**
-     * Returns the factory that creates the instances of the model.
-     * <!-- begin-user-doc -->
+	 * Returns the meta object for class '{@link org.eclipse.amalgam.discovery.Message <em>Message</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Message</em>'.
+	 * @see org.eclipse.amalgam.discovery.Message
+	 * @generated
+	 */
+	EClass getMessage();
+
+				/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Message#getTitle <em>Title</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Title</em>'.
+	 * @see org.eclipse.amalgam.discovery.Message#getTitle()
+	 * @see #getMessage()
+	 * @generated
+	 */
+	EAttribute getMessage_Title();
+
+				/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Message#getMessage <em>Message</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Message</em>'.
+	 * @see org.eclipse.amalgam.discovery.Message#getMessage()
+	 * @see #getMessage()
+	 * @generated
+	 */
+	EAttribute getMessage_Message();
+
+				/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.Message#getIcon <em>Icon</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Icon</em>'.
+	 * @see org.eclipse.amalgam.discovery.Message#getIcon()
+	 * @see #getMessage()
+	 * @generated
+	 */
+	EAttribute getMessage_Icon();
+
+				/**
+	 * Returns the meta object for enum '{@link org.eclipse.amalgam.discovery.Severity <em>Severity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Severity</em>'.
+	 * @see org.eclipse.amalgam.discovery.Severity
+	 * @generated
+	 */
+	EEnum getSeverity();
+
+				/**
+	 * Returns the factory that creates the instances of the model.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the factory that creates the instances of the model.
-     * @generated
-     */
+	 * @return the factory that creates the instances of the model.
+	 * @generated
+	 */
     DiscoveryFactory getDiscoveryFactory();
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * Defines literals for the meta objects that represent
      * <ul>
      *   <li>each class,</li>
@@ -754,266 +884,318 @@ public interface DiscoveryPackage extends EPackage {
      *   <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     interface Literals {
         /**
-         * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl <em>Installable Component</em>}' class.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl <em>Installable Component</em>}' class.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.eclipse.amalgam.discovery.impl.InstallableComponentImpl
-         * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getInstallableComponent()
-         * @generated
-         */
+		 * @see org.eclipse.amalgam.discovery.impl.InstallableComponentImpl
+		 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getInstallableComponent()
+		 * @generated
+		 */
         EClass INSTALLABLE_COMPONENT = eINSTANCE.getInstallableComponent();
 
         /**
-         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute INSTALLABLE_COMPONENT__NAME = eINSTANCE.getInstallableComponent_Name();
 
         /**
-         * The meta object literal for the '<em><b>Provider</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Provider</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute INSTALLABLE_COMPONENT__PROVIDER = eINSTANCE.getInstallableComponent_Provider();
 
         /**
-         * The meta object literal for the '<em><b>Site URL</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Site URL</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute INSTALLABLE_COMPONENT__SITE_URL = eINSTANCE.getInstallableComponent_SiteURL();
 
         /**
-         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute INSTALLABLE_COMPONENT__DESCRIPTION = eINSTANCE.getInstallableComponent_Description();
 
         /**
-         * The meta object literal for the '<em><b>Groups</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Groups</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EReference INSTALLABLE_COMPONENT__GROUPS = eINSTANCE.getInstallableComponent_Groups();
 
         /**
-         * The meta object literal for the '<em><b>Image32</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Image32</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute INSTALLABLE_COMPONENT__IMAGE32 = eINSTANCE.getInstallableComponent_Image32();
 
         /**
-         * The meta object literal for the '<em><b>Incubation</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Incubation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute INSTALLABLE_COMPONENT__INCUBATION = eINSTANCE.getInstallableComponent_Incubation();
 
         /**
-         * The meta object literal for the '<em><b>Overview</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Messages</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INSTALLABLE_COMPONENT__MESSAGES = eINSTANCE.getInstallableComponent_Messages();
+
+								/**
+		 * The meta object literal for the '<em><b>Overview</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EReference INSTALLABLE_COMPONENT__OVERVIEW = eINSTANCE.getInstallableComponent_Overview();
 
         /**
-         * The meta object literal for the '<em><b>Category</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Category</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EReference INSTALLABLE_COMPONENT__CATEGORY = eINSTANCE.getInstallableComponent_Category();
 
         /**
-         * The meta object literal for the '<em><b>Id</b></em>' attribute list feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute INSTALLABLE_COMPONENT__ID = eINSTANCE.getInstallableComponent_Id();
 
         /**
-         * The meta object literal for the '<em><b>License</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>License</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute INSTALLABLE_COMPONENT__LICENSE = eINSTANCE.getInstallableComponent_License();
 
         /**
-         * The meta object literal for the '<em><b>Selected</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Selected</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute INSTALLABLE_COMPONENT__SELECTED = eINSTANCE.getInstallableComponent_Selected();
 
         /**
-         * The meta object literal for the '<em><b>Available</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Available</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute INSTALLABLE_COMPONENT__AVAILABLE = eINSTANCE.getInstallableComponent_Available();
 
         /**
-         * The meta object literal for the '<em><b>Installed</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Installed</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute INSTALLABLE_COMPONENT__INSTALLED = eINSTANCE.getInstallableComponent_Installed();
 
         /**
-         * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.OverviewImpl <em>Overview</em>}' class.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.OverviewImpl <em>Overview</em>}' class.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.eclipse.amalgam.discovery.impl.OverviewImpl
-         * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getOverview()
-         * @generated
-         */
+		 * @see org.eclipse.amalgam.discovery.impl.OverviewImpl
+		 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getOverview()
+		 * @generated
+		 */
         EClass OVERVIEW = eINSTANCE.getOverview();
 
         /**
-         * The meta object literal for the '<em><b>Summary</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Summary</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute OVERVIEW__SUMMARY = eINSTANCE.getOverview_Summary();
 
         /**
-         * The meta object literal for the '<em><b>Screenshot</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Screenshot</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute OVERVIEW__SCREENSHOT = eINSTANCE.getOverview_Screenshot();
 
         /**
-         * The meta object literal for the '<em><b>Url</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Url</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute OVERVIEW__URL = eINSTANCE.getOverview_Url();
 
         /**
-         * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.CategoryImpl <em>Category</em>}' class.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.CategoryImpl <em>Category</em>}' class.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.eclipse.amalgam.discovery.impl.CategoryImpl
-         * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getCategory()
-         * @generated
-         */
+		 * @see org.eclipse.amalgam.discovery.impl.CategoryImpl
+		 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getCategory()
+		 * @generated
+		 */
         EClass CATEGORY = eINSTANCE.getCategory();
 
         /**
-         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute CATEGORY__NAME = eINSTANCE.getCategory_Name();
 
         /**
-         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute CATEGORY__DESCRIPTION = eINSTANCE.getCategory_Description();
 
         /**
-         * The meta object literal for the '<em><b>Components</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Components</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EReference CATEGORY__COMPONENTS = eINSTANCE.getCategory_Components();
 
         /**
-         * The meta object literal for the '<em><b>Relevance</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Relevance</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute CATEGORY__RELEVANCE = eINSTANCE.getCategory_Relevance();
 
         /**
-         * The meta object literal for the '<em><b>Overview</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Overview</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EReference CATEGORY__OVERVIEW = eINSTANCE.getCategory_Overview();
 
         /**
-         * The meta object literal for the '<em><b>Image48</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Image48</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute CATEGORY__IMAGE48 = eINSTANCE.getCategory_Image48();
 
         /**
-         * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.DiscoveryDefinitionImpl <em>Definition</em>}' class.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.DiscoveryDefinitionImpl <em>Definition</em>}' class.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.eclipse.amalgam.discovery.impl.DiscoveryDefinitionImpl
-         * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getDiscoveryDefinition()
-         * @generated
-         */
+		 * @see org.eclipse.amalgam.discovery.impl.DiscoveryDefinitionImpl
+		 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getDiscoveryDefinition()
+		 * @generated
+		 */
         EClass DISCOVERY_DEFINITION = eINSTANCE.getDiscoveryDefinition();
 
         /**
-         * The meta object literal for the '<em><b>Categories</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Categories</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EReference DISCOVERY_DEFINITION__CATEGORIES = eINSTANCE.getDiscoveryDefinition_Categories();
 
         /**
-         * The meta object literal for the '<em><b>Filters</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Filters</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EReference DISCOVERY_DEFINITION__FILTERS = eINSTANCE.getDiscoveryDefinition_Filters();
 
         /**
-         * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.GroupImpl <em>Group</em>}' class.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.GroupImpl <em>Group</em>}' class.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.eclipse.amalgam.discovery.impl.GroupImpl
-         * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getGroup()
-         * @generated
-         */
+		 * @see org.eclipse.amalgam.discovery.impl.GroupImpl
+		 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getGroup()
+		 * @generated
+		 */
         EClass GROUP = eINSTANCE.getGroup();
 
         /**
-         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @generated
-         */
+		 * @generated
+		 */
         EAttribute GROUP__NAME = eINSTANCE.getGroup_Name();
+
+								/**
+		 * The meta object literal for the '{@link org.eclipse.amalgam.discovery.impl.MessageImpl <em>Message</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.amalgam.discovery.impl.MessageImpl
+		 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getMessage()
+		 * @generated
+		 */
+		EClass MESSAGE = eINSTANCE.getMessage();
+
+								/**
+		 * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE__TITLE = eINSTANCE.getMessage_Title();
+
+								/**
+		 * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE__MESSAGE = eINSTANCE.getMessage_Message();
+
+								/**
+		 * The meta object literal for the '<em><b>Icon</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE__ICON = eINSTANCE.getMessage_Icon();
+
+								/**
+		 * The meta object literal for the '{@link org.eclipse.amalgam.discovery.Severity <em>Severity</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.amalgam.discovery.Severity
+		 * @see org.eclipse.amalgam.discovery.impl.DiscoveryPackageImpl#getSeverity()
+		 * @generated
+		 */
+		EEnum SEVERITY = eINSTANCE.getSeverity();
 
     }
 

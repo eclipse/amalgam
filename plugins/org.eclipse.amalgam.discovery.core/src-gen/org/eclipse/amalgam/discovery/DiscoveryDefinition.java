@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryDefinition.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: DiscoveryDefinition.java,v 1.2 2010/02/25 15:50:40 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -37,35 +37,35 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface DiscoveryDefinition extends EObject {
     /**
-     * Returns the value of the '<em><b>Categories</b></em>' containment reference list.
-     * The list contents are of type {@link org.eclipse.amalgam.discovery.Category}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Categories</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.amalgam.discovery.Category}.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Categories</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Categories</em>' containment reference list.
-     * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getDiscoveryDefinition_Categories()
-     * @model containment="true" keys="name"
-     * @generated
-     */
+	 * @return the value of the '<em>Categories</em>' containment reference list.
+	 * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getDiscoveryDefinition_Categories()
+	 * @model containment="true" keys="name"
+	 * @generated
+	 */
     EList<Category> getCategories();
 
     /**
-     * Returns the value of the '<em><b>Filters</b></em>' containment reference list.
-     * The list contents are of type {@link org.eclipse.amalgam.discovery.Group}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Filters</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.amalgam.discovery.Group}.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Filters</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Filters</em>' containment reference list.
-     * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getDiscoveryDefinition_Filters()
-     * @model containment="true"
-     * @generated
-     */
+	 * @return the value of the '<em>Filters</em>' containment reference list.
+	 * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getDiscoveryDefinition_Filters()
+	 * @model containment="true"
+	 * @generated
+	 */
     EList<Group> getFilters();
 
 } // DiscoveryDefinition

@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryDefinitionImpl.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: DiscoveryDefinitionImpl.java,v 1.2 2010/02/25 15:50:40 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.impl;
 
@@ -49,153 +49,153 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class DiscoveryDefinitionImpl extends MinimalEObjectImpl implements DiscoveryDefinition {
     /**
-     * The cached value of the '{@link #getCategories() <em>Categories</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getCategories() <em>Categories</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCategories()
-     * @generated
-     * @ordered
-     */
+	 * @see #getCategories()
+	 * @generated
+	 * @ordered
+	 */
     protected EList<Category> categories;
 
     /**
-     * The cached value of the '{@link #getFilters() <em>Filters</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getFilters() <em>Filters</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFilters()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFilters()
+	 * @generated
+	 * @ordered
+	 */
     protected EList<Group> filters;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected DiscoveryDefinitionImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-        return DiscoveryPackage.Literals.DISCOVERY_DEFINITION;
-    }
+		return DiscoveryPackage.Literals.DISCOVERY_DEFINITION;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList<Category> getCategories() {
-        if (categories == null) {
-            categories = new EObjectContainmentEList<Category>(Category.class, this, DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES);
-        }
-        return categories;
-    }
+		if (categories == null) {
+			categories = new EObjectContainmentEList<Category>(Category.class, this, DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES);
+		}
+		return categories;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList<Group> getFilters() {
-        if (filters == null) {
-            filters = new EObjectContainmentEList<Group>(Group.class, this, DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS);
-        }
-        return filters;
-    }
+		if (filters == null) {
+			filters = new EObjectContainmentEList<Group>(Group.class, this, DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS);
+		}
+		return filters;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES:
-                return ((InternalEList<?>)getCategories()).basicRemove(otherEnd, msgs);
-            case DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS:
-                return ((InternalEList<?>)getFilters()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES:
+				return ((InternalEList<?>)getCategories()).basicRemove(otherEnd, msgs);
+			case DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS:
+				return ((InternalEList<?>)getFilters()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES:
-                return getCategories();
-            case DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS:
-                return getFilters();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES:
+				return getCategories();
+			case DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS:
+				return getFilters();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES:
-                getCategories().clear();
-                getCategories().addAll((Collection<? extends Category>)newValue);
-                return;
-            case DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS:
-                getFilters().clear();
-                getFilters().addAll((Collection<? extends Group>)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES:
+				getCategories().clear();
+				getCategories().addAll((Collection<? extends Category>)newValue);
+				return;
+			case DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS:
+				getFilters().clear();
+				getFilters().addAll((Collection<? extends Group>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES:
-                getCategories().clear();
-                return;
-            case DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS:
-                getFilters().clear();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES:
+				getCategories().clear();
+				return;
+			case DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS:
+				getFilters().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES:
-                return categories != null && !categories.isEmpty();
-            case DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS:
-                return filters != null && !filters.isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case DiscoveryPackage.DISCOVERY_DEFINITION__CATEGORIES:
+				return categories != null && !categories.isEmpty();
+			case DiscoveryPackage.DISCOVERY_DEFINITION__FILTERS:
+				return filters != null && !filters.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //DiscoveryDefinitionImpl

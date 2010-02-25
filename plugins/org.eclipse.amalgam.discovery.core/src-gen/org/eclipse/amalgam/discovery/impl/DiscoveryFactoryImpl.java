@@ -10,13 +10,14 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryFactoryImpl.java,v 1.2 2010/01/22 17:04:47 cbrun Exp $
+ * $Id: DiscoveryFactoryImpl.java,v 1.3 2010/02/25 15:50:40 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.impl;
 
 import org.eclipse.amalgam.discovery.*;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -32,120 +33,181 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  */
 public class DiscoveryFactoryImpl extends EFactoryImpl implements DiscoveryFactory {
     /**
-     * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public static DiscoveryFactory init() {
-        try {
-            DiscoveryFactory theDiscoveryFactory = (DiscoveryFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/amalgamation/discovery/1.0"); 
-            if (theDiscoveryFactory != null) {
-                return theDiscoveryFactory;
-            }
-        }
-        catch (Exception exception) {
-            EcorePlugin.INSTANCE.log(exception);
-        }
-        return new DiscoveryFactoryImpl();
-    }
+		try {
+			DiscoveryFactory theDiscoveryFactory = (DiscoveryFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/amalgamation/discovery/1.0"); 
+			if (theDiscoveryFactory != null) {
+				return theDiscoveryFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new DiscoveryFactoryImpl();
+	}
 
     /**
-     * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public DiscoveryFactoryImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public EObject create(EClass eClass) {
-        switch (eClass.getClassifierID()) {
-            case DiscoveryPackage.INSTALLABLE_COMPONENT: return createInstallableComponent();
-            case DiscoveryPackage.OVERVIEW: return createOverview();
-            case DiscoveryPackage.CATEGORY: return createCategory();
-            case DiscoveryPackage.DISCOVERY_DEFINITION: return createDiscoveryDefinition();
-            case DiscoveryPackage.GROUP: return createGroup();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-        }
-    }
+		switch (eClass.getClassifierID()) {
+			case DiscoveryPackage.INSTALLABLE_COMPONENT: return createInstallableComponent();
+			case DiscoveryPackage.OVERVIEW: return createOverview();
+			case DiscoveryPackage.CATEGORY: return createCategory();
+			case DiscoveryPackage.DISCOVERY_DEFINITION: return createDiscoveryDefinition();
+			case DiscoveryPackage.GROUP: return createGroup();
+			case DiscoveryPackage.MESSAGE: return createMessage();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case DiscoveryPackage.SEVERITY:
+				return createSeverityFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case DiscoveryPackage.SEVERITY:
+				return convertSeverityToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public InstallableComponent createInstallableComponent() {
-        InstallableComponentImpl installableComponent = new InstallableComponentImpl();
-        return installableComponent;
-    }
+		InstallableComponentImpl installableComponent = new InstallableComponentImpl();
+		return installableComponent;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Overview createOverview() {
-        OverviewImpl overview = new OverviewImpl();
-        return overview;
-    }
+		OverviewImpl overview = new OverviewImpl();
+		return overview;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Category createCategory() {
-        CategoryImpl category = new CategoryImpl();
-        return category;
-    }
+		CategoryImpl category = new CategoryImpl();
+		return category;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public DiscoveryDefinition createDiscoveryDefinition() {
-        DiscoveryDefinitionImpl discoveryDefinition = new DiscoveryDefinitionImpl();
-        return discoveryDefinition;
-    }
+		DiscoveryDefinitionImpl discoveryDefinition = new DiscoveryDefinitionImpl();
+		return discoveryDefinition;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Group createGroup() {
-        GroupImpl group = new GroupImpl();
-        return group;
-    }
+		GroupImpl group = new GroupImpl();
+		return group;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Message createMessage() {
+		MessageImpl message = new MessageImpl();
+		return message;
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Severity createSeverityFromString(EDataType eDataType, String initialValue) {
+		Severity result = Severity.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertSeverityToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public DiscoveryPackage getDiscoveryPackage() {
-        return (DiscoveryPackage)getEPackage();
-    }
+		return (DiscoveryPackage)getEPackage();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @deprecated
-     * @generated
-     */
+	 * @deprecated
+	 * @generated
+	 */
     @Deprecated
     public static DiscoveryPackage getPackage() {
-        return DiscoveryPackage.eINSTANCE;
-    }
+		return DiscoveryPackage.eINSTANCE;
+	}
 
 } //DiscoveryFactoryImpl

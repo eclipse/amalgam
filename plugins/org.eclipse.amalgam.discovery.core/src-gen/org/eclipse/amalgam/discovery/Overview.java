@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: Overview.java,v 1.1 2009/12/21 12:35:54 cbrun Exp $
+ * $Id: Overview.java,v 1.2 2010/02/25 15:50:40 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -36,82 +36,82 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Overview extends EObject {
     /**
-     * Returns the value of the '<em><b>Summary</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Summary</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Summary</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Summary</em>' attribute.
-     * @see #setSummary(String)
-     * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getOverview_Summary()
-     * @model required="true"
-     * @generated
-     */
+	 * @return the value of the '<em>Summary</em>' attribute.
+	 * @see #setSummary(String)
+	 * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getOverview_Summary()
+	 * @model required="true"
+	 * @generated
+	 */
     String getSummary();
 
     /**
-     * Sets the value of the '{@link org.eclipse.amalgam.discovery.Overview#getSummary <em>Summary</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.eclipse.amalgam.discovery.Overview#getSummary <em>Summary</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Summary</em>' attribute.
-     * @see #getSummary()
-     * @generated
-     */
+	 * @param value the new value of the '<em>Summary</em>' attribute.
+	 * @see #getSummary()
+	 * @generated
+	 */
     void setSummary(String value);
 
     /**
-     * Returns the value of the '<em><b>Screenshot</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Screenshot</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Screenshot</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Screenshot</em>' attribute.
-     * @see #setScreenshot(String)
-     * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getOverview_Screenshot()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Screenshot</em>' attribute.
+	 * @see #setScreenshot(String)
+	 * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getOverview_Screenshot()
+	 * @model
+	 * @generated
+	 */
     String getScreenshot();
 
     /**
-     * Sets the value of the '{@link org.eclipse.amalgam.discovery.Overview#getScreenshot <em>Screenshot</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.eclipse.amalgam.discovery.Overview#getScreenshot <em>Screenshot</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Screenshot</em>' attribute.
-     * @see #getScreenshot()
-     * @generated
-     */
+	 * @param value the new value of the '<em>Screenshot</em>' attribute.
+	 * @see #getScreenshot()
+	 * @generated
+	 */
     void setScreenshot(String value);
 
     /**
-     * Returns the value of the '<em><b>Url</b></em>' attribute.
-     * The default value is <code>"http://www.eclipse.org/modeling"</code>.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Url</b></em>' attribute.
+	 * The default value is <code>"http://www.eclipse.org/modeling"</code>.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Url</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Url</em>' attribute.
-     * @see #setUrl(String)
-     * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getOverview_Url()
-     * @model default="http://www.eclipse.org/modeling" required="true"
-     * @generated
-     */
+	 * @return the value of the '<em>Url</em>' attribute.
+	 * @see #setUrl(String)
+	 * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getOverview_Url()
+	 * @model default="http://www.eclipse.org/modeling" required="true"
+	 * @generated
+	 */
     String getUrl();
 
     /**
-     * Sets the value of the '{@link org.eclipse.amalgam.discovery.Overview#getUrl <em>Url</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.eclipse.amalgam.discovery.Overview#getUrl <em>Url</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Url</em>' attribute.
-     * @see #getUrl()
-     * @generated
-     */
+	 * @param value the new value of the '<em>Url</em>' attribute.
+	 * @see #getUrl()
+	 * @generated
+	 */
     void setUrl(String value);
 
 } // Overview
