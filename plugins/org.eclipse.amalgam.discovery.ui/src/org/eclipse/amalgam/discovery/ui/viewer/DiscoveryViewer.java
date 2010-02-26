@@ -1308,6 +1308,8 @@ public class DiscoveryViewer {
 	}
 
 	private boolean isFiltered(InstallableComponent descriptor) {
+		if (!descriptor.isVisible())
+			return true;
 		boolean kindFiltered = false;
 		for (Group kind : descriptor.getGroups()) {
 			if (!isVisible(kind)) {
