@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryPackageImpl.java,v 1.4 2010/02/25 15:50:40 cbrun Exp $
+ * $Id: DiscoveryPackageImpl.java,v 1.5 2010/02/26 10:34:43 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.impl;
 
@@ -226,6 +226,15 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
 	 */
 	public EReference getInstallableComponent_Messages() {
 		return (EReference)installableComponentEClass.getEStructuralFeatures().get(14);
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInstallableComponent_Visible() {
+		return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(15);
 	}
 
 				/**
@@ -524,6 +533,7 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
 		createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__IMAGE32);
 		createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__INCUBATION);
 		createEReference(installableComponentEClass, INSTALLABLE_COMPONENT__MESSAGES);
+		createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__VISIBLE);
 
 		overviewEClass = createEClass(OVERVIEW);
 		createEAttribute(overviewEClass, OVERVIEW__SUMMARY);
@@ -600,6 +610,7 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
 		initEAttribute(getInstallableComponent_Image32(), ecorePackage.getEString(), "image32", null, 0, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInstallableComponent_Incubation(), ecorePackage.getEBoolean(), "incubation", "false", 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInstallableComponent_Messages(), this.getMessage(), null, "messages", null, 0, -1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInstallableComponent_Visible(), ecorePackage.getEBoolean(), "visible", "true", 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(overviewEClass, Overview.class, "Overview", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOverview_Summary(), ecorePackage.getEString(), "summary", null, 1, 1, Overview.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

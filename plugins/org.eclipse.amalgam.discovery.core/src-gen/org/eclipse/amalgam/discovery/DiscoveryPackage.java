@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryPackage.java,v 1.4 2010/02/25 15:50:40 cbrun Exp $
+ * $Id: DiscoveryPackage.java,v 1.5 2010/02/26 10:34:43 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -214,13 +214,22 @@ public interface DiscoveryPackage extends EPackage {
 	int INSTALLABLE_COMPONENT__MESSAGES = 14;
 
 				/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTALLABLE_COMPONENT__VISIBLE = 15;
+
+				/**
 	 * The number of structural features of the '<em>Installable Component</em>' class.
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-    int INSTALLABLE_COMPONENT_FEATURE_COUNT = 15;
+    int INSTALLABLE_COMPONENT_FEATURE_COUNT = 16;
 
     /**
 	 * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.OverviewImpl <em>Overview</em>}' class.
@@ -562,6 +571,17 @@ public interface DiscoveryPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getInstallableComponent_Messages();
+
+				/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#isVisible <em>Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Visible</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#isVisible()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
+	EAttribute getInstallableComponent_Visible();
 
 				/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.discovery.InstallableComponent#getOverview <em>Overview</em>}'.
@@ -960,6 +980,14 @@ public interface DiscoveryPackage extends EPackage {
 		 * @generated
 		 */
 		EReference INSTALLABLE_COMPONENT__MESSAGES = eINSTANCE.getInstallableComponent_Messages();
+
+								/**
+		 * The meta object literal for the '<em><b>Visible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INSTALLABLE_COMPONENT__VISIBLE = eINSTANCE.getInstallableComponent_Visible();
 
 								/**
 		 * The meta object literal for the '<em><b>Overview</b></em>' containment reference feature.

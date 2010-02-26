@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: InstallableComponentImpl.java,v 1.4 2010/02/25 15:50:40 cbrun Exp $
+ * $Id: InstallableComponentImpl.java,v 1.5 2010/02/26 10:34:43 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.impl;
 
@@ -57,6 +57,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#getImage32 <em>Image32</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#isIncubation <em>Incubation</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#getMessages <em>Messages</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#isVisible <em>Visible</em>}</li>
  * </ul>
  * </p>
  *
@@ -304,6 +305,26 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 	protected EList<Message> messages;
 
 				/**
+	 * The default value of the '{@link #isVisible() <em>Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isVisible()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean VISIBLE_EDEFAULT = true;
+
+				/**
+	 * The cached value of the '{@link #isVisible() <em>Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isVisible()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean visible = VISIBLE_EDEFAULT;
+
+				/**
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 	 * @generated
@@ -470,6 +491,27 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 			messages = new EObjectContainmentEList<Message>(Message.class, this, DiscoveryPackage.INSTALLABLE_COMPONENT__MESSAGES);
 		}
 		return messages;
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isVisible() {
+		return visible;
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setVisible(boolean newVisible) {
+		boolean oldVisible = visible;
+		visible = newVisible;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiscoveryPackage.INSTALLABLE_COMPONENT__VISIBLE, oldVisible, visible));
 	}
 
 				/**
@@ -738,6 +780,8 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 				return isIncubation();
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__MESSAGES:
 				return getMessages();
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__VISIBLE:
+				return isVisible();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -799,6 +843,9 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 				getMessages().clear();
 				getMessages().addAll((Collection<? extends Message>)newValue);
 				return;
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__VISIBLE:
+				setVisible((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -856,6 +903,9 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__MESSAGES:
 				getMessages().clear();
 				return;
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__VISIBLE:
+				setVisible(VISIBLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -898,6 +948,8 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 				return incubation != INCUBATION_EDEFAULT;
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__MESSAGES:
 				return messages != null && !messages.isEmpty();
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__VISIBLE:
+				return visible != VISIBLE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -934,6 +986,8 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 		result.append(image32);
 		result.append(", incubation: ");
 		result.append(incubation);
+		result.append(", visible: ");
+		result.append(visible);
 		result.append(')');
 		return result.toString();
 	}

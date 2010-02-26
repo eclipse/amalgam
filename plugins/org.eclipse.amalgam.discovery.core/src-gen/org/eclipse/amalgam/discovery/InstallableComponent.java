@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: InstallableComponent.java,v 1.4 2010/02/25 15:50:40 cbrun Exp $
+ * $Id: InstallableComponent.java,v 1.5 2010/02/26 10:34:43 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getImage32 <em>Image32</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#isIncubation <em>Incubation</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getMessages <em>Messages</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#isVisible <em>Visible</em>}</li>
  * </ul>
  * </p>
  *
@@ -237,6 +238,33 @@ public interface InstallableComponent extends EObject {
 	 * @generated
 	 */
 	EList<Message> getMessages();
+
+				/**
+	 * Returns the value of the '<em><b>Visible</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Visible</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Visible</em>' attribute.
+	 * @see #setVisible(boolean)
+	 * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getInstallableComponent_Visible()
+	 * @model default="true" required="true"
+	 * @generated
+	 */
+	boolean isVisible();
+
+				/**
+	 * Sets the value of the '{@link org.eclipse.amalgam.discovery.InstallableComponent#isVisible <em>Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Visible</em>' attribute.
+	 * @see #isVisible()
+	 * @generated
+	 */
+	void setVisible(boolean value);
 
 				/**
 	 * Returns the value of the '<em><b>Overview</b></em>' containment reference.
