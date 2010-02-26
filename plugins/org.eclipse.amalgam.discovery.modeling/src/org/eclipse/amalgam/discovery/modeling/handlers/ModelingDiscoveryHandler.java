@@ -57,7 +57,7 @@ public class ModelingDiscoveryHandler extends AbstractHandler {
 //								.createURI("platform:/plugin/org.eclipse.amalgam.discovery.modeling/model/modeling.xmi"));
 				Resource res = new XMIResourceImpl(
 						URI
-								.createURI("http:/www.eclipse.org/modeling/amalgam/discovery/helios/modeling.xml"));
+								.createURI("http:/www.eclipse.org/modeling/amalgam/discovery/helios/modeling.xmi"));
 				try {
 					res.load(Collections.EMPTY_MAP);
 				} catch (IOException e) {
