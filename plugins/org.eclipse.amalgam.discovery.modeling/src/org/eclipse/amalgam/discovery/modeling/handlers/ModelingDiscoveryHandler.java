@@ -57,14 +57,14 @@ public class ModelingDiscoveryHandler extends AbstractHandler {
 //								.createURI("platform:/plugin/org.eclipse.amalgam.discovery.modeling/model/modeling.xmi"));
 				Resource res = new XMIResourceImpl(
 						URI
-								.createURI("http:/www.eclipse.org/modeling/amalgam/downloads/discovery/helios/modeling.xmi"));
+								.createURI("http://www.eclipse.org/modeling/amalgam/downloads/discovery/helios/modeling.xmi"));
 				try {
 					res.load(Collections.EMPTY_MAP);
 				} catch (IOException e) {
 					String message = "We can't connect to the discovery source, make sure you're connected to internet and try again.";
 					MessageDialog.openError(window.getShell(),
 							"Can't connect to discovery source", message);
-					throw new RuntimeException(message);
+					throw new RuntimeException(e);
 				}
 				return (DiscoveryDefinition) res.getContents().get(0);
 			}
