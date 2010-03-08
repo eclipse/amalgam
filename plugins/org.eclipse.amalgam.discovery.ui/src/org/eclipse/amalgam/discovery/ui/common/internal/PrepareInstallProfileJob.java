@@ -428,7 +428,8 @@ public class PrepareInstallProfileJob implements IRunnableWithProgress {
 		boolean found = false;
 		Iterator<String> it = descriptor.getSitesURLS().iterator();
 		while (it.hasNext() && !found) {
-			if (location.equals(new URL(it.next())))
+			String url = it.next();
+			if (location.toString().equals(url))
 				found = true;
 		}
 		return found;
