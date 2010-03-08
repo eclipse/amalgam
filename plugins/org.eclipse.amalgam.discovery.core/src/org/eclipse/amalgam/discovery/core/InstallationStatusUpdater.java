@@ -48,7 +48,7 @@ public class InstallationStatusUpdater {
         Iterator<InstallableComponent> it = discovery.getAllInstallableComponents().iterator();
         while (it.hasNext()) {
             InstallableComponent comp = it.next();
-            if (installedFeatures.contains(comp.getId())) {
+            if (installedFeatures.containsAll(comp.getId())) {
                 comp.setInstalled(true);
             }
         }
