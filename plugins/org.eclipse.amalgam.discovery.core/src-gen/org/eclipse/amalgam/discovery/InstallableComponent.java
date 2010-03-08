@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: InstallableComponent.java,v 1.5 2010/02/26 10:34:43 cbrun Exp $
+ * $Id: InstallableComponent.java,v 1.6 2010/03/08 09:27:13 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getProvider <em>Provider</em>}</li>
- *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getSiteURL <em>Site URL</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getSitesURLS <em>Sites URLS</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getOverview <em>Overview</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getCategory <em>Category</em>}</li>
@@ -103,32 +103,22 @@ public interface InstallableComponent extends EObject {
     void setProvider(String value);
 
     /**
-	 * Returns the value of the '<em><b>Site URL</b></em>' attribute.
+	 * Returns the value of the '<em><b>Sites URLS</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Site URL</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-	 * @return the value of the '<em>Site URL</em>' attribute.
-	 * @see #setSiteURL(String)
-	 * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getInstallableComponent_SiteURL()
+	 * <p>
+	 * If the meaning of the '<em>Sites URLS</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Sites URLS</em>' attribute list.
+	 * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getInstallableComponent_SitesURLS()
 	 * @model required="true"
 	 * @generated
 	 */
-    String getSiteURL();
+	EList<String> getSitesURLS();
 
-    /**
-	 * Sets the value of the '{@link org.eclipse.amalgam.discovery.InstallableComponent#getSiteURL <em>Site URL</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Site URL</em>' attribute.
-	 * @see #getSiteURL()
-	 * @generated
-	 */
-    void setSiteURL(String value);
-
-    /**
+				/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
      * <p>

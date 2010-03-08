@@ -58,17 +58,9 @@ public class AvailabilityUpdater {
 		Map<String, Collection<InstallableComponent>> urlToDescriptors = new HashMap<String, Collection<InstallableComponent>>();
 
 		for (InstallableComponent descriptor : connectors) {
-			String url = descriptor.getSiteURL();
-			if (!url.endsWith("/")) { //$NON-NLS-1$
-				url += "/"; //$NON-NLS-1$
+			for (String url : descriptor.getSitesURLS()) {
+				handleSiteURL(urlToDescriptors, descriptor, url);
 			}
-			Collection<InstallableComponent> collection = urlToDescriptors
-					.get(url);
-			if (collection == null) {
-				collection = new ArrayList<InstallableComponent>();
-				urlToDescriptors.put(url, collection);
-			}
-			collection.add(descriptor);
 		}
 		final int totalTicks = urlToDescriptors.size();
 		monitor.beginTask("Checking update sites availability", totalTicks);
@@ -133,6 +125,20 @@ public class AvailabilityUpdater {
 			monitor.done();
 		}
 
+	}
+
+	private void handleSiteURL(
+			Map<String, Collection<InstallableComponent>> urlToDescriptors,
+			InstallableComponent descriptor, String url) {
+		if (!url.endsWith("/")) { //$NON-NLS-1$
+			url += "/"; //$NON-NLS-1$
+		}
+		Collection<InstallableComponent> collection = urlToDescriptors.get(url);
+		if (collection == null) {
+			collection = new ArrayList<InstallableComponent>();
+			urlToDescriptors.put(url, collection);
+		}
+		collection.add(descriptor);
 	}
 
 	private static class VerifyUpdateSiteJob implements

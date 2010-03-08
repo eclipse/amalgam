@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryPackage.java,v 1.5 2010/02/26 10:34:43 cbrun Exp $
+ * $Id: DiscoveryPackage.java,v 1.6 2010/03/08 09:27:13 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -97,15 +97,15 @@ public interface DiscoveryPackage extends EPackage {
     int INSTALLABLE_COMPONENT__PROVIDER = 1;
 
     /**
-	 * The feature id for the '<em><b>Site URL</b></em>' attribute.
+	 * The feature id for the '<em><b>Sites URLS</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-    int INSTALLABLE_COMPONENT__SITE_URL = 2;
+	int INSTALLABLE_COMPONENT__SITES_URLS = 2;
 
-    /**
+				/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -507,17 +507,17 @@ public interface DiscoveryPackage extends EPackage {
     EAttribute getInstallableComponent_Provider();
 
     /**
-	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getSiteURL <em>Site URL</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.eclipse.amalgam.discovery.InstallableComponent#getSitesURLS <em>Sites URLS</em>}'.
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Site URL</em>'.
-	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getSiteURL()
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Sites URLS</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getSitesURLS()
 	 * @see #getInstallableComponent()
 	 * @generated
 	 */
-    EAttribute getInstallableComponent_SiteURL();
+	EAttribute getInstallableComponent_SitesURLS();
 
-    /**
+				/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.amalgam.discovery.InstallableComponent#getDescription <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -934,14 +934,14 @@ public interface DiscoveryPackage extends EPackage {
         EAttribute INSTALLABLE_COMPONENT__PROVIDER = eINSTANCE.getInstallableComponent_Provider();
 
         /**
-		 * The meta object literal for the '<em><b>Site URL</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Sites URLS</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-        EAttribute INSTALLABLE_COMPONENT__SITE_URL = eINSTANCE.getInstallableComponent_SiteURL();
+		EAttribute INSTALLABLE_COMPONENT__SITES_URLS = eINSTANCE.getInstallableComponent_SitesURLS();
 
-        /**
+								/**
 		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
          * <!-- end-user-doc -->

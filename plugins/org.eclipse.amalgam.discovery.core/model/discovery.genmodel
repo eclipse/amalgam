@@ -19,7 +19,7 @@
     <genClasses ecoreClass="discovery.ecore#//InstallableComponent">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/provider"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/siteURL"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/sitesURLS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/overview"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/category"/>

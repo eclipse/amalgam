@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryPackageImpl.java,v 1.5 2010/02/26 10:34:43 cbrun Exp $
+ * $Id: DiscoveryPackageImpl.java,v 1.6 2010/03/08 09:27:13 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.impl;
 
@@ -176,14 +176,14 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
 
     /**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EAttribute getInstallableComponent_SiteURL() {
+	public EAttribute getInstallableComponent_SitesURLS() {
 		return (EAttribute)installableComponentEClass.getEStructuralFeatures().get(2);
 	}
 
-    /**
+				/**
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 	 * @generated
@@ -520,7 +520,7 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
 		installableComponentEClass = createEClass(INSTALLABLE_COMPONENT);
 		createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__NAME);
 		createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__PROVIDER);
-		createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__SITE_URL);
+		createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__SITES_URLS);
 		createEAttribute(installableComponentEClass, INSTALLABLE_COMPONENT__DESCRIPTION);
 		createEReference(installableComponentEClass, INSTALLABLE_COMPONENT__OVERVIEW);
 		createEReference(installableComponentEClass, INSTALLABLE_COMPONENT__CATEGORY);
@@ -597,7 +597,7 @@ public class DiscoveryPackageImpl extends EPackageImpl implements DiscoveryPacka
 		initEClass(installableComponentEClass, InstallableComponent.class, "InstallableComponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getInstallableComponent_Name(), ecorePackage.getEString(), "name", null, 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInstallableComponent_Provider(), ecorePackage.getEString(), "provider", null, 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getInstallableComponent_SiteURL(), ecorePackage.getEString(), "siteURL", null, 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInstallableComponent_SitesURLS(), ecorePackage.getEString(), "sitesURLS", null, 1, -1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInstallableComponent_Description(), ecorePackage.getEString(), "description", null, 0, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInstallableComponent_Overview(), this.getOverview(), null, "overview", null, 0, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInstallableComponent_Category(), this.getCategory(), this.getCategory_Components(), "category", null, 1, 1, InstallableComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

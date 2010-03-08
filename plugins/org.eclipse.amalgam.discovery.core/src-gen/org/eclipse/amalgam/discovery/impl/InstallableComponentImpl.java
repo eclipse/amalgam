@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: InstallableComponentImpl.java,v 1.5 2010/02/26 10:34:43 cbrun Exp $
+ * $Id: InstallableComponentImpl.java,v 1.6 2010/03/08 09:27:13 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.impl;
 
@@ -44,7 +44,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#getProvider <em>Provider</em>}</li>
- *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#getSiteURL <em>Site URL</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#getSitesURLS <em>Sites URLS</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#getOverview <em>Overview</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#getCategory <em>Category</em>}</li>
@@ -105,26 +105,16 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
     protected String provider = PROVIDER_EDEFAULT;
 
     /**
-	 * The default value of the '{@link #getSiteURL() <em>Site URL</em>}' attribute.
+	 * The cached value of the '{@link #getSitesURLS() <em>Sites URLS</em>}' attribute list.
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-	 * @see #getSiteURL()
+	 * <!-- end-user-doc -->
+	 * @see #getSitesURLS()
 	 * @generated
 	 * @ordered
 	 */
-    protected static final String SITE_URL_EDEFAULT = null;
+	protected EList<String> sitesURLS;
 
-    /**
-	 * The cached value of the '{@link #getSiteURL() <em>Site URL</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-	 * @see #getSiteURL()
-	 * @generated
-	 * @ordered
-	 */
-    protected String siteURL = SITE_URL_EDEFAULT;
-
-    /**
+				/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -387,26 +377,17 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 
     /**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public String getSiteURL() {
-		return siteURL;
+	public EList<String> getSitesURLS() {
+		if (sitesURLS == null) {
+			sitesURLS = new EDataTypeUniqueEList<String>(String.class, this, DiscoveryPackage.INSTALLABLE_COMPONENT__SITES_URLS);
+		}
+		return sitesURLS;
 	}
 
-    /**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-	 * @generated
-	 */
-    public void setSiteURL(String newSiteURL) {
-		String oldSiteURL = siteURL;
-		siteURL = newSiteURL;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DiscoveryPackage.INSTALLABLE_COMPONENT__SITE_URL, oldSiteURL, siteURL));
-	}
-
-    /**
+				/**
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 	 * @generated
@@ -754,8 +735,8 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 				return getName();
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__PROVIDER:
 				return getProvider();
-			case DiscoveryPackage.INSTALLABLE_COMPONENT__SITE_URL:
-				return getSiteURL();
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__SITES_URLS:
+				return getSitesURLS();
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__DESCRIPTION:
 				return getDescription();
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__OVERVIEW:
@@ -801,8 +782,9 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__PROVIDER:
 				setProvider((String)newValue);
 				return;
-			case DiscoveryPackage.INSTALLABLE_COMPONENT__SITE_URL:
-				setSiteURL((String)newValue);
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__SITES_URLS:
+				getSitesURLS().clear();
+				getSitesURLS().addAll((Collection<? extends String>)newValue);
 				return;
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__DESCRIPTION:
 				setDescription((String)newValue);
@@ -864,8 +846,8 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__PROVIDER:
 				setProvider(PROVIDER_EDEFAULT);
 				return;
-			case DiscoveryPackage.INSTALLABLE_COMPONENT__SITE_URL:
-				setSiteURL(SITE_URL_EDEFAULT);
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__SITES_URLS:
+				getSitesURLS().clear();
 				return;
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
@@ -922,8 +904,8 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__PROVIDER:
 				return PROVIDER_EDEFAULT == null ? provider != null : !PROVIDER_EDEFAULT.equals(provider);
-			case DiscoveryPackage.INSTALLABLE_COMPONENT__SITE_URL:
-				return SITE_URL_EDEFAULT == null ? siteURL != null : !SITE_URL_EDEFAULT.equals(siteURL);
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__SITES_URLS:
+				return sitesURLS != null && !sitesURLS.isEmpty();
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__OVERVIEW:
@@ -968,8 +950,8 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 		result.append(name);
 		result.append(", provider: ");
 		result.append(provider);
-		result.append(", siteURL: ");
-		result.append(siteURL);
+		result.append(", sitesURLS: ");
+		result.append(sitesURLS);
 		result.append(", description: ");
 		result.append(description);
 		result.append(", id: ");
