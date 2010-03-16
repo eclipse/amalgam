@@ -19,7 +19,6 @@ import org.eclipse.amalgam.discovery.ui.wizards.DiscoveryWizard;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
@@ -50,7 +49,7 @@ public class ModelingDiscoveryHandler extends AbstractHandler {
 
 		DiscoveryContentProvider provider = new DiscoveryContentProvider() {
 
-			@Override
+			@Override 
 			protected DiscoveryDefinition load() {
 //				Resource res = new XMIResourceImpl(
 //						URI
@@ -83,6 +82,7 @@ public class ModelingDiscoveryHandler extends AbstractHandler {
 		DiscoveryWizard wizard = new DiscoveryWizard(provider);
 
 		WizardDialog dialog = new WizardDialog(window.getShell(), wizard);
+		dialog.setMinimumPageSize(600, 400);
 		dialog.open();
 
 		return null;
