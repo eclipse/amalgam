@@ -327,7 +327,8 @@ public class PrepareInstallProfileJob implements IRunnableWithProgress {
 					.hasNext();) {
 				IInstallableUnit iu = iter.next();
 				String id = iu.getId();
-				if (installableUnitIdsThisRepository.contains(id)) {
+				if (installableUnitIdsThisRepository.contains(id.substring(0,
+						id.indexOf(P2_FEATURE_GROUP_SUFFIX)))) {
 					installableUnits.add(iu);
 				}
 			}
