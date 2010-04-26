@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: InstallableComponent.java,v 1.6 2010/03/08 09:27:13 cbrun Exp $
+ * $Id: InstallableComponent.java,v 1.7 2010/04/26 16:15:59 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#isIncubation <em>Incubation</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getMessages <em>Messages</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#isVisible <em>Visible</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.discovery.InstallableComponent#getHiddingFeatureID <em>Hidding Feature ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -255,6 +256,22 @@ public interface InstallableComponent extends EObject {
 	 * @generated
 	 */
 	void setVisible(boolean value);
+
+				/**
+	 * Returns the value of the '<em><b>Hidding Feature ID</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Hidding Feature ID</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Hidding Feature ID</em>' attribute list.
+	 * @see org.eclipse.amalgam.discovery.DiscoveryPackage#getInstallableComponent_HiddingFeatureID()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getHiddingFeatureID();
 
 				/**
 	 * Returns the value of the '<em><b>Overview</b></em>' containment reference.

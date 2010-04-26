@@ -33,6 +33,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/incubation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/messages"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/visible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/hiddingFeatureID"/>
     </genClasses>
     <genClasses ecoreClass="discovery.ecore#//Overview">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Overview/summary"/>

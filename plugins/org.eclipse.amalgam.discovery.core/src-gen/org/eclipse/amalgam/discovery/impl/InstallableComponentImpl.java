@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: InstallableComponentImpl.java,v 1.6 2010/03/08 09:27:13 cbrun Exp $
+ * $Id: InstallableComponentImpl.java,v 1.7 2010/04/26 16:16:04 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery.impl;
 
@@ -58,6 +58,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#isIncubation <em>Incubation</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#getMessages <em>Messages</em>}</li>
  *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#isVisible <em>Visible</em>}</li>
+ *   <li>{@link org.eclipse.amalgam.discovery.impl.InstallableComponentImpl#getHiddingFeatureID <em>Hidding Feature ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -315,6 +316,16 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 	protected boolean visible = VISIBLE_EDEFAULT;
 
 				/**
+	 * The cached value of the '{@link #getHiddingFeatureID() <em>Hidding Feature ID</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHiddingFeatureID()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> hiddingFeatureID;
+
+				/**
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 	 * @generated
@@ -493,6 +504,18 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 		visible = newVisible;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DiscoveryPackage.INSTALLABLE_COMPONENT__VISIBLE, oldVisible, visible));
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getHiddingFeatureID() {
+		if (hiddingFeatureID == null) {
+			hiddingFeatureID = new EDataTypeUniqueEList<String>(String.class, this, DiscoveryPackage.INSTALLABLE_COMPONENT__HIDDING_FEATURE_ID);
+		}
+		return hiddingFeatureID;
 	}
 
 				/**
@@ -763,6 +786,8 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 				return getMessages();
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__VISIBLE:
 				return isVisible();
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__HIDDING_FEATURE_ID:
+				return getHiddingFeatureID();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -828,6 +853,10 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__VISIBLE:
 				setVisible((Boolean)newValue);
 				return;
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__HIDDING_FEATURE_ID:
+				getHiddingFeatureID().clear();
+				getHiddingFeatureID().addAll((Collection<? extends String>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -888,6 +917,9 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__VISIBLE:
 				setVisible(VISIBLE_EDEFAULT);
 				return;
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__HIDDING_FEATURE_ID:
+				getHiddingFeatureID().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -932,6 +964,8 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 				return messages != null && !messages.isEmpty();
 			case DiscoveryPackage.INSTALLABLE_COMPONENT__VISIBLE:
 				return visible != VISIBLE_EDEFAULT;
+			case DiscoveryPackage.INSTALLABLE_COMPONENT__HIDDING_FEATURE_ID:
+				return hiddingFeatureID != null && !hiddingFeatureID.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -970,6 +1004,8 @@ public class InstallableComponentImpl extends MinimalEObjectImpl implements Inst
 		result.append(incubation);
 		result.append(", visible: ");
 		result.append(visible);
+		result.append(", hiddingFeatureID: ");
+		result.append(hiddingFeatureID);
 		result.append(')');
 		return result.toString();
 	}

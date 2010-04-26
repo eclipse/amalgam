@@ -10,7 +10,7 @@
  *       Obeo - initial API and implementation
  *  
  *
- * $Id: DiscoveryPackage.java,v 1.6 2010/03/08 09:27:13 cbrun Exp $
+ * $Id: DiscoveryPackage.java,v 1.7 2010/04/26 16:15:58 cbrun Exp $
  */
 package org.eclipse.amalgam.discovery;
 
@@ -223,13 +223,22 @@ public interface DiscoveryPackage extends EPackage {
 	int INSTALLABLE_COMPONENT__VISIBLE = 15;
 
 				/**
+	 * The feature id for the '<em><b>Hidding Feature ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTALLABLE_COMPONENT__HIDDING_FEATURE_ID = 16;
+
+				/**
 	 * The number of structural features of the '<em>Installable Component</em>' class.
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-    int INSTALLABLE_COMPONENT_FEATURE_COUNT = 16;
+    int INSTALLABLE_COMPONENT_FEATURE_COUNT = 17;
 
     /**
 	 * The meta object id for the '{@link org.eclipse.amalgam.discovery.impl.OverviewImpl <em>Overview</em>}' class.
@@ -582,6 +591,17 @@ public interface DiscoveryPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getInstallableComponent_Visible();
+
+				/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.amalgam.discovery.InstallableComponent#getHiddingFeatureID <em>Hidding Feature ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Hidding Feature ID</em>'.
+	 * @see org.eclipse.amalgam.discovery.InstallableComponent#getHiddingFeatureID()
+	 * @see #getInstallableComponent()
+	 * @generated
+	 */
+	EAttribute getInstallableComponent_HiddingFeatureID();
 
 				/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.amalgam.discovery.InstallableComponent#getOverview <em>Overview</em>}'.
@@ -988,6 +1008,14 @@ public interface DiscoveryPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INSTALLABLE_COMPONENT__VISIBLE = eINSTANCE.getInstallableComponent_Visible();
+
+								/**
+		 * The meta object literal for the '<em><b>Hidding Feature ID</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INSTALLABLE_COMPONENT__HIDDING_FEATURE_ID = eINSTANCE.getInstallableComponent_HiddingFeatureID();
 
 								/**
 		 * The meta object literal for the '<em><b>Overview</b></em>' containment reference feature.
