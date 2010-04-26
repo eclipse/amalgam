@@ -10,7 +10,7 @@
       <command
             categoryId="org.eclipse.amalgam.discovery.modeling.commands.category"
             id="org.eclipse.amalgam.discovery.modeling.commands.discoveryCommand"
-            name="Launch Modeling Discovery UI">
+            name="Install Modeling Components">
       </command>
    </extension>
    <extension
@@ -30,9 +30,22 @@
                   commandId="org.eclipse.amalgam.discovery.modeling.commands.discoveryCommand"
                   icon="icons/modeling16.png"
                   id="org.eclipse.amalgam.discovery.modeling.toolbars.discoveryCommand"
-                  tooltip="Launch Modeling Discovery UI">
+                  tooltip="Install Modeling Components">
             </command>
          </toolbar>
+      </menuContribution>
+   </extension>
+
+ <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:help?after=org.eclipse.equinox.p2.ui.sdk.install">
+            <command
+                  commandId="org.eclipse.amalgam.discovery.modeling.commands.discoveryCommand"
+                  icon="icons/modeling16.png"
+                  id="org.eclipse.amalgam.discovery.modeling.toolbars.discoveryCommand"
+                  tooltip="Install Modeling Components">
+            </command>
       </menuContribution>
    </extension>
 
