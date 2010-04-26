@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -30,44 +31,51 @@ import org.eclipse.ui.PlatformUI;
  * 
  */
 public class ModelingDiscoveryAction extends Action {
-    /**
-     * The constructor.
-     */
-    public ModelingDiscoveryAction() {
-    }
+	/**
+	 * The constructor.
+	 */
+	public ModelingDiscoveryAction() {
+	}
 
-    @Override
-    public void run() {
+	@Override
+	public void run() {
 
-        IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		final IWorkbenchWindow window = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow();
 
-        DiscoveryContentProvider provider = new DiscoveryContentProvider() {
+		DiscoveryContentProvider provider = new DiscoveryContentProvider() {
 
-            @Override
-            protected DiscoveryDefinition load() {
-                Resource res = new XMIResourceImpl(URI.createURI("platform:/plugin/org.eclipse.amalgam.discovery.modeling/model/modeling.xmi"));
-                try {
-                    res.load(Collections.EMPTY_MAP);
-                } catch (IOException e) {
-                }
-                return (DiscoveryDefinition) res.getContents().get(0);
-            }
+			@Override
+			protected DiscoveryDefinition load() {
+				Resource res = new XMIResourceImpl(
+						URI
+								.createURI("http://www.eclipse.org/modeling/amalgam/downloads/discovery/helios/modeling.xmi"));
+				try {
+					res.load(Collections.EMPTY_MAP);
+				} catch (IOException e) {
+					String message = "We can't connect to the discovery source, make sure you're connected to internet and try again.";
+					MessageDialog.openError(window.getShell(),
+							"Can't connect to discovery source", message);
+					throw new RuntimeException(e);
+				}
+				return (DiscoveryDefinition) res.getContents().get(0);
+			}
 
-            @Override
-            public String getDescription() {
-                return "Pick a modeling component to install it.";
-            }
+			@Override
+			public String getDescription() {
+				return "Pick a modeling component to install it.";
+			}
 
-            @Override
-            public String getTitle() {
-                return "Eclipse Modeling Components Discovery";
-            }
+			@Override
+			public String getTitle() {
+				return "Eclipse Modeling Components Discovery";
+			}
 
-        };
-        DiscoveryWizard wizard = new DiscoveryWizard(provider);
+		};
+		DiscoveryWizard wizard = new DiscoveryWizard(provider);
 
-        WizardDialog dialog = new WizardDialog(window.getShell(), wizard);
-        dialog.open();
+		WizardDialog dialog = new WizardDialog(window.getShell(), wizard);
+		dialog.open();
 
-    }
+	}
 }

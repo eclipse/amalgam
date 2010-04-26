@@ -51,9 +51,6 @@ public class ModelingDiscoveryHandler extends AbstractHandler {
 
 			@Override 
 			protected DiscoveryDefinition load() {
-//				Resource res = new XMIResourceImpl(
-//						URI
-//								.createURI("platform:/plugin/org.eclipse.amalgam.discovery.modeling/model/modeling.xmi"));
 				Resource res = new XMIResourceImpl(
 						URI
 								.createURI("http://www.eclipse.org/modeling/amalgam/downloads/discovery/helios/modeling.xmi"));
