@@ -6,7 +6,7 @@
       provider-name="Eclipse Modeling Project">
 
    <description url="http://www.eclipse.org/modeling/amalgam">
-      %description
+      The Eclipse Modeling Amalgam project is focused on providing a complete and streamlined modeling environement based on Eclipse.
    </description>
 
    <copyright url="http://www.eclipse.org/legal/epl-v10.html">
