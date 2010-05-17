@@ -63,7 +63,7 @@ public class InstallationStatusUpdater {
 	private boolean oneOfTheseIsAlreadyInstalled(
 			EList<String> hiddingFeatureID, Set<String> installedFeatures) {
 		boolean oneIsInstalled = false;
-		Iterator<String> it = installedFeatures.iterator();
+		Iterator<String> it = hiddingFeatureID.iterator();
 		while (it.hasNext() && !oneIsInstalled) {
 			oneIsInstalled = (installedFeatures.contains(it.next()));
 		}
