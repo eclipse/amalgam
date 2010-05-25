@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Modeling Discovery UI
+Bundle-Name: Amalgam Modeling Discovery UI (Incubation)
 Bundle-SymbolicName: org.eclipse.amalgam.discovery.modeling;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.amalgam.discovery.modeling.Activator
