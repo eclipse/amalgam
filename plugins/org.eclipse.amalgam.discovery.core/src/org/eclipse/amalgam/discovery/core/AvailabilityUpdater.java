@@ -156,7 +156,7 @@ public class AvailabilityUpdater {
 			URI baseUrl = URI.createURI(removeTraillingSlash(url));
 			List<URI> locations = new ArrayList<URI>();
 			for (String location : new String[] {
-					"content.jar", "content.xml", "site.xml" }) { //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+					"compositeContent.jar","content.jar", "content.xml", "site.xml" }) { //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 				URI locationURI = baseUrl.appendSegment(location);
 				locations.add(locationURI);
 			}
