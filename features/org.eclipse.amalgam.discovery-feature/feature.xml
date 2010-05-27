@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.amalgam.discovery"
       label="Eclipse Modeling Discovery UI (Incubation)"
-      version="1.0.0.qualifier"
+      version="1.1.0.qualifier"
       provider-name="Eclipse Modeling Project">
 
    <description url="http://www.eclipse.org/modeling/amalgam">
