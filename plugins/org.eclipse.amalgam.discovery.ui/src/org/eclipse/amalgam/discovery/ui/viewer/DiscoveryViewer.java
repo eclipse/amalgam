@@ -39,6 +39,7 @@ import org.eclipse.amalgam.discovery.ui.common.internal.DiscoveryImages;
 import org.eclipse.amalgam.discovery.ui.common.internal.GradientCanvas;
 import org.eclipse.amalgam.discovery.ui.common.internal.OverviewToolTip;
 import org.eclipse.amalgam.discovery.ui.common.internal.SelectionProviderAdapter;
+import org.eclipse.amalgam.discovery.ui.common.internal.WorkbenchUtil;
 import org.eclipse.amalgam.discovery.ui.viewer.internal.DiscoveryCategoryComparator;
 import org.eclipse.amalgam.discovery.ui.wizards.DiscoveryWizard;
 import org.eclipse.amalgam.discovery.ui.wizards.internal.Messages;
@@ -117,6 +118,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.eclipse.ui.forms.IFormColors;
 import org.eclipse.ui.progress.WorkbenchJob;
 import org.eclipse.ui.themes.IThemeManager;
@@ -311,6 +313,18 @@ public class DiscoveryViewer {
 			nameLabel.addMouseListener(connectorItemMouseListener);
 			// the provider has clickable links
 			// providerLabel.addMouseListener(connectorItemMouseListener);
+			providerLabel.addSelectionListener(new SelectionListener() {
+				public void widgetSelected(SelectionEvent e) {
+					if (e.text != null) {
+						WorkbenchUtil.openUrl(e.text,
+								IWorkbenchBrowserSupport.AS_EXTERNAL);
+					}
+				}
+
+				public void widgetDefaultSelected(SelectionEvent e) {
+					widgetSelected(e);
+				}
+			});
 			description.addMouseListener(connectorItemMouseListener);
 		}
 
