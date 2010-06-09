@@ -21,6 +21,11 @@ http://www.eclipse.org/legal/epl-v10.html
    <license url="%licenseURL">
       %license
    </license>
+   
+   <url>
+      <discovery label="Eclipse Modeling Project Updates" url="http://www.eclipse.org/modeling/updates"/>
+      <update label="Eclipse Modeling Project Updates" url="http://www.eclipse.org/modeling/updates"/>
+   </url>
 
    <plugin
          id="org.eclipse.amalgam.discovery.core"
