@@ -49,7 +49,7 @@ public class ModelingDiscoveryAction extends Action {
 			protected DiscoveryDefinition load() {
 				Resource res = new XMIResourceImpl(
 						URI
-								.createURI("http://www.eclipse.org/modeling/amalgam/downloads/discovery/helios/modeling.xmi"));
+								.createURI("http://www.eclipse.org/modeling/amalgam/downloads/discovery/indigo/modeling.xmi"));
 				try {
 					res.load(Collections.EMPTY_MAP);
 				} catch (IOException e) {
