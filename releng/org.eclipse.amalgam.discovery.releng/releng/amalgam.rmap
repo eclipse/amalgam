@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
   <rm:property key="source.repository.location" value=":pserver:anonymous@dev.eclipse.org:/cvsroot/modeling"/>
-  <rm:locator pattern="^org\.eclipse\.amalgam\.discovery\.(?:releng|build)(?:\..+)?$" searchPathRef="releng"/>
+  <rm:locator pattern="^org\.eclipse\.amalgam\.discovery\.releng?$" searchPathRef="releng"/>
   <rm:locator pattern="^org\.eclipse\.amalgam(?:\..+)?$" searchPathRef="amalgam"/>
   <rm:locator pattern="^org\.eclipse\.test$" searchPathRef="eclipse.test"/>
   <rm:locator pattern="^org\.eclipse\.ant\.optional\.junit$" searchPathRef="eclipse.test"/>
