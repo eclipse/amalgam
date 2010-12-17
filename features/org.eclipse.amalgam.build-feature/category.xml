@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.eclipse.amalgam.discovery" version="0.0.0">
+      <category name="amalgam"/>
+   </feature>   
+   <category-def name="amalgam" label="Amalgamation">
+      <description>
+         Modeling Amalgamation features.
+      </description>
+   </category-def>
+</site>
