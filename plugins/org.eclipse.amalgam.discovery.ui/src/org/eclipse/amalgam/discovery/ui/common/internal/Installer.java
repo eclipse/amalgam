@@ -36,7 +36,8 @@ public class Installer {
             context.run(true, true, job);
         } catch (InvocationTargetException e) {
             IStatus status = new Status(IStatus.ERROR, DiscoveryUIPlugin.PLUGIN_ID, NLS.bind(Messages.ConnectorDiscoveryWizard_installProblems, new Object[] { e.getCause().getMessage() }), e.getCause());
-            DiscoveryUiUtil.displayStatus(DiscoveryUiUtil.getShell(), Messages.ConnectorDiscoveryWizard_cannotInstall, status, false);
+            DiscoveryUIPlugin.getDefault().getLog().log(status);
+            DiscoveryUiUtil.displayStatus(DiscoveryUiUtil.getShell(), Messages.ConnectorDiscoveryWizard_cannotInstall, status, true);
             return false;
         } catch (InterruptedException e) {
             // canceled

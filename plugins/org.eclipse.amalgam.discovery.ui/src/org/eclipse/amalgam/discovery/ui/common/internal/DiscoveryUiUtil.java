@@ -104,6 +104,7 @@ public abstract class DiscoveryUiUtil {
 
 
         String message = status.getMessage();
+        
         if (showLinkToErrorLog) {
             message += "  \n see error log";
         }
