@@ -53,7 +53,7 @@ public class ModelingDiscoveryHandler extends AbstractHandler {
 			protected DiscoveryDefinition load() {
 				Resource res = new XMIResourceImpl(
 						URI
-								.createURI("http://www.eclipse.org/modeling/amalgam/downloads/discovery/indigo/modeling.xmi"));
+								.createURI("http://www.eclipse.org/modeling/amalgam/downloads/discovery/juno/modeling.xmi"));
 				try {
 					res.load(Collections.EMPTY_MAP);
 				} catch (IOException e) {
