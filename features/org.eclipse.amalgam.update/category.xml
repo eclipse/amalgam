@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.amalgam.discovery_1.2.0.qualifier.jar" id="org.eclipse.amalgam.discovery" version="1.2.0.qualifier">
+      <category name="amalgam"/>
+   </feature>
+   <category-def name="amalgam" label="Modeling Amalgamation">
+      <description>
+         Amalgamation Features
+      </description>
+   </category-def>
+</site>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2011 Obeo.
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+  
+  Contributors:
+      Obeo - initial API and implementation
+
+ $Id: promoter.xml,v 1.13 2011/11/24 13:43:34 sbouchet Exp $
+-->
+<project name="Promoter" default="main">
+	<!--
+	This promotion script helps to automatically promote the last sucessful build of tycho based EEF build to correct location.
+	
+	Be sure to use at least ant 1.8.2 to launch this script.
+	
+	Ant 1.8.2 is located here : /shared/common/apache-ant-1.8.2/
+	on build.eclipse.org, do a 
+	$> export ANT_HOME=/shared/common/apache-ant-1.8.2/ 
+	-->
+	
+	<property name="downloads.area" value="/home/data/httpd/download.eclipse.org/modeling/emft/eef" />
+	<property name="build.root" value="/shared/jobs/emf-eef-master/lastSuccessful" />
+	<property name="packages.base" value="org.eclipse.emf/org.eclipse.emf.eef/releng/org.eclipse.emf.eef.update/target/" />
+
+	<property name="promoter.properties.file.name" value="promote.properties" />
+	<property name="property.file.location" value="${build.root}/archive/${packages.base}/promotion/${promoter.properties.file.name}" />
+	<property name="group.owner" value="modeling.emf.eef" />
+
+	<!--# To permit automatic downloads of non-EPL compatible code, override this to property to "Y" -->
+	<property name="thirdPartyDownloadLicenseAcceptance" value="Y" />
+
+	<!--
+	most of the code comes from Athena CBI.
+	see http://wiki.eclipse.org/Common_Build_Infrastructure
+	-->
+	<target name="check.ant-contrib" if="antContribJarUnavailable">
+		<condition property="thirdPartyDownloadLicenseAcceptanceOK">
+			<and>
+				<isset property="thirdPartyDownloadLicenseAcceptance" />
+				<or>
+					<equals arg1="${thirdPartyDownloadLicenseAcceptance}" arg2="Y" />
+					<equals arg1="${thirdPartyDownloadLicenseAcceptance}" arg2="I accept" />
+					<equals arg1="${thirdPartyDownloadLicenseAcceptance}" arg2="&quot;I accept&quot;" />
+				</or>
+			</and>
+		</condition>
+		<antcall target="get.ant-contrib" />
+		<available file="${thirdPartyJarsDir}/ant-contrib.jar" property="antContribJarAvailable" />
+		<fail unless="antContribJarAvailable">Error! 
+
+Ant-Contrib is required. Download it from http://sourceforge.net/projects/ant-contrib/files/ant-contrib/1.0b3/ant-contrib-1.0b3-bin.zip/download,
+then place it in the following location. You can also redefine the path in the promote.properties file:
+
+$${thirdPartyJarsDir}/ant-contrib.jar          = ${thirdPartyJarsDir}/ant-contrib.jar
+	or
+
+	Or, to download this automatically, see $${relengCommonBuilderDir}/build.properties#thirdPartyDownloadLicenseAcceptance.
+</fail>
+	</target>
+
+	<target name="get.ant-contrib" if="thirdPartyDownloadLicenseAcceptanceOK">
+		<get src="http://sourceforge.net/projects/ant-contrib/files/ant-contrib/1.0b3/ant-contrib-1.0b3-bin.zip/download" dest="${java.io.tmpdir}/ant-contrib-1.0b3-bin.zip" usetimestamp="true" />
+		<mkdir dir="${java.io.tmpdir}/ant-contrib-1.0b3-bin.zip_" />
+		<unzip src="${java.io.tmpdir}/ant-contrib-1.0b3-bin.zip" dest="${java.io.tmpdir}/ant-contrib-1.0b3-bin.zip_" overwrite="true" />
+		<mkdir dir="${thirdPartyJarsDir}" />
+		<copy file="${java.io.tmpdir}/ant-contrib-1.0b3-bin.zip_/ant-contrib/ant-contrib-1.0b3.jar" tofile="${thirdPartyJarsDir}/ant-contrib.jar" failonerror="true" />
+		<delete dir="${java.io.tmpdir}/ant-contrib-1.0b3-bin.zip_" includeemptydirs="true" quiet="true" />
+		<delete file="${java.io.tmpdir}/ant-contrib-1.0b3-bin.zip" quiet="true" />
+	</target>
+
+	<target name="init">
+
+		<property name="thirdPartyJarsDir" value="/shared/modeling/emf/eef/3rdPartyJars" />
+
+		<condition property="antContribJarUnavailable">
+			<not>
+				<available file="${thirdPartyJarsDir}/ant-contrib.jar" type="file" />
+			</not>
+		</condition>
+		<antcall target="check.ant-contrib" />
+		<!-- This will fail if ant-contrib.jar cannot be found. You can install Ant-Contrib via RPM, or download it here:
+				http://sourceforge.net/projects/ant-contrib/files/ant-contrib/1.0b3/ant-contrib-1.0b3-bin.zip/download
+		-->
+		<taskdef resource="net/sf/antcontrib/antlib.xml">
+			<classpath>
+				<pathelement location="${thirdPartyJarsDir}/ant-contrib.jar" />
+			</classpath>
+		</taskdef>
+	</target>
+
+
+	<target name="-load.properties">
+		<property file="${property.file.location}" />
+	</target>
+
+	<target name="-check.property.file.location">
+		<fail message="property.file.location property must be defined" unless="property.file.location" />
+	</target>
+
+	<target name="main" depends="init,-check.property.file.location,-load.properties">
+		<fail message="build.qualifier property must be defined">
+			<condition>
+				<not>
+					<and>
+						<isset property="build.qualifier" />
+						<length string="${build.qualifier}" trim="true" when="greater" length="0" />
+					</and>
+				</not>
+			</condition>
+		</fail>
+		<fail message="version property must be defined">
+			<condition>
+				<not>
+					<and>
+						<isset property="version" />
+						<length string="${version}" trim="true" when="greater" length="0" />
+					</and>
+				</not>
+			</condition>
+		</fail>
+		<fail message="build.root property must be defined" unless="build.root" />
+		<fail message="packages.base property must be defined" unless="packages.base" />
+		<fail message="downloads.area property must be defined" unless="downloads.area" />
+
+		<!-- defaults -->
+
+		<property name="packages.directory" location="${build.root}/archive/${packages.base}" />
+
+		<property name="build.drop.directory" location="${downloads.area}/downloads/drops/${version}/${build.qualifier}" />
+
+		<delete dir="${build.drop.directory}" />
+		<mkdir dir="${build.drop.directory}" />
+
+		<!-- copy zip packages -->
+		<copy todir="${build.drop.directory}">
+			<fileset dir="${packages.directory}">
+				<filename name="*.zip" />
+			</fileset>
+		</copy>
+		
+		<!-- rename zip package -->
+		<rename dest="${build.drop.directory}/emf-eef-Update-${version}.zip" src="${build.drop.directory}/org.eclipse.emf.eef.update.zip"/>
+		<!-- genereate md5 checksums -->
+		<checksum algorithm="MD5" fileext=".md5" format="MD5SUM">
+			<fileset dir="${build.drop.directory}" />
+		</checksum>
+		<!-- copy buildlog 
+		<copy tofile="${build.drop.directory}/buildlog.txt" file="${saved.build.root}/log" />
+		-->
+
+		<fileset id="drop.resources" dir="${build.drop.directory}">
+			<or>
+				<type type="dir" />
+				<type type="file" />
+			</or>
+		</fileset>
+
+		<!-- chgrp -->
+		<chgrp group="${group.owner}" type="both" verbose="true">
+			<fileset refid="drop.resources" />
+		</chgrp>
+
+		<!-- determine the base version -->
+		<propertyregex property="base.version" input="${version}" regexp="^(\d+\.\d+)\.\d+.*$" select="\1" casesensitive="false" />
+
+		<!-- setup composite.repository.base and composite.type according to the build type -->
+		<condition property="composite.repository.base" value="interim/${base.version}">
+			<matches pattern="^I" string="${build.qualifier}" />
+		</condition>
+		<condition property="composite.repository.base" value="milestones/${base.version}">
+			<matches pattern="^[MS]" string="${build.qualifier}" />
+		</condition>
+		<condition property="composite.repository.base" value="releases/${base.version}">
+			<matches pattern="^R" string="${build.qualifier}" />
+		</condition>
+		<condition property="composite.repository.base" value="nightly/${base.version}">
+			<matches pattern="^N" string="${build.qualifier}" />
+		</condition>
+		<condition property="composite.type" value="Interim">
+			<matches pattern="^I" string="${build.qualifier}" />
+		</condition>
+		<condition property="composite.type" value="Milestones">
+			<matches pattern="^[MS]" string="${build.qualifier}" />
+		</condition>
+		<condition property="composite.type" value="Releases">
+			<matches pattern="^R" string="${build.qualifier}" />
+		</condition>
+		<condition property="composite.type" value="Nightly">
+			<matches pattern="^N" string="${build.qualifier}" />
+		</condition>
+		<antcall target="-publish.build.repository" inheritall="true" />
+	</target>
+
+	<target name="-publish.build.repository" if="composite.repository.base">
+		<property name="composite.repository.directory" location="${downloads.area}/updates/${composite.repository.base}" />
+		<property name="composite.repository.url" value="file:/${composite.repository.directory}" />
+		<property name="build.repository.directory" location="${composite.repository.directory}/${build.qualifier}" />
+
+		<delete dir="${build.repository.directory}" />
+		<mkdir dir="${build.repository.directory}" />
+
+		<unzip dest="${build.repository.directory}">
+			<fileset dir="${packages.directory}">
+				<filename name="*.zip" />
+			</fileset>
+		</unzip>
+
+		<!-- Adding download stats to the repository -->
+		<unzip dest="${build.repository.directory}">
+			<fileset file="${build.repository.directory}/artifacts.jar" />
+		</unzip>
+
+		<move file="${build.repository.directory}/artifacts.xml" tofile="${build.repository.directory}/artifacts.original.xml" />
+
+		<xslt style="addDownloadStats.xsl" in="${build.repository.directory}/artifacts.original.xml" out="${build.repository.directory}/artifacts.xml" />
+
+		<zip destfile="${build.repository.directory}/artifacts.jar" basedir="${build.repository.directory}" includes="artifacts.xml" />
+
+		<delete file="${build.repository.directory}/artifacts.xml" />
+		<delete file="${build.repository.directory}/artifacts.original.xml" />
+		<!-- END download stats -->
+
+		<!-- Add to composite repo -->
+		<ant antfile="/shared/modeling/tools/promotion/manage-composite.xml" target="add" dir="${composite.repository.directory}">
+			<property name="child.repository" value="${build.qualifier}"/>
+			<property name="composite.name" value="EEF ${base.version} ${composite.type} Update Site"/>
+		</ant>
+		<fileset id="repository.resources" dir="${composite.repository.directory}">
+			<or>
+				<filename name="compositeContent.*" />
+				<filename name="compositeArtifacts.*" />
+				<filename name="${build.qualifier}/**" />
+			</or>
+		</fileset>
+
+		<!-- chgrp -->
+		<chgrp group="${group.owner}" type="both" verbose="true">
+			<fileset refid="repository.resources" />
+		</chgrp>
+	</target>
+
+</project>
