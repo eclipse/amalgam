@@ -76,7 +76,7 @@
 								<id>sign</id>
 								<configuration>
 									<inputFile>${project.build.directory}/${project.artifactId}.zip</inputFile>
-									<signerInputDirectory>/home/data/httpd/download-staging.priv/mylyn/docs</signerInputDirectory>
+									<signerInputDirectory>/home/data/httpd/download-staging.priv/modeling/amalgam</signerInputDirectory>
 								</configuration>
 								<phase>package</phase>
 								<goals>
