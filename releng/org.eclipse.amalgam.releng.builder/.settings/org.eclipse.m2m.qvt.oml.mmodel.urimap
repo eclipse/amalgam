@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<uriMap:MappingContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:uriMap="http:///www.eclipse.org/m2m/qvt/oml/MModelUriMap/1.0.0">
-  <mapping sourceURI="http://www.eclipse.org/amalgam/2008/build" targetURI="platform:/resource/org.eclipse.amalgam.releng.builder/model/build.ecore"/>
-  <mapping sourceURI="http://www.eclipse.org/amalgam/2008/product" targetURI="platform:/resource/org.eclipse.amalgam.releng.builder/model/product.ecore"/>
-</uriMap:MappingContainer>

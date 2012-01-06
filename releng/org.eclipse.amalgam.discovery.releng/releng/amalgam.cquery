@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<cq:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="amalgam.rmap">
-	<cq:rootRequest name="org.eclipse.amalgam.build" componentType="eclipse.feature"/>
-
-	<cq:advisorNode namePattern="^org\.eclipse\.amalgam\.discovery(?:\..*)?\.source$" skipComponent="true"/>
-	<cq:advisorNode namePattern="^org\.eclipse\.amalgam\.discovery\.releng$" useMaterialization="false" useWorkspace="false"/>
-</cq:componentQuery>

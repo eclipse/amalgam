@@ -1,7 +1,0 @@
-# Tracing options for the org.eclipse.amalgam.examples.scenario.diagram plug-in
-
-# Common issues
-org.eclipse.amalgam.examples.scenario.diagram/debug=false
-
-# Visual IDs
-org.eclipse.amalgam.examples.scenario.diagram/debug/visualID=false

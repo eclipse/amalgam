@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<uriMap:MappingContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:uriMap="http:///www.eclipse.org/m2m/qvt/oml/MModelUriMap/1.0.0">
-  <mapping sourceURI="http://www.eclipse.org/2008/mindmap" targetURI="platform:/resource/org.eclipse.amalgam.examples.dsl.mindmap/model/mindmap.ecore"/>
-  <mapping sourceURI="http://www.w3.org/1999/xhtml" targetURI="platform:/resource/org.w3c.xhtml/model/xhtml.ecore"/>
-  <mapping sourceURI="http://www.eclipse.org/2008/requirements" targetURI="platform:/resource/org.eclipse.amalgam.examples.dsl.requirements/model/requirements.ecore"/>
-</uriMap:MappingContainer>

@@ -1,9 +1,0 @@
-«IMPORT mindmap»
-
-«DEFINE Main FOR Map»
-«FILE (title == null || title == '' ? 'map' : title) + ".csv"-»
-«FOREACH elements.typeSelect(mindmap::Topic) AS topic-»
-«topic.name»,«topic.priority»,«topic.start»,«topic.end»
-«ENDFOREACH»
-«ENDFILE»
-«ENDDEFINE»

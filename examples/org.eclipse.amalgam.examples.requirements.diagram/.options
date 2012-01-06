@@ -1,7 +1,0 @@
-# Tracing options for the org.eclipse.amalgam.examples.requirements.diagram plug-in
-
-# Common issues
-org.eclipse.amalgam.examples.requirements.diagram/debug=false
-
-# Visual IDs
-org.eclipse.amalgam.examples.requirements.diagram/debug/visualID=false

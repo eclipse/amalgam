@@ -1,5 +1,0 @@
-«IMPORT 'http://www.eclipse.org/2008/mindmap'»
-
-«DEFINE Main FOR mindmap::Map»
-«self.title»
-«ENDDEFINE»

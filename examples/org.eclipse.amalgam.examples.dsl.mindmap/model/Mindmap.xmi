@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<mindmap:Map xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mindmap="http://www.eclipse.org/2008/mindmap" xsi:schemaLocation="http://www.eclipse.org/2008/mindmap mindmap.ecore" title="Test Mindmap">
-  <elements xsi:type="mindmap:Topic" name="A Topic" subtopics="//@elements.1 //@elements.2" description="A test topic"/>
-  <elements xsi:type="mindmap:Topic" name="Another Topic" description="Another test topic" start="2007-06-12T00:00:00.000-0400" end="2007-06-13T00:00:00.000-0400" parent="//@elements.0"/>
-  <elements xsi:type="mindmap:Topic" name="Yet another topic" subtopics="//@elements.3" description="A final test topic" parent="//@elements.0"/>
-  <elements xsi:type="mindmap:Topic" name="A sub-subtopic" parent="//@elements.2"/>
-  <elements xsi:type="mindmap:Relationship" name="depend" source="//@elements.0" target="//@elements.1"/>
-  <elements xsi:type="mindmap:Relationship" name="include" source="//@elements.0" target="//@elements.2"/>
-</mindmap:Map>

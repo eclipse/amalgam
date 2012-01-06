@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<uriMap:MappingContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:uriMap="http:///www.eclipse.org/m2m/qvt/oml/MModelUriMap/1.0.0">
-  <mapping sourceURI="http://www.eclipse.org/2008/requirements" targetURI="platform:/resource/org.eclipse.amalgam.examples.dsl.requirements/model/requirements.ecore"/>
-  <mapping sourceURI="http://www.eclipse.org/2008a/requirements" targetURI="platform:/resource/org.eclipse.amalgam.examples.dsl.requirements/model-new/requirements.ecore"/>
-</uriMap:MappingContainer>
