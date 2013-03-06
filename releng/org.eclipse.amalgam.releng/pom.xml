@@ -37,7 +37,7 @@
   </licenses>
 
   <properties>
-    <tycho-version>0.12.0</tycho-version>
+    <tycho-version>0.16.0</tycho-version>
   </properties>
 
 
@@ -75,7 +75,7 @@
                 <groupId>org.eclipse.amalgam</groupId>
                 <artifactId>org.eclipse.amalgam.releng</artifactId>
                 <version>1.3.0-SNAPSHOT</version>
-                <classifier>target_platforms/indigo</classifier>
+                <classifier>target_platforms/kepler</classifier>
             </artifact>
         </target>
        <environments>
