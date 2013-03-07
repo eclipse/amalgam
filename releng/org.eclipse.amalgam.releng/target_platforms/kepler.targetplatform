@@ -1,0 +1,12 @@
+target "kepler"
+
+location "http://download.eclipse.org/releases/kepler" {
+	with source,allEnvironments
+	org.eclipse.emf.sdk.feature.group
+}
+
+
+location "http://download.eclipse.org/eclipse/updates/4.3-I-builds" {
+	with source,allEnvironments
+	org.eclipse.sdk.ide.feature.group
+}
