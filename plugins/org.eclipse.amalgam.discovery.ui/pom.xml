@@ -10,7 +10,7 @@
   </parent>
   <groupId>org.eclipse.amalgam</groupId>
   <artifactId>org.eclipse.amalgam.discovery.ui</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>1.4.0-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
 
 
