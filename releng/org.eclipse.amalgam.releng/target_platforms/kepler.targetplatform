@@ -8,5 +8,5 @@ location "http://download.eclipse.org/releases/kepler" {
 
 location "http://download.eclipse.org/eclipse/updates/4.3-I-builds" {
 	with source,allEnvironments
-	org.eclipse.sdk.ide.feature.group
+	org.eclipse.platform.feature.group
 }

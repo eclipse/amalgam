@@ -6,6 +6,7 @@
 <repository location="http://download.eclipse.org/releases/kepler"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.platform.feature.group" version="4.3.0.v20130307-2217"/>
 <repository location="http://download.eclipse.org/eclipse/updates/4.3-I-builds"/>
 </location>
 </locations>
