@@ -11,9 +11,12 @@
 package org.eclipse.amalgam.discovery.modeling.handlers;
 
 import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketException;
 import java.util.Collections;
 
 import org.eclipse.amalgam.discovery.DiscoveryDefinition;
+import org.eclipse.amalgam.discovery.modeling.Activator;
 import org.eclipse.amalgam.discovery.ui.viewer.DiscoveryContentProvider;
 import org.eclipse.amalgam.discovery.ui.wizards.DiscoveryWizard;
 import org.eclipse.core.commands.AbstractHandler;
@@ -33,6 +36,9 @@ import org.eclipse.ui.handlers.HandlerUtil;
  * 
  */
 public class ModelingDiscoveryHandler extends AbstractHandler {
+
+	private static final String CATALOG_URI = "http://www.eclipse.org/modeling/amalgam/downloads/discovery/kepler/modeling.xmi";
+
 	/**
 	 * The constructor.
 	 */
@@ -49,20 +55,26 @@ public class ModelingDiscoveryHandler extends AbstractHandler {
 
 		DiscoveryContentProvider provider = new DiscoveryContentProvider() {
 
-			@Override 
+			@Override
 			protected DiscoveryDefinition load() {
-				Resource res = new XMIResourceImpl(
-						URI
-								.createURI("http://www.eclipse.org/modeling/amalgam/downloads/discovery/kepler/modeling.xmi"));
+
+				URI catalogURI = URI.createURI(CATALOG_URI);
+				Activator.getDefault().prepareProxySettings(CATALOG_URI);
+				Resource res = new XMIResourceImpl(catalogURI);
 				try {
 					res.load(Collections.EMPTY_MAP);
 				} catch (IOException e) {
-					String message = "We can't connect to the discovery source, make sure you're connected to internet and try again.";
-					MessageDialog.openError(window.getShell(),
-							"Can't connect to discovery source", message);
-					throw new RuntimeException(e);
+					errorDialog(window, e);
 				}
 				return (DiscoveryDefinition) res.getContents().get(0);
+			}
+
+			private void errorDialog(final IWorkbenchWindow window, Exception e) {
+				String message = "We can't connect to the discovery source: \n"+  CATALOG_URI +"\n Make sure you're connected to internet and try again.";
+				MessageDialog.openError(window.getShell(),
+						"Can't connect to discovery source",
+						message);
+				throw new RuntimeException(e);
 			}
 
 			@Override
