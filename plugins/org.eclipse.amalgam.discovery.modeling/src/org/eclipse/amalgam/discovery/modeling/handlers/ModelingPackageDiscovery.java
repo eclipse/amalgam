@@ -20,7 +20,9 @@ import org.eclipse.amalgam.discovery.modeling.Activator;
 import org.eclipse.amalgam.discovery.ui.viewer.DiscoveryContentProvider;
 import org.eclipse.amalgam.discovery.ui.wizards.DiscoveryWizard;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -101,8 +103,11 @@ public class ModelingPackageDiscovery extends DiscoveryContentProvider {
 			}
 		} catch (InvocationTargetException e1) {
 			if (!(e1.getCause() instanceof OperationCanceledException)) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				Activator
+						.getDefault()
+						.getLog()
+						.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e1
+								.getMessage(), e1));
 			}
 		} catch (InterruptedException e1) {
 			/*

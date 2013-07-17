@@ -13,7 +13,6 @@ package org.eclipse.amalgam.discovery.ui.viewer;
 import org.eclipse.amalgam.discovery.DiscoveryDefinition;
 import org.eclipse.amalgam.discovery.core.InstallationStatusUpdater;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.Monitor;
 
 /**
  * 
