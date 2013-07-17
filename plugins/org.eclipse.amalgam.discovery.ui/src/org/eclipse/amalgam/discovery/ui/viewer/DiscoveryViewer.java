@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 import org.eclipse.amalgam.discovery.Category;
@@ -514,17 +515,26 @@ public class DiscoveryViewer {
 		filterTextChanged();
 	}
 
+	private ConcurrentHashMap<String, Image> imagesFromDownloads = new ConcurrentHashMap<String, Image>();
+
 	private Image computeIconImage(final Label labelToUpdateOnceLoaded,
 			final Resource discoverySource, final String imagePath,
 			int dimension, boolean fallback, final boolean addIncubationOverlay) {
-		if (imagePath != null && imagePath.length() > 0) {
+		if (imagePath != null && imagePath.length() > 0
+				&& labelToUpdateOnceLoaded.getImage() == null) {
+
+			URI uri = discoverySource.getURI();
+			URI trimed = uri.trimSegments(1);
+			final String urlPath = trimed.toString() + "/" + imagePath;
+
+			Image alreadyDownloaded = imagesFromDownloads.get(urlPath);
+			if (alreadyDownloaded != null)
+				return alreadyDownloaded;
+			
 			Job loadImage = new Job("load image " + imagePath) {
 
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
-					URI uri = discoverySource.getURI();
-					URI trimed = uri.trimSegments(1);
-					String urlPath = trimed.toString() + "/" + imagePath;
 					URL resource = null;
 					try {
 						resource = new URL(urlPath);
@@ -534,8 +544,9 @@ public class DiscoveryViewer {
 					if (resource != null) {
 						ImageDescriptor descriptor = ImageDescriptor
 								.createFromURL(resource);
-						Image image = descriptor.createImage();
+						Image image = descriptor.createImage();						
 						if (image != null) {
+							imagesFromDownloads.put(urlPath, image);
 							disposables.add(image);
 							if (addIncubationOverlay) {
 								image = new DecorationOverlayIcon(image,
@@ -561,7 +572,10 @@ public class DiscoveryViewer {
 			};
 			loadImage.schedule();
 		}
-		return loadingImage;
+		if (labelToUpdateOnceLoaded.getImage() == null)
+			return loadingImage;
+		else
+			return labelToUpdateOnceLoaded.getImage();
 	}
 
 	private IStatus computeStatus(InvocationTargetException e, String message) {
