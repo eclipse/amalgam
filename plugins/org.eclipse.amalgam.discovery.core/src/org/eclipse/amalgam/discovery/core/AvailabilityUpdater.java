@@ -113,7 +113,7 @@ public class AvailabilityUpdater {
 										ModelingDiscoveryCoreActivator.PLUGIN_ID,
 										"Error while checking update sites availability.",
 										e.getCause());
-							}
+							}							
 						}
 						monitor.worked(1);
 					}

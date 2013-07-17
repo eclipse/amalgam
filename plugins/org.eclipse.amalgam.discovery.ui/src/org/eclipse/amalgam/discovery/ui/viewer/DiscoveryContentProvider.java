@@ -13,31 +13,35 @@ package org.eclipse.amalgam.discovery.ui.viewer;
 import org.eclipse.amalgam.discovery.DiscoveryDefinition;
 import org.eclipse.amalgam.discovery.core.InstallationStatusUpdater;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.Monitor;
+
 /**
  * 
  * @author Cedric Brun <cedric.brun@obeo.fr>
- *
+ * 
  */
 public abstract class DiscoveryContentProvider {
 
-    DiscoveryDefinition disco;
+	protected DiscoveryDefinition disco;
 
-    public void update(IProgressMonitor monitor) throws InterruptedException {
-        disco = getDiscovery();
-        InstallationStatusUpdater installedUpdater = new InstallationStatusUpdater(disco);
-        installedUpdater.update(monitor);
-    }
+	public void update(IProgressMonitor monitor) throws InterruptedException {
+		disco = getDiscovery();
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+		InstallationStatusUpdater installedUpdater = new InstallationStatusUpdater(
+				disco);
+		installedUpdater.update(monitor);
+	}
 
-    public DiscoveryDefinition getDiscovery() {
-        if (disco == null)
-            disco = load();
-        return disco;
-    }
+	public DiscoveryDefinition getDiscovery() {
+		return disco;
+	}
 
-    protected abstract DiscoveryDefinition load();
+	public abstract DiscoveryDefinition load(IProgressMonitor monitor) throws InterruptedException ;
 
-    public abstract String getTitle();
+	public abstract String getTitle();
 
-    public abstract String getDescription();
+	public abstract String getDescription();
 
 }

@@ -86,13 +86,13 @@ public class DiscoveryWizardMainPage extends WizardPage implements IShellProvide
     @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
-        if (visible) {
-            Display.getCurrent().asyncExec(new Runnable() {
-                public void run() {
-                    maybeUpdateDiscovery();
-                }
-            });
-        }
+		if (visible) {
+			Display.getCurrent().asyncExec(new Runnable() {
+				public void run() {
+					maybeUpdateDiscovery();
+				}
+			});
+		}
     }
 
     public void setModelingComponents(Collection<InstallableComponent> components) {

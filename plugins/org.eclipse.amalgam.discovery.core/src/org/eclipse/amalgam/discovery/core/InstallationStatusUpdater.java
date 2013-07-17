@@ -52,6 +52,9 @@ public class InstallationStatusUpdater {
 				.getAllInstallableComponents().iterator();
 		while (it.hasNext()) {
 			InstallableComponent comp = it.next();
+			if (monitor.isCanceled()) {
+				throw new InterruptedException();
+			}
 			if (allFeaturesAreAlreadyInstalled(installedFeatures, comp)
 					|| oneOfTheseIsAlreadyInstalled(comp.getHiddingFeatureID(),
 							installedFeatures)) {

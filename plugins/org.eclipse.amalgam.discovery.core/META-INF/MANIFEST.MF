@@ -13,6 +13,7 @@ Export-Package: org.eclipse.amalgam.discovery,
  org.eclipse.amalgam.discovery.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.emf.ecore.xmi,
  org.eclipse.equinox.p2.artifact.repository,
  org.eclipse.equinox.p2.core,
  org.eclipse.equinox.p2.engine,

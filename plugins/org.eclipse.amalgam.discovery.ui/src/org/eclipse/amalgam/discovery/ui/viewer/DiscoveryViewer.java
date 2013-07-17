@@ -47,6 +47,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -217,8 +218,8 @@ public class DiscoveryViewer {
 					.applyTo(iconLabel);
 
 			if (connector.getImage32() != null) {
-				iconImage = computeIconImage(connector.eResource(), connector
-						.getImage32(), 32, false);
+				iconImage = computeIconImage(connector.eResource(),
+						connector.getImage32(), 32, false);
 				if (iconImage != null) {
 					if (connector.isIncubation()) {
 						iconImage = new DecorationOverlayIcon(iconImage,
@@ -498,7 +499,6 @@ public class DiscoveryViewer {
 		for (Group kind : getDiscovery().getFilters()) {
 			connectorDescriptorKindToVisibility.put(kind, true);
 		}
-		;
 	}
 
 	public void addSelectionChangedListener(ISelectionChangedListener listener) {
@@ -1476,10 +1476,10 @@ public class DiscoveryViewer {
 				public void run(IProgressMonitor monitor)
 						throws InvocationTargetException, InterruptedException {
 
-					DiscoveryViewer.this.provider.update(monitor);
 					if (monitor.isCanceled()) {
 						throw new InterruptedException();
 					}
+					DiscoveryViewer.this.provider.update(monitor);
 				}
 			});
 		} catch (InvocationTargetException e) {
