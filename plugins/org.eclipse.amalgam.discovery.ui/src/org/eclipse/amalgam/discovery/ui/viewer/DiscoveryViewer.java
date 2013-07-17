@@ -47,8 +47,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.URI;
@@ -181,8 +182,8 @@ public class DiscoveryViewer {
 					SWT.NULL);
 
 			configureLook(connectorContainer, background);
-			GridDataFactory.fillDefaults().grab(true, false).applyTo(
-					connectorContainer);
+			GridDataFactory.fillDefaults().grab(true, false)
+					.applyTo(connectorContainer);
 			GridLayout layout = new GridLayout(4, false);
 			layout.marginLeft = 7;
 			layout.marginTop = 2;
@@ -218,23 +219,16 @@ public class DiscoveryViewer {
 					.applyTo(iconLabel);
 
 			if (connector.getImage32() != null) {
-				iconImage = computeIconImage(connector.eResource(),
-						connector.getImage32(), 32, false);
-				if (iconImage != null) {
-					if (connector.isIncubation()) {
-						iconImage = new DecorationOverlayIcon(iconImage,
-								DiscoveryImages.OVERLAY_INCUBATION_32,
-								IDecoration.BOTTOM_LEFT).createImage();
-						disposables.add(iconImage);
-					}
-					iconLabel.setImage(iconImage);
-				}
+
+				iconLabel.setImage(computeIconImage(iconLabel,
+						connector.eResource(), connector.getImage32(), 32,
+						false, connector.isIncubation()));
 			}
 
 			nameLabel = new Label(connectorContainer, SWT.NULL);
 			configureLook(nameLabel, background);
-			GridDataFactory.fillDefaults().grab(true, false).align(
-					SWT.BEGINNING, SWT.CENTER).applyTo(nameLabel);
+			GridDataFactory.fillDefaults().grab(true, false)
+					.align(SWT.BEGINNING, SWT.CENTER).applyTo(nameLabel);
 			nameLabel.setFont(h2Font);
 			if (connector.isIncubation())
 				nameLabel.setText(connector.getName() + " (Incubation)");
@@ -243,15 +237,14 @@ public class DiscoveryViewer {
 
 			providerLabel = new Link(connectorContainer, SWT.RIGHT);
 			configureLook(providerLabel, background);
-			GridDataFactory.fillDefaults().align(SWT.END, SWT.CENTER).applyTo(
-					providerLabel);
+			GridDataFactory.fillDefaults().align(SWT.END, SWT.CENTER)
+					.applyTo(providerLabel);
 
 			providerLabel
 					.setText(NLS
-							.bind(
-									Messages.ConnectorDiscoveryWizardMainPage_provider_and_license,
-									connector.getProvider(), connector
-											.getLicense()));
+							.bind(Messages.ConnectorDiscoveryWizardMainPage_provider_and_license,
+									connector.getProvider(),
+									connector.getLicense()));
 
 			if (hasTooltip(connector)) {
 				ToolBar toolBar = new ToolBar(connectorContainer, SWT.FLAT);
@@ -274,8 +267,8 @@ public class DiscoveryViewer {
 			description = new Label(connectorContainer, SWT.NULL | SWT.WRAP);
 			configureLook(description, background);
 
-			GridDataFactory.fillDefaults().grab(true, false).span(3, 1).hint(
-					100, SWT.DEFAULT).applyTo(description);
+			GridDataFactory.fillDefaults().grab(true, false).span(3, 1)
+					.hint(100, SWT.DEFAULT).applyTo(description);
 			String descriptionText = connector.getDescription();
 			if (descriptionText != null) {
 				int maxDescriptionLength = 162;
@@ -336,10 +329,9 @@ public class DiscoveryViewer {
 							.openWarning(
 									shellProvider.getShell(),
 									Messages.ConnectorDiscoveryWizardMainPage_warningTitleConnectorUnavailable,
-									NLS
-											.bind(
-													Messages.ConnectorDiscoveryWizardMainPage_warningMessageConnectorUnavailable,
-													connector.getName()));
+									NLS.bind(
+											Messages.ConnectorDiscoveryWizardMainPage_warningMessageConnectorUnavailable,
+											connector.getName()));
 					return false;
 				}
 			}
@@ -450,6 +442,8 @@ public class DiscoveryViewer {
 
 	private Image infoImage;
 
+	private Image loadingImage;
+
 	private Cursor handCursor;
 
 	private Color colorCategoryGradientStart;
@@ -520,29 +514,54 @@ public class DiscoveryViewer {
 		filterTextChanged();
 	}
 
-	private Image computeIconImage(Resource discoverySource, String imagePath,
-			int dimension, boolean fallback) {
+	private Image computeIconImage(final Label labelToUpdateOnceLoaded,
+			final Resource discoverySource, final String imagePath,
+			int dimension, boolean fallback, final boolean addIncubationOverlay) {
 		if (imagePath != null && imagePath.length() > 0) {
-			URI uri = discoverySource.getURI();
-			URI trimed = uri.trimSegments(1);
-			String urlPath = trimed.toString() + "/" + imagePath;
-			URL resource = null;
-			try {
-				resource = new URL(urlPath);
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-			}
-			if (resource != null) {
-				ImageDescriptor descriptor = ImageDescriptor
-						.createFromURL(resource);
-				Image image = descriptor.createImage();
-				if (image != null) {
-					disposables.add(image);
-					return image;
+			Job loadImage = new Job("load image " + imagePath) {
+
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					URI uri = discoverySource.getURI();
+					URI trimed = uri.trimSegments(1);
+					String urlPath = trimed.toString() + "/" + imagePath;
+					URL resource = null;
+					try {
+						resource = new URL(urlPath);
+					} catch (MalformedURLException e) {
+						// TODO Auto-generated catch block
+					}
+					if (resource != null) {
+						ImageDescriptor descriptor = ImageDescriptor
+								.createFromURL(resource);
+						Image image = descriptor.createImage();
+						if (image != null) {
+							disposables.add(image);
+							if (addIncubationOverlay) {
+								image = new DecorationOverlayIcon(image,
+										DiscoveryImages.OVERLAY_INCUBATION_32,
+										IDecoration.BOTTOM_LEFT).createImage();
+								disposables.add(image);
+							}
+							final Image decoratedImage = image;
+
+							Display.getDefault().syncExec(new Runnable() {
+
+								public void run() {
+									if (!labelToUpdateOnceLoaded.isDisposed())
+										labelToUpdateOnceLoaded
+												.setImage(decoratedImage);
+								}
+							});
+						}
+					}
+
+					return Status.OK_STATUS;
 				}
-			}
+			};
+			loadImage.schedule();
 		}
-		return null;
+		return loadingImage;
 	}
 
 	private IStatus computeStatus(InvocationTargetException e, String message) {
@@ -556,8 +575,7 @@ public class DiscoveryViewer {
 		}
 		if (statusCause.getMessage() != null) {
 			message = NLS
-					.bind(
-							Messages.ConnectorDiscoveryWizardMainPage_message_with_cause,
+					.bind(Messages.ConnectorDiscoveryWizardMainPage_message_with_cause,
 							message, statusCause.getMessage());
 		}
 		IStatus status = new MultiStatus(DiscoveryUIPlugin.PLUGIN_ID, 0,
@@ -596,8 +614,8 @@ public class DiscoveryViewer {
 				| SWT.V_SCROLL | SWT.BORDER);
 
 		configureLook(bodyScrolledComposite, colorWhite);
-		GridDataFactory.fillDefaults().grab(true, true).applyTo(
-				bodyScrolledComposite);
+		GridDataFactory.fillDefaults().grab(true, true)
+				.applyTo(bodyScrolledComposite);
 
 		final Composite scrolledContents = new Composite(bodyScrolledComposite,
 				SWT.NONE);
@@ -743,7 +761,7 @@ public class DiscoveryViewer {
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;
 		container.setLayout(layout);
-		//      
+		//
 		{ // header
 			Composite header = new Composite(container, SWT.NULL);
 			GridLayoutFactory.fillDefaults().applyTo(header);
@@ -753,8 +771,8 @@ public class DiscoveryViewer {
 			if (isShowConnectorDescriptorKindFilter()
 					|| isShowConnectorDescriptorTextFilter()) {
 				Composite filterContainer = new Composite(header, SWT.NULL);
-				GridDataFactory.fillDefaults().grab(true, false).applyTo(
-						filterContainer);
+				GridDataFactory.fillDefaults().grab(true, false)
+						.applyTo(filterContainer);
 
 				int numColumns = 1; // 1 for label
 				if (isShowConnectorDescriptorKindFilter()) {
@@ -766,8 +784,7 @@ public class DiscoveryViewer {
 				GridLayoutFactory.fillDefaults().numColumns(numColumns)
 						.applyTo(filterContainer);
 				Label label = new Label(filterContainer, SWT.NULL);
-				label
-						.setText(Messages.ConnectorDiscoveryWizardMainPage_filterLabel);
+				label.setText(Messages.ConnectorDiscoveryWizardMainPage_filterLabel);
 
 				if (isShowConnectorDescriptorTextFilter()) {
 					Composite textFilterContainer;
@@ -781,10 +798,10 @@ public class DiscoveryViewer {
 						textFilterContainer.setBackground(header.getDisplay()
 								.getSystemColor(SWT.COLOR_LIST_BACKGROUND));
 					}
-					GridDataFactory.fillDefaults().grab(true, false).applyTo(
-							textFilterContainer);
-					GridLayoutFactory.fillDefaults().numColumns(2).applyTo(
-							textFilterContainer);
+					GridDataFactory.fillDefaults().grab(true, false)
+							.applyTo(textFilterContainer);
+					GridLayoutFactory.fillDefaults().numColumns(2)
+							.applyTo(textFilterContainer);
 
 					if (nativeSearch) {
 						filterText = new Text(textFilterContainer, SWT.SINGLE
@@ -807,8 +824,8 @@ public class DiscoveryViewer {
 								}
 							}
 						});
-						GridDataFactory.fillDefaults().grab(true, false).span(
-								2, 1).applyTo(filterText);
+						GridDataFactory.fillDefaults().grab(true, false)
+								.span(2, 1).applyTo(filterText);
 					} else {
 						GridDataFactory.fillDefaults().grab(true, false)
 								.applyTo(filterText);
@@ -845,8 +862,8 @@ public class DiscoveryViewer {
 		}
 		{ // container
 			body = new Composite(container, SWT.NULL);
-			GridDataFactory.fillDefaults().grab(true, true).hint(SWT.DEFAULT,
-					minimumHeight).applyTo(body);
+			GridDataFactory.fillDefaults().grab(true, true)
+					.hint(SWT.DEFAULT, minimumHeight).applyTo(body);
 		}
 		Dialog.applyDialogFont(container);
 		setControl(container);
@@ -855,8 +872,8 @@ public class DiscoveryViewer {
 	public void setMinimumHeight(int minimumHeight) {
 		this.minimumHeight = minimumHeight;
 		if (body != null) {
-			GridDataFactory.fillDefaults().grab(true, true).hint(SWT.DEFAULT,
-					minimumHeight).applyTo(body);
+			GridDataFactory.fillDefaults().grab(true, true)
+					.hint(SWT.DEFAULT, minimumHeight).applyTo(body);
 		}
 	}
 
@@ -883,8 +900,7 @@ public class DiscoveryViewer {
 				Link link = new Link(container, SWT.WRAP);
 
 				link.setFont(container.getFont());
-				link
-						.setText(Messages.ConnectorDiscoveryWizardMainPage_noMatchingItems_withFilterText);
+				link.setText(Messages.ConnectorDiscoveryWizardMainPage_noMatchingItems_withFilterText);
 				link.addListener(SWT.Selection, new Listener() {
 					public void handleEvent(Event event) {
 						clearFilterText();
@@ -896,17 +912,15 @@ public class DiscoveryViewer {
 				Label helpText = new Label(container, SWT.WRAP);
 				helpText.setFont(container.getFont());
 				if (atLeastOneKindFiltered) {
-					helpText
-							.setText(Messages.ConnectorDiscoveryWizardMainPage_noMatchingItems_filteredType);
+					helpText.setText(Messages.ConnectorDiscoveryWizardMainPage_noMatchingItems_filteredType);
 				} else {
-					helpText
-							.setText(Messages.ConnectorDiscoveryWizardMainPage_noMatchingItems_noFilter);
+					helpText.setText(Messages.ConnectorDiscoveryWizardMainPage_noMatchingItems_noFilter);
 				}
 				helpTextControl = helpText;
 			}
 			configureLook(helpTextControl, background);
-			GridDataFactory.fillDefaults().grab(true, false).hint(100,
-					SWT.DEFAULT).applyTo(helpTextControl);
+			GridDataFactory.fillDefaults().grab(true, false)
+					.hint(100, SWT.DEFAULT).applyTo(helpTextControl);
 		} else {
 			GridLayoutFactory.fillDefaults().numColumns(2).spacing(0, 0)
 					.applyTo(container);
@@ -938,24 +952,25 @@ public class DiscoveryViewer {
 							IFormColors.H_BOTTOM_KEYLINE2,
 							colorCategoryGradientEnd);
 
-					GridDataFactory.fillDefaults().span(2, 1).applyTo(
-							categoryHeaderContainer);
+					GridDataFactory.fillDefaults().span(2, 1)
+							.applyTo(categoryHeaderContainer);
 					GridLayoutFactory.fillDefaults().numColumns(3)
-							.margins(5, 5).equalWidth(false).applyTo(
-									categoryHeaderContainer);
+							.margins(5, 5).equalWidth(false)
+							.applyTo(categoryHeaderContainer);
 
 					Label iconLabel = new Label(categoryHeaderContainer,
 							SWT.NULL);
-					if (category.getImage48() != null) {
-						Image image = computeIconImage(category.eResource(),
-								category.getImage48(), 48, true);
-						if (image != null) {
-							iconLabel.setImage(image);
-						}
+					if (category.getImage48() != null
+							&& category.getImage48().trim().length() > 0) {
+						iconLabel.setImage(computeIconImage(iconLabel,
+								category.eResource(), category.getImage48(),
+								48, true, false));
+
 					}
 					iconLabel.setBackground(null);
-					GridDataFactory.swtDefaults().align(SWT.CENTER,
-							SWT.BEGINNING).span(1, 2).applyTo(iconLabel);
+					GridDataFactory.swtDefaults()
+							.align(SWT.CENTER, SWT.BEGINNING).span(1, 2)
+							.applyTo(iconLabel);
 
 					Label nameLabel = new Label(categoryHeaderContainer,
 							SWT.NULL);
@@ -963,8 +978,8 @@ public class DiscoveryViewer {
 					nameLabel.setText(category.getName());
 					nameLabel.setBackground(null);
 
-					GridDataFactory.fillDefaults().grab(true, false).applyTo(
-							nameLabel);
+					GridDataFactory.fillDefaults().grab(true, false)
+							.applyTo(nameLabel);
 					if (hasTooltip(category)) {
 						ToolBar toolBar = new ToolBar(categoryHeaderContainer,
 								SWT.FLAT);
@@ -974,11 +989,11 @@ public class DiscoveryViewer {
 						infoButton
 								.setToolTipText(Messages.ConnectorDiscoveryWizardMainPage_tooltip_showOverview);
 						hookTooltip(toolBar, infoButton,
-								categoryHeaderContainer, nameLabel, category
-										.eResource(), category.getOverview(),
+								categoryHeaderContainer, nameLabel,
+								category.eResource(), category.getOverview(),
 								null);
-						GridDataFactory.fillDefaults().align(SWT.END,
-								SWT.CENTER).applyTo(toolBar);
+						GridDataFactory.fillDefaults()
+								.align(SWT.END, SWT.CENTER).applyTo(toolBar);
 					} else {
 						new Label(categoryHeaderContainer, SWT.NULL)
 								.setText(" "); //$NON-NLS-1$
@@ -996,8 +1011,8 @@ public class DiscoveryViewer {
 				configureLook(categoryChildrenContainer, background);
 				GridDataFactory.fillDefaults().span(2, 1).grab(true, false)
 						.applyTo(categoryChildrenContainer);
-				GridLayoutFactory.fillDefaults().spacing(0, 0).applyTo(
-						categoryChildrenContainer);
+				GridLayoutFactory.fillDefaults().spacing(0, 0)
+						.applyTo(categoryChildrenContainer);
 
 				int numChildren = 0;
 				List<InstallableComponent> connectors = new ArrayList<InstallableComponent>(
@@ -1011,11 +1026,10 @@ public class DiscoveryViewer {
 						// a separator between connector descriptors
 						Composite border = new Composite(
 								categoryChildrenContainer, SWT.NULL);
-						GridDataFactory.fillDefaults().grab(true, false).hint(
-								SWT.DEFAULT, 1).applyTo(border);
+						GridDataFactory.fillDefaults().grab(true, false)
+								.hint(SWT.DEFAULT, 1).applyTo(border);
 						GridLayoutFactory.fillDefaults().applyTo(border);
-						border
-								.addPaintListener(new ConnectorBorderPaintListener());
+						border.addPaintListener(new ConnectorBorderPaintListener());
 					}
 
 					ConnectorDescriptorItemUi itemUi = new ConnectorDescriptorItemUi(
@@ -1027,8 +1041,8 @@ public class DiscoveryViewer {
 			// last one gets a border
 			Composite border = new Composite(categoryChildrenContainer,
 					SWT.NULL);
-			GridDataFactory.fillDefaults().grab(true, false).hint(SWT.DEFAULT,
-					1).applyTo(border);
+			GridDataFactory.fillDefaults().grab(true, false)
+					.hint(SWT.DEFAULT, 1).applyTo(border);
 			GridLayoutFactory.fillDefaults().applyTo(border);
 			border.addPaintListener(new ConnectorBorderPaintListener());
 		}
@@ -1239,11 +1253,11 @@ public class DiscoveryViewer {
 		}
 		if (colorCategoryGradientStart == null) {
 			colorCategoryGradientStart = themeManager.getCurrentTheme()
-					.getColorRegistry().get(
-							CommonThemes.COLOR_CATEGORY_GRADIENT_START);
+					.getColorRegistry()
+					.get(CommonThemes.COLOR_CATEGORY_GRADIENT_START);
 			colorCategoryGradientEnd = themeManager.getCurrentTheme()
-					.getColorRegistry().get(
-							CommonThemes.COLOR_CATEGORY_GRADIENT_END);
+					.getColorRegistry()
+					.get(CommonThemes.COLOR_CATEGORY_GRADIENT_END);
 		}
 	}
 
@@ -1283,6 +1297,10 @@ public class DiscoveryViewer {
 		if (infoImage == null) {
 			infoImage = DiscoveryImages.MESSAGE_INFO.createImage();
 			disposables.add(infoImage);
+		}
+		if (loadingImage == null) {
+			loadingImage = CommonImages.IMAGE_PLACEHOLDER.createImage();
+			disposables.add(loadingImage);
 		}
 	}
 
@@ -1342,7 +1360,7 @@ public class DiscoveryViewer {
 			if (!(filterMatches(descriptor.getName())
 					|| filterMatches(descriptor.getDescription())
 					|| filterMatches(descriptor.getProvider()) || filterMatches(descriptor
-					.getLicense()))) {
+						.getLicense()))) {
 				return true;
 			}
 		}
@@ -1471,25 +1489,6 @@ public class DiscoveryViewer {
 
 	public void updateDiscovery() {
 		boolean wasCancelled = false;
-		try {
-			context.run(true, true, new IRunnableWithProgress() {
-				public void run(IProgressMonitor monitor)
-						throws InvocationTargetException, InterruptedException {
-
-					if (monitor.isCanceled()) {
-						throw new InterruptedException();
-					}
-					DiscoveryViewer.this.provider.update(monitor);
-				}
-			});
-		} catch (InvocationTargetException e) {
-			IStatus status = computeStatus(
-					e,
-					Messages.ConnectorDiscoveryWizardMainPage_unexpectedException);
-		} catch (InterruptedException e) {
-			// cancelled by user so nothing to do here.
-			wasCancelled = true;
-		}
 		if (provider.getDiscovery() != null) {
 			discoveryUpdated(wasCancelled);
 			if (verifyUpdateSiteAvailability && !allConnectors.isEmpty()) {
@@ -1498,6 +1497,11 @@ public class DiscoveryViewer {
 						public void run(IProgressMonitor monitor)
 								throws InvocationTargetException,
 								InterruptedException {
+
+							if (monitor.isCanceled()) {
+								throw new InterruptedException();
+							}
+							DiscoveryViewer.this.provider.update(monitor);
 							AvailabilityUpdater availability = new AvailabilityUpdater(
 									provider.getDiscovery());
 							availability.update(monitor);
@@ -1516,7 +1520,15 @@ public class DiscoveryViewer {
 			// shouldn't be necessary but for some
 			// reason checkboxes don't
 			// regain their enabled state
-			createBodyContents();
+			// createBodyContents();
+			for (InstallableComponent co : allConnectors) {
+				for (Adapter adapter : co.eAdapters()) {
+					if (adapter instanceof ConnectorDescriptorItemUi) {
+						((ConnectorDescriptorItemUi) adapter).run();
+					}
+				}
+
+			}
 		}
 		// help UI tests
 		body.setData("discoveryComplete", "true"); //$NON-NLS-1$//$NON-NLS-2$

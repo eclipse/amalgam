@@ -31,6 +31,8 @@ public class CommonImages {
     private static ImageRegistry imageRegistry;
 
     private static final String T_TOOL = "etool16"; //$NON-NLS-1$
+    
+    private static final String T_OBJ = "obj16"; //$NON-NLS-1$
 
     private static final String T_WIZBAN = "wizban"; //$NON-NLS-1$
 
@@ -41,6 +43,8 @@ public class CommonImages {
     public static final ImageDescriptor FIND_CLEAR = create(T_TOOL, "find-clear.gif"); //$NON-NLS-1$
 
     public static final ImageDescriptor FIND_CLEAR_DISABLED = create(T_TOOL, "find-clear-disabled.gif"); //$NON-NLS-1$
+    
+    public static final ImageDescriptor IMAGE_PLACEHOLDER = create(T_OBJ, "loading.png"); //$NON-NLS-1$
 
     private static ImageDescriptor create(String prefix, String name) {
         try {

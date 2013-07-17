@@ -48,7 +48,8 @@ public class ModelingPackageDiscovery extends DiscoveryContentProvider {
 		} catch (OperationCanceledException e) {
 			throw new InterruptedException();
 		}
-		DiscoveryDefinition result = (DiscoveryDefinition) res.getContents().get(0);
+		DiscoveryDefinition result = (DiscoveryDefinition) res.getContents()
+				.get(0);
 		this.disco = result;
 		return result;
 	}
