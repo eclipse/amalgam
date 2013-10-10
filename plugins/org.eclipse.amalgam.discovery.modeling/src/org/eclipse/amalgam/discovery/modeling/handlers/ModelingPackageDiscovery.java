@@ -34,7 +34,7 @@ import org.eclipse.ui.progress.IProgressService;
 
 public class ModelingPackageDiscovery extends DiscoveryContentProvider {
 
-	private static final String CATALOG_URI = "http://www.eclipse.org/modeling/amalgam/downloads/discovery/kepler/modeling.xmi";
+	private static final String CATALOG_URI = "http://www.eclipse.org/modeling/amalgam/downloads/discovery/luna/modeling.xmi";
 
 	@Override
 	public DiscoveryDefinition load(final IProgressMonitor monitor)
