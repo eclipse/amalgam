@@ -1,8 +1,9 @@
 target "luna"
 
 location "http://download.eclipse.org/releases/luna" {
-	with source,allEnvironments
+	with source,requirements
 	org.eclipse.emf.sdk.feature.group
 	org.eclipse.platform.feature.group
+	org.junit
 }
 
