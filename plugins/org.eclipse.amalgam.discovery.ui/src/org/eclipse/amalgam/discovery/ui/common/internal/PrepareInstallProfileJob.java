@@ -74,6 +74,8 @@ public class PrepareInstallProfileJob implements IRunnableWithProgress {
 
 	private Set<URI> repositoryLocations;
 
+	private boolean headless = false;
+
 	public PrepareInstallProfileJob(
 			Collection<InstallableComponent> installableConnectors) {
 		if (installableConnectors == null || installableConnectors.isEmpty()) {
@@ -82,6 +84,10 @@ public class PrepareInstallProfileJob implements IRunnableWithProgress {
 		this.installableConnectors = new ArrayList<InstallableComponent>(
 				installableConnectors);
 		this.provisioningUI = ProvisioningUI.getDefaultUI();
+	}
+
+	public void setHeadlessMode(boolean isHeadless) {
+		this.headless = isHeadless;
 	}
 
 	public void run(IProgressMonitor progressMonitor)
@@ -95,18 +101,20 @@ public class PrepareInstallProfileJob implements IRunnableWithProgress {
 
 				checkCancelled(monitor);
 
-				final InstallOperation installOperation = resolve(monitor
-						.newChild(50), ius, repositoryLocations
-						.toArray(new URI[0]));
+				final InstallOperation installOperation = resolve(
+						monitor.newChild(50), ius,
+						repositoryLocations.toArray(new URI[0]));
 
 				checkCancelled(monitor);
 
-				Display.getDefault().asyncExec(new Runnable() {
-					public void run() {
-						provisioningUI.openInstallWizard(ius, installOperation,
-								null);
-					}
-				});
+				if (!headless) {
+					Display.getDefault().asyncExec(new Runnable() {
+						public void run() {
+							provisioningUI.openInstallWizard(ius,
+									installOperation, null);
+						}
+					});
+				}
 			} finally {
 				monitor.done();
 			}
@@ -132,7 +140,7 @@ public class PrepareInstallProfileJob implements IRunnableWithProgress {
 				.resolveModal(new SubProgressMonitor(monitor,
 						installableConnectors.size()));
 		if (operationStatus.getSeverity() > IStatus.WARNING) {
-			throw new CoreException(operationStatus);
+			throw new RuntimeException(operationStatus.getMessage());
 		}
 		return installOperation;
 	}
@@ -239,8 +247,7 @@ public class PrepareInstallProfileJob implements IRunnableWithProgress {
 					detailedMessage += Messages.InstallConnectorsJob_commaSeparator;
 				}
 				detailedMessage += NLS
-						.bind(
-								Messages.PrepareInstallProfileJob_notFoundDescriptorDetail,
+						.bind(Messages.PrepareInstallProfileJob_notFoundDescriptorDetail,
 								new Object[] { descriptor.getName(),
 										unavailableIds.toString(),
 										descriptor.getSitesURLS() });
@@ -252,27 +259,29 @@ public class PrepareInstallProfileJob implements IRunnableWithProgress {
 			// anyways
 			final boolean[] okayToProceed = new boolean[1];
 			final String finalMessage = message;
-			Display.getDefault().syncExec(new Runnable() {
-				public void run() {
-					okayToProceed[0] = MessageDialog
-							.openQuestion(
-									DiscoveryUiUtil.getShell(),
-									Messages.InstallConnectorsJob_questionProceed,
-									NLS
-											.bind(
-													Messages.InstallConnectorsJob_questionProceed_long,
-													new Object[] { finalMessage }));
+
+			if (headless) {
+				throw new RuntimeException(detailedMessage);
+			} else {
+				Display.getDefault().syncExec(new Runnable() {
+					public void run() {
+						okayToProceed[0] = MessageDialog.openQuestion(
+								DiscoveryUiUtil.getShell(),
+								Messages.InstallConnectorsJob_questionProceed,
+								NLS.bind(
+										Messages.InstallConnectorsJob_questionProceed_long,
+										new Object[] { finalMessage }));
+					}
+				});
+				if (!okayToProceed[0]) {
+					throw new CoreException(
+							new Status(
+									IStatus.ERROR,
+									DiscoveryUIPlugin.PLUGIN_ID,
+									NLS.bind(
+											Messages.InstallConnectorsJob_connectorsNotAvailable,
+											detailedMessage), null));
 				}
-			});
-			if (!okayToProceed[0]) {
-				throw new CoreException(
-						new Status(
-								IStatus.ERROR,
-								DiscoveryUIPlugin.PLUGIN_ID,
-								NLS
-										.bind(
-												Messages.InstallConnectorsJob_connectorsNotAvailable,
-												detailedMessage), null));
 			}
 		}
 	}
