@@ -1,0 +1,8 @@
+target "kepler"
+
+location "http://download.eclipse.org/releases/luna" {
+	with source,allEnvironments
+	org.eclipse.emf.sdk.feature.group
+	org.eclipse.platform.feature.group
+}
+
