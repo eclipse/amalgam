@@ -1,4 +1,4 @@
-target "kepler"
+target "luna"
 
 location "http://download.eclipse.org/releases/luna" {
 	with source,allEnvironments
