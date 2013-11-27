@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature id="org.eclipse.amalgam.discovery" version="1.4.0.qualifier">
+   <feature id="org.eclipse.amalgam.discovery" version="1.5.0.qualifier">
       <category name="amalgam"/>
    </feature>
    <category-def name="amalgam" label="Modeling Amalgamation">
