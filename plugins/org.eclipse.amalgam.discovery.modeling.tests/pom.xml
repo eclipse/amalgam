@@ -37,7 +37,7 @@
 						</include>
 					</includes>
 					<useUIHarness>true</useUIHarness>
-					<useUIThread>false</useUIThread>
+					<useUIThread>true</useUIThread>
 					<appArgLine>${ui.test.vmargs}</appArgLine>
 					<testFailureIgnore>true</testFailureIgnore>				
 				</configuration>
