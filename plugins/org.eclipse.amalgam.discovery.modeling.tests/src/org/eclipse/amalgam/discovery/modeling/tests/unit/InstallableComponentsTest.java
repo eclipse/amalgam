@@ -8,7 +8,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package org.eclipse.amalgam.discovery.modeling.handlers;
+package org.eclipse.amalgam.discovery.modeling.tests.unit;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -21,6 +21,7 @@ import org.eclipse.amalgam.discovery.DiscoveryDefinition;
 import org.eclipse.amalgam.discovery.InstallableComponent;
 import org.eclipse.amalgam.discovery.core.AvailabilityUpdater;
 import org.eclipse.amalgam.discovery.core.DiscoveryDefinitionBrowser;
+import org.eclipse.amalgam.discovery.modeling.handlers.ModelingPackageDiscovery;
 import org.eclipse.amalgam.discovery.ui.common.internal.PrepareInstallProfileJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -52,13 +53,16 @@ public class InstallableComponentsTest {
 		for (InstallableComponent next : new DiscoveryDefinitionBrowser(catalog)
 				.getAllInstallableComponents()) {
 			next.setAvailable(false);
-			/*
-			 * This block is here to test the test. By changing the repository
-			 * URLS we are making sure it is not available. List<String> newURLS
-			 * = new ArrayList<String>(); for (String url : next.getSitesURLS())
-			 * { newURLS.add(url + "shouldfail"); } next.getSitesURLS().clear();
-			 * next.getSitesURLS().addAll(newURLS);
-			 */
+
+//			// This block is here to test the test. By changing the repository
+//			// URLS we are making sure it is not available.
+//			List<String> newURLS = new ArrayList<String>();
+//			for (String url : next.getSitesURLS()) {
+//				newURLS.add(url + "shouldfail");
+//			}
+//			next.getSitesURLS().clear();
+//			next.getSitesURLS().addAll(newURLS);
+
 			if (next.isVisible()) {
 				parameters.add(new Object[] { next });
 			}
@@ -84,13 +88,16 @@ public class InstallableComponentsTest {
 		PrepareInstallProfileJob job = new PrepareInstallProfileJob(toInstall);
 		job.setHeadlessMode(true);
 		try {
-		job.run(new NullProgressMonitor());
+			job.run(new NullProgressMonitor());
 		} catch (Exception e) {
 			String detail = e.toString();
 			if (e instanceof CoreException) {
-				detail = "status message = " + ((CoreException) e).getStatus().getMessage() + "\n" + detail;
+				detail = "status message = "
+						+ ((CoreException) e).getStatus().getMessage() + "\n"
+						+ detail;
 			}
-			fail("Could not install " + component.getName() + " exception: " + e);
+			fail("Could not install " + component.getName() + " exception: "
+					+ e);
 		}
 	}
 
