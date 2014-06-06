@@ -39,7 +39,7 @@ Contributors:
 	</licenses>
 
 	<properties>
-		<tycho-version>0.14.1</tycho-version>
+		<tycho-version>0.20.0</tycho-version>
 		<product-id>org.eclipse.epp.package.modeling.feature.feature.group</product-id>
 		<product-site>http://build.eclipse.org/technology/epp/epp_build/kepler/download/20130919-0822/repository/</product-site>
 		<dependencies-site>http://download.eclipse.org/releases/maintenance/</dependencies-site>
