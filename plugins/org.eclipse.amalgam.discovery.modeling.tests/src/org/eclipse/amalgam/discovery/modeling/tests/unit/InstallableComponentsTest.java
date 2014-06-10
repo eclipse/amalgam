@@ -13,6 +13,7 @@ package org.eclipse.amalgam.discovery.modeling.tests.unit;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -54,14 +55,15 @@ public class InstallableComponentsTest {
 				.getAllInstallableComponents()) {
 			next.setAvailable(false);
 
-//			// This block is here to test the test. By changing the repository
-//			// URLS we are making sure it is not available.
-//			List<String> newURLS = new ArrayList<String>();
-//			for (String url : next.getSitesURLS()) {
-//				newURLS.add(url + "shouldfail");
-//			}
-//			next.getSitesURLS().clear();
-//			next.getSitesURLS().addAll(newURLS);
+			// // This block is here to test the test and make it fail. By
+			// changing the repository
+			// // URLS we are making sure it is not available.
+			// List<String> newURLS = new ArrayList<String>();
+			// for (String url : next.getSitesURLS()) {
+			// newURLS.add(url + "shouldfail");
+			// }
+			// next.getSitesURLS().clear();
+			// next.getSitesURLS().addAll(newURLS);
 
 			if (next.isVisible()) {
 				parameters.add(new Object[] { next });
@@ -96,9 +98,15 @@ public class InstallableComponentsTest {
 						+ ((CoreException) e).getStatus().getMessage() + "\n"
 						+ detail;
 			}
+			if (e instanceof InvocationTargetException
+					&& ((InvocationTargetException) e).getTargetException() instanceof CoreException) {
+				detail = "status message = "
+						+ ((CoreException) ((InvocationTargetException) e)
+								.getTargetException()).getStatus().getMessage()
+						+ "\n" + detail;
+			}
 			fail("Could not install " + component.getName() + " exception: "
 					+ e);
 		}
 	}
-
 }
