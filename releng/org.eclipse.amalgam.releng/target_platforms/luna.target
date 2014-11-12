@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="luna" sequenceNumber="1402059974">
+<target name="luna" sequenceNumber="1415800113">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.emf.sdk.feature.group" version="2.10.0.v20140519-0339"/>
-      <unit id="org.eclipse.platform.feature.group" version="4.4.0.v20140528-2014"/>
+      <unit id="org.eclipse.emf.sdk.feature.group" version="2.10.1.v20140901-1055"/>
+      <unit id="org.eclipse.platform.feature.group" version="4.4.0.v20140925-0400"/>
       <unit id="org.junit" version="4.11.0.v201303080030"/>
       <repository location="http://download.eclipse.org/releases/luna"/>
     </location>
