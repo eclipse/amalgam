@@ -27,6 +27,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -46,7 +47,7 @@ public class ModelingPackageDiscovery extends DiscoveryContentProvider {
 		try {
 			res.load(Collections.EMPTY_MAP);
 		} catch (IOException e) {
-			errorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow(), e);
+			errorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), e);
 		} catch (OperationCanceledException e) {
 			throw new InterruptedException();
 		}
@@ -56,11 +57,11 @@ public class ModelingPackageDiscovery extends DiscoveryContentProvider {
 		return result;
 	}
 
-	private void errorDialog(final IWorkbenchWindow window, Exception e) {
+	private void errorDialog(final Shell shell, Exception e) {
 		String message = "We can't connect to the discovery source: \n"
 				+ CATALOG_URI
 				+ "\n Make sure you're connected to internet and try again.";
-		MessageDialog.openError(window.getShell(),
+		MessageDialog.openError(shell,
 				"Can't connect to discovery source", message);
 		throw new RuntimeException(e);
 	}
