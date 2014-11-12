@@ -2,16 +2,16 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.amalgam.discovery.ui;singleton:=true
-Bundle-Version: 1.5.0.qualifier
+Bundle-Version: 1.6.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.amalgam.discovery.DiscoveryUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.eclipse.amalgam.discovery.ui.common.internal;x-internal:=true,
- org.eclipse.amalgam.discovery.ui.viewer,
- org.eclipse.amalgam.discovery.ui.viewer.internal;x-internal:=true,
- org.eclipse.amalgam.discovery.ui.wizards
+Export-Package: org.eclipse.amalgam.discovery.ui.common.internal;x-int
+ ernal:=true,org.eclipse.amalgam.discovery.ui.viewer,org.eclipse.amalg
+ am.discovery.ui.viewer.internal;x-internal:=true,org.eclipse.amalgam.
+ discovery.ui.wizards
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.amalgam.discovery.core;visibility:=reexport,
