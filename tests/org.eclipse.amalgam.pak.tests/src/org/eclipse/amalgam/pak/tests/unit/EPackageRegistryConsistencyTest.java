@@ -29,7 +29,7 @@ import org.junit.runners.Parameterized.Parameters;
 /**
  * 
  * @author cedric.brun@obeo.fr
- *
+ * 
  */
 @RunWith(value = Parameterized.class)
 public class EPackageRegistryConsistencyTest {
@@ -63,7 +63,12 @@ public class EPackageRegistryConsistencyTest {
 	@Test
 	public void isValid() {
 		EPackage pak = registry.getEPackage(nsURI);
-		if (pak != null) {
+		/*
+		 * UML Can't be valid. The metamodel is using very specific conventions
+		 * (and its own set of code generators) which are just not valid in a
+		 * "pure Ecore" context.
+		 */
+		if (pak != null && !"uml".equals(pak.getName())) {
 			Diagnostic result = Diagnostician.INSTANCE.validate(pak);
 			if (result.getSeverity() != Diagnostic.OK) {
 				fail("EPackage with uri " + nsURI + " is not valid ("
@@ -76,8 +81,9 @@ public class EPackageRegistryConsistencyTest {
 	private String prettyMessage(Diagnostic diag) {
 		String result = "";
 		for (Diagnostic child : diag.getChildren()) {
-			result += "\n"+ severityLabel(child.getSeverity()) + " : " + child.getMessage();			
-			result += prettyMessage(child); 
+			result += "\n" + severityLabel(child.getSeverity()) + " : "
+					+ child.getMessage();
+			result += prettyMessage(child);
 		}
 		return result;
 	}
