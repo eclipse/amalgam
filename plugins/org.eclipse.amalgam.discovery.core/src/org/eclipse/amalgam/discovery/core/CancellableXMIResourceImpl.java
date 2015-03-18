@@ -16,24 +16,25 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 
-public class CancellableXMIResourceImpl extends XMIResourceImpl{
+public class CancellableXMIResourceImpl extends XMIResourceImpl {
 
 	private IProgressMonitor monitor;
+
+	private URIConverter uriConverter;
 
 	public CancellableXMIResourceImpl(URI catalogURI, IProgressMonitor monitor) {
 		super(catalogURI);
 		this.monitor = monitor;
 	}
-	
+
 	@Override
 	protected URIConverter getURIConverter() {
-		URIConverter uriConverter= super.getURIConverter();
-	    if (uriConverter instanceof ExtensibleURIConverterImpl) {
-            ExtensibleURIConverterImpl extensibleURIConverterImpl = (ExtensibleURIConverterImpl) uriConverter;
-            extensibleURIConverterImpl.getURIHandlers().clear();
-            extensibleURIConverterImpl.getURIHandlers().add(new CancellableURIHandler(monitor));			            
-        }
-	    return uriConverter;
+		if (uriConverter == null) {
+			uriConverter = new ExtensibleURIConverterImpl();
+			uriConverter.getURIHandlers().clear();
+			uriConverter.getURIHandlers().add(new CancellableURIHandler(monitor));
+		}
+		return uriConverter;
 	}
 
 }
