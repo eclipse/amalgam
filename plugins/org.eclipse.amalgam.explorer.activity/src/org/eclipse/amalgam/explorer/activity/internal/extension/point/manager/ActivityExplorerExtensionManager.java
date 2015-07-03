@@ -373,7 +373,7 @@ public class ActivityExplorerExtensionManager {
 			}
 		} catch (CoreException e) {
 			IStatus error = new Status(IStatus.ERROR, ActivityExplorerActivator.ID, Messages.ActivityExplorerExtensionManager_1
-					+ type + Messages.ActivityExplorerExtensionManager_2 + id + Messages.ActivityExplorerExtensionManager_3);
+					+ type + Messages.ActivityExplorerExtensionManager_2 + id + Messages.ActivityExplorerExtensionManager_3,e);
 			ActivityExplorerActivator.getDefault().getLog().log(error);
 		}
 		return listener;
@@ -392,7 +392,7 @@ public class ActivityExplorerExtensionManager {
 				}
 			} catch (CoreException e) {
 				IStatus error = new Status(IStatus.ERROR, ActivityExplorerActivator.ID, Messages.ActivityExplorerExtensionManager_1
-						+ type + Messages.ActivityExplorerExtensionManager_2 + Messages.ActivityExplorerExtensionManager_3);
+						+ type + Messages.ActivityExplorerExtensionManager_2 + Messages.ActivityExplorerExtensionManager_3, e);
 				ActivityExplorerActivator.getDefault().getLog().log(error);
 			}
 		}
