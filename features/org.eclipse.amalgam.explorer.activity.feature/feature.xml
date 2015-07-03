@@ -7,8 +7,8 @@
       license-feature="org.eclipse.license"
       license-feature-version="0.0.0">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description url="http://www.eclipse.org/modeling/amalgam/">
+      %description
    </description>
 
    <copyright url="http://www.eclipse.org/legal/epl-v10.html">
