@@ -48,7 +48,7 @@
         <module>../../plugins/org.eclipse.amalgam.discovery.modeling</module>
         <module>../../plugins/org.eclipse.amalgam.discovery.modeling.tests</module>
         <module>../../features/org.eclipse.amalgam.discovery-feature</module>
-        <module>../../features/org.eclipse.amalgam.explorer.activity.feature</module>
+        <module>../../features/org.eclipse.amalgam.explorer.activity-feature</module>
         <module>../../features/org.eclipse.amalgam.update</module>
     </modules>
 
