@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.amalgam.explorer.activity.feature"
+      id="org.eclipse.amalgam.explorer.activity"
       label="Amalgam Activity Explorer"
       version="1.7.0.qualifier"
       provider-name="Eclipse Modeling Project"

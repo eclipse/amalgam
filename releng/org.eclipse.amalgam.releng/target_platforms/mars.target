@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="mars" sequenceNumber="1435909851">
+<target name="mars" sequenceNumber="1435911115">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.emf.sdk.feature.group" version="2.11.0.v20150601-0402"/>
       <unit id="org.eclipse.platform.feature.group" version="4.5.0.v20150603-2358"/>
       <unit id="org.junit" version="4.12.0.v201504281640"/>
+      <unit id="org.eclipse.sirius.runtime.feature.group" version="3.0.0.201506090807"/>
+      <unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="3.0.0.201506090807"/>
+      <unit id="org.eclipse.gmf.feature.group" version="1.9.0.201506060219"/>
       <repository location="http://download.eclipse.org/releases/mars"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
