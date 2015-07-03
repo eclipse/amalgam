@@ -1,0 +1,12 @@
+target "mars"
+
+with source, requirements
+location "http://download.eclipse.org/releases/mars" {	
+	org.eclipse.emf.sdk.feature.group
+	org.eclipse.platform.feature.group
+	org.junit
+}
+
+location "http://download.eclipse.org/cbi/updates/license" {
+   org.eclipse.license.feature.group    
+}

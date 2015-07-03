@@ -19,7 +19,7 @@
 
     <groupId>org.eclipse.amalgam</groupId>
     <artifactId>org.eclipse.amalgam.releng</artifactId>
-    <version>1.6.0-SNAPSHOT</version>
+    <version>1.7.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -37,7 +37,7 @@
     </licenses>
 
     <properties>
-        <tycho-version>0.20.0</tycho-version>
+        <tycho-version>0.21.0</tycho-version>
     </properties>
 
 
@@ -75,8 +75,8 @@
                         <artifact>
                             <groupId>org.eclipse.amalgam</groupId>
                             <artifactId>org.eclipse.amalgam.releng</artifactId>
-                            <version>1.6.0-SNAPSHOT</version>
-                            <classifier>target_platforms/luna</classifier>
+                            <version>1.7.0-SNAPSHOT</version>
+                            <classifier>target_platforms/mars</classifier>
                         </artifact>
                     </target>
                     <environments>
@@ -272,7 +272,7 @@
                     <plugin>
                         <groupId>org.eclipse.tycho.extras</groupId>
                         <artifactId>tycho-pack200b-plugin</artifactId>
-                        <version>0.18.1</version>
+                        <version>${tycho-version}</version>
                         <executions>
                             <execution>
                                 <id>pack200-pack</id>
