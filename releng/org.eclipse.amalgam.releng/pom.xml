@@ -44,7 +44,7 @@
     <modules>
         <module>../../plugins/org.eclipse.amalgam.discovery.core</module>    
         <module>../../plugins/org.eclipse.amalgam.discovery.ui</module>
-        <module>../../plugins/org.eclipse.amalgam.explorer.activity</module>
+        <module>../../plugins/org.eclipse.amalgam.explorer.activity.ui</module>
         <module>../../plugins/org.eclipse.amalgam.discovery.modeling</module>
         <module>../../plugins/org.eclipse.amalgam.discovery.modeling.tests</module>
         <module>../../plugins/org.eclipse.amalgam.explorer.contextual.core</module>
