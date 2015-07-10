@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2006, 2015 THALES GLOBAL SERVICES.
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+ 
+  Contributors:
+     Thales - initial API and implementation
+-->
+
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.amalgam.explorer.contextual.core.ui.selectionHelper">
+      <helper
+            class="org.eclipse.amalgam.explorer.contextual.sirius.selection.SiriusSelectionHelper"
+            id="Default Sirius Selection Helper">
+      </helper>
+   </extension>
+   <extension
+         point="org.eclipse.amalgam.explorer.contextual.core.contentProviderCategory">
+      <category
+            id="org.eclipse.amalgam.explorer.contextual.sirius.category.relateddiagrams"
+            isTopLevel="true"
+            name="All Related Diagrams">
+         <availableForType
+               class="org.eclipse.emf.ecore.EObject">
+         </availableForType>
+         <targetExplorerId
+               id="CurrentElementExplorer">
+         </targetExplorerId>
+         <categoryQuery>
+            <basicQuery
+                  class="org.eclipse.amalgam.explorer.contextual.sirius.queries.RelatedDiagramsQuery">
+            </basicQuery>
+         </categoryQuery>
+      </category>
+      <category
+            id="org.eclipse.amalgam.explorer.contextual.sirius.category.relatedtables"
+            isTopLevel="true"
+            name="All Related Tables">
+         <availableForType
+               class="org.eclipse.emf.ecore.EObject">
+         </availableForType>
+         <targetExplorerId
+               id="CurrentElementExplorer">
+         </targetExplorerId>
+         <categoryQuery>
+            <basicQuery
+                  class="org.eclipse.amalgam.explorer.contextual.sirius.queries.RelatedTableQuery">
+            </basicQuery>
+         </categoryQuery>
+      </category>
+   </extension>
+
+</plugin>
