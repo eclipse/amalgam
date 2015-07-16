@@ -14,10 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.eclipse.amalgam.explorer.contextual.core.ExplorerActivator;
 import org.eclipse.amalgam.explorer.contextual.core.ext.AbstractExtensionPointManager;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 
 /**
  *
@@ -26,7 +27,6 @@ public final class CandidateElementFilterManager extends AbstractExtensionPointM
 	
 	private static final String FILTER_CONF_ELEMENT_NAME = "candidateElementFilter";
 	
-	private static final Logger _logger = Logger.getLogger(ExplorerActivator.PLUGIN_ID);
 
 	/** Filters Map. This map structured as following <Filter ID, Filter Instance> **/
 	private static Map<String, ICandidateElementFilter> _filterRegistry;
@@ -73,7 +73,7 @@ public final class CandidateElementFilterManager extends AbstractExtensionPointM
 				else
 				{
 					String filter_class = iConfigurationElement.getAttribute(DEFAULT_CLASS_ATTRIBUTE);
-					_logger.error("Filter ID : " + filter_id +" is shared by many filters. Only the folowing filter will be retained : " + filter_class);
+					ExplorerActivator.getDefault().getLog().log(new Status(IStatus.ERROR, ExplorerActivator.PLUGIN_ID, "Filter ID : " + filter_id +" is shared by many filters. Only the folowing filter will be retained : " + filter_class));
 				}
 			}
 		}

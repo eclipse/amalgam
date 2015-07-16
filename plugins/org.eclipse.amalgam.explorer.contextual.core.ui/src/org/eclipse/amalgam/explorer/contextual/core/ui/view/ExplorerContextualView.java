@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.MissingResourceException;
 
-import org.apache.log4j.Logger;
 import org.eclipse.amalgam.explorer.contextual.core.ExplorerActivator;
 import org.eclipse.amalgam.explorer.contextual.core.category.ICategory;
 import org.eclipse.amalgam.explorer.contextual.core.model.IExplorerContextualModel;
@@ -37,6 +36,8 @@ import org.eclipse.amalgam.explorer.contextual.core.ui.action.ExplorerHistory;
 import org.eclipse.amalgam.explorer.contextual.core.ui.model.ExplorerContextualModel;
 import org.eclipse.amalgam.explorer.contextual.core.ui.view.ext.SelectionHelpersManager;
 import org.eclipse.amalgam.explorer.contextual.core.util.ViewerHelper;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
@@ -433,7 +434,7 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 		ViewerSorter sorter = new ViewerSorter();
 		AbstractContentProvider treeProvider = (AbstractContentProvider) AbstractContentProviderFactory.getInstance().getReferencingContentProvider();
 		_referencingViewer = createViewer(mainSashForm, REFERENCING_ELEMENTS_LABEL_TXT, 3, treeProvider.getExplorerId());
-		initializeViewer(_referencingViewer, treeProvider, AbstractLabelProviderFactory.getInstance().getReferencingLabelProvider(), sorter);
+		initializeViewer(_referencingViewer, (IContentProvider) treeProvider, AbstractLabelProviderFactory.getInstance().getReferencingLabelProvider(), sorter);
 
 		// Create a sash form as second element of the main sash form.
 		// Initialize current viewer as first element of the center sash form.
@@ -1270,8 +1271,7 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 	 * @param throwable the {@link Throwable} 
 	 */
 	public void logError(String message, Throwable throwable){
-		final Logger _logger = Logger.getLogger(ExplorerActivator.PLUGIN_ID);
-		_logger.error(message.toString(), throwable);
+		ExplorerContextualActivator.getDefault().getLog().log(new Status(IStatus.ERROR,ExplorerContextualActivator.PLUGIN_ID,message,throwable));
 	}
 
 	/**

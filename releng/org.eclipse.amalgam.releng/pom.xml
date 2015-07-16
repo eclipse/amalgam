@@ -47,7 +47,15 @@
         <module>../../plugins/org.eclipse.amalgam.explorer.activity</module>
         <module>../../plugins/org.eclipse.amalgam.discovery.modeling</module>
         <module>../../plugins/org.eclipse.amalgam.discovery.modeling.tests</module>
+        <module>../../plugins/org.eclipse.amalgam.explorer.contextual.core</module>
+        <module>../../plugins/org.eclipse.amalgam.explorer.contextual.core.ui</module>
+        <module>../../plugins/org.eclipse.amalgam.explorer.contextual.sirius</module>
+        <module>../../plugins/org.eclipse.amalgam.explorer.contextual.sirius.ui</module>
+        <module>../../plugins/org.eclipse.amalgam.explorer.contextual.ui</module>
         <module>../../features/org.eclipse.amalgam.discovery-feature</module>
+        <module>../../features/org.eclipse.amalgam.explorer.contextual.core-feature</module>
+        <module>../../features/org.eclipse.amalgam.explorer.contextual-feature</module>
+        <module>../../features/org.eclipse.amalgam.explorer.contextual.sirius-feature</module>
         <module>../../features/org.eclipse.amalgam.explorer.activity-feature</module>
         <module>../../features/org.eclipse.amalgam.update</module>
     </modules>

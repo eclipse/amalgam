@@ -2,13 +2,13 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.amalgam.explorer.contextual.sirius.ui;singleton:=true
-Bundle-Version: 0.8.0.qualifier
+Bundle-Version: 1.7.0.qualifier
 Bundle-Activator: org.eclipse.amalgam.explorer.contextual.sirius.ui.Activator
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.amalgam.explorer.contextual.core.ui,
  org.eclipse.core.expressions,
  org.eclipse.amalgam.explorer.contextual.core,
- org.eclipse.amalgam.explorer.contextual,
+ org.eclipse.amalgam.explorer.contextual.ui,
  org.eclipse.sirius.diagram.ui,
  org.eclipse.gmf.runtime.diagram.ui,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor,

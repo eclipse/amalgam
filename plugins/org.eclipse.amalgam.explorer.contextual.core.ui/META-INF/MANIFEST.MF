@@ -2,12 +2,15 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.amalgam.explorer.contextual.core.ui;singleton:=true
-Bundle-Version: 0.8.0.qualifier
+Bundle-Version: 1.7.0.qualifier
 Bundle-Activator: org.eclipse.amalgam.explorer.contextual.core.ui.ExplorerContextualActivator
 Bundle-Localization: plugin
 Bundle-Vendor: %providerName
-Require-Bundle: org.eclipse.amalgam.explorer.contextual.core;visibility:=reexport,
- org.eclipse.ui.views.properties.tabbed;visibility:=reexport,
+Require-Bundle: org.eclipse.amalgam.explorer.contextual.core,
+ org.eclipse.ui.views.properties.tabbed,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.transaction.ui,
+ org.eclipse.emf.edit,
  org.eclipse.sirius
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

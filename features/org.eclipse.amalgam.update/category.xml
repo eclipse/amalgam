@@ -6,6 +6,15 @@
    <feature id="org.eclipse.amalgam.explorer.activity" version="1.7.0.qualifier">
       <category name="amalgam"/>
    </feature>
+   <feature id="org.eclipse.amalgam.explorer.contextual" version="1.7.0.qualifier">
+      <category name="amalgam"/>
+   </feature>
+   <feature id="org.eclipse.amalgam.explorer.contextual.sirius" version="1.7.0.qualifier">
+      <category name="amalgam"/>
+   </feature>
+   <feature id="org.eclipse.amalgam.explorer.contextual.core" version="1.7.0.qualifier">
+      <category name="amalgam"/>
+   </feature>
    <category-def name="amalgam" label="Modeling Amalgamation">
       <description>
          Amalgamation Features

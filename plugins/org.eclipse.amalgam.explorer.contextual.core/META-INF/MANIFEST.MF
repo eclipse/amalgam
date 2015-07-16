@@ -2,10 +2,13 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.amalgam.explorer.contextual.core;singleton:=true
-Bundle-Version: 0.8.0.qualifier
+Bundle-Version: 1.7.0.qualifier
 Bundle-Activator: org.eclipse.amalgam.explorer.contextual.core.ExplorerActivator
-Require-Bundle: org.apache.log4j;visibility:=reexport,
- org.eclipse.emf.transaction.ui;visibility:=reexport
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.edit,
+ org.eclipse.emf.edit.ui,
+ org.eclipse.emf.transaction,
+ org.eclipse.ui
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.eclipse.amalgam.explorer.contextual.core,
