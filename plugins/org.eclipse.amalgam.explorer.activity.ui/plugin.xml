@@ -70,7 +70,7 @@
          point="org.eclipse.ui.elementFactories">
       <factory
             class="org.eclipse.amalgam.explorer.activity.ui.internal.ActivityExplorerEditorInputFactory"
-            id="org.eclipse.amalgam.explorer.activity.internal.ActivityExplorerEditorInputFactory">
+            id="org.eclipse.amalgam.explorer.activity.ui.internal.ActivityExplorerEditorInputFactory">
       </factory>
    </extension>
    <extension
