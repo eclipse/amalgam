@@ -268,7 +268,7 @@ public class DiagramViewer extends AbstractActivityExplorerViewer {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	boolean containsOnlyRepresentations(IStructuredSelection selection_p) {
+	protected boolean containsOnlyRepresentations(final IStructuredSelection selection_p) {
 		boolean result = true;
 		Iterator<Object> iterator = selection_p.toList().iterator();
 		while (iterator.hasNext() && result) {

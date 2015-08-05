@@ -59,10 +59,7 @@ public class HTMLHelper {
 	public static String formWrapper2(String txt) {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("<form>"); //$NON-NLS-1$
-		//buffer.append("<p>"); //$NON-NLS-1
-
 		buffer.append(txt);
-		//buffer.append("</p>"); //$NON-NLS-1$
 		buffer.append("</form>"); //$NON-NLS-1$
 		return buffer.toString();
 	}

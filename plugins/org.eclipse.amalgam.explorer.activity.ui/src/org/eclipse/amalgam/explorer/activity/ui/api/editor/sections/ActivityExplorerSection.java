@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.activities.ExplorerActivity;
@@ -43,6 +44,8 @@ import org.eclipse.ui.forms.widgets.Section;
  */
 public class ActivityExplorerSection implements IVisibility, IOrdered, IPropertyChangeListener {
 
+	private static final String P_PATTERN = "<p>.*</p>"; //$NON-NLS-1$
+
 	/**
 	 * Constructor.
 	 * 
@@ -53,8 +56,11 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 		this.name = ActivityExplorerExtensionManager.getName(contributor_p);
 		this.isExpanded = ActivityExplorerExtensionManager.getIsExpanded(contributor_p);
 		String desc = ActivityExplorerExtensionManager.getDescription(contributor_p);
-		if (null != desc)
-			this.description = HTMLHelper.formWrapper(desc);
+		if (null != desc){
+			Pattern pPattern = Pattern.compile(P_PATTERN);
+			boolean isInParagraph = pPattern.matcher(desc).find();
+			this.description = isInParagraph ? HTMLHelper.formWrapper2(desc) : HTMLHelper.formWrapper(desc);
+			}
 		this.index = Integer.parseInt(ActivityExplorerExtensionManager.getIndex(contributor_p));
 		this.isFiltering = ActivityExplorerExtensionManager.getIsFiltering(contributor_p);
 		createActivities(contributor_p);

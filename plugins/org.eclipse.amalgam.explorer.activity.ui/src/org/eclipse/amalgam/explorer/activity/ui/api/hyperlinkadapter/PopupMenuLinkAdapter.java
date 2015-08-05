@@ -8,7 +8,7 @@
  * Contributors:
  *    Thales - initial API and implementation
  *******************************************************************************/
-package org.eclipse.amalgam.explorer.activity.ui.internal.actions.util;
+package org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter;
 
 import org.eclipse.amalgam.explorer.activity.ui.internal.QuickMenuCreator;
 import org.eclipse.jface.action.IMenuManager;
