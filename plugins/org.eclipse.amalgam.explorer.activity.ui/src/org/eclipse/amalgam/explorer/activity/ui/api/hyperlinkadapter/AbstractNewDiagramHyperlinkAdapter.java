@@ -50,16 +50,13 @@ public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperli
 	 */
 	protected boolean createDiagram(final EObject project_p, final Session session_p) {
 		final boolean flag[] = { true };
-		RecordingCommand cmd = new RecordingCommand(TransactionUtil.getEditingDomain(project_p)) {
 
-			@Override
-			protected void doExecute() {
-				//
-				EObject modelElement = project_p;
-				// Precondition
-				if (null == modelElement) {
-					flag[0] = false;
-				} else {
+		if (project_p != null && session_p != null) {
+			RecordingCommand cmd = new RecordingCommand(TransactionUtil.getEditingDomain(project_p)) {
+				@Override
+				protected void doExecute() {
+					//
+					EObject modelElement = project_p;
 					RepresentationDescription diagramRepresentation = getDiagramRepresentation(session_p, modelElement);
 					// Preconditions
 					if ((null == diagramRepresentation)
@@ -71,17 +68,18 @@ public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperli
 						newDiagramAction.run();
 					}
 				}
-
-			}
-		};
-		TransactionUtil.getEditingDomain(project_p).getCommandStack().execute(cmd);
+			};
+			TransactionUtil.getEditingDomain(project_p).getCommandStack().execute(cmd);
+		} else {
+			flag[0] = false;
+		}
 
 		return flag[0];
 	}
 
 	@Override
 	protected void linkPressed(HyperlinkEvent event_p, EObject root_p, Session session_p) {
-		if (!createDiagram(root_p, session_p)) {
+		if (root_p != null && !createDiagram(root_p, session_p)) {
 			handleDiagramCreationError(event_p, root_p);
 		}
 	}
