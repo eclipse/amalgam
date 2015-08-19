@@ -6,13 +6,12 @@
     xmlns:git="http://www.eclipse.org/oomph/setup/git/1.0"
     xmlns:jdt="http://www.eclipse.org/oomph/setup/jdt/1.0"
     xmlns:mylyn="http://www.eclipse.org/oomph/setup/mylyn/1.0"
-    xmlns:pde="http://www.eclipse.org/oomph/setup/pde/1.0"
     xmlns:predicates="http://www.eclipse.org/oomph/predicates/1.0"
-    xmlns:projects="http://www.eclipse.org/oomph/setup/projects/1.0"
     xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
     xmlns:setup.p2="http://www.eclipse.org/oomph/setup/p2/1.0"
+    xmlns:setup.targlets="http://www.eclipse.org/oomph/setup/targlets/1.0"
     xmlns:setup.workingsets="http://www.eclipse.org/oomph/setup/workingsets/1.0"
-    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/setup/mylyn/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Mylyn.ecore http://www.eclipse.org/oomph/setup/pde/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/PDE.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/projects/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Projects.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
+    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/setup/mylyn/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Mylyn.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/targlets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupTarglets.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
     name="amalgam"
     label="Amalgamation">
   <setupTask
@@ -30,8 +29,8 @@
   </setupTask>
   <setupTask
       xsi:type="setup:EclipseIniTask"
-      option="-Dosgi.requiredJavaVersion"
-      value="1.6"
+      option="-Doomph.redirection.amalgam"
+      value="=https://git.eclipse.org/c/amalgam/org.eclipse.amalgam.git/plain/releng/org.eclipse.amalgam.releng/Amalgam.setup->file:/D:/sandbox/tmp/amalgam-master/git/org.eclipse.amalgam/releng/org.eclipse.amalgam.releng/Amalgam.setup"
       vm="true"/>
   <setupTask
       xsi:type="setup:ResourceCreationTask"
@@ -55,25 +54,8 @@
   <setupTask
       xsi:type="setup:VariableTask"
       name="eclipse.target.platform"
-      value="None"
+      value="Mars"
       defaultValue="None"/>
-  <setupTask
-      xsi:type="setup:VariableTask"
-      id="amalgam.target.platform"
-      name="amalgam.target.platform"
-      defaultValue="mars"
-      label="Target Platform - Amalgam">
-    <choice
-        value="luna"
-        label="Eclipse Luna - 4.4"/>
-    <choice
-        value="mars"
-        label="Eclipse Luna - 4.4"/>
-    <choice
-        value="No"
-        label="No target plaform"/>
-    <description>Target Platform used for new install. </description>
-  </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task">
     <requirement
@@ -124,58 +106,116 @@
     <description>${scope.project.label}</description>
   </setupTask>
   <setupTask
+      xsi:type="setup.targlets:TargletTask">
+    <targlet
+        name="Amalgamation"
+        activeRepositoryList="${eclipse.target.platform}">
+      <requirement
+          name="*"/>
+      <requirement
+          name="org.eclipse.emf.sdk.feature.group"/>
+      <requirement
+          name="org.eclipse.gmf.feature.group"/>
+      <requirement
+          name="org.eclipse.platform.feature.group"/>
+      <requirement
+          name="org.eclipse.sirius.runtime.feature.group"/>
+      <requirement
+          name="org.eclipse.sirius.runtime.ide.ui.feature.group"/>
+      <sourceLocator
+          rootFolder="${git.clone.amalgam.location}"/>
+      <repositoryList
+          name="Mars">
+        <repository
+            url="http://download.eclipse.org/cbi/updates/license"/>
+        <repository
+            url="http://download.eclipse.org/releases/mars"/>
+      </repositoryList>
+    </targlet>
+  </setupTask>
+  <setupTask
       xsi:type="setup.workingsets:WorkingSetTask">
     <workingSet
         name="Discovery"
         id="amalgam.discovery">
       <predicate
-          xsi:type="predicates:NamePredicate"
-          pattern=".*discovery.*"/>
+          xsi:type="predicates:AndPredicate">
+        <operand
+            xsi:type="predicates:RepositoryPredicate"
+            project="org.eclipse.amalgam.discovery.core"/>
+        <operand
+            xsi:type="predicates:NamePredicate"
+            pattern=".*discovery.*"/>
+      </predicate>
     </workingSet>
     <workingSet
         name="Activity Explorer"
         id="amalgam.activity">
       <predicate
-          xsi:type="predicates:NamePredicate"
-          pattern=".*activity.*"/>
+          xsi:type="predicates:AndPredicate">
+        <operand
+            xsi:type="predicates:RepositoryPredicate"
+            project="org.eclipse.amalgam.discovery.core"/>
+        <operand
+            xsi:type="predicates:NamePredicate"
+            pattern=".*activity.*"/>
+      </predicate>
     </workingSet>
     <workingSet
         name="Contextual Explorer"
         id="amalgam.contextual">
       <predicate
-          xsi:type="predicates:NamePredicate"
-          pattern=".*contextual.*"/>
+          xsi:type="predicates:AndPredicate">
+        <operand
+            xsi:type="predicates:RepositoryPredicate"
+            project="org.eclipse.amalgam.discovery.core"/>
+        <operand
+            xsi:type="predicates:NamePredicate"
+            pattern=".*contextual.*"/>
+      </predicate>
     </workingSet>
     <workingSet
         name="Tests"
         id="amalgam.tests">
       <predicate
-          xsi:type="predicates:NamePredicate"
-          pattern=".*tests.*"/>
+          xsi:type="predicates:AndPredicate">
+        <operand
+            xsi:type="predicates:RepositoryPredicate"
+            project="org.eclipse.amalgam.discovery.core"/>
+        <operand
+            xsi:type="predicates:NamePredicate"
+            pattern=".*tests.*"/>
+      </predicate>
     </workingSet>
     <workingSet
         name="Amalgam Packaging"
         id="amalgam.packaging">
       <predicate
-          xsi:type="predicates:OrPredicate">
+          xsi:type="predicates:AndPredicate">
         <operand
-            xsi:type="predicates:NaturePredicate"
-            nature="org.eclipse.pde.FeatureNature"/>
+            xsi:type="predicates:RepositoryPredicate"
+            project="org.eclipse.amalgam.discovery.core"/>
         <operand
-            xsi:type="predicates:NaturePredicate"
-            nature="org.eclipse.pde.UpdateSiteNature"/>
-        <operand
-            xsi:type="predicates:NamePredicate"
-            pattern=".*releng"/>
-        <operand
-            xsi:type="predicates:NamePredicate"
-            pattern=".*doc"/>
-        <operand
-            xsi:type="predicates:NamePredicate"
-            pattern=".*build"/>
-        <operand
-            xsi:type="predicates:NamePredicate"
-            pattern=".*update.*"/>
+            xsi:type="predicates:OrPredicate">
+          <operand
+              xsi:type="predicates:NaturePredicate"
+              nature="org.eclipse.pde.FeatureNature"/>
+          <operand
+              xsi:type="predicates:NaturePredicate"
+              nature="org.eclipse.pde.UpdateSiteNature"/>
+          <operand
+              xsi:type="predicates:NamePredicate"
+              pattern=".*releng"/>
+          <operand
+              xsi:type="predicates:NamePredicate"
+              pattern=".*doc"/>
+          <operand
+              xsi:type="predicates:NamePredicate"
+              pattern=".*build"/>
+          <operand
+              xsi:type="predicates:NamePredicate"
+              pattern=".*update.*"/>
+        </operand>
       </predicate>
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>
@@ -185,23 +225,6 @@
       key="/instance/org.eclipse.pde.api.tools/missing_default_api_profile"
       value="Ignore">
     <description>Ignore &quot;Plug-in Development/API Baselines&quot;</description>
-  </setupTask>
-  <setupTask
-      xsi:type="projects:ProjectsImportTask">
-    <sourceLocator
-        rootFolder="${git.clone.amalgam.location}/features"/>
-    <sourceLocator
-        rootFolder="${git.clone.amalgam.location}/plugins"/>
-    <sourceLocator
-        rootFolder="${git.clone.amalgam.location}/releng"/>
-    <sourceLocator
-        rootFolder="${git.clone.amalgam.location}/tests"/>
-  </setupTask>
-  <setupTask
-      xsi:type="pde:TargetPlatformTask"
-      id="Target Platform - Amalgam"
-      name="${amalgam.target.platform}">
-    <description>Target Platform used for the new install.</description>
   </setupTask>
   <setupTask
       xsi:type="setup:PreferenceTask"
