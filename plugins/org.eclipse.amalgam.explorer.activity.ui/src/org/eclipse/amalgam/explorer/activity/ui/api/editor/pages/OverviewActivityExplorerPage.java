@@ -127,11 +127,11 @@ public class OverviewActivityExplorerPage extends AbstractActivityExplorerPage {
 
 		layout.leftMargin = 0;
 		layout.rightMargin = 0;
-		layout.topMargin = 0;
+		layout.topMargin = 20;
 		layout.bottomMargin = 0;
 		layout.horizontalSpacing = 0;
 		layout.verticalSpacing = 0;
-		layout.numColumns = 1;
+		layout.numColumns = 2;
 
 		Composite body = form.getBody();
 		body.setLayout(layout);
@@ -179,23 +179,11 @@ public class OverviewActivityExplorerPage extends AbstractActivityExplorerPage {
 		form.reflow(true);
 	}
 
-	public Map<String, Composite> contents = new HashMap<String, Composite>();
+//	public Map<String, Composite> contents = new HashMap<String, Composite>();
 
 	public Composite createSubForm(IManagedForm managedForm_p, Composite body, AbstractActivityExplorerPage page) {
 
-		Composite composite = managedForm_p.getToolkit().createComposite(body);
-		contents.put(page.getId(), composite);
-
-		TableWrapLayout innerLayout = new TableWrapLayout();
-
-		innerLayout.leftMargin = 0;
-		innerLayout.rightMargin = 0;
-		innerLayout.topMargin = 20;
-		innerLayout.bottomMargin = 0;
-		innerLayout.horizontalSpacing = 0;
-		innerLayout.verticalSpacing = 0;
-		innerLayout.numColumns = 2;
-		composite.setLayout(innerLayout);
+		Composite composite = body;
 
 		FormText richText = null;
 
@@ -210,6 +198,8 @@ public class OverviewActivityExplorerPage extends AbstractActivityExplorerPage {
 				richText.setHyperlinkSettings(managedForm_p.getToolkit().getHyperlinkGroup());
 				richText.setImage(page.getId(), page.getOverviewImageOff());
 
+				richText.marginHeight = 0;
+				richText.marginWidth = 0;
 				TableWrapData layoutData = new TableWrapData();
 				layoutData.align = TableWrapData.CENTER;
 				layoutData.valign = TableWrapData.MIDDLE;
@@ -229,11 +219,11 @@ public class OverviewActivityExplorerPage extends AbstractActivityExplorerPage {
 
 				descriptionForm.setText(txt);
 
-				descriptionForm.setMinWidth(400);
+				descriptionForm.setMinWidth(600);
 				TableWrapData layoutData2 = new TableWrapData();
 
 				layoutData2.maxHeight = 100;
-				layoutData2.maxWidth = 400;
+				layoutData2.maxWidth = 600;
 				layoutData2.align = TableWrapData.CENTER;
 				layoutData2.valign = TableWrapData.MIDDLE;
 				descriptionForm.setLayoutData(layoutData2);
@@ -246,9 +236,9 @@ public class OverviewActivityExplorerPage extends AbstractActivityExplorerPage {
 		return composite;
 	}
 
-	public Composite getSubFormComposite(final String id) {
-		return contents.get(id);
-	}
+//	public Composite getSubFormComposite(final String id) {
+//		return contents.get(id);
+//	}
 
 	@Override
 	public boolean isVisible() {
