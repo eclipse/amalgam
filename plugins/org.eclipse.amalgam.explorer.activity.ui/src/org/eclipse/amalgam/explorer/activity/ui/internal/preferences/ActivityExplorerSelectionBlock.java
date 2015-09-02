@@ -12,6 +12,7 @@ package org.eclipse.amalgam.explorer.activity.ui.internal.preferences;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerEditor;
@@ -38,13 +39,14 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.editor.IFormPage;
+import org.eclipse.ui.forms.widgets.FormText;
 
 public class ActivityExplorerSelectionBlock {
 
@@ -52,6 +54,8 @@ public class ActivityExplorerSelectionBlock {
 	private ITreeContentProvider contentProvider;
 	private ICheckStateProvider checkStateProvider;
 	public Controller controller;
+	
+	private static final Pattern P_FORM = Pattern.compile("<form>.*</form>"); //$NON-NLS-1$
 
 	public ActivityExplorerSelectionBlock() {
 		this.labelProvider = new ExtensionLabelProvider();
@@ -73,7 +77,7 @@ public class ActivityExplorerSelectionBlock {
 
 	private CheckboxTreeViewer treeArea;
 	private CheckboxTableViewer listArea;
-	private StyledText detailsArea;
+	private FormText detailsArea;
 
 	/**
 	 * Create the Composed Widget
@@ -97,8 +101,11 @@ public class ActivityExplorerSelectionBlock {
 	 * @param parent
 	 */
 	private void createDetailsView(SashForm parent) {
-		detailsArea = new StyledText(parent, SWT.READ_ONLY | SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
-		detailsArea.setText(""); //$NON-NLS-1$
+		detailsArea = new FormText(parent, SWT.V_SCROLL | SWT.BORDER);
+		detailsArea.setText("", false, true); //$NON-NLS-1$
+		Display d = Display.getCurrent();
+		if (d != null)
+			detailsArea.setBackground(d.getSystemColor(SWT.COLOR_WHITE));
 	}
 
 	/**
@@ -387,9 +394,16 @@ public class ActivityExplorerSelectionBlock {
 				}
 				String description = ActivityExplorerExtensionManager.getDescription(elt);
 				if (description == null) {
-					detailsArea.setText("");//$NON-NLS-1$
+					detailsArea.setText("", false, false);//$NON-NLS-1$
 				} else {
-					detailsArea.setText(description);
+					
+					boolean isWellFormed = P_FORM.matcher(description).find();
+					if (isWellFormed){
+						detailsArea.setText(description, true, false);
+					} else {
+						description = "<form>" + description + "</form>";
+						detailsArea.setText(description, true, false);
+					}
 				}
 
 			}
