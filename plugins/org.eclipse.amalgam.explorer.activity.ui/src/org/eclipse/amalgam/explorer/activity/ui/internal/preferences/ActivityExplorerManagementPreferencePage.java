@@ -43,8 +43,15 @@ public class ActivityExplorerManagementPreferencePage extends ActivityExplorerPr
 	protected void performDefaults() {
 		super.performDefaults();
 		setDefaultValues();
+		constraintsComposite.performDefaults();
 	}
-
+	
+	@Override
+  public boolean performOk() {
+    constraintsComposite.performOk();
+    return super.performOk();
+  }
+	
 	private void setDefaultValues() {
 		for (IConfigurationElement page : ActivityExplorerExtensionManager.getAllPagesElt()) {
 			constraintsComposite.controller.setDefaultValue(page);

@@ -11,7 +11,9 @@
 package org.eclipse.amalgam.explorer.activity.ui.internal.preferences;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
@@ -56,6 +58,7 @@ public class ActivityExplorerSelectionBlock {
 	public Controller controller;
 	
 	private static final Pattern P_FORM = Pattern.compile("<form>.*</form>"); //$NON-NLS-1$
+	private final Map<String, Boolean> deferredPreferencesValues = new HashMap<String, Boolean>();
 
 	public ActivityExplorerSelectionBlock() {
 		this.labelProvider = new ExtensionLabelProvider();
@@ -94,6 +97,26 @@ public class ActivityExplorerSelectionBlock {
 		createDetailsView(result);
 		return result;
 	}
+	
+  public void performDefaults() {
+    deferredPreferencesValues.clear();
+  }
+	  
+  public void performOk() {
+    // Defer the property page to the end so that all children prefs must be set before.
+    String propertyPage = null;
+      for (String id : deferredPreferencesValues.keySet()) {
+        if(ActivityExplorerExtensionManager.isPage(id)){
+          propertyPage = id;
+        }else{
+          ActivityExplorerActivator.getDefault().getPreferenceStore().setValue(id, deferredPreferencesValues.get(id));
+        }
+      }
+      if(propertyPage != null){
+        ActivityExplorerActivator.getDefault().getPreferenceStore().setValue(propertyPage, deferredPreferencesValues.get(propertyPage));
+      }
+      deferredPreferencesValues.clear();
+  }
 
 	/**
 	 * Create the Details Viewer Widget
@@ -340,19 +363,14 @@ public class ActivityExplorerSelectionBlock {
 			ICheckable source = (ICheckable) event.getSource();
 
 			if (element instanceof IConfigurationElement) {
-
-				IConfigurationElement elt = (IConfigurationElement) element;
-				String id = ActivityExplorerExtensionManager.getId(elt);
-				updateCheckedStateChildren(elt, source, checked); // dont move
-																	// the order
-				ActivityExplorerActivator.getDefault().getPreferenceStore() // dont
-																		// move
-																		// the
-																		// order
-						.setValue(id, checked);
-				updateCheckedStateParent(elt, source, checked); // dont move the
-																// order
-				refreshVisual();
+				IConfigurationElement configElement = (IConfigurationElement) element;
+				String configElementId = ActivityExplorerExtensionManager.getId(configElement);
+				{ // !!! Order matter; do not change !!!
+          updateCheckedStateChildren(configElement, source, checked);
+          deferredPreferencesValues.put(configElementId, checked);
+          updateCheckedStateParent(configElement, source, checked);
+          refreshVisual();
+        }
 			}
 		}
 
@@ -378,7 +396,7 @@ public class ActivityExplorerSelectionBlock {
 			if (null != parent && !(parent instanceof IExtension) && state) {
 				IConfigurationElement p = (IConfigurationElement) parent;
 				String id = ActivityExplorerExtensionManager.getId(p);
-				ActivityExplorerActivator.getDefault().getPreferenceStore().setValue(id, state);
+				deferredPreferencesValues.put(id, state);
 			}
 		}
 
