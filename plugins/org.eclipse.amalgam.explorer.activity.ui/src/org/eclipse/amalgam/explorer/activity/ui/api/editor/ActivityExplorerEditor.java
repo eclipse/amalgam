@@ -87,13 +87,13 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	protected void addPages() {
 		try {
 
-			// OVERVIEW IS FIRST PAGE
-			OverviewActivityExplorerPage overViewPage = createOverviewActivityExplorerPage();
+			// OVERVIEW IS FIRST PAGE (Default or contributed)
+			OverviewActivityExplorerPage overViewPage = getOrCreateOverviewActivityExplorerPage();
 			addPage(overViewPage);
 
 			// set editor in the  Activity Explorer Manager
 			ActivityExplorerManager.INSTANCE.setEditor(this);
-			// Add other Pages (plugins contribution)
+			// Add other Pages (plug-ins contribution)
 			createContributedPages();
 
 		} catch (PartInitException exception_p) {
@@ -152,7 +152,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 		List<AbstractActivityExplorerPage> temp = ActivityExplorerExtensionManager.getAllPages();
 		Collections.sort(temp);
 		for (AbstractActivityExplorerPage page : temp) {
-			if (page instanceof IVisibility)
+			if (page instanceof IVisibility && !(page.getPosition() == 0))
 				if (page.isVisible()) {
 					addNewPage(page);
 
@@ -170,11 +170,20 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	}
 
 	/**
-	 * Create the main Overview page
+	 * Get or create the main Overview page
 	 * 
 	 * @return a not <code>null</code> instance.
 	 */
-	protected OverviewActivityExplorerPage createOverviewActivityExplorerPage() {
+	protected OverviewActivityExplorerPage getOrCreateOverviewActivityExplorerPage() {
+	  List<AbstractActivityExplorerPage> contributedPages = ActivityExplorerExtensionManager.getAllPages();
+    Collections.sort(contributedPages);
+    if(!contributedPages.isEmpty()){
+      AbstractActivityExplorerPage page = contributedPages.get(0);
+      if(page instanceof OverviewActivityExplorerPage && page.getPosition() == 0){
+        page.initialize(this);
+        return (OverviewActivityExplorerPage)page;
+      }
+    }
 		return new OverviewActivityExplorerPage(this);
 	}
 

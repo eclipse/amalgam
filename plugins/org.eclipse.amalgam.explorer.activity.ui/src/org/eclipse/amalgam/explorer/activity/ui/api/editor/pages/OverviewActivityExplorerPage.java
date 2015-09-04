@@ -102,6 +102,10 @@ public class OverviewActivityExplorerPage extends AbstractActivityExplorerPage {
 	 * Hover HREF image mappings.
 	 */
 	private static Map<String, String> __hoverHrefImageMappings = new HashMap<String, String>();
+	
+	public OverviewActivityExplorerPage() {
+    super(null, PAGE_ID, "");
+  }
 
 	/**
 	 * Constructor.
@@ -118,10 +122,9 @@ public class OverviewActivityExplorerPage extends AbstractActivityExplorerPage {
 	protected void createFormContent(IManagedForm managedForm_p) {
 		super.createFormContent(managedForm_p);
 
-		ActivityExplorerEditorInput editorInput = (ActivityExplorerEditorInput) getEditorInput();
 		// Set the header title.
 		ScrolledForm form = managedForm_p.getForm();
-		form.setText(Messages.OverviewActivityExplorerPage_2 + editorInput.getName());
+		form.setText(getHeaderTitle());
 		// Install a default layout.
 		TableWrapLayout layout = new TableWrapLayout();
 
@@ -178,6 +181,10 @@ public class OverviewActivityExplorerPage extends AbstractActivityExplorerPage {
 
 		form.reflow(true);
 	}
+
+  protected String getHeaderTitle() {
+    return Messages.OverviewActivityExplorerPage_2 + ((ActivityExplorerEditorInput)getEditorInput()).getName();
+  }
 
 //	public Map<String, Composite> contents = new HashMap<String, Composite>();
 

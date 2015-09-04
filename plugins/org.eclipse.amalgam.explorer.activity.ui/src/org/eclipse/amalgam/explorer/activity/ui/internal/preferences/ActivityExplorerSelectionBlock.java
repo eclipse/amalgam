@@ -41,6 +41,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.FormAttachment;
@@ -193,6 +194,14 @@ public class ActivityExplorerSelectionBlock {
 
 		treeArea.setLabelProvider(labelProvider);
 		treeArea.setContentProvider(contentProvider);
+		treeArea.addFilter(new ViewerFilter() {
+      
+      @Override
+      public boolean select(Viewer viewer, Object parentElement, Object element) {
+        // Don't show the overview page (i.e. page with index 0)
+        return (element instanceof IConfigurationElement) && !ActivityExplorerExtensionManager.getIndex((IConfigurationElement)element).equals("0");
+      }
+    });
 
 		treeArea.setInput(ActivityExplorerExtensionManager.getExtensionPoint(ActivityExplorerExtensionManager.PROVIDER_PAGES_EXT));
 		treeArea.addSelectionChangedListener(getInstance());
