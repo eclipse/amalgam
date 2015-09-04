@@ -12,8 +12,10 @@ package org.eclipse.amalgam.explorer.activity.ui.internal.preferences;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
@@ -104,18 +106,19 @@ public class ActivityExplorerSelectionBlock {
 	  
   public void performOk() {
     // Defer the property page to the end so that all children prefs must be set before.
-    String propertyPage = null;
-      for (String id : deferredPreferencesValues.keySet()) {
-        if(ActivityExplorerExtensionManager.isPage(id)){
-          propertyPage = id;
-        }else{
-          ActivityExplorerActivator.getDefault().getPreferenceStore().setValue(id, deferredPreferencesValues.get(id));
-        }
+    Set<String> propertyPages = new HashSet<String>();
+    for (String id : deferredPreferencesValues.keySet()) {
+      if (ActivityExplorerExtensionManager.isPage(id)) {
+        propertyPages.add(id);
+      } else {
+        ActivityExplorerActivator.getDefault().getPreferenceStore().setValue(id, deferredPreferencesValues.get(id));
       }
-      if(propertyPage != null){
-        ActivityExplorerActivator.getDefault().getPreferenceStore().setValue(propertyPage, deferredPreferencesValues.get(propertyPage));
-      }
-      deferredPreferencesValues.clear();
+    }
+    for (String propertyPage : propertyPages) {
+      ActivityExplorerActivator.getDefault().getPreferenceStore()
+          .setValue(propertyPage, deferredPreferencesValues.get(propertyPage));
+    }
+    deferredPreferencesValues.clear();
   }
 
 	/**
@@ -446,11 +449,12 @@ public class ActivityExplorerSelectionBlock {
 			boolean value = false;
 			IConfigurationElement elt = (IConfigurationElement) element;
 			String id = ActivityExplorerExtensionManager.getId(elt);
+			if(deferredPreferencesValues.containsKey(id)){
+			  return deferredPreferencesValues.get(id);
+			}
 			IPreferenceStore prefs = ActivityExplorerActivator.getDefault().getPreferenceStore();
 			value = prefs.getBoolean(id);
 			return value;
 		}
-
 	}
-
 }
