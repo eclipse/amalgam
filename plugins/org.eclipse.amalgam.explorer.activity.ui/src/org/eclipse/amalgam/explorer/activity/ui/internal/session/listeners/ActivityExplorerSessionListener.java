@@ -156,16 +156,19 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
 		notify(updatedSession_p, SessionListener.REPRESENTATION_CHANGE);
 	}
 
-	@Override
-	public void viewpointSelected(Viewpoint selectedViewpoint) {
-		update(selectedViewpoint);
+  @Override
+  public void viewpointSelected(Viewpoint selectedViewpoint) {
+    if (session.isOpen()) {
+      update(selectedViewpoint);
+    }
+  }
 
-	}
-
-	@Override
-	public void viewpointDeselected(Viewpoint deselectedViewpoint) {
-		update(deselectedViewpoint);
-	}
+  @Override
+  public void viewpointDeselected(Viewpoint deselectedViewpoint) {
+    if (session.isOpen()) {
+      update(deselectedViewpoint);
+    }
+  }
 
 	/**
 	 * Update the ActivityExplorer Editor.
