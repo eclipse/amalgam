@@ -158,16 +158,12 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
 
   @Override
   public void viewpointSelected(Viewpoint selectedViewpoint) {
-    if (session.isOpen()) {
       update(selectedViewpoint);
-    }
   }
 
   @Override
   public void viewpointDeselected(Viewpoint deselectedViewpoint) {
-    if (session.isOpen()) {
       update(deselectedViewpoint);
-    }
   }
 
 	/**
@@ -176,7 +172,7 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
 	 * @param selectedViewpoint
 	 */
 	private void update(Viewpoint selectedViewpoint) {
-		if (selectedViewpoint != null && session != null) {
+		if (selectedViewpoint != null && session != null && session.isOpen()) {
 
 			Runnable refresh = new Runnable() {
 
