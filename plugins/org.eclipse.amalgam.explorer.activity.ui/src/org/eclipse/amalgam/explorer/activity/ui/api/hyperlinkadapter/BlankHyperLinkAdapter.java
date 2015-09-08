@@ -18,11 +18,11 @@ import org.eclipse.ui.forms.events.HyperlinkEvent;
 public class BlankHyperLinkAdapter extends AbstractHyperlinkAdapter {
 
 	public BlankHyperLinkAdapter() {
-		super(ActivityExplorerManager.INSTANCE.getRootSemanticModel(), ActivityExplorerManager.INSTANCE.getSession());
+		super(ActivityExplorerManager.INSTANCE.getRootSemanticModel());
 	}
 
 	@Override
-	protected void linkPressed(HyperlinkEvent event_p, EObject project_p, Session session_p) {
+	protected void linkPressed(HyperlinkEvent event, EObject project, Session session) {
 		// TODO Auto-generated method stub
 
 	}

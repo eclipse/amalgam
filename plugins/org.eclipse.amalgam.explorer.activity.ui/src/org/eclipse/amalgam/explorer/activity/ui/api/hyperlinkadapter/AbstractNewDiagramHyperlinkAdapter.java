@@ -36,11 +36,10 @@ public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperli
 	/**
 	 * Constructor.
 	 * 
-	 * @param project_p
-	 * @param session_p
+	 * @param project
 	 */
-	public AbstractNewDiagramHyperlinkAdapter(EObject project_p, Session session_p) {
-		super(project_p, session_p);
+	public AbstractNewDiagramHyperlinkAdapter(EObject project) {
+		super(project);
 	}
 
 	/**
@@ -48,28 +47,28 @@ public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperli
 	 * {@link #getModelElement(Project))} and the current session.<br>
 	 * Must be in the UI thread.
 	 */
-	protected boolean createDiagram(final EObject project_p, final Session session_p) {
+	protected boolean createDiagram(final EObject project, final Session session) {
 		final boolean flag[] = { true };
 
-		if (project_p != null && session_p != null) {
-			RecordingCommand cmd = new RecordingCommand(TransactionUtil.getEditingDomain(project_p)) {
+		if (project != null && session != null) {
+			RecordingCommand cmd = new RecordingCommand(TransactionUtil.getEditingDomain(project)) {
 				@Override
 				protected void doExecute() {
 					//
-					EObject modelElement = project_p;
-					RepresentationDescription diagramRepresentation = getDiagramRepresentation(session_p, modelElement);
+					EObject modelElement = project;
+					RepresentationDescription diagramRepresentation = getDiagramRepresentation(session, modelElement);
 					// Preconditions
 					if ((null == diagramRepresentation)
 							|| !DialectManager.INSTANCE.canCreate(modelElement, diagramRepresentation)) {
 						flag[0] = false;
 					} else {
 						NewRepresentationAction newDiagramAction = new NewRepresentationAction(diagramRepresentation,
-								modelElement, session_p);
+								modelElement, session);
 						newDiagramAction.run();
 					}
 				}
 			};
-			TransactionUtil.getEditingDomain(project_p).getCommandStack().execute(cmd);
+			TransactionUtil.getEditingDomain(project).getCommandStack().execute(cmd);
 		} else {
 			flag[0] = false;
 		}
@@ -78,22 +77,22 @@ public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperli
 	}
 
 	@Override
-	protected void linkPressed(HyperlinkEvent event_p, EObject root_p, Session session_p) {
-		if (root_p != null && !createDiagram(root_p, session_p)) {
-			handleDiagramCreationError(event_p, root_p);
+	protected void linkPressed(HyperlinkEvent event, EObject root, Session session) {
+		if (root != null && !createDiagram(root, session)) {
+			handleDiagramCreationError(event, root);
 		}
 	}
 
 	/**
 	 * Handle creation error.
 	 * 
-	 * @param event_p
-	 * @param project_p
+	 * @param event
+	 * @param project
 	 */
-	protected void handleDiagramCreationError(HyperlinkEvent event_p, EObject project_p) {
+	protected void handleDiagramCreationError(HyperlinkEvent event, EObject project) {
 		String msg = Messages.AbstractNewDiagramHyperlinkAdapter_DiagramCreation_Error_Msg_Part1
 				+ getRepresentationName() + Messages.AbstractNewDiagramHyperlinkAdapter_DiagramCreation_Error_Msg_Part2;
-		AbstractHyperlink widget = (AbstractHyperlink) event_p.widget;
+		AbstractHyperlink widget = (AbstractHyperlink) event.widget;
 		MessageDialog.openError(widget.getDisplay().getActiveShell(), widget.getText(), msg);
 		// _logger.error(new EmbeddedMessage(msg,
 		// IReportManagerDefaultComponents.DIAGRAM, project_p));
@@ -106,9 +105,9 @@ public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperli
 	 * @return <code>null</code> if not found.
 	 */
 
-	protected RepresentationDescription getDiagramRepresentation(Session session_p, EObject modelElement) {
+	protected RepresentationDescription getDiagramRepresentation(Session session, EObject modelElement) {
 		// Get active viewpoints.
-		Collection<Viewpoint> activeViewpoints = session_p.getSelectedViewpoints(false);
+		Collection<Viewpoint> activeViewpoints = session.getSelectedViewpoints(false);
 		Collection<RepresentationDescription> diagramDescriptions = DialectManager.INSTANCE
 				.getAvailableRepresentationDescriptions(activeViewpoints, modelElement);
 		// Get search diagram name.

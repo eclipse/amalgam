@@ -17,7 +17,7 @@ public class NewDiagramHyperLinkAdapter extends AbstractNewDiagramHyperlinkAdapt
 	protected String name;
 
 	public NewDiagramHyperLinkAdapter() {
-		super(ActivityExplorerManager.INSTANCE.getRootSemanticModel(), ActivityExplorerManager.INSTANCE.getSession());
+		super(ActivityExplorerManager.INSTANCE.getRootSemanticModel());
 	}
 
 	@Override
