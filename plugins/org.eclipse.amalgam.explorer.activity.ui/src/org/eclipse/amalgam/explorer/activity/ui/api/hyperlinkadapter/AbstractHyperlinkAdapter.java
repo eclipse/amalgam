@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter;
 
+import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
@@ -24,28 +25,33 @@ public abstract class AbstractHyperlinkAdapter extends HyperlinkAdapter {
 	 * Root Element of the Semantic model.
 	 */
 	protected EObject _root;
-	/**
-	 * Sirius session.
-	 */
-	private Session _session;
 
 	/**
 	 * Constructor.
 	 * 
-	 * @param project_p
+	 * @param root
 	 */
-	public AbstractHyperlinkAdapter(EObject root_p, Session session_p) {
-		_root = root_p;
-		_session = session_p;
+	public AbstractHyperlinkAdapter(EObject root) {
+		_root = root;
 	}
 
 	/**
+   * Constructor.
+   * 
+   * @param root
+   */
+	@Deprecated
+  public AbstractHyperlinkAdapter(EObject root, Session session) {
+    this(root);
+  }
+	
+	/**
 	 * Get the model element that the run is performed against.<br>
 	 * 
-	 * @param project_p
+	 * @param root
 	 * @return
 	 */
-	protected EObject getModelElement(EObject root_p) {
+	protected EObject getModelElement(EObject root) {
 		return _root;
 	}
 
@@ -53,16 +59,16 @@ public abstract class AbstractHyperlinkAdapter extends HyperlinkAdapter {
 	 * @see org.eclipse.ui.forms.events.HyperlinkAdapter#linkActivated(org.eclipse.ui.forms.events.HyperlinkEvent)
 	 */
 	@Override
-	public void linkActivated(HyperlinkEvent event_p) {
-		linkPressed(event_p, _root, _session);
+	public void linkActivated(HyperlinkEvent event) {
+		linkPressed(event, _root, ActivityExplorerManager.INSTANCE.getSession());
 	}
 
 	/**
 	 * Called when link is activated i.e pressed by the end-user.
 	 * 
-	 * @param event_p
-	 * @param project_p
-	 * @param session_p
+	 * @param event
+	 * @param root
+	 * @param session
 	 */
-	protected abstract void linkPressed(HyperlinkEvent event_p, EObject project_p, Session session_p);
+	protected abstract void linkPressed(HyperlinkEvent event, EObject root, Session session);
 }
