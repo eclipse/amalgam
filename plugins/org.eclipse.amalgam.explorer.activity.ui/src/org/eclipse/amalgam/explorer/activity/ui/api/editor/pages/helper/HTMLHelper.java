@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper;
 
-import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.AbstractActivityExplorerPage;
+import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityExplorerPage;
 import org.eclipse.ui.forms.editor.IFormPage;
 
 public class HTMLHelper {
 
-	public static String overviewDescForm(AbstractActivityExplorerPage page) {
+	public static String overviewDescForm(CommonActivityExplorerPage page) {
 		String description = page.getOverViewText();
 
 		return formWrapper2(description);

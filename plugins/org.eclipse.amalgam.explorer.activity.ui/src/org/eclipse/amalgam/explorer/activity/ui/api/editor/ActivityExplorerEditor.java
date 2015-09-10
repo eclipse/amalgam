@@ -17,7 +17,7 @@ import java.util.Vector;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.input.ActivityExplorerEditorInput;
-import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.AbstractActivityExplorerPage;
+import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityExplorerPage;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.ActivityExplorerPage;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.BasicSessionActivityExplorerPage;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.DocumentationActivityExplorerPage;
@@ -96,20 +96,18 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 			// Add other Pages (plug-ins contribution)
 			createContributedPages();
 
-		} catch (PartInitException exception_p) {
+		} catch (PartInitException exception) {
 			StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addPages(..) _ "); //$NON-NLS-1$
-			loggerMessage.append(exception_p.getMessage());
-			// __logger.error(new EmbeddedMessage(loggerMessage.toString(),
-			// IReportManagerDefaultComponents.UI), exception_p);
+			loggerMessage.append(exception.getMessage());
 		}
 		// Add a control listener to force reflow
 		getContainer().addControlListener(new ControlListener() {
-			public void controlMoved(ControlEvent e_p) {
+			public void controlMoved(ControlEvent cevent) {
 				// Do nothing.
 
 			}
 
-			public void controlResized(ControlEvent e_p) {
+			public void controlResized(ControlEvent cevent) {
 				IFormPage activePageInstance = ActivityExplorerEditor.this.getActivePageInstance();
 				IManagedForm managedForm = activePageInstance.getManagedForm();
 				managedForm.reflow(true);
@@ -131,7 +129,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 * @return Vector<AbstractActivityExplorerPage>
 	 */
 	@SuppressWarnings("unchecked")
-	public Vector<AbstractActivityExplorerPage> getPages() {
+	public Vector<CommonActivityExplorerPage> getPages() {
 		return pages;
 	}
 
@@ -149,9 +147,9 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 * Create and Insert Contributed pages in the editor
 	 */
 	private void createContributedPages() throws PartInitException {
-		List<AbstractActivityExplorerPage> temp = ActivityExplorerExtensionManager.getAllPages();
+		List<CommonActivityExplorerPage> temp = ActivityExplorerExtensionManager.getAllPages();
 		Collections.sort(temp);
-		for (AbstractActivityExplorerPage page : temp) {
+		for (CommonActivityExplorerPage page : temp) {
 			if (page instanceof IVisibility && !(page.getPosition() == 0))
 				if (page.isVisible()) {
 					addNewPage(page);
@@ -175,10 +173,10 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 * @return a not <code>null</code> instance.
 	 */
 	protected OverviewActivityExplorerPage getOrCreateOverviewActivityExplorerPage() {
-	  List<AbstractActivityExplorerPage> contributedPages = ActivityExplorerExtensionManager.getAllPages();
+	  List<CommonActivityExplorerPage> contributedPages = ActivityExplorerExtensionManager.getAllPages();
     Collections.sort(contributedPages);
     if(!contributedPages.isEmpty()){
-      AbstractActivityExplorerPage page = contributedPages.get(0);
+      CommonActivityExplorerPage page = contributedPages.get(0);
       if(page instanceof OverviewActivityExplorerPage && page.getPosition() == 0){
         page.initialize(this);
         return (OverviewActivityExplorerPage)page;
@@ -215,7 +213,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 * @see org.eclipse.ui.part.EditorPart#doSave(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
-	public void doSave(IProgressMonitor monitor_p) {
+	public void doSave(IProgressMonitor monitor) {
 		if (isDirty()) {
 			getEditorInput().getSession().save(new NullProgressMonitor());
 		}
@@ -234,11 +232,11 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public Object getAdapter(Class adapter_p) {
-		if (IPropertySheetPage.class.equals(adapter_p)) {
+	public Object getAdapter(Class adapter) {
+		if (IPropertySheetPage.class.equals(adapter)) {
 			return getOrCreatePropertySheetPage();
 		}
-		return super.getAdapter(adapter_p);
+		return super.getAdapter(adapter);
 	}
 
 	public static final String PROPERTIES_CONTRIBUTOR = "org.eclipse.amalgam.explorer.activity.ui.editor.properties"; //$NON-NLS-1$
@@ -278,9 +276,9 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 				 * {@inheritDoc}
 				 */
 				@Override
-				public void init(IPageSite pageSite_p) {
-					super.init(pageSite_p);
-					pageSite_p.setSelectionProvider(ActivityExplorerEditor.this.getEditorSite().getSelectionProvider());
+				public void init(IPageSite pageSite) {
+					super.init(pageSite);
+					pageSite.setSelectionProvider(ActivityExplorerEditor.this.getEditorSite().getSelectionProvider());
 				}
 			};
 		}
@@ -309,25 +307,25 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 *      org.eclipse.ui.IEditorInput)
 	 */
 	@Override
-	public void init(IEditorSite site_p, IEditorInput input_p) throws PartInitException {
-		if (null == ((ActivityExplorerEditorInput) input_p).getRootSemanticElement()) {
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		if (null == ((ActivityExplorerEditorInput) input).getRootSemanticElement()) {
 			throw new PartInitException(new Status(IStatus.WARNING, ActivityExplorerActivator.ID,
 					Messages.ActivityExplorerEditor_1));
 		}
-		super.init(site_p, input_p);
+		super.init(site, input);
 
 		// PArt listener to detect when this editor is activated.
 		_partListener = new IPartListener() {
 			/**
 			 * {@inheritDoc}
 			 */
-			public void partActivated(IWorkbenchPart part_p) {
-				if (ActivityExplorerEditor.this == part_p) {
+			public void partActivated(IWorkbenchPart part) {
+				if (ActivityExplorerEditor.this == part) {
 					IFormPage activePageInstance = ActivityExplorerEditor.this.getActivePageInstance();
 					// Make sure action bars
 
 					// send Fake Notification to SessionListener
-					if (activePageInstance instanceof AbstractActivityExplorerPage) {
+					if (activePageInstance instanceof CommonActivityExplorerPage) {
 
 						Session session = getEditorInput().getSession();
 						if (session != null)
@@ -343,7 +341,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 			 * {@inheritDoc}
 			 */
 
-			public void partBroughtToTop(IWorkbenchPart part_p) {
+			public void partBroughtToTop(IWorkbenchPart part) {
 				// Do nothing.
 			}
 
@@ -351,7 +349,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 			 * {@inheritDoc}
 			 */
 
-			public void partClosed(IWorkbenchPart part_p) {
+			public void partClosed(IWorkbenchPart part) {
 				// Do nothing.
 			}
 
@@ -359,14 +357,14 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 			 * {@inheritDoc}
 			 */
 
-			public void partDeactivated(IWorkbenchPart part_p) {
+			public void partDeactivated(IWorkbenchPart part) {
 				// Do nothing.
 			}
 
 			/**
 			 * {@inheritDoc}
 			 */
-			public void partOpened(IWorkbenchPart part_p) {
+			public void partOpened(IWorkbenchPart part) {
 				// Do nothing.
 			}
 		};
@@ -406,12 +404,12 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	/**
 	 * Mark given page as dirty.
 	 * 
-	 * @param page_p
+	 * @param page
 	 */
 	@SuppressWarnings("unused")
-	private void markArchitecturePageAsDirty(BasicSessionActivityExplorerPage page_p) {
-		if (null != page_p) {
-			page_p.markAsDirty();
+	private void markArchitecturePageAsDirty(BasicSessionActivityExplorerPage page) {
+		if (null != page) {
+			page.markAsDirty();
 		}
 	}
 
@@ -430,18 +428,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 		}
 	}
 
-	/* */
-	/*
-	 * 
-	 * public void viewpointDeselected(Viewpoint deselectedViewpoint_p) { // Do
-	 * nothing. }
-	 */
-
-	/*
-	 * 
-	 * public void viewpointSelected(Viewpoint selectedViewpoint_p) { // Do
-	 * nothing. }
-	 */
 	/**
 	 * {@inheritDoc}
 	 */
@@ -457,8 +443,8 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void setTitleImage(Image titleImage_p) {
-		super.setTitleImage(titleImage_p);
+	protected void setTitleImage(Image titleImage) {
+		super.setTitleImage(titleImage);
 	}
 
 	private int addNewPage(IFormPage page) {
@@ -485,7 +471,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 		IFormPage previousPage = null;
 		int i = pages.indexOf(current);
 		if (i > -1) {
-			ListIterator<AbstractActivityExplorerPage> it = pages.listIterator(i);
+			ListIterator<CommonActivityExplorerPage> it = pages.listIterator(i);
 			if (it.hasPrevious())
 				previousPage = it.previous();
 		}
@@ -503,7 +489,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 		IFormPage nextPage = null;
 		int i = pages.indexOf(current);
 		if (i > -1) {
-			ListIterator<AbstractActivityExplorerPage> it = pages.listIterator(i + 1);
+			ListIterator<CommonActivityExplorerPage> it = pages.listIterator(i + 1);
 			if (it.hasNext())
 				nextPage = it.next();
 		}

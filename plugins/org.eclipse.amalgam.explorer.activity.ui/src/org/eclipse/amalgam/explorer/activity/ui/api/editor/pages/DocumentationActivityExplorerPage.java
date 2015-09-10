@@ -13,21 +13,20 @@ package org.eclipse.amalgam.explorer.activity.ui.api.editor.pages;
 import org.eclipse.ui.forms.editor.FormEditor;
 
 /**
- * Documentation that allows end-user to enter HTML documentation related to the
- * model.
+ * Documentation that allows end-user to enter HTML documentation related to the model.
  * 
  */
-public class DocumentationActivityExplorerPage extends AbstractActivityExplorerPage
+public class DocumentationActivityExplorerPage extends CommonActivityExplorerPage
 // implements IRichTextSaveable
 {
 
-	public DocumentationActivityExplorerPage(FormEditor editor_p) {
-		super(editor_p, DocumentationActivityExplorerPage.class.getName(), Messages.DocumentationActivityExplorerPage_0);
-		// TODO Auto-generated constructor stub
-	}
+  public DocumentationActivityExplorerPage(FormEditor editor) {
+    super(editor, DocumentationActivityExplorerPage.class.getName(), Messages.DocumentationActivityExplorerPage_0);
+    // TODO Auto-generated constructor stub
+  }
 
-	@Override
-	public boolean isVisible() {
-		return true;
-	}
+  @Override
+  public boolean isVisible() {
+    return true;
+  }
 }
