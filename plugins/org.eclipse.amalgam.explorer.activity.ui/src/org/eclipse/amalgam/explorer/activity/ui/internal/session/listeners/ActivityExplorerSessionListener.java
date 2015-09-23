@@ -32,106 +32,8 @@ import org.eclipse.ui.forms.IManagedForm;
  * 
  */
 public class ActivityExplorerSessionListener implements SessionManagerListener {
-  public WeakReference<Session> session = null;
 
-  @Override
-  public void notify(Session sessionp, int notification) {
-    // Filter on event for other sessions.
-    session = new WeakReference<Session>(sessionp);
-    final ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(sessionp);
-
-    Runnable runnable = null;
-    switch (notification) {
-    case SessionListener.CLOSING: /*
-                                   * Closing event is used to have a chance to persist the editor input at workbench
-                                   * shutdown
-                                   */
-
-      runnable = new Runnable() {
-        /**
-         * @see java.lang.Runnable#run()
-         */
-        public void run() {
-          if (editor != null)
-            // Close this editor.
-            editor.close(false);
-        }
-      };
-      break;
-    case SessionListener.REPRESENTATION_CHANGE:
-      runnable = new Runnable() {
-        /**
-         * @see java.lang.Runnable#run()
-         */
-        @SuppressWarnings("synthetic-access")
-        public void run() {
-          // Handle fpages to mark them as dirty.
-          if (editor != null) {
-            IManagedForm headerForm = editor.getHeaderForm();
-            if (null != headerForm) {
-              headerForm.dirtyStateChanged();
-            }
-          }
-        }
-      };
-      break;
-
-    case SessionListener.OPENED:
-      if (!(session.get().getSemanticResources().isEmpty())) {
-        runnable = new Runnable() {
-          @SuppressWarnings("synthetic-access")
-          public void run() {
-            try {
-
-              final boolean open = ActivityExplorerActivator.getDefault().getPreferenceStore()
-                  .getBoolean(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER);
-
-              if (open) {
-
-                IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-                if (activePage != null) {
-                  activePage.openEditor(
-                      new ActivityExplorerEditorInput(session.get(),
-                          org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
-                              .getRootSemanticModel(session.get())), ActivityExplorerEditor.ID);
-                }
-              }
-            } catch (Exception exception) {
-              StringBuilder loggerMessage = new StringBuilder(".run(..) _ ActivityExplorer not Found."); //$NON-NLS-1$
-              loggerMessage.append(exception.getMessage());
-              ActivityExplorerActivator.getDefault().sentToLogger(loggerMessage.toString(), IStatus.ERROR);
-              // __logger.warn(new
-              // EmbeddedMessage(loggerMessage.toString(),
-              // IReportManagerDefaultComponents.UI),
-              // exception);
-            }
-          }
-        };
-      }
-      break;
-    case SessionListener.DIRTY:
-    case SessionListener.SYNC:
-    case SessionListener.SEMANTIC_CHANGE: // Listening to changes to mark
-      // the ActivityExplorerEditor editor dirty
-      // hence saveable.
-      runnable = new Runnable() {
-        /**
-         * {@inheritDoc}
-         */
-        public void run() {
-          if (editor != null) {
-            if (editor.getEditorInput() != null && !session.get().equals(editor.getEditorInput().getSession())) {
-              return;
-            }
-            IManagedForm headerForm = editor.getHeaderForm();
-            if (null != headerForm) {
-              headerForm.dirtyStateChanged();
-            }
-          }
-        }
-      };
-      break;
-    }
+  protected void run(Runnable runnable) {
     if (null != runnable) {
       Display display = Display.getCurrent();
       if (null == display) {
@@ -139,6 +41,165 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
       } else {
         runnable.run();
       }
+    }
+  }
+
+  @Override
+  public void notify(Session sessionp, int notification) {
+
+    WeakReference<Session> session = new WeakReference<Session>(sessionp);
+
+    Runnable runnable = null;
+    switch (notification) {
+      case SessionListener.CLOSING:
+        notifyClosingSession(session);
+      break;
+      case SessionListener.REPRESENTATION_CHANGE:
+        notifyRepresentationChange(session);
+      break;
+      case SessionListener.OPENED:
+        notifyOpenedSession(session);
+      break;
+      case SessionListener.DIRTY:
+      case SessionListener.SYNC:
+      case SessionListener.SEMANTIC_CHANGE: // Listening to changes to mark
+        notifySemanticChange(session);
+      break;
+      case SessionListener.REPLACED:
+        notifyReplacedSession(session);
+      break;
+    }
+    run(runnable);
+
+  }
+
+  /**
+   * @param session
+   */
+  protected void notifyReplacedSession(WeakReference<Session> session) {
+    notifyRepresentationChange(session);
+  }
+
+  protected void notifySemanticChange(final WeakReference<Session> session2) {
+    // the ActivityExplorerEditor editor dirty
+    // hence saveable.
+    Runnable runnable = new Runnable() {
+
+      public void run() {
+        Session currentSession = session2.get();
+        if (currentSession != null) {
+          ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(currentSession);
+          if (editor == null) {
+            return;
+          }
+          if (editor.getEditorInput() == null) {
+            return;
+          }
+          if (!currentSession.equals(editor.getEditorInput().getSession())) {
+            return;
+          }
+          IManagedForm headerForm = editor.getHeaderForm();
+          if (null != headerForm) {
+            headerForm.dirtyStateChanged();
+          }
+        }
+      }
+    };
+    run(runnable);
+  }
+
+  protected void notifyOpenedSession(final WeakReference<Session> session2) {
+    if ((session2.get() != null) && !(session2.get().getSemanticResources().isEmpty())) {
+      Runnable runnable = new Runnable() {
+        @SuppressWarnings("synthetic-access")
+        public void run() {
+          try {
+            final boolean open = ActivityExplorerActivator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER);
+            if (open) {
+
+              IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+              if (activePage != null) {
+                activePage.openEditor(new ActivityExplorerEditorInput(session2.get(),
+                    org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper.getRootSemanticModel(session2.get())),
+                    ActivityExplorerEditor.ID);
+              }
+            }
+          } catch (Exception exception) {
+            StringBuilder loggerMessage = new StringBuilder(".run(..) _ ActivityExplorer not Found."); //$NON-NLS-1$
+            loggerMessage.append(exception.getMessage());
+            ActivityExplorerActivator.getDefault().sentToLogger(loggerMessage.toString(), IStatus.ERROR);
+            // __logger.warn(new
+            // EmbeddedMessage(loggerMessage.toString(),
+            // IReportManagerDefaultComponents.UI),
+            // exception);
+          }
+        }
+      };
+      run(runnable);
+    }
+  }
+
+  protected void notifyRepresentationChange(final WeakReference<Session> session2) {
+
+    Runnable runnable = new Runnable() {
+
+      public void run() {
+        Session currentSession = session2.get();
+        if (currentSession != null) {
+          final ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(currentSession);
+          if (editor != null) {
+            // Handle fpages to mark them as dirty.
+            IManagedForm headerForm = editor.getHeaderForm();
+            if (null != headerForm) {
+              headerForm.dirtyStateChanged();
+            }
+          }
+        }
+
+      }
+    };
+    run(runnable);
+  }
+
+  /**
+   * Closing event is used to have a chance to persist the editor input at workbench shutdown
+   */
+  protected void notifyClosingSession(final WeakReference<Session> session2) {
+
+    Runnable runnable = new Runnable() {
+
+      public void run() {
+        Session currentSession = session2.get();
+        if (currentSession != null) {
+          final ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(currentSession);
+          if (editor != null) {
+            // Close this editor.
+            editor.close(false);
+          }
+        }
+      }
+    };
+    run(runnable);
+  }
+
+  /**
+   * Update the ActivityExplorer Editor.
+   * @param selectedViewpoint
+   */
+  protected void update(Viewpoint selectedViewpoint) {
+    final Session currentSession = SessionManager.INSTANCE.getSession(selectedViewpoint);
+
+    if ((selectedViewpoint != null) && (currentSession != null) && currentSession.isOpen()) {
+      Runnable refresh = new Runnable() {
+        @Override
+        public void run() {
+          ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(currentSession);
+          if (editor != null) {
+            editor.updateEditorPages(0);
+          }
+        }
+      };
+      run(refresh);
     }
   }
 
@@ -163,30 +224,6 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
   @Override
   public void viewpointDeselected(Viewpoint deselectedViewpoint) {
     update(deselectedViewpoint);
-  }
-
-  /**
-   * Update the ActivityExplorer Editor.
-   * 
-   * @param selectedViewpoint
-   */
-  private void update(Viewpoint selectedViewpoint) {
-    final Session currentSession = SessionManager.INSTANCE.getSession(selectedViewpoint);
-
-    if (selectedViewpoint != null && currentSession != null && currentSession.isOpen()) {
-
-      Runnable refresh = new Runnable() {
-
-        @Override
-        public void run() {
-          ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(currentSession);
-          if (editor != null) {
-            editor.updateEditorPages(0);
-          }
-        }
-      };
-      Display.getDefault().syncExec(refresh);
-    }
   }
 
 }

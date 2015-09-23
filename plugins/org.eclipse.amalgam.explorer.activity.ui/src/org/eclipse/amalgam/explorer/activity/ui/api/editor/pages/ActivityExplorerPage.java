@@ -50,7 +50,6 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 /**
  * Base class to implement architecture Activity Explorer page.
- * 
  */
 public class ActivityExplorerPage extends CommonActivityExplorerPage implements IPropertyChangeListener {
 
@@ -81,24 +80,23 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Adjust image href.
-   * 
    * @param richText
-   * @param used
-   *          to collect image.
+   * @param used to collect image.
    */
   protected void adjustImageHRef(FormText richText, ActivityExplorerActivator activator) {
-    if (headerImageOff != null)
+    if (headerImageOff != null) {
       adjustImageHRef(richText, headerImageOff, getId());
+    }
   }
 
   protected void adjustImageHRef(FormText richText, Image image, String id) {
-    if (image != null)
+    if (image != null) {
       richText.setImage(id, image);
+    }
   }
 
   /**
    * Create contributed sections but not initialize it
-   * 
    */
   private void createContributedSections() {
     // Loop over pages contributors.
@@ -123,15 +121,15 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
   protected List<ActivityExplorerSection> getVisibleSections() {
     List<ActivityExplorerSection> visibleSections = new ArrayList<ActivityExplorerSection>();
     for (ActivityExplorerSection s : getSections()) {
-      if (s.isVisible())
+      if (s.isVisible()) {
         visibleSections.add(s);
+      }
     }
     return visibleSections;
   }
 
   /**
    * Initialize the sections
-   * 
    * @param section
    * @param sectionContainer
    * @param managedForm
@@ -190,7 +188,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Create the overview section.
-   * 
    * @param sectionContainer
    * @param managedForm
    * @return
@@ -203,16 +200,19 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
     // create rich text
     String body = HTMLHelper.breadcrumbForm(previousPage, this, nextPage);
 
-    FormText richText = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper.createRichText(
-        managedForm.getToolkit(), sectionContainer, body, new FormTextPageLinkAdapter(getEditor()));
+    FormText richText =
+        org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper.createRichText(managedForm.getToolkit(), sectionContainer, body,
+            new FormTextPageLinkAdapter(getEditor()));
 
     // attach image to link
     adjustImageHRef(richText, getHeaderImageOn(), getId());
 
-    if (previousPage != null && previousPage instanceof ActivityExplorerPage)
+    if ((previousPage != null) && (previousPage instanceof ActivityExplorerPage)) {
       adjustImageHRef(richText, ((ActivityExplorerPage) previousPage).getHeaderImageOff(), previousPage.getId());
-    if (nextPage != null && nextPage instanceof ActivityExplorerPage)
+    }
+    if ((nextPage != null) && (nextPage instanceof ActivityExplorerPage)) {
       adjustImageHRef(richText, ((ActivityExplorerPage) nextPage).getHeaderImageOff(), nextPage.getId());
+    }
 
     richText.marginHeight = 0;
     richText.marginWidth = 0;
@@ -222,13 +222,13 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
   /**
    * Create the container that hosts sections.<br>
    * This one layouts its content using a {@link TableWrapLayout} to allow sections to have wrapped hyper controls.
-   * 
    * @param parent
    * @param managedForm
    */
   protected Composite createSectionContainer(Composite parent, IManagedForm managedForm) {
-    Composite container = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper
-        .createCompositeWithLayoutType(managedForm.getToolkit(), parent, LayoutType.TABLEWRAP_LAYOUT, 1, true);
+    Composite container =
+        org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper.createCompositeWithLayoutType(managedForm.getToolkit(), parent,
+            LayoutType.TABLEWRAP_LAYOUT, 1, true);
     container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true));
     return container;
   }
@@ -236,15 +236,13 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
   /**
    * Create section displayed in this page.<br>
    * Default implementation return <code>null</code>.
-   * 
    * @param sectionContainer
    * @return First created section. This one is used to enable UI alignment with Diagram viewer section.
    */
   protected void createHeaderSections(final Composite sectionContainer, IManagedForm managedForm) {
 
     // Create Overview section.
-    AbstractDescriptionAction displayDescription = new DescriptionAction(sectionContainer.getShell(),
-        getPageDescription());
+    AbstractDescriptionAction displayDescription = new DescriptionAction(sectionContainer.getShell(), getPageDescription());
     Form formWidget = managedForm.getForm().getForm();
     formWidget.getMenuManager().add(displayDescription);
     formWidget.getToolBarManager().add(displayDescription);
@@ -266,7 +264,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Handle property change.<br>
-   * 
    * @param event
    * @param value
    * @param property
@@ -286,7 +283,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Test if the id is a Activity Explorer page.
-   * 
    * @param id
    * @return boolean
    */
@@ -296,7 +292,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Get a ActivityExplorerSection in the page from its id.
-   * 
    * @param id
    */
   protected ActivityExplorerSection getSectionById(final String id) {
@@ -327,7 +322,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Get the header page title.
-   * 
    * @return
    */
   protected String getHeaderTitle() {
@@ -336,7 +330,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Set the header page title.
-   * 
    * @param title
    */
   protected void setHeaderTitle(String title) {
@@ -346,7 +339,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
   /**
    * Get the XML file that defines the form text content for the description of the page.<br>
    * Returned path must be relative to <code>org.eclipse.amalgam.explorer.activity.ui/xml</code> folder.<br>
-   * 
    * @return
    */
   public String getPageDescription() {
@@ -355,7 +347,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Get the section container.
-   * 
    * @return the sectionContainer
    */
   protected Composite getSectionContainer() {
@@ -368,7 +359,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Handle contributed sections for specified Activity Explorer page provider.
-   * 
    * @param contributor
    */
   protected void handleContributedSectionsFor(IConfigurationElement contributor) {
@@ -377,8 +367,7 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
     ActivityExplorerSection section = new ActivityExplorerSection(contributor) {
       @Override
       protected IAction[] getToolBarActions() {
-        IAction[] toolbarActions = new IAction[] { new DescriptionAction(
-            ActivityExplorerPage.this.getSite().getShell(), description)
+        IAction[] toolbarActions = new IAction[] { new DescriptionAction(ActivityExplorerPage.this.getSite().getShell(), description)
 
         };
 
@@ -413,8 +402,9 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
     boolean value = ((Boolean) event.getNewValue()).booleanValue();
 
     if (doPropertyChange(event, value, property)) {
-      if (ActivityExplorerManager.INSTANCE.getEditor() != null)
+      if (ActivityExplorerManager.INSTANCE.getEditor() != null) {
         ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance().getManagedForm().reflow(true);
+      }
     }
   }
 
@@ -425,9 +415,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
   public void setActive(boolean active) {
     super.setActive(active);
     if (active) {
-      // Set a new selection to the property sheet page on Activity Explorer page
-      // activation.
-      // setCurrentPageSelectionToPropertySheetPage();
       updateActionBars();
     }
   }
@@ -437,15 +424,13 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
    * {@link #getViewer()}.
    */
   /*
-   * protected void setCurrentPageSelectionToPropertySheetPage() { // Call the property sheet page without loading it.
-   * // Indeed, we won't load it if the view is not displayed. TabbedPropertySheetPage propertySheetPage =
-   * getEditor().getPropertySheetPage(); if (null != propertySheetPage) {
+   * protected void setCurrentPageSelectionToPropertySheetPage() { // Call the property sheet page without loading it. // Indeed, we won't load it if the view
+   * is not displayed. TabbedPropertySheetPage propertySheetPage = getEditor().getPropertySheetPage(); if (null != propertySheetPage) {
    * propertySheetPage.selectionChanged(getEditor(), getViewer().getSelection()); } }
    */
 
   /**
    * Update action bars (handlers).
-   * 
    * @param editorActionBars
    */
   public void updateActionBars() {
@@ -458,6 +443,7 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
   /**
    * Initialize the Page with parameters.
    */
+  @Override
   public void setInitializationData(IConfigurationElement cfig, String propertyName, Object data) {
     super.setInitializationData(cfig, propertyName, data);
 
@@ -477,14 +463,14 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
     }
 
     String description = ActivityExplorerExtensionManager.getDescription(cfig);
-    if (null != description)
+    if (null != description) {
       setPageDescription(HTMLHelper.formWrapper(description));
+    }
 
   }
 
   /**
    * Set the page description.
-   * 
    * @param description
    */
 
@@ -494,7 +480,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Set Header Image Off.
-   * 
    * @param image
    */
   protected void setHeaderImageOff(Image image) {
@@ -504,7 +489,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Set Header Image On.
-   * 
    * @param image
    */
   protected void setHeaderImageOn(Image image) {
@@ -514,7 +498,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Get Image Off.
-   * 
    * @return Image
    */
   public Image getHeaderImageOff() {
@@ -523,7 +506,6 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Get header image On.
-   * 
    * @return Image
    */
   public Image getHeaderImageOn() {
@@ -544,10 +526,10 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
 
   /**
    * Get the applied Predicate.
-   * 
    * @return {@link IPredicate}
    */
   public IPredicate getPredicate() {
     return predicate;
   }
+
 }

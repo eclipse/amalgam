@@ -20,6 +20,8 @@ import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -28,9 +30,8 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * Base class to implement ActivityExplorer pages in an {@link ActivityExplorerEditor}.
- * 
  */
-public class CommonActivityExplorerPage extends FormPage implements IExecutableExtension, IOrdered, IVisibility {
+public class CommonActivityExplorerPage extends FormPage implements IExecutableExtension, IOrdered, IVisibility, IPropertyListener {
 
   private boolean overview;
   private Image overviewImageOff;
@@ -39,6 +40,8 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
   private String overviewImageOnPath;
   private String overviewImageOffPath;
   protected IPredicate predicate;
+
+  public static final int PROP_ACTIVE = 0x185;
 
   private int index;
 
@@ -66,6 +69,9 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
     toolkit.decorateFormHeading(managedForm.getForm().getForm());
     // For performance optimization.
     // managedForm.getForm().setDelayedReflow(true);
+
+    getEditor().addPropertyListener(this);
+
   }
 
   /**
@@ -76,6 +82,7 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
     return (SharedHeaderFormEditor) super.getEditor();
   }
 
+  @Override
   public void setInitializationData(IConfigurationElement cfig, String propertyName, Object data) {
 
     super.setInitializationData(cfig, propertyName, data);
@@ -83,8 +90,9 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
     String title = ActivityExplorerExtensionManager.getTitle(cfig);
     String tabName = ActivityExplorerExtensionManager.getTabName(cfig);
 
-    if (tabName == null)
+    if (tabName == null) {
       tabName = title;
+    }
     setPartName(tabName);
 
     overview = ActivityExplorerExtensionManager.getOverviewElement(cfig) != null;
@@ -203,6 +211,33 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
     }
     return result;
 
+  }
+
+  @Override
+  public void setActive(boolean active) {
+    super.setActive(active);
+    if (active) {
+      markAsActive();
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * @see org.eclipse.ui.IPropertyListener#propertyChanged(java.lang.Object, int)
+   */
+  @Override
+  public void propertyChanged(Object source, int propId) {
+    if (IEditorPart.PROP_DIRTY == propId) {
+      markAsDirty();
+    }
+  }
+
+  public void markAsDirty() {
+    firePropertyChange(IEditorPart.PROP_DIRTY);
+  }
+
+  public void markAsActive() {
+    firePropertyChange(PROP_ACTIVE);
   }
 
 }
