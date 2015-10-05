@@ -196,6 +196,9 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
       getEditorSite().getPage().removePartListener(_partListener);
       _partListener = null;
     }
+    //Remove preference listener
+    ActivityExplorerActivator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+
     super.dispose();
 
     if (null != getEditorInput()) {
