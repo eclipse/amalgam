@@ -20,7 +20,6 @@ import org.eclipse.amalgam.explorer.activity.ui.api.preferences.PreferenceConsta
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionListener;
-import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.business.api.session.SessionManagerListener;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.swt.widgets.Display;
@@ -53,6 +52,9 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
     switch (notification) {
       case SessionListener.CLOSING:
         notifyClosingSession(session);
+      break;
+      case SessionListener.SELECTED_VIEWS_CHANGE_KIND:
+        update(session);
       break;
       case SessionListener.REPRESENTATION_CHANGE:
         notifyRepresentationChange(session);
@@ -186,21 +188,21 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
    * Update the ActivityExplorer Editor.
    * @param selectedViewpoint
    */
-  protected void update(Viewpoint selectedViewpoint) {
-    final Session currentSession = SessionManager.INSTANCE.getSession(selectedViewpoint);
+  protected void update(final WeakReference<Session> session) {
+    Runnable runnable = new Runnable() {
 
-    if ((selectedViewpoint != null) && (currentSession != null) && currentSession.isOpen()) {
-      Runnable refresh = new Runnable() {
-        @Override
-        public void run() {
+      public void run() {
+        Session currentSession = session.get();
+        if (currentSession != null) {
           ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(currentSession);
           if (editor != null) {
             editor.updateEditorPages(0);
           }
         }
-      };
-      run(refresh);
-    }
+      }
+    };
+    run(runnable);
+
   }
 
   public void notifyAddSession(Session newSession) {
@@ -218,12 +220,12 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
 
   @Override
   public void viewpointSelected(Viewpoint selectedViewpoint) {
-    update(selectedViewpoint);
+    // Do nothing.
   }
 
   @Override
   public void viewpointDeselected(Viewpoint deselectedViewpoint) {
-    update(deselectedViewpoint);
+    // Do nothing.
   }
 
 }
