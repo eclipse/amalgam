@@ -10,15 +10,20 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.internal.preferences;
 
+import java.util.Iterator;
+
+import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
+import org.eclipse.amalgam.explorer.activity.ui.api.preferences.PreferenceConstants;
 import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 public class ActivityExplorerManagementPreferencePage extends ActivityExplorerPreferencePage {
-
+	
 	private ActivityExplorerSelectionBlock constraintsComposite;
 
 	public ActivityExplorerManagementPreferencePage() {
@@ -43,7 +48,6 @@ public class ActivityExplorerManagementPreferencePage extends ActivityExplorerPr
 	protected void performDefaults() {
 		super.performDefaults();
 		setDefaultValues();
-		constraintsComposite.performDefaults();
 	}
 	
 	@Override
@@ -53,10 +57,15 @@ public class ActivityExplorerManagementPreferencePage extends ActivityExplorerPr
   }
 	
 	private void setDefaultValues() {
+
 		for (IConfigurationElement page : ActivityExplorerExtensionManager.getAllPagesElt()) {
 			constraintsComposite.controller.setDefaultValue(page);
+			for (IConfigurationElement section : ActivityExplorerExtensionManager.getSections(page)) {
+				constraintsComposite.controller.setDefaultValue(section);
+				for (IConfigurationElement activity : ActivityExplorerExtensionManager.getActivities(section)) {
+					constraintsComposite.controller.setDefaultValue(activity);
+				}
+			}
 		}
-
 	}
-
 }

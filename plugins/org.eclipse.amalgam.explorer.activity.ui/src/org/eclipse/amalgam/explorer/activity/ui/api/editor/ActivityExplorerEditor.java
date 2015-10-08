@@ -494,7 +494,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
   @Override
   public void propertyChange(org.eclipse.jface.util.PropertyChangeEvent event) {
     String property = event.getProperty();
-    boolean value = ((Boolean) event.getNewValue()).booleanValue();
+	boolean value = (Boolean.valueOf(event.getNewValue().toString()));
     if (doPropertyChange(event, value, property)) {
       if (ActivityExplorerManager.INSTANCE.getEditor() != null) {
         ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance().getManagedForm().reflow(true);

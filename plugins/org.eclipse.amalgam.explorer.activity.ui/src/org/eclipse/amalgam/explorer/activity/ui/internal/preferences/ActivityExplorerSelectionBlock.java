@@ -100,10 +100,6 @@ public class ActivityExplorerSelectionBlock {
 		createDetailsView(result);
 		return result;
 	}
-	
-  public void performDefaults() {
-    deferredPreferencesValues.clear();
-  }
 	  
   public void performOk() {
     // Defer the property page to the end so that all children prefs must be set before.

@@ -123,7 +123,7 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
 		}
 		try {
 			IRunnableWithProgress runnable = new IRunnableWithProgress() {
-				public void run(IProgressMonitor monitor_p) {
+				public void run(IProgressMonitor monitor) {
 					doOpenSessions();
 				}
 			};
@@ -147,34 +147,34 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
 	/**
 	 * Get ActivityExplorer should be open when running this action.
 	 * 
-	 * @param open_p
+	 * @param open
 	 *            <code>true</code> means the Activity Explorer will be open after
 	 *            session open operation.
 	 */
-	public boolean getActivityExplorerPreference() {
+	public static boolean getActivityExplorerPreference() {
 		return ActivityExplorerActivator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER);
 	}
 
 	/**
 	 * Set if this action should be ran within a progress service runnable.
 	 * 
-	 * @param runInProgressService_p
+	 * @param runInProgressService
 	 *            <code>true</code> means this action should be ran within a
 	 *            progress service runnable.
 	 */
-	public void setRunInProgressService(boolean runInProgressService_p) {
-		_shouldRunInProgressService = runInProgressService_p;
+	public void setRunInProgressService(boolean runInProgressService) {
+		_shouldRunInProgressService = runInProgressService;
 	}
 
 	/**
 	 * Open the Activity Explorer for specified session.
 	 * 
-	 * @param session_p
+	 * @param session
 	 * @return
 	 */
-	public static boolean openActivityExplorer(final Session session_p) {
+	public static boolean openActivityExplorer(final Session session) {
 		final boolean[] welcomeOpen = { false };
-		if (null == session_p) {
+		if (null == session) {
 			return welcomeOpen[0];
 		}
 		// Create a runnable that open the Activity Explorer.
@@ -183,19 +183,19 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
 			public void run() {
 				try {
 					IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-					if (activePage != null && session_p.isOpen()) {
+					if (activePage != null && session.isOpen()) {
 						activePage.openEditor(
-								new ActivityExplorerEditorInput(session_p,
+								new ActivityExplorerEditorInput(session,
 										org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
-												.getRootSemanticModel(session_p)), ActivityExplorerEditor.ID);
+												.getRootSemanticModel(session)), ActivityExplorerEditor.ID);
 						welcomeOpen[0] = true;
 					}
-				} catch (PartInitException exception_p) {
+				} catch (PartInitException exception) {
 					StringBuilder loggerMessage = new StringBuilder(".run(..) _ Activity Explorer not Found."); //$NON-NLS-1$
-					loggerMessage.append(exception_p.getMessage());
+					loggerMessage.append(exception.getMessage());
 					// __logger.warn(new
 					// EmbeddedMessage(loggerMessage.toString(),
-					// IReportManagerDefaultComponents.UI), exception_p);
+					// IReportManagerDefaultComponents.UI), exception);
 				}
 			}
 		};

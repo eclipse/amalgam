@@ -49,21 +49,21 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	/**
 	 * Constructor.
 	 * 
-	 * @param contributor_p
+	 * @param contributor
 	 */
-	public ActivityExplorerSection(IConfigurationElement contributor_p) {
-		this.id = ActivityExplorerExtensionManager.getId(contributor_p);
-		this.name = ActivityExplorerExtensionManager.getName(contributor_p);
-		this.isExpanded = ActivityExplorerExtensionManager.getIsExpanded(contributor_p);
-		String desc = ActivityExplorerExtensionManager.getDescription(contributor_p);
+	public ActivityExplorerSection(IConfigurationElement contributor) {
+		this.id = ActivityExplorerExtensionManager.getId(contributor);
+		this.name = ActivityExplorerExtensionManager.getName(contributor);
+		this.isExpanded = ActivityExplorerExtensionManager.getIsExpanded(contributor);
+		String desc = ActivityExplorerExtensionManager.getDescription(contributor);
 		if (null != desc){
 			Pattern pPattern = Pattern.compile(P_PATTERN);
 			boolean isInParagraph = pPattern.matcher(desc).find();
 			this.description = isInParagraph ? HTMLHelper.formWrapper2(desc) : HTMLHelper.formWrapper(desc);
 			}
-		this.index = Integer.parseInt(ActivityExplorerExtensionManager.getIndex(contributor_p));
-		this.isFiltering = ActivityExplorerExtensionManager.getIsFiltering(contributor_p);
-		createActivities(contributor_p);
+		this.index = Integer.parseInt(ActivityExplorerExtensionManager.getIndex(contributor));
+		this.isFiltering = ActivityExplorerExtensionManager.getIsFiltering(contributor);
+		createActivities(contributor);
 
 	}
 
@@ -75,18 +75,18 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 * @param index
 	 * @param isExpanded
 	 * @param description
-	 * @param activities_p
+	 * @param activities
 	 */
 
 	public ActivityExplorerSection(String id, String name, int index, boolean isExpanded, boolean isFiltering,
-			String description, List<ExplorerActivity> activities_p) {
+			String description, List<ExplorerActivity> activities) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.index = index;
 		this.isExpanded = isExpanded;
 		this.isFiltering = isFiltering;
-		this.activities.addAll(activities_p);
+		this.activities.addAll(activities);
 	}
 
 	private TreeSet<ExplorerActivity> activities;
@@ -94,14 +94,14 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	/**
 	 * Create theirs Activities.
 	 * 
-	 * @param contributor_p
+	 * @param contributor
 	 */
 
-	private void createActivities(IConfigurationElement contributor_p) {
+	private void createActivities(IConfigurationElement contributor) {
 
 		activities = new TreeSet<ExplorerActivity>();
 
-		List<IConfigurationElement> activities = ActivityExplorerExtensionManager.getActivities(contributor_p);
+		List<IConfigurationElement> activities = ActivityExplorerExtensionManager.getActivities(contributor);
 		for (IConfigurationElement element : activities) {
 			this.activities.add(new ExplorerActivity(element));
 		}
@@ -234,16 +234,16 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	/**
 	 * Initialize the DashBaord Section
 	 * 
-	 * @param sectionContainer_p
+	 * @param sectionContainer
 	 * @param page
-	 * @param managedForm_p
+	 * @param managedForm
 	 * @return Control
 	 */
-	public Control init(Composite sectionContainer_p, IFormPage page, IManagedForm managedForm_p) {
+	public Control init(Composite sectionContainer, IFormPage page, IManagedForm managedForm) {
 		this.page = page;
-		toolkit = managedForm_p.getToolkit();
-		Couple<Section, Composite> section = FormHelper.createTwistieSectionWithToolbar(sectionContainer_p,
-				managedForm_p, getName(), null, isExpanded, Arrays.asList(getToolBarActions()));
+		toolkit = managedForm.getToolkit();
+		Couple<Section, Composite> section = FormHelper.createTwistieSectionWithToolbar(sectionContainer,
+				managedForm, getName(), null, isExpanded, Arrays.asList(getToolBarActions()));
 
 		widget = (Section) section.getKey();
 
@@ -258,15 +258,15 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	/**
 	 * Initialise the DashBaordSection.
 	 * 
-	 * @param sectionContainer_p
+	 * @param sectionContainer
 	 * @param page
-	 * @param managedForm_p
+	 * @param managedForm
 	 * @return Control
 	 */
-	public Control initialize(Composite sectionContainer_p, IFormPage page, IManagedForm managedForm_p) {
+	public Control initialize(Composite sectionContainer, IFormPage page, IManagedForm managedForm) {
 
 		// init the section
-		init(sectionContainer_p, page, managedForm_p);
+		init(sectionContainer, page, managedForm);
 
 		// add/init activities
 		initOwnActivities(activityContainer, toolkit);
@@ -302,13 +302,13 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	/**
 	 * Init own ExplorerActivity.
 	 * 
-	 * @param activityContainer_p
-	 * @param toolkit_p
+	 * @param activityContainer
+	 * @param toolkit
 	 */
 
-	private void initOwnActivities(Composite activityContainer_p, FormToolkit toolkit_p) {
+	private void initOwnActivities(Composite activityContainer, FormToolkit toolkit) {
 		for (ExplorerActivity activity : getVisibleActivities()) {
-			activity.init(activityContainer_p, toolkit_p);
+			activity.init(activityContainer, toolkit);
 		}
 	}
 
@@ -327,7 +327,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	@Override
 	public void propertyChange(org.eclipse.jface.util.PropertyChangeEvent event) {
 		String property = event.getProperty();
-		boolean value = ((Boolean) event.getNewValue()).booleanValue();
+		boolean value = (Boolean.valueOf(event.getNewValue().toString()));
 		if (doPropertyChange(event, value, property)) {
 			if (ActivityExplorerManager.INSTANCE.getEditor() != null)
 				ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance().getManagedForm().reflow(true);
@@ -335,10 +335,10 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 
 	}
 
-	protected boolean doPropertyChange(PropertyChangeEvent event_p, boolean value_p, String property_p) {
+	protected boolean doPropertyChange(PropertyChangeEvent event, boolean value, String property) {
 		boolean result = false;
 
-		if (isActivity(property_p)) {
+		if (isActivity(property)) {
 			updateSectionForm();
 			result = true;
 		}
@@ -381,6 +381,8 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 		 * for(ExplorerActivity activity: getActivities()){ activity.dispose();
 		 * }
 		 */
+		// dispose the editor
+		ActivityExplorerManager.INSTANCE.getEditor().dispose();
 		// dispose the preference property listener
 		ActivityExplorerActivator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 	}
