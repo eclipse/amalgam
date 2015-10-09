@@ -217,7 +217,7 @@ public class ExplorerContextualHistoryAction extends Action implements IMenuCrea
   /**
    * Update control state.
    */
-  protected void updateControlState() {
+  public void updateControlState() {
     boolean enabled = false;
     if (_forward) {
       if (_explorerHistory.getForwardNavigationEntries().size() > 0) {

@@ -14,23 +14,18 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.MissingResourceException;
 
-import org.eclipse.amalgam.explorer.contextual.core.ExplorerActivator;
 import org.eclipse.amalgam.explorer.contextual.core.category.ICategory;
 import org.eclipse.amalgam.explorer.contextual.core.model.IExplorerContextualModel;
 import org.eclipse.amalgam.explorer.contextual.core.provider.AbstractContentProvider;
 import org.eclipse.amalgam.explorer.contextual.core.provider.AbstractContentProviderFactory;
 import org.eclipse.amalgam.explorer.contextual.core.provider.AbstractLabelProviderFactory;
-import org.eclipse.amalgam.explorer.contextual.core.provider.wrapper.ExplorerElementWrapper;
 import org.eclipse.amalgam.explorer.contextual.core.provider.wrapper.CategoryWrapper;
-import org.eclipse.amalgam.explorer.contextual.core.ui.IImageKeys;
+import org.eclipse.amalgam.explorer.contextual.core.provider.wrapper.ExplorerElementWrapper;
 import org.eclipse.amalgam.explorer.contextual.core.ui.ExplorerContextualActivator;
 import org.eclipse.amalgam.explorer.contextual.core.ui.ExplorerContextualPreferences;
+import org.eclipse.amalgam.explorer.contextual.core.ui.IImageKeys;
 import org.eclipse.amalgam.explorer.contextual.core.ui.action.ExplorerActionFactory;
 import org.eclipse.amalgam.explorer.contextual.core.ui.action.ExplorerHistory;
 import org.eclipse.amalgam.explorer.contextual.core.ui.model.ExplorerContextualModel;
@@ -71,7 +66,9 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.window.ToolTip;
 import org.eclipse.sirius.business.api.session.Session;
+import org.eclipse.sirius.business.api.session.SessionListener;
 import org.eclipse.sirius.business.api.session.SessionManager;
+import org.eclipse.sirius.business.api.session.SessionManagerListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.custom.SashForm;
@@ -180,7 +177,7 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 	 * Memento used to persist view states between sessions.
 	 */
 	private IMemento _memento;
-	private Map<Session, SemClosedSessionListener> _monitoredSessions;
+  private SessionManagerListener _semCloseSessionListener;
 	private TabbedPropertySheetPage _propertySheetPage;
 	private TreeViewer _referencedViewer;
 	/**
@@ -211,22 +208,7 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 	public ExplorerContextualView() {
 		// Get the dialog settings section for this view.
 		_viewSettings = getDialogSettingsSection();
-		_monitoredSessions = new HashMap<Session, ExplorerContextualView.SemClosedSessionListener>(1);
 		model = new ExplorerContextualModel();
-	}
-	
-	/**
-	 * Monitor the session that loads specified element.
-	 * @param element_p
-	 */
-	protected void monitorSessionClosingEvent(EObject element_p) {
-		Session session = SessionManager.INSTANCE.getSession(element_p);
-		if ((null != session) && !_monitoredSessions.containsKey(session)) 
-		{
-			SemClosedSessionListener listener = new SemClosedSessionListener(session);
-			session.addListener(listener);
-			_monitoredSessions.put(session, listener);
-		}
 	}
 
 	@Override
@@ -250,7 +232,7 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 	 * @param viewer_p
 	 */
 	protected void addDndDragSupport(final TreeViewer viewer_p) {
-		int operations = DND.DROP_MOVE;
+		int operations = DND.DROP_MOVE | DND.DROP_COPY;
 		Transfer[] transferTypes = new Transfer[] { LocalSelectionTransfer.getTransfer() };
 		// The DragSourceListener implementation is inspired by org.eclipse.debug.internal.ui.views.variables.SelectionDragAdapter.
 		viewer_p.addDragSupport(operations, transferTypes, new DragSourceListener() {
@@ -331,6 +313,14 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 				if (null != newSelectionProvider) {
 					updateSelectionProvider(newSelectionProvider);
 					refreshPropertyPage(newSelectionProvider);
+          // viewer_p.addSelectionChangedListener(getSite().getWorkbenchWindow());
+          // viewer_p.addSelectionChangedListener(WindowSelectionService);
+          try {
+            getViewSite().getPage().showView(getExplorerContextualViewID(), null, org.eclipse.ui.IWorkbenchPage.VIEW_CREATE);
+          } catch (PartInitException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
 				}
 			}
 		});
@@ -446,15 +436,11 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 			 */
 			@Override
 			public int compare(Viewer viewer_p, Object e1_p, Object e2_p) {
-				if (e1_p instanceof CategoryWrapper) {
-					if (isRepresentationCategory((CategoryWrapper) e1_p)) {
-						return 1;
-					}
+				if ((e1_p instanceof CategoryWrapper) && isRepresentationCategory((CategoryWrapper) e1_p)) {
+					return 1;
 				}
-				if (e2_p instanceof CategoryWrapper) {
-					if (isRepresentationCategory((CategoryWrapper) e2_p)) {
-						return -1;
-					}
+				if ((e2_p instanceof CategoryWrapper) && isRepresentationCategory((CategoryWrapper) e2_p)) {
+					return -1;
 				}
 				return super.compare(viewer_p, e1_p, e2_p);
 			}
@@ -483,6 +469,9 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 		_delegateSelectionProvider = new DelegateSelectionProvider(_currentViewer);
 		getViewSite().setSelectionProvider(_delegateSelectionProvider);
 		makeActions();
+    // Listen to Closing/Close session events.
+    _semCloseSessionListener = new SemClosedSessionListener();
+    SessionManager.INSTANCE.addSessionsListener(_semCloseSessionListener);
 	}
 
 	/**
@@ -544,14 +533,10 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 			_history.dispose();
 			_history = null;
 		}
-		// Unregister from monitored sessions.
-		Iterator<Entry<Session, SemClosedSessionListener>> iterator = _monitoredSessions.entrySet().iterator();
-		while (iterator.hasNext()) {
-			Map.Entry<Session, SemClosedSessionListener> entry = iterator.next();
-			entry.getKey().removeListener(entry.getValue());
-		}
-		_monitoredSessions.clear();
-		_monitoredSessions = null;
+
+		// Remove Closing/Close session listener.
+    SessionManager.INSTANCE.removeSessionsListener(_semCloseSessionListener);
+    _semCloseSessionListener = null;
 
 		model = null;
 		super.dispose();
@@ -563,14 +548,11 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Object getAdapter(Class adapter_p) {
-		if (IPropertySheetPage.class.equals(adapter_p)) 
-		{
+		if (IPropertySheetPage.class.equals(adapter_p)) {
 			return getPropertySheetPage();
 		} 
-		else
-		{
-			if (Control.class.equals(adapter_p)) 
-				return getParentControl();
+		if (Control.class.equals(adapter_p)) {
+			return getParentControl();
 		}
 		return super.getAdapter(adapter_p);
 	}
@@ -1212,11 +1194,6 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 			// Set focus in another thread UI processing.
 			setFocus();
 		}
-		// Monitor session closing event to clean the Contextual Explorer.
-		if (input_p instanceof EObject) 
-		{
-			monitorSessionClosingEvent((EObject) input_p);
-		}
 	}
 
 	/**
@@ -1334,40 +1311,28 @@ public abstract class ExplorerContextualView extends ViewPart implements IExplor
 	 */
 	protected abstract String ingoredViewAsSelectionProvider();
 	
-	
-	/******/
-	class SemClosedSessionListener extends ClosedSessionListener {
-		/**
-		 * Constructor.
-		 * @param session_p
-		 */
-		public SemClosedSessionListener(Session session_p) {
-			super(session_p);
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		protected void handleClosedSession(Session monitoredSession_p) {
-			super.handleClosedSession(monitoredSession_p);
-			// Update history to clean dead entries.
-			getHistory().update(null);
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		protected void handleClosingSession(Session monitoredSession_p) {
-			Object currentInput = getCurrentViewer().getInput();
-			if (currentInput instanceof EObject) {
-				// Get the session of current displayed object.
-				Session session = SessionManager.INSTANCE.getSession((EObject) currentInput);
-				if (monitoredSession_p.equals(session)) {
-					clean();
-				}
-			}
-		}
+  /**
+   * Listener that listens to closing and closed session events.
+   */
+	class SemClosedSessionListener extends SessionManagerListener.Stub {
+    @Override
+    public void notify(final Session updated_p, final int notification_p) {
+      switch (notification_p) {
+        case SessionListener.CLOSING:
+          Object currentInput = getCurrentViewer().getInput();
+          if (currentInput instanceof EObject) {
+            // Get the session of current displayed object.
+            Session session = SessionManager.INSTANCE.getSession((EObject) currentInput);
+            if (updated_p.equals(session)) {
+              clean();
+            }
+          }
+        break;
+        case SessionListener.CLOSED:
+          // Update history to clean dead entries.
+          getHistory().update(null);
+        break;
+      }
+    }
 	}
 }
