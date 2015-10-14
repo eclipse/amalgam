@@ -82,8 +82,11 @@ public class ActivityExplorerManager {
 	 */
 	public EObject getRootSemanticModel() {
 		ActivityExplorerEditor editor = getEditor();
-		ActivityExplorerEditorInput input = editor.getEditorInput();
-		return input.getRootSemanticElement();
+		if (editor  !=null){
+			ActivityExplorerEditorInput input = editor.getEditorInput();
+			return input.getRootSemanticElement();
+		}
+		return null;
 	}
 
 	private ActivityExplorerEditor editor;

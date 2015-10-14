@@ -346,20 +346,6 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 		return result;
 	}
 
-	/*
-	 * private boolean doPropertyChange(PropertyChangeEvent event, boolean
-	 * value, String property) {
-	 * 
-	 * 
-	 * ExplorerActivity activity = getActivityById(property); if (null !=
-	 * activity) { if (value) { if (!activityContainer.isDisposed() &&
-	 * !(widget.isDisposed())) {
-	 * 
-	 * // we layout all widgets ! sorry daddy! updateSectionForm();
-	 * widget.getParent().layout(true, true); } }else { activity.dispose();
-	 * //widget.getParent().layout(true, true); } } return true; }
-	 */
-
 	/**
 	 * Test if the id is a Activity.
 	 * 
