@@ -329,10 +329,10 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 		String property = event.getProperty();
 		boolean value = (Boolean.valueOf(event.getNewValue().toString()));
 		if (doPropertyChange(event, value, property)) {
-			if (ActivityExplorerManager.INSTANCE.getEditor() != null)
+		      if (ActivityExplorerManager.INSTANCE.getEditor() != null && ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance()!= null) {
 				ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance().getManagedForm().reflow(true);
+		      }
 		}
-
 	}
 
 	protected boolean doPropertyChange(PropertyChangeEvent event, boolean value, String property) {

@@ -402,7 +402,7 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
     boolean value = ((Boolean) event.getNewValue()).booleanValue();
 
     if (doPropertyChange(event, value, property)) {
-      if (ActivityExplorerManager.INSTANCE.getEditor() != null) {
+      if (ActivityExplorerManager.INSTANCE.getEditor() != null && ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance()!= null) {
         ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance().getManagedForm().reflow(true);
       }
     }
