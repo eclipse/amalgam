@@ -193,7 +193,7 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
 
       public void run() {
         Session currentSession = session.get();
-        if (currentSession != null) {
+        if (currentSession != null && currentSession.isOpen()) {
           ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(currentSession);
           if (editor != null) {
             editor.updateEditorPages(0);
