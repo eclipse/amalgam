@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature id="org.eclipse.amalgam.discovery" version="1.7.0.qualifier">
+   <feature id="org.eclipse.amalgam.discovery" version="0.0.0">
       <category name="amalgam"/>
    </feature>
-   <feature id="org.eclipse.amalgam.explorer.activity" version="1.7.0.qualifier">
+   <feature id="org.eclipse.amalgam.discovery.source" version="0.0.0">
+      <category name="amalgam-sdk"/>
+   </feature>
+   <feature id="org.eclipse.amalgam.explorer.activity" version="0.0.0">
       <category name="amalgam"/>
    </feature>
-   <feature id="org.eclipse.amalgam.explorer.contextual" version="1.7.0.qualifier">
+   <feature id="org.eclipse.amalgam.explorer.activity.source" version="0.0.0">
+      <category name="amalgam-sdk"/>
+   </feature>
+   <feature id="org.eclipse.amalgam.explorer.contextual" version="0.0.0">
       <category name="amalgam"/>
    </feature>
-   <feature id="org.eclipse.amalgam.explorer.contextual.sirius" version="1.7.0.qualifier">
+   <feature id="org.eclipse.amalgam.explorer.contextual.source" version="0.0.0">
+      <category name="amalgam-sdk"/>
+   </feature>
+   <feature id="org.eclipse.amalgam.explorer.contextual.sirius" version="0.0.0">
       <category name="amalgam"/>
    </feature>
-   <feature id="org.eclipse.amalgam.explorer.contextual.core" version="1.7.0.qualifier">
+   <feature id="org.eclipse.amalgam.explorer.contextual.sirius.source" version="0.0.0">
+      <category name="amalgam-sdk"/>
+   </feature>
+   <feature id="org.eclipse.amalgam.explorer.contextual.core" version="0.0.0">
       <category name="amalgam"/>
+   </feature>
+   <feature id="org.eclipse.amalgam.explorer.contextual.core.source" version="0.0.0">
+      <category name="amalgam-sdk"/>
    </feature>
    <category-def name="amalgam" label="Modeling Amalgamation">
       <description>
          Amalgamation Features
+      </description>
+   </category-def>
+   <category-def name="amalgam-sdk" label="Modeling Amalgamation SDK">
+      <description>
+         Amalgamation Features with sources
       </description>
    </category-def>
 </site>
