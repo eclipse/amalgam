@@ -22,7 +22,7 @@ import org.eclipse.sirius.common.tools.api.util.StringUtil;
 import org.eclipse.sirius.common.ui.tools.api.dialog.RenameDialog;
 import org.eclipse.sirius.viewpoint.DRepresentation;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
 
 /**
@@ -58,7 +58,7 @@ public class RenameRepresentationAction extends BaseSelectionListenerAction {
 			final String oldName = (representation.getName() != null) ? representation.getName()
 					: StringUtil.EMPTY_STRING;
 			// To provide a title we need sub-classing the RenameDialog.
-			RenameDialog dialog = new RenameDialog(Display.getDefault().getActiveShell(), oldName) {
+			RenameDialog dialog = new RenameDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), oldName) {
 
 				@Override
 				public int open() {

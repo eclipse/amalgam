@@ -10,13 +10,17 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.manager;
 
+import java.util.List;
+
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerEditor;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.input.ActivityExplorerEditorInput;
+import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityExplorerPage;
+import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.OverviewActivityExplorerPage;
+import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.sirius.business.api.session.Session;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -33,6 +37,13 @@ import org.eclipse.ui.PlatformUI;
 public class ActivityExplorerManager {
 
 	public static final ActivityExplorerManager INSTANCE = new ActivityExplorerManager();
+
+	//FIXME to remove: these 3 attributs serve only to check if there are contribution
+	//to the session.
+	private static boolean checkContribution = false;
+	private static Session session = null;
+	private static EObject rootModel = null;
+	//END Hack
 
 	private ActivityExplorerManager() {
 	}
@@ -63,6 +74,11 @@ public class ActivityExplorerManager {
 	 * @return Session
 	 */
 	public Session getSession() {
+		//FIXME remove when deeply work well be done
+		if (checkContribution){
+			return ActivityExplorerManager.session;
+		}
+		//END hack
 		Session session = null;
 		ActivityExplorerEditor editor = getEditor();
 		if (editor != null) {
@@ -81,6 +97,11 @@ public class ActivityExplorerManager {
 	 * @return EObject
 	 */
 	public EObject getRootSemanticModel() {
+		//FIXME remove when deeply work will be done
+		if (checkContribution){
+			return ActivityExplorerManager.rootModel;
+		}
+		
 		ActivityExplorerEditor editor = getEditor();
 		if (editor  !=null){
 			ActivityExplorerEditorInput input = editor.getEditorInput();
@@ -102,7 +123,8 @@ public class ActivityExplorerManager {
 
 		if (session != null) {
 			URunnable runnable = new URunnable(session);
-			Display.getDefault().syncExec(runnable);
+			PlatformUI.getWorkbench().getDisplay().syncExec(runnable);
+			//Display.getDefault().syncExec(runnable);
 			current = runnable.getEditor();
 		}
 
@@ -152,5 +174,28 @@ public class ActivityExplorerManager {
 	public IEditorPart getCurrentEditor() {
 		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 	}
+
+	//Very bad hack.
+	//FIXME remove this code when deeply work well be done.
+	public boolean containsContributions(Session session){
+		ActivityExplorerManager.checkContribution = true;
+		boolean result = false;
+		EObject semanticModel = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper.getRootSemanticModel(session);
+		ActivityExplorerManager.session = session;
+		ActivityExplorerManager.rootModel = semanticModel;
+		List<CommonActivityExplorerPage> allPages = ActivityExplorerExtensionManager.getAllPages();
+
+		for (CommonActivityExplorerPage page : allPages) {
+			result |= (!(page instanceof OverviewActivityExplorerPage || page.getPosition() == 0) 
+					&& page.isVisible());
+		}
+
+		ActivityExplorerManager.checkContribution = false;
+		ActivityExplorerManager.session = null;
+		ActivityExplorerManager.rootModel = null;
+		
+		return result;
+	}
+	//END Hack
 
 }

@@ -20,7 +20,7 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.sirius.viewpoint.DRepresentation;
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
 
 /**
@@ -52,7 +52,7 @@ public class OpenRepresentationsAction extends BaseSelectionListenerAction {
 			return;
 		}
 		IRunnableWithProgress runnable = new OpenRepresentationsRunnable(representations, false);
-		ProgressMonitorDialog progressDialog = new ProgressMonitorDialog(Display.getDefault().getActiveShell());
+		ProgressMonitorDialog progressDialog = new ProgressMonitorDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell());
 		try {
 			progressDialog.run(false, false, runnable);
 		} catch (InvocationTargetException ex_p) {

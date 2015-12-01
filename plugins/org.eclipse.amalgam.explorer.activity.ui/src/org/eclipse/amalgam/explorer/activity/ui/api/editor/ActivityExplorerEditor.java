@@ -78,14 +78,8 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
   protected void addPages() {
     try {
 
-      // OVERVIEW IS FIRST PAGE (Default or contributed)
-      OverviewActivityExplorerPage overViewPage = getOrCreateOverviewActivityExplorerPage();
-      addPage(overViewPage);
-
-      // set editor in the Activity Explorer Manager
-      ActivityExplorerManager.INSTANCE.setEditor(this);
-      // Add other Pages (plug-ins contribution)
-      createContributedPages();
+    	createContributedPages();
+        ActivityExplorerManager.INSTANCE.setEditor(this);
 
     } catch (PartInitException exception) {
       StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addPages(..) _ "); //$NON-NLS-1$
@@ -138,19 +132,32 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
    * Create and Insert Contributed pages in the editor
    */
   private void createContributedPages() throws PartInitException {
-    List<CommonActivityExplorerPage> temp = ActivityExplorerExtensionManager.getAllPages();
-    Collections.sort(temp);
-    for (CommonActivityExplorerPage page : temp) {
-      if ((page instanceof IVisibility) && !(page.getPosition() == 0)) {
-        if (page.isVisible()) {
-          addNewPage(page);
-
-        }
-      }
-    }
+	  List<CommonActivityExplorerPage> temp = ActivityExplorerExtensionManager.getAllPages();
+	    Collections.sort(temp);
+	    setupOverviewPage(temp);
+	    for (CommonActivityExplorerPage page : temp) {
+	      if ((page instanceof IVisibility) && !(page.getPosition() == 0)) {
+	        if (page.isVisible()) {
+	          addNewPage(page);
+	        }
+	      }
+	    }
   }
 
-  /**
+  private void setupOverviewPage(List<CommonActivityExplorerPage> temp) {
+	  if (temp != null && !temp.isEmpty()){
+		  CommonActivityExplorerPage firstPage = temp.get(0);
+		  if ((firstPage instanceof OverviewActivityExplorerPage) && (firstPage.getPosition() == 0) && firstPage.isVisible()) {
+			  addNewPage(firstPage);
+			  temp.remove(0);
+			  return;
+		  }
+	  } 
+	  OverviewActivityExplorerPage overviewActivityExplorerPage = new OverviewActivityExplorerPage(this);
+	  addNewPage(overviewActivityExplorerPage);
+  }
+
+/**
    * Create a documentation page.
    * 
    * @return a not <code>null</code> instance.

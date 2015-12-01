@@ -10,9 +10,13 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.actions;
 
+import java.util.Vector;
+
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.IImageKeys;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerEditor;
+import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityExplorerPage;
+import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.OverviewActivityExplorerPage;
 import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -94,6 +98,19 @@ public class GoToActivityExplorerAction extends BaseSelectionListenerAction {
 		if (session != null) {
 			ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(session);
 			result = editor != null ? true : false;
+			if (result){
+				result |= canShow(editor);
+			}
+		}
+		return result;
+	}
+	
+	private boolean canShow(ActivityExplorerEditor editor) {
+		boolean result = false;
+		Vector<CommonActivityExplorerPage> pages = editor.getPages();
+		
+		for (CommonActivityExplorerPage page : pages) {
+			result |= (!(page instanceof OverviewActivityExplorerPage || page.getPosition() == 0) && page.isActive());
 		}
 		return result;
 	}
