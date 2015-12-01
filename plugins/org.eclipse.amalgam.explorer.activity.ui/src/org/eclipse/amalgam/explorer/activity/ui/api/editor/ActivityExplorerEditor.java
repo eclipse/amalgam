@@ -26,7 +26,6 @@ import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ILabelDecorator;
@@ -52,12 +51,8 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 /**
  * Base class to implement Activity Explorer.
  */
-public class ActivityExplorerEditor extends SharedHeaderFormEditor implements ITabbedPropertySheetPageContributor, IPropertyChangeListener {
-  /**
-   * Logger.
-   */
-  // private static final Logger __logger =
-  // ReportManagerRegistry.getInstance().subscribe(IReportManagerDefaultComponents.UI);
+public class ActivityExplorerEditor extends SharedHeaderFormEditor implements ITabbedPropertySheetPageContributor,
+    IPropertyChangeListener {
 
   /**
    * Editor ID.
@@ -121,6 +116,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
   /**
    * Returns all pages in the Editor
+   * 
    * @return Vector<AbstractActivityExplorerPage>
    */
   @SuppressWarnings("unchecked")
@@ -156,6 +152,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
   /**
    * Create a documentation page.
+   * 
    * @return a not <code>null</code> instance.
    */
   protected IFormPage createDocumentationPage() {
@@ -164,6 +161,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
   /**
    * Get or create the main Overview page
+   * 
    * @return a not <code>null</code> instance.
    */
   protected OverviewActivityExplorerPage getOrCreateOverviewActivityExplorerPage() {
@@ -196,7 +194,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
       getEditorSite().getPage().removePartListener(_partListener);
       _partListener = null;
     }
-    //Remove preference listener
+    // Remove preference listener
     ActivityExplorerActivator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 
     super.dispose();
@@ -292,6 +290,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
   /**
    * Get property sheet page accessor.
+   * 
    * @return <code>null</code> if the property sheet view is not displayed.
    */
   public TabbedPropertySheetPage getPropertySheetPage() {
@@ -303,9 +302,12 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
    */
   @Override
   public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-    if (null == ((ActivityExplorerEditorInput) input).getRootSemanticElement()) {
-      throw new PartInitException(new Status(IStatus.WARNING, ActivityExplorerActivator.ID, Messages.ActivityExplorerEditor_1));
+
+    IStatus status = ((ActivityExplorerEditorInput) input).getStatus();
+    if (!status.isOK()) {
+      throw new PartInitException(status);
     }
+
     super.init(site, input);
 
     // Part listener to detect when this editor is activated.
@@ -431,6 +433,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
   /**
    * Get the previous page
+   * 
    * @param current
    * @return the previous page or null
    */
@@ -449,6 +452,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
   /**
    * Get the next page
+   * 
    * @param current
    * @return the next page or null
    */
@@ -477,6 +481,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
   /**
    * Handle property change.<br>
+   * 
    * @param event
    * @param value
    * @param property
@@ -494,7 +499,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
   @Override
   public void propertyChange(org.eclipse.jface.util.PropertyChangeEvent event) {
     String property = event.getProperty();
-	boolean value = (Boolean.valueOf(event.getNewValue().toString()));
+    boolean value = (Boolean.valueOf(event.getNewValue().toString()));
     if (doPropertyChange(event, value, property)) {
       if (ActivityExplorerManager.INSTANCE.getEditor() != null) {
         ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance().getManagedForm().reflow(true);

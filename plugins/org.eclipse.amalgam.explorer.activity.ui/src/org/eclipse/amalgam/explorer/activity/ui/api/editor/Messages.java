@@ -17,16 +17,18 @@ import org.eclipse.osgi.util.NLS;
  * 
  */
 public class Messages extends NLS {
-	private static final String BUNDLE_NAME = "org.eclipse.amalgam.explorer.activity.ui.api.editor.messages"; //$NON-NLS-1$
-	public static String ActivityExplorerEditor_1;
-	public static String ActivityExplorerEditor_Error_Message;
-	public static String ActivityExplorerEditor_Title_Suffix;
-	static {
-		// initialize resource bundle
-		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
-	}
+  private static final String BUNDLE_NAME = "org.eclipse.amalgam.explorer.activity.ui.api.editor.messages"; //$NON-NLS-1$
+  public static String ActivityExplorerEditor_1;
+  public static String ActivityExplorerEditor_Error_Message;
+  public static String ActivityExplorerEditor_Title_Suffix;
+  public static String ActivityExplorerEditor_Title;
 
-	private Messages() {
-		// Private constructor.
-	}
+  static {
+    // initialize resource bundle
+    NLS.initializeMessages(BUNDLE_NAME, Messages.class);
+  }
+
+  private Messages() {
+    // Private constructor.
+  }
 }
