@@ -66,6 +66,7 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
    * @throws Exception
    */
   ActivityExplorerEditorInput(IMemento memento_p) {
+    _status = Status.OK_STATUS;
     loadState(memento_p);
   }
 
@@ -252,6 +253,9 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
         // Open the session.
         openSessionAction.run();
         _status = openSessionAction.getStatus();
+        if (_status == null) {
+          _status = Status.OK_STATUS;
+        }
 
         if (_status.isOK()) {
           session = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
