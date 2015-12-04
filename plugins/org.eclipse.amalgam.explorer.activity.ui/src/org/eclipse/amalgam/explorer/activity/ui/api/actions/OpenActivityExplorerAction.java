@@ -102,7 +102,8 @@ public class OpenActivityExplorerAction extends BaseSelectionListenerAction {
 			ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(session);
 			result = editor == null ? true : false;
 		}
+
 		return result;
 	}
-	//TODO check contribution
+
 }

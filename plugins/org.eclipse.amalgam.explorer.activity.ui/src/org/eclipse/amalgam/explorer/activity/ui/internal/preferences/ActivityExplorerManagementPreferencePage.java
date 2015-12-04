@@ -10,8 +10,13 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.internal.preferences;
 
+import java.util.Iterator;
+
+import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
+import org.eclipse.amalgam.explorer.activity.ui.api.preferences.PreferenceConstants;
 import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;

@@ -28,8 +28,8 @@ import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.ui.business.api.dialect.DialectUIManager;
 import org.eclipse.sirius.viewpoint.DRepresentation;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.PlatformUI;
 
 public class OpenRepresentationsRunnable implements IRunnableWithProgress {
 	// Make root diagram as the welcome page.
@@ -80,7 +80,7 @@ public class OpenRepresentationsRunnable implements IRunnableWithProgress {
 							arrangeRequest.setViewAdaptersToArrange(editParts);
 							diagramEditPart.deactivate();
 							diagramEditPart.performRequest(arrangeRequest);
-							PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+							Display.getDefault().syncExec(new Runnable() {
 								public void run() {
 									diagramEditPart.activate();
 								}

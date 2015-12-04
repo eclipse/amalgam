@@ -31,6 +31,7 @@ import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.ui.business.api.session.IEditingSession;
 import org.eclipse.sirius.ui.business.api.session.SessionUIManager;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -209,13 +210,12 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
         }
       }
     };
-    PlatformUI.getWorkbench().getDisplay().asyncExec(runnable);
-//    Display display = Display.getCurrent();
-//    if (null == display) {
-//      PlatformUI.getWorkbench().getDisplay().asyncExec(runnable);
-//    } else {
-//      runnable.run();
-//    }
+    Display display = Display.getCurrent();
+    if (null == display) {
+      PlatformUI.getWorkbench().getDisplay().asyncExec(runnable);
+    } else {
+      runnable.run();
+    }
     return welcomeOpen[0];
   }
 

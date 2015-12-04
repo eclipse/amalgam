@@ -34,8 +34,8 @@ import org.eclipse.sirius.viewpoint.DRepresentation;
 import org.eclipse.sirius.viewpoint.SiriusPlugin;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.sirius.viewpoint.provider.SiriusEditPlugin;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
@@ -120,7 +120,7 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 
 		if (!_forceDefaultName) {
 			String dialogTitle = "Type representation name"; //$NON-NLS-1$
-			Shell activeShell = PlatformUI.getWorkbench().getDisplay().getActiveShell();
+			Shell activeShell = Display.getDefault().getActiveShell();
 			InputDialog representationNameDlg = new InputDialog(activeShell, dialogTitle, dialogTitle, defaultName,
 					null);
 			if (Window.OK == representationNameDlg.open()) {

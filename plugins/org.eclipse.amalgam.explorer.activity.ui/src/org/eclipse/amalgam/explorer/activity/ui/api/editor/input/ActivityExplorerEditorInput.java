@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.editor.input;
 
+import java.lang.ref.WeakReference;
 import java.util.Iterator;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
@@ -46,11 +47,11 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
   /**
    * Session used in this editor input.
    */
-  private Session _sessionReference;
+  private WeakReference<Session> _sessionReference;
   /**
    * project.
    */
-  private EObject _projectReference;
+  private WeakReference<EObject> _projectReference;
 
   /**
    * status of the input
@@ -65,8 +66,7 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
    * @throws Exception
    */
   ActivityExplorerEditorInput(IMemento memento_p) {
-	  _status = Status.OK_STATUS;
-	  loadState(memento_p);
+    loadState(memento_p);
   }
 
   /**
@@ -76,8 +76,8 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
    * @param project_p
    */
   public ActivityExplorerEditorInput(Session session_p, EObject project_p) {
-    _sessionReference = session_p;
-    _projectReference = project_p;
+    _sessionReference = new WeakReference<Session>(session_p);
+    _projectReference = new WeakReference<EObject>(project_p);
     _status = Status.OK_STATUS;
   }
 
@@ -85,7 +85,9 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
    * Dispose.
    */
   public void dispose() {
+    _projectReference.clear();
     _projectReference = null;
+    _sessionReference.clear();
     _sessionReference = null;
   }
 
@@ -96,11 +98,11 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
   public boolean equals(Object obj_p) {
     boolean result = this == obj_p;
     if (!result && (null != _sessionReference) && (obj_p instanceof ActivityExplorerEditorInput)) {
-      Session session = _sessionReference;
+      Session session = _sessionReference.get();
       if (null != session) {
-        Session sessionReferenceToCompare = ((ActivityExplorerEditorInput) obj_p)._sessionReference;
+        WeakReference<Session> sessionReferenceToCompare = ((ActivityExplorerEditorInput) obj_p)._sessionReference;
         if (null != sessionReferenceToCompare) {
-          result = session.equals(sessionReferenceToCompare);
+          result = session.equals(sessionReferenceToCompare.get());
         }
       }
     }
@@ -113,7 +115,7 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
   public boolean exists() {
     boolean result = false;
     if (null != _sessionReference) {
-      Session session = _sessionReference;
+      Session session = _sessionReference.get();
       result = (null != session) && session.isOpen();
     }
     return result;
@@ -126,7 +128,7 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
   @SuppressWarnings("rawtypes")
   public Object getAdapter(Class adapter_p) {
     if ((null != _sessionReference) && (adapter_p == Session.class)) {
-      return _sessionReference;
+      return _sessionReference.get();
     }
     if ((null != _status) && (adapter_p == IStatus.class)) {
       return _status;
@@ -170,7 +172,7 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
   public EObject getRootSemanticElement() {
     EObject result = null;
     if (null != _projectReference) {
-      result = _projectReference;
+      result = _projectReference.get();
     }
     return result;
   }
@@ -216,7 +218,7 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
   public int hashCode() {
     int hashCode = super.hashCode();
     if (null != _sessionReference) {
-      Session session = _sessionReference;
+      Session session = _sessionReference.get();
       hashCode = (null != session) ? session.hashCode() : hashCode;
     }
     return hashCode;
@@ -261,10 +263,10 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
       }
 
       // Get the session.
-      _sessionReference = session;
+      _sessionReference = new WeakReference<Session>(session);
       if (_status.isOK()) {
-        if ((null != _sessionReference) && (_sessionReference != null)) {
-          _projectReference = SessionHelper.getRootSemanticModel(_sessionReference);
+        if ((null != _sessionReference) && (_sessionReference.get() != null)) {
+          _projectReference = new WeakReference<EObject>(SessionHelper.getRootSemanticModel(_sessionReference.get()));
         } else {
           throw new Exception("Failed to instantiate the session for " + firstAnalysisFile); //$NON-NLS-1$
         }
@@ -285,11 +287,11 @@ public class ActivityExplorerEditorInput implements IEditorInput, IPersistableEl
    */
   public void saveState(IMemento memento_p) {
     // Precondition.
-    if ((null == _sessionReference) || (null == _sessionReference)) {
+    if ((null == _sessionReference) || (null == _sessionReference.get())) {
       return;
     }
     IFile firstAnalysisFile = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
-        .getFirstAnalysisFile((DAnalysisSession) _sessionReference);
+        .getFirstAnalysisFile((DAnalysisSession) _sessionReference.get());
     if (null != firstAnalysisFile) {
       memento_p.putString(FIRST_ANALYSIS_FILE_TAG, firstAnalysisFile.getFullPath().toString());
     }
