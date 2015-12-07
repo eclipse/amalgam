@@ -23,6 +23,7 @@ import org.eclipse.sirius.business.api.session.SessionListener;
 import org.eclipse.sirius.business.api.session.SessionManagerListener;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.IManagedForm;
@@ -43,6 +44,12 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
     }
   }
 
+  protected void runAsync(Runnable runnable) {
+    if (null != runnable) {
+      PlatformUI.getWorkbench().getDisplay().asyncExec(runnable);
+    }
+  }
+
   @Override
   public void notify(Session sessionp, int notification) {
 
@@ -50,25 +57,25 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
 
     Runnable runnable = null;
     switch (notification) {
-      case SessionListener.CLOSING:
-        notifyClosingSession(session);
+    case SessionListener.CLOSING:
+      notifyClosingSession(session);
       break;
-      case SessionListener.SELECTED_VIEWS_CHANGE_KIND:
-        update(session);
+    case SessionListener.SELECTED_VIEWS_CHANGE_KIND:
+      update(session);
       break;
-      case SessionListener.REPRESENTATION_CHANGE:
-        notifyRepresentationChange(session);
+    case SessionListener.REPRESENTATION_CHANGE:
+      notifyRepresentationChange(session);
       break;
-      case SessionListener.OPENED:
-        notifyOpenedSession(session);
+    case SessionListener.OPENED:
+      notifyOpenedSession(session);
       break;
-      case SessionListener.DIRTY:
-      case SessionListener.SYNC:
-      case SessionListener.SEMANTIC_CHANGE: // Listening to changes to mark
-        notifySemanticChange(session);
+    case SessionListener.DIRTY:
+    case SessionListener.SYNC:
+    case SessionListener.SEMANTIC_CHANGE: // Listening to changes to mark
+      notifySemanticChange(session);
       break;
-      case SessionListener.REPLACED:
-        notifyReplacedSession(session);
+    case SessionListener.REPLACED:
+      notifyReplacedSession(session);
       break;
     }
     run(runnable);
@@ -116,14 +123,20 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
         @SuppressWarnings("synthetic-access")
         public void run() {
           try {
-            final boolean open = ActivityExplorerActivator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER);
+            final boolean open = ActivityExplorerActivator.getDefault().getPreferenceStore()
+                .getBoolean(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER);
             if (open) {
 
               IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
               if (activePage != null) {
-                activePage.openEditor(new ActivityExplorerEditorInput(session2.get(),
-                    org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper.getRootSemanticModel(session2.get())),
-                    ActivityExplorerEditor.ID);
+                ActivityExplorerEditorInput input = new ActivityExplorerEditorInput(session2.get(),
+                    org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
+                        .getRootSemanticModel(session2.get()));
+
+                IEditorPart part = activePage.findEditor(input);
+                if (part == null) {
+                  activePage.openEditor(input, ActivityExplorerEditor.ID);
+                }
               }
             }
           } catch (Exception exception) {
@@ -137,7 +150,7 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
           }
         }
       };
-      run(runnable);
+      runAsync(runnable);
     }
   }
 
@@ -186,6 +199,7 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
 
   /**
    * Update the ActivityExplorer Editor.
+   * 
    * @param selectedViewpoint
    */
   protected void update(final WeakReference<Session> session) {
@@ -193,7 +207,7 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
 
       public void run() {
         Session currentSession = session.get();
-        if (currentSession != null && currentSession.isOpen()) {
+        if ((currentSession != null) && currentSession.isOpen()) {
           ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(currentSession);
           if (editor != null) {
             editor.updateEditorPages(0);
