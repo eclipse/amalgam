@@ -70,6 +70,12 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
   public ActivityExplorerEditor() {
     ActivityExplorerManager.INSTANCE.setEditor(this);
   }
+  
+  @Override
+	public void setFocus() {
+		super.setFocus();
+		ActivityExplorerManager.INSTANCE.setEditor(this);
+	}
 
   /**
    * @see org.eclipse.ui.forms.editor.FormEditor#addPages()
