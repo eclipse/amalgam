@@ -31,6 +31,15 @@
                   icon="icons/modeling16.png"
                   id="org.eclipse.amalgam.discovery.modeling.toolbars.discoveryCommand"
                   tooltip="Install Modeling Components">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.eclipse.sirius.ui.tools.perspective.modeling">
+                     </equals>
+                  </with>
+               </visibleWhen>
             </command>
          </toolbar>
       </menuContribution>
