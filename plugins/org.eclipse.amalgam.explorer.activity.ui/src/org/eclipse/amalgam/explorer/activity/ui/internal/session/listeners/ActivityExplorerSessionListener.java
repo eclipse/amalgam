@@ -96,7 +96,7 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
 
       public void run() {
         Session currentSession = session2.get();
-        if (currentSession != null) {
+        if ((currentSession != null) && currentSession.isOpen()) {
           ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(currentSession);
           if (editor == null) {
             return;
@@ -120,18 +120,17 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
   protected void notifyOpenedSession(final WeakReference<Session> session2) {
     if ((session2.get() != null) && !(session2.get().getSemanticResources().isEmpty())) {
       Runnable runnable = new Runnable() {
-        @SuppressWarnings("synthetic-access")
         public void run() {
           try {
             final boolean open = ActivityExplorerActivator.getDefault().getPreferenceStore()
                 .getBoolean(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER);
-            if (open) {
-
+            Session currentSession = session2.get();
+            if (open && (currentSession != null) && currentSession.isOpen()) {
               IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
               if (activePage != null) {
-                ActivityExplorerEditorInput input = new ActivityExplorerEditorInput(session2.get(),
+                ActivityExplorerEditorInput input = new ActivityExplorerEditorInput(currentSession,
                     org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
-                        .getRootSemanticModel(session2.get()));
+                        .getRootSemanticModel(currentSession));
 
                 IEditorPart part = activePage.findEditor(input);
                 if (part == null) {
@@ -160,7 +159,7 @@ public class ActivityExplorerSessionListener implements SessionManagerListener {
 
       public void run() {
         Session currentSession = session2.get();
-        if (currentSession != null) {
+        if ((currentSession != null) && currentSession.isOpen()) {
           final ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditorFromSession(currentSession);
           if (editor != null) {
             // Handle fpages to mark them as dirty.
