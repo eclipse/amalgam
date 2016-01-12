@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2016 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -101,6 +101,27 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
    * Hover HREF image mappings.
    */
   private static Map<String, String> __hoverHrefImageMappings = new HashMap<String, String>();
+  
+  
+  private IMenuListener2 listener = new IMenuListener2() {
+
+      public void menuAboutToShow(IMenuManager manager) {
+    	  final Session current = ((ActivityExplorerEditorInput) getEditorInput()).getSession();
+    	  Form formWidget = getManagedForm().getForm().getForm();
+        manager.removeAll();
+
+        for (Session session : SessionManager.INSTANCE.getSessions()) {
+          if (!session.equals(current))
+            formWidget.getMenuManager().add(new OpenActivityExplorerAction2(session));
+        }
+
+      }
+
+      public void menuAboutToHide(IMenuManager manager) {
+
+      }
+      }
+  ;
 
   public OverviewActivityExplorerPage() {
     super(null, PAGE_ID, "");
@@ -146,24 +167,7 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
     formWidget.getMenuManager().add(new Separator("empty-list")); //$NON-NLS-1$
 
     // add listener
-    formWidget.getMenuManager().addMenuListener(new IMenuListener2() {
-
-      public void menuAboutToShow(IMenuManager manager) {
-
-        manager.removeAll();
-
-        for (Session session : SessionManager.INSTANCE.getSessions()) {
-          if (!session.equals(current))
-            formWidget.getMenuManager().add(new OpenActivityExplorerAction2(session));
-        }
-
-      }
-
-      public void menuAboutToHide(IMenuManager manager) {
-
-      }
-
-    });
+    formWidget.getMenuManager().addMenuListener(listener);
 
     // Create the overview content.
 
@@ -178,6 +182,12 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
 
     form.reflow(true);
   }
+  
+  @Override
+	public void dispose() {
+	  	getManagedForm().getForm().getForm().getMenuManager().removeMenuListener(listener);
+		super.dispose();
+	}
 
   protected String getHeaderTitle() {
     return Messages.OverviewActivityExplorerPage_2 + ((ActivityExplorerEditorInput) getEditorInput()).getName();

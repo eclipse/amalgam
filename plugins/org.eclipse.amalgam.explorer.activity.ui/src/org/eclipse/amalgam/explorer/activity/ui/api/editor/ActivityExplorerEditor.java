@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2016 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,22 +22,25 @@ import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.DocumentationAc
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.OverviewActivityExplorerPage;
 import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager;
 import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
+import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IActivityExplorerEditorSessionListener;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ILabelDecorator;
 import org.eclipse.sirius.business.api.session.Session;
+import org.eclipse.sirius.business.api.session.SessionListener;
 import org.eclipse.sirius.business.api.session.SessionStatus;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IPartListener;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.IManagedForm;
@@ -52,7 +55,8 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  * Base class to implement Activity Explorer.
  */
 public class ActivityExplorerEditor extends SharedHeaderFormEditor implements ITabbedPropertySheetPageContributor,
-    IPropertyChangeListener {
+    IPropertyChangeListener, IActivityExplorerEditorSessionListener {
+	
 
   /**
    * Editor ID.
@@ -62,6 +66,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
    * Part listener to detect editor activation.
    */
   private IPartListener _partListener;
+  
   /**
    * Property Sheet page.
    */
@@ -69,13 +74,18 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
   public ActivityExplorerEditor() {
     ActivityExplorerManager.INSTANCE.setEditor(this);
+    ActivityExplorerManager.INSTANCE.addActivityExplorerEditorListener(this);
+    _partListener = new ActivityExplorerEditorPartListener(this);
   }
+  
   
   @Override
 	public void setFocus() {
 		super.setFocus();
 		ActivityExplorerManager.INSTANCE.setEditor(this);
 	}
+  
+  
 
   /**
    * @see org.eclipse.ui.forms.editor.FormEditor#addPages()
@@ -90,13 +100,22 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
       // set editor in the Activity Explorer Manager
       ActivityExplorerManager.INSTANCE.setEditor(this);
+      
       // Add other Pages (plug-ins contribution)
       createContributedPages();
 
     } catch (PartInitException exception) {
       StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addPages(..) _ "); //$NON-NLS-1$
       loggerMessage.append(exception.getMessage());
+      Status status = new Status(IStatus.ERROR, ActivityExplorerActivator.ID, loggerMessage.toString(), exception);
+	  ActivityExplorerActivator.getDefault().getLog().log(status);
+    } catch (Exception exception) {
+      StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addPages(..) _ "); //$NON-NLS-1$
+      loggerMessage.append(exception.getMessage());
+      Status status = new Status(IStatus.WARNING, ActivityExplorerActivator.ID, loggerMessage.toString(), exception);
+	  ActivityExplorerActivator.getDefault().getLog().log(status);
     }
+    
     // Add a control listener to force reflow
     getContainer().addControlListener(new ControlListener() {
       public void controlMoved(ControlEvent cevent) {
@@ -109,6 +128,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
         IManagedForm managedForm = activePageInstance.getManagedForm();
         managedForm.reflow(true);
       }
+      
     });
     // Refresh dirty state when the part is activated : open time for
     // instance.
@@ -150,7 +170,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
       if ((page instanceof IVisibility) && !(page.getPosition() == 0)) {
         if (page.isVisible()) {
           addNewPage(page);
-
         }
       }
     }
@@ -188,6 +207,8 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
    */
   @Override
   public void dispose() {
+	  ActivityExplorerManager.INSTANCE.removeActivityExplorerEditorListener(this);
+	  
     // Dispose the property sheet page.
     if (null != _propertySheetPage) {
       _propertySheetPage.dispose();
@@ -197,6 +218,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     unregisterSession();
     // Remove part listener.
     if (null != _partListener) {
+      ((ActivityExplorerEditorPartListener)_partListener).dispose();
       getEditorSite().getPage().removePartListener(_partListener);
       _partListener = null;
     }
@@ -208,6 +230,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     if (null != getEditorInput()) {
       getEditorInput().dispose();
     }
+    
   }
 
   /**
@@ -316,51 +339,13 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
     super.init(site, input);
 
-    // Part listener to detect when this editor is activated.
-    _partListener = new IPartListener() {
-      /**
-       * {@inheritDoc}
-       */
-      public void partActivated(IWorkbenchPart part) {
-        if (ActivityExplorerEditor.this == part) {
-          IFormPage activePageInstance = ActivityExplorerEditor.this.getActivePageInstance();
-          activePageInstance.setActive(true);
-        }
-      }
-
-      /**
-       * {@inheritDoc}
-       */
-
-      public void partBroughtToTop(IWorkbenchPart part) {
-        // Do nothing.
-      }
-
-      /**
-       * {@inheritDoc}
-       */
-
-      public void partClosed(IWorkbenchPart part) {
-        // Do nothing.
-      }
-
-      /**
-       * {@inheritDoc}
-       */
-
-      public void partDeactivated(IWorkbenchPart part) {
-        // Do nothing.
-      }
-
-      /**
-       * {@inheritDoc}
-       */
-      public void partOpened(IWorkbenchPart part) {
-        // Do nothing.
-      }
-    };
     getEditorSite().getPage().addPartListener(_partListener);
+    
   }
+  
+  
+  
+  
 
   /**
    * {@inheritDoc}
@@ -432,7 +417,10 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     try {
       index = addPage(page);
     } catch (PartInitException e) {
-      e.printStackTrace();
+      StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addNewPage(..) _ "); //$NON-NLS-1$
+      loggerMessage.append(e.getMessage());
+      Status status = new Status(IStatus.ERROR, ActivityExplorerActivator.ID, loggerMessage.toString(), e);
+  	  ActivityExplorerActivator.getDefault().getLog().log(status);
     }
     return index;
   }
@@ -512,6 +500,77 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
       }
     }
 
+  }
+
+  @Override
+  public void executeRequest(int request, Session session) {
+
+	Session session2 = getEditorInput().getSession();
+	switch (request) {
+	  case SessionListener.CLOSING:
+		  if (session2 != null && session2.equals(session)){
+			  Runnable runnable = new Runnable() {
+			      public void run() {
+			    	  close(false);
+			      }
+			  };
+			  run(runnable);
+		  }
+		  break;
+	  case SessionListener.SELECTED_VIEWS_CHANGE_KIND:
+		  if (session2 != null && session2.equals(session) && session.isOpen()){
+			  Runnable runnable = new Runnable() {
+			      public void run() {
+			    	  updateEditorPages(0);
+			      }
+			  };
+			  run(runnable);
+		  }
+		  break;
+	  case SessionListener.REPRESENTATION_CHANGE:
+		  if (session2 != null && session2.equals(session) && session.isOpen()){
+			  _editorDirtyStateChanged();
+		  }
+		  break;
+	  case SessionListener.OPENED:
+		  break;
+	  case SessionListener.DIRTY:
+	  case SessionListener.SYNC:
+	  case SessionListener.SEMANTIC_CHANGE: // Listening to changes to mark
+	  if (session2 != null && session2.equals(session) && session.isOpen()){
+		  _editorDirtyStateChanged();
+	  }
+	  break;
+	  case SessionListener.REPLACED:
+		  if (session2 != null && session2.equals(session) && session.isOpen()){
+			  _editorDirtyStateChanged();
+		  }
+		  break;
+	  }
+
+  }
+
+
+  private void _editorDirtyStateChanged() {
+	  Runnable runnable = new Runnable() {
+		  public void run() {
+			  IManagedForm headerForm = getHeaderForm();
+			  if (headerForm != null)
+				  headerForm.dirtyStateChanged();
+		  }
+	  };
+	  run(runnable);
+  }
+  
+  protected void run(Runnable runnable) {
+	  if (null != runnable) {
+		  Display display = Display.getCurrent();
+		  if (null == display) {
+			  PlatformUI.getWorkbench().getDisplay().asyncExec(runnable);
+		  } else {
+			  runnable.run();
+		  }
+	  }
   }
 
 }
