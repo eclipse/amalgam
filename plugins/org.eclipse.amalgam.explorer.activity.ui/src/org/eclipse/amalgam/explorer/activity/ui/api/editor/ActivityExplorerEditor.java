@@ -94,10 +94,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
   protected void addPages() {
     try {
 
-      // OVERVIEW IS FIRST PAGE (Default or contributed)
-      OverviewActivityExplorerPage overViewPage = getOrCreateOverviewActivityExplorerPage();
-      addPage(overViewPage);
-
       // set editor in the Activity Explorer Manager
       ActivityExplorerManager.INSTANCE.setEditor(this);
       
@@ -164,9 +160,15 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
    * Create and Insert Contributed pages in the editor
    */
   private void createContributedPages() throws PartInitException {
-    List<CommonActivityExplorerPage> temp = ActivityExplorerExtensionManager.getAllPages();
-    Collections.sort(temp);
-    for (CommonActivityExplorerPage page : temp) {
+    List<CommonActivityExplorerPage> contributedPages = ActivityExplorerExtensionManager.getAllPages();
+    Collections.sort(contributedPages);
+    addOverviewPage(contributedPages);
+    addContributedPages(contributedPages);
+  }
+
+
+  private void addContributedPages(List<CommonActivityExplorerPage> contributedPages) {
+	for (CommonActivityExplorerPage page : contributedPages) {
       if ((page instanceof IVisibility) && !(page.getPosition() == 0)) {
         if (page.isVisible()) {
           addNewPage(page);
@@ -176,6 +178,54 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
   }
 
   /**
+   * Find a first visible overview page which it index is 0
+   * 
+   * @param contributedPages
+   * @throws PartInitException 
+   */
+  private void addOverviewPage(List<CommonActivityExplorerPage> contributedPages) throws PartInitException {
+	OverviewActivityExplorerPage overviewPage = null;
+	
+	for (CommonActivityExplorerPage page : contributedPages) {
+		
+		//Force to accept only overview page at the index 0.
+		if (page.getPosition() == 0){
+			
+			//bug 485652: Visibility of overview page. Overview page is always visible event
+			//it is predicated
+			if ((page instanceof OverviewActivityExplorerPage)){
+				overviewPage = (OverviewActivityExplorerPage) page;
+				break;
+			} else {
+				//Log visibile pages with index 0 which are not Overview pages
+				if (page.isVisible()){
+					StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addOverviewPage(..) _ "); //$NON-NLS-1$
+					loggerMessage.append("Page ").append(page.getId()); //$NON-NLS-1$
+					loggerMessage.append(" is not an overview page"); //$NON-NLS-1$
+					Status status = new Status(IStatus.WARNING, ActivityExplorerActivator.ID, loggerMessage.toString());
+					ActivityExplorerActivator.getDefault().getLog().log(status);
+				}
+			}
+		} else {
+			//Focus only on pages with index 0.
+			//The list is sorted, if the first page has an index different from 0, we stop.
+			break;
+		}
+	}
+	
+	//Add the overview page
+	if (overviewPage != null){
+		overviewPage.initialize(this);
+	} else {
+		//default page
+		overviewPage = new OverviewActivityExplorerPage(this);
+	}
+	
+	addPage(overviewPage);
+  }
+
+
+/**
    * Create a documentation page.
    * 
    * @return a not <code>null</code> instance.
@@ -189,6 +239,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
    * 
    * @return a not <code>null</code> instance.
    */
+  @Deprecated
   protected OverviewActivityExplorerPage getOrCreateOverviewActivityExplorerPage() {
     List<CommonActivityExplorerPage> contributedPages = ActivityExplorerExtensionManager.getAllPages();
     Collections.sort(contributedPages);
