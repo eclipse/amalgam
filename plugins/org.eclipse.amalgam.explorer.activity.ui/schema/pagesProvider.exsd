@@ -88,7 +88,7 @@ If this field is not fill then it&apos;s the title page that appears.
                   Your ActivityExplorer page class.
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.AbstractActivityExplorerPage:"/>
+                  <meta.attribute kind="java" basedOn="org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityExplorerPage:"/>
                </appInfo>
             </annotation>
          </attribute>
