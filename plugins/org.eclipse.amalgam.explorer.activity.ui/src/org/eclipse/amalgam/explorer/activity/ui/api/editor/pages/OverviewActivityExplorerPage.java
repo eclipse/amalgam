@@ -256,7 +256,12 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
 
   @Override
   public boolean isVisible() {
-    return true;
+	//By default all Overview page are visible (cf. bug 485652)
+	 boolean result = true;
+	 if (predicate != null) {
+	     result &= predicate.isOk();
+	 }
+	 return result;
   }
 
   private List<CommonActivityExplorerPage> getContributedPages() {

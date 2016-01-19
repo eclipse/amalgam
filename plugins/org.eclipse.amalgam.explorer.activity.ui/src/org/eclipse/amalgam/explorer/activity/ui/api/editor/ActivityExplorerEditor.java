@@ -191,9 +191,8 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 		//Force to accept only overview page at the index 0.
 		if (page.getPosition() == 0){
 			
-			//bug 485652: Visibility of overview page. Overview page is always visible event
-			//it is predicated
-			if ((page instanceof OverviewActivityExplorerPage)){
+			//bug 485652: check the visibility
+			if ((page instanceof OverviewActivityExplorerPage) && (page.isVisible())){
 				overviewPage = (OverviewActivityExplorerPage) page;
 				break;
 			} else {
@@ -201,7 +200,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 				if (page.isVisible()){
 					StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addOverviewPage(..) _ "); //$NON-NLS-1$
 					loggerMessage.append("Page ").append(page.getId()); //$NON-NLS-1$
-					loggerMessage.append(" is not an overview page"); //$NON-NLS-1$
+					loggerMessage.append(" is not an overview page. Only overview pages are allowed to index 0"); //$NON-NLS-1$
 					Status status = new Status(IStatus.WARNING, ActivityExplorerActivator.ID, loggerMessage.toString());
 					ActivityExplorerActivator.getDefault().getLog().log(status);
 				}
