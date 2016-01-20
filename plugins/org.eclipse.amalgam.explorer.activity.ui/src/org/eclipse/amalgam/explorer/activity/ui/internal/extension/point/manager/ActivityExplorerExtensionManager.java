@@ -14,11 +14,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.activity.InvalidActivityException;
+
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.IImageKeys;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityExplorerPage;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.predicates.IPredicate;
 import org.eclipse.amalgam.explorer.activity.ui.internal.ActivityExplorerConstants;
+import org.eclipse.amalgam.explorer.activity.ui.internal.exceptions.InvalidActivityExplorerIndexException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IContributor;
@@ -105,9 +108,10 @@ public class ActivityExplorerExtensionManager {
     return Platform.getExtensionRegistry().getExtensionPoint(id);
   }
 
-  private static CommonActivityExplorerPage getPage(IConfigurationElement element) throws CoreException {
+  private static CommonActivityExplorerPage getPage(IConfigurationElement element) throws CoreException, InvalidActivityExplorerIndexException {
     CommonActivityExplorerPage page = null;
 
+    //TODO Robusteness: Catch NumberFormatException
     if (element != null) {
       CommonActivityExplorerPage.setID(getId(element));
       if (element.getAttribute(ATT_CLASS) != null) {
@@ -118,7 +122,37 @@ public class ActivityExplorerExtensionManager {
         ((IExecutableExtension) page).setInitializationData(element, ATT_CLASS, null);
       }
     }
-    return page;
+    
+    return accept(page);
+  }
+
+  /**
+   * check if the page is valid
+   * @param page
+   * @return the page, otherways, launch an exception
+   * @throws InvalidActivityException
+   */
+  private static CommonActivityExplorerPage accept(CommonActivityExplorerPage page) 
+		  throws InvalidActivityExplorerIndexException {
+	
+	//TODO Never accept null pages
+	  
+	//Never accept negatif index for pages
+	if (page.getPosition() < 0) {
+		
+		StringBuilder message = new StringBuilder();
+		message.append("ActivityExplorerExtensionManager.accept(...) _ "); //$NON-NLS-1$
+		message.append("The page "); //$NON-NLS-1$
+		message.append(page.getId()); //$NON-NLS-1$
+		message.append(" has negatif index. "); //$NON-NLS-1$
+		message.append("Only pages win an index upper or equal to zero are allowed"); //$NON-NLS-1$
+		
+		//Dispose the page
+		page.dispose();
+		
+		throw new InvalidActivityExplorerIndexException(message.toString());
+	}
+	return page;
   }
 
   public static List<CommonActivityExplorerPage> getAllPages() {
@@ -132,9 +166,13 @@ public class ActivityExplorerExtensionManager {
         ActivityExplorerActivator
             .getDefault()
             .getLog()
-            .log(
-                new Status(IStatus.ERROR, ActivityExplorerActivator.ID, Messages.ActivityExplorerExtensionManager_0, e));
-      }
+            .log(new Status(IStatus.ERROR, ActivityExplorerActivator.ID, Messages.ActivityExplorerExtensionManager_0, e));
+      } catch (InvalidActivityExplorerIndexException e) {
+    	  ActivityExplorerActivator
+          .getDefault()
+          .getLog()
+          .log(new Status(IStatus.WARNING, ActivityExplorerActivator.ID, e.getMessage()));
+	  }
     }
     return providers;
   }
@@ -186,7 +224,12 @@ public class ActivityExplorerExtensionManager {
             loggerMessage.append(e.getMessage());
             Status status = new Status(IStatus.ERROR, ActivityExplorerActivator.ID, loggerMessage.toString(), e);
         	ActivityExplorerActivator.getDefault().getLog().log(status);
-        }
+        } catch (InvalidActivityExplorerIndexException e) {
+        	ActivityExplorerActivator
+            .getDefault()
+            .getLog()
+            .log(new Status(IStatus.WARNING, ActivityExplorerActivator.ID, e.getMessage(), e));
+		}
       }
     }
     return result;
