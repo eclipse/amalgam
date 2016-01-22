@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.actions;
 
-import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerEditor;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.input.ActivityExplorerEditorInput;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.EObjectLabelProviderHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager;
+import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.ui.IEditorPart;
@@ -69,7 +70,7 @@ public class OpenActivityExplorerAction2 extends OpenActivityExplorerAction {
 				//to an exception
 				editor.updateEditorPages(0);
 			} catch (PartInitException e) {
-				ActivityExplorerActivator.getDefault().sentToLogger(e);
+				ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, e.getMessage(), e);
 			}
 		}
 	}

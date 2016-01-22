@@ -19,6 +19,7 @@ import java.util.HashSet;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.StringHelper;
+import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.command.AbstractCommand;
@@ -130,7 +131,7 @@ public class CloneDiagramCommand extends AbstractCommand {
 					listener.cloneAboutToBeRemoved(clone_p, session_p);
 				}
 			} catch (Exception exception_p) {
-				ActivityExplorerActivator.getDefault().sentToLogger("Unable to notify listeners !", IStatus.ERROR);
+				ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, "Unable to notify listeners !", exception_p);
 			}
 		}
 	}

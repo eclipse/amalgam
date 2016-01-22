@@ -22,6 +22,7 @@ import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityE
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.predicates.IPredicate;
 import org.eclipse.amalgam.explorer.activity.ui.internal.ActivityExplorerConstants;
 import org.eclipse.amalgam.explorer.activity.ui.internal.exceptions.InvalidActivityExplorerIndexException;
+import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IContributor;
@@ -111,7 +112,6 @@ public class ActivityExplorerExtensionManager {
   private static CommonActivityExplorerPage getPage(IConfigurationElement element) throws CoreException, InvalidActivityExplorerIndexException {
     CommonActivityExplorerPage page = null;
 
-    //TODO Robusteness: Catch NumberFormatException
     if (element != null) {
       CommonActivityExplorerPage.setID(getId(element));
       if (element.getAttribute(ATT_CLASS) != null) {
@@ -123,7 +123,7 @@ public class ActivityExplorerExtensionManager {
       }
     }
     
-    return accept(page);
+    return accept(page, element);
   }
 
   /**
@@ -132,10 +132,18 @@ public class ActivityExplorerExtensionManager {
    * @return the page, otherways, launch an exception
    * @throws InvalidActivityException
    */
-  private static CommonActivityExplorerPage accept(CommonActivityExplorerPage page) 
+  private static CommonActivityExplorerPage accept(CommonActivityExplorerPage page, IConfigurationElement element) 
 		  throws InvalidActivityExplorerIndexException {
 	
-	//TODO Never accept null pages
+	//Never accept null page
+	if (page == null){
+		StringBuilder message = new StringBuilder(); 
+		message.append("ActivityExplorerExtensionManager.accept(...) _ "); //$NON-NLS-1$
+		message.append("An error occured while instantianting the class of contribution "); //$NON-NLS-1$
+		message.append(getId(element));
+		
+		throw new NullPointerException(message.toString());
+	}
 	  
 	//Never accept negatif index for pages
 	if (page.getPosition() < 0) {
@@ -147,9 +155,6 @@ public class ActivityExplorerExtensionManager {
 		message.append(" has negatif index. "); //$NON-NLS-1$
 		message.append("Only pages win an index upper or equal to zero are allowed"); //$NON-NLS-1$
 		
-		//Dispose the page
-		page.dispose();
-		
 		throw new InvalidActivityExplorerIndexException(message.toString());
 	}
 	return page;
@@ -159,20 +164,51 @@ public class ActivityExplorerExtensionManager {
     List<CommonActivityExplorerPage> providers = new ArrayList<CommonActivityExplorerPage>();
 
     List<IConfigurationElement> extensions = Arrays.asList(getExtensionElt(PROVIDER_PAGES_EXT));
+    
+    CommonActivityExplorerPage page;
     for (IConfigurationElement extension : extensions) {
+      page = null;
       try {
-        providers.add(getPage(extension));
+        page = getPage(extension);
+		providers.add(page);
       } catch (CoreException e) {
-        ActivityExplorerActivator
-            .getDefault()
-            .getLog()
-            .log(new Status(IStatus.ERROR, ActivityExplorerActivator.ID, Messages.ActivityExplorerExtensionManager_0, e));
+        
+    	  ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, Messages.ActivityExplorerExtensionManager_0, e);
+    	  
       } catch (InvalidActivityExplorerIndexException e) {
+    	
     	  ActivityExplorerActivator
           .getDefault()
           .getLog()
           .log(new Status(IStatus.WARNING, ActivityExplorerActivator.ID, e.getMessage()));
-	  }
+	  
+      } catch (NumberFormatException e){
+		  
+    	  StringBuilder message = new StringBuilder();
+		  message.append("ActivityExplorerExtensionManager.getAllPages(...) _ "); //$NON-NLS-1$
+		  message.append("The contribution "); //$NON-NLS-1$
+		  message.append(getId(extension));
+	 	  message.append(" has wrong index format ("); //$NON-NLS-1$
+		  message.append(getIndex(extension));
+		  message.append("). Only 0 or positive integers are valid"); //$NON-NLS-1$
+		  
+		  ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
+		  
+      } catch (NullPointerException e){
+		
+    	  ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, e.getMessage(), null);
+	  
+      } catch (Throwable e){
+    	  //Unknown error from contribution
+    	  
+    	  StringBuilder message = new StringBuilder();
+		  message.append("ActivityExplorerExtensionManager.getAllPages(...) _ "); //$NON-NLS-1$
+		  message.append("Unknown error occurred from contribution "); //$NON-NLS-1$
+		  message.append(getId(extension)); 
+	 	  message.append(". See the exception stack for more details"); //$NON-NLS-1$
+		  
+	 	 ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
+      }
     }
     return providers;
   }
@@ -220,16 +256,44 @@ public class ActivityExplorerExtensionManager {
         try {
           result = getPage(page);
         } catch (CoreException e) {
+        	
         	StringBuilder loggerMessage = new StringBuilder("ActivityExplorerExtensionManager.getPageById(..) _ "); //$NON-NLS-1$
             loggerMessage.append(e.getMessage());
-            Status status = new Status(IStatus.ERROR, ActivityExplorerActivator.ID, loggerMessage.toString(), e);
-        	ActivityExplorerActivator.getDefault().getLog().log(status);
+            
+            ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), e);
+            
         } catch (InvalidActivityExplorerIndexException e) {
-        	ActivityExplorerActivator
-            .getDefault()
-            .getLog()
-            .log(new Status(IStatus.WARNING, ActivityExplorerActivator.ID, e.getMessage(), e));
-		}
+        	
+        	ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, e.toString(), e);
+        	
+		} catch (NumberFormatException e){
+			  
+			  StringBuilder message = new StringBuilder();
+			  message.append("ActivityExplorerExtensionManager.getAllPages(...) _ "); //$NON-NLS-1$
+			  message.append("The contribution "); //$NON-NLS-1$
+			  message.append(getId(page));
+		 	  message.append(" has wrong index format ("); //$NON-NLS-1$
+			  message.append(getIndex(page));
+			  message.append("). Only 0 or positive integers are valid"); //$NON-NLS-1$
+			  
+			  ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
+			  
+		 } catch (NullPointerException e){
+		     
+			 ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, e.getMessage(), e);
+			 
+		 } catch (Throwable e){
+	    	  //Unknown error from contributions
+	    	  
+	    	  StringBuilder message = new StringBuilder();
+			  message.append("ActivityExplorerExtensionManager.getAllPages(...) _ "); //$NON-NLS-1$
+			  message.append("Unknown error occurred from contribution ");
+			  message.append(getId(page));
+		 	  message.append(". See the exception stack for more details");
+		 	  
+		 	 ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, message.toString(), e);
+			  
+	      }
       }
     }
     return result;
@@ -419,10 +483,15 @@ public class ActivityExplorerExtensionManager {
         listener = (IHyperlinkListener) element.createExecutableExtension(ATT_CLASS);
       }
     } catch (CoreException e) {
-      IStatus error = new Status(IStatus.ERROR, ActivityExplorerActivator.ID,
-          Messages.ActivityExplorerExtensionManager_1 + type + Messages.ActivityExplorerExtensionManager_2 + id
-              + Messages.ActivityExplorerExtensionManager_3, e);
-      ActivityExplorerActivator.getDefault().getLog().log(error);
+      StringBuilder message = new StringBuilder();
+      
+      message.append(Messages.ActivityExplorerExtensionManager_1);
+      message.append(type);
+      message.append(Messages.ActivityExplorerExtensionManager_2);
+      message.append(id);
+      message.append(Messages.ActivityExplorerExtensionManager_3);
+      
+      ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, message.toString(), e);
     }
     return listener;
   }
@@ -439,10 +508,14 @@ public class ActivityExplorerExtensionManager {
           predicate = (IPredicate) element.createExecutableExtension(ATT_CLASS);
         }
       } catch (CoreException e) {
-        IStatus error = new Status(IStatus.ERROR, ActivityExplorerActivator.ID,
-            Messages.ActivityExplorerExtensionManager_1 + type + Messages.ActivityExplorerExtensionManager_2
-                + Messages.ActivityExplorerExtensionManager_3, e);
-        ActivityExplorerActivator.getDefault().getLog().log(error);
+    	  StringBuilder message = new StringBuilder();
+          
+          message.append(Messages.ActivityExplorerExtensionManager_1);
+          message.append(type);
+          message.append(Messages.ActivityExplorerExtensionManager_2);
+          message.append(Messages.ActivityExplorerExtensionManager_3);
+          
+          ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, message.toString(), e);
       }
     }
     return predicate;
@@ -459,7 +532,7 @@ public class ActivityExplorerExtensionManager {
   }
 
   /**
-   * Test if the id is a DashBaordSection
+   * Test if the id is a ActivityExplorerSection
    * 
    * @param pageId
    * @param sectionId

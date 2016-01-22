@@ -21,12 +21,14 @@ import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.Messages;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SelectionHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.sections.ActivityExplorerSection;
 import org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter.AbstractNewDiagramHyperlinkAdapter;
+import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.amalgam.explorer.activity.ui.internal.viewer.diagram.actions.CloneAction;
 import org.eclipse.amalgam.explorer.activity.ui.internal.viewer.diagram.actions.DeleteRepresentationAction;
 import org.eclipse.amalgam.explorer.activity.ui.internal.viewer.diagram.actions.MoveRepresentationAction;
 import org.eclipse.amalgam.explorer.activity.ui.internal.viewer.diagram.actions.OpenRepresentationsAction;
 import org.eclipse.amalgam.explorer.activity.ui.internal.viewer.diagram.actions.RenameRepresentationAction;
 import org.eclipse.amalgam.explorer.activity.ui.internal.viewer.diagram.providers.DiagramViewerContentProvider;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.IMenuListener2;
 import org.eclipse.jface.action.IMenuManager;
@@ -315,7 +317,18 @@ public class DiagramViewer extends AbstractActivityExplorerViewer {
         for (ExplorerActivity activity : section.getActivities()) {
           IHyperlinkListener listener = activity.getListener();
           if (listener instanceof AbstractNewDiagramHyperlinkAdapter) {
-            representations.add(((AbstractNewDiagramHyperlinkAdapter) listener).getRepresentationName());
+        	  try {
+        		  representations.add(((AbstractNewDiagramHyperlinkAdapter) listener).getRepresentationName());
+        	  } catch (Throwable e) {
+        		StringBuilder message = new StringBuilder();
+      			
+      			message.append("DiagramViewer.getRetainedRepresentationDescriptions() _ "); //$NON-NLS-1$
+      			message.append("Could not retrieve a representation name from contribution "); //$NON-NLS-1$
+      			message.append(activity.getId());
+      			message.append(" See the error stack for more details."); //$NON-NLS-1$
+      			
+      			ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
+        	  }
           }
         }
         return representations;

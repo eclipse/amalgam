@@ -17,6 +17,7 @@ import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerMana
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.sirius.business.api.helper.SiriusUtil;
 import org.eclipse.sirius.business.api.modelingproject.ModelingProject;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.ext.base.Option;
@@ -64,7 +65,7 @@ public class GoToActivityExplorerAction extends BaseSelectionListenerAction {
 			Object selectedElement = selection.getFirstElement();
 			// Ensure given selection is aird file with an open session.
 			// if selected is a IFile
-			if ((selectedElement instanceof IFile) && "aird".equals(((IFile) selectedElement).getFileExtension())) { //$NON-NLS-1$
+			if ((selectedElement instanceof IFile) && SiriusUtil.SESSION_RESOURCE_EXTENSION.equals(((IFile) selectedElement).getFileExtension())) { //$NON-NLS-1$
 				session = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
 						.getSessionForDiagramFile((IFile) selectedElement);
 				// if selected is IProject

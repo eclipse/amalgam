@@ -12,7 +12,9 @@ package org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter;
 
 import java.util.Collection;
 
+import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.amalgam.explorer.activity.ui.internal.viewer.diagram.actions.NewRepresentationAction;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.util.TransactionUtil;
@@ -106,19 +108,29 @@ public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperli
 	 */
 
 	protected RepresentationDescription getDiagramRepresentation(Session session, EObject modelElement) {
-		// Get active viewpoints.
-		Collection<Viewpoint> activeViewpoints = session.getSelectedViewpoints(false);
-		Collection<RepresentationDescription> diagramDescriptions = DialectManager.INSTANCE
-				.getAvailableRepresentationDescriptions(activeViewpoints, modelElement);
-		// Get search diagram name.
-		String diagramName = getRepresentationName();
-		// Loop over retrieved diagram descriptions to search one matching
-		// search diagram name.
-		for (RepresentationDescription diagramDescription : diagramDescriptions) {
-			if (diagramName.equals(diagramDescription.getName())) {
-				return diagramDescription;
+		try {
+			// Get active viewpoints.
+			Collection<Viewpoint> activeViewpoints = session.getSelectedViewpoints(false);
+			Collection<RepresentationDescription> diagramDescriptions = DialectManager.INSTANCE
+					.getAvailableRepresentationDescriptions(activeViewpoints, modelElement);
+			// Get search diagram name.
+			String diagramName = getRepresentationName();
+			// Loop over retrieved diagram descriptions to search one matching
+			// search diagram name.
+			for (RepresentationDescription diagramDescription : diagramDescriptions) {
+				if (diagramName.equals(diagramDescription.getName())) {
+					return diagramDescription;
+				}
 			}
+		} catch (Throwable e) {
+			StringBuilder message = new StringBuilder();
+			
+			message.append("AvstractNewDiagramHyperlinkAdapter.getDiagramRepresentation(..) _ "); //$NON-NLS-1$
+			message.append("Could not retrieve a representation name from contribution. See the error stack for more details."); //$NON-NLS-1$
+			
+			ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
 		}
+		
 		return null;
 	}
 

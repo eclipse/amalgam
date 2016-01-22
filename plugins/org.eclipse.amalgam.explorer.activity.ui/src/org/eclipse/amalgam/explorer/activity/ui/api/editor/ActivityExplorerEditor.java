@@ -24,10 +24,10 @@ import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerMana
 import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IActivityExplorerEditorSessionListener;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
+import  org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ILabelDecorator;
@@ -50,6 +50,7 @@ import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+
 
 /**
  * Base class to implement Activity Explorer.
@@ -103,13 +104,15 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     } catch (PartInitException exception) {
       StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addPages(..) _ "); //$NON-NLS-1$
       loggerMessage.append(exception.getMessage());
-      Status status = new Status(IStatus.ERROR, ActivityExplorerActivator.ID, loggerMessage.toString(), exception);
-	  ActivityExplorerActivator.getDefault().getLog().log(status);
+      
+      ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), exception);
+      
     } catch (Exception exception) {
       StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addPages(..) _ "); //$NON-NLS-1$
       loggerMessage.append(exception.getMessage());
-      Status status = new Status(IStatus.WARNING, ActivityExplorerActivator.ID, loggerMessage.toString(), exception);
-	  ActivityExplorerActivator.getDefault().getLog().log(status);
+      
+      ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, loggerMessage.toString(), exception);
+      
     }
     
     // Add a control listener to force reflow
@@ -170,9 +173,18 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
   private void addContributedPages(List<CommonActivityExplorerPage> contributedPages) {
 	for (CommonActivityExplorerPage page : contributedPages) {
       if ((page instanceof IVisibility) && !(page.getPosition() == 0)) {
-        if (page.isVisible()) {
-          addNewPage(page);
-        }
+    	try {
+    		if (page.isVisible()) {
+    			addNewPage(page);
+    		}
+    	} catch (Throwable e){
+    		
+    		StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addContributedPages(..) _ "); //$NON-NLS-1$
+			loggerMessage.append("An error was occured at the evaluation of the predicat or the adding of page ").append(page.getId()); //$NON-NLS-1$
+			loggerMessage.append(". Refer to the exception stack for more details"); //$NON-NLS-1$
+			
+			ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), e);
+    	}
       }
     }
   }
@@ -188,27 +200,36 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	
 	for (CommonActivityExplorerPage page : contributedPages) {
 		
-		//Force to accept only overview page at the index 0.
-		if (page.getPosition() == 0){
-			
-			//bug 485652: check the visibility
-			if ((page instanceof OverviewActivityExplorerPage) && (page.isVisible())){
-				overviewPage = (OverviewActivityExplorerPage) page;
-				break;
-			} else {
-				//Log visibile pages with index 0 which are not Overview pages
-				if (page.isVisible()){
-					StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addOverviewPage(..) _ "); //$NON-NLS-1$
-					loggerMessage.append("Page ").append(page.getId()); //$NON-NLS-1$
-					loggerMessage.append(" is not an overview page. Only overview pages are allowed to index 0"); //$NON-NLS-1$
-					Status status = new Status(IStatus.WARNING, ActivityExplorerActivator.ID, loggerMessage.toString());
-					ActivityExplorerActivator.getDefault().getLog().log(status);
+		try {
+			//Force to accept only overview page at the index 0.
+			if (page.getPosition() == 0){
+
+				//bug 485652: check the visibility
+				if ((page instanceof OverviewActivityExplorerPage) && (page.isVisible())){
+					overviewPage = (OverviewActivityExplorerPage) page;
+					break;
+				} else {
+					//Log visibile pages with index 0 which are not Overview pages
+					if (page.isVisible()){
+						StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addOverviewPage(..) _ "); //$NON-NLS-1$
+						loggerMessage.append("Page ").append(page.getId()); //$NON-NLS-1$
+						loggerMessage.append(" is not an overview page. Only overview pages are allowed to index 0"); //$NON-NLS-1$
+						
+						ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, loggerMessage.toString(), null);
+					}
 				}
+			} else {
+				//Focus only on pages with index 0.
+				//The list is sorted, if the first page has an index different from 0, we stop.
+				break;
 			}
-		} else {
-			//Focus only on pages with index 0.
-			//The list is sorted, if the first page has an index different from 0, we stop.
-			break;
+		} catch (Throwable e){
+			//Unknown errors from contributions
+			StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addOverviewPage(..) _ "); //$NON-NLS-1$
+			loggerMessage.append("An error was occured at the evaluation of the predicat of page ").append(page.getId()); //$NON-NLS-1$
+			loggerMessage.append(". Refer to the exception stack for more details"); //$NON-NLS-1$
+			
+			ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), e);
 		}
 	}
 	
@@ -258,28 +279,36 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
   @Override
   public void dispose() {
 	  ActivityExplorerManager.INSTANCE.removeActivityExplorerEditorListener(this);
-	  
-    // Dispose the property sheet page.
-    if (null != _propertySheetPage) {
-      _propertySheetPage.dispose();
-      _propertySheetPage = null;
-    }
-    // Unregister Sirius session listener.
-    unregisterSession();
-    // Remove part listener.
-    if (null != _partListener) {
-      ((ActivityExplorerEditorPartListener)_partListener).dispose();
-      getEditorSite().getPage().removePartListener(_partListener);
-      _partListener = null;
-    }
-    // Remove preference listener
-    ActivityExplorerActivator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 
-    super.dispose();
+	  //Dispose the editor from part listener
+	  if (null != _partListener) {
+		  ((ActivityExplorerEditorPartListener)_partListener).dispose();
+	  }
 
-    if (null != getEditorInput()) {
-      getEditorInput().dispose();
-    }
+	  //If the editor is not initialized yet, the editorSite may be null (i.e, at restarting time)
+	  IEditorSite editorSite = getEditorSite();
+	  if (editorSite != null){
+		  // Dispose the property sheet page.
+		  if (null != _propertySheetPage) {
+			  _propertySheetPage.dispose();
+			  _propertySheetPage = null;
+		  }
+		  // Unregister Sirius session listener.
+		  unregisterSession();
+		  // Remove part listener.
+		  if (null != _partListener) {
+			  editorSite.getPage().removePartListener(_partListener);
+			  _partListener = null;
+			  // Remove preference listener
+			  ActivityExplorerActivator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+
+			  super.dispose();
+		  }
+	  }
+
+	  if (null != getEditorInput()) {
+		  getEditorInput().dispose();
+	  }
     
   }
 
@@ -469,8 +498,8 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     } catch (PartInitException e) {
       StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addNewPage(..) _ "); //$NON-NLS-1$
       loggerMessage.append(e.getMessage());
-      Status status = new Status(IStatus.ERROR, ActivityExplorerActivator.ID, loggerMessage.toString(), e);
-  	  ActivityExplorerActivator.getDefault().getLog().log(status);
+      
+      ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), e);
     }
     return index;
   }
@@ -555,49 +584,56 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
   @Override
   public void executeRequest(int request, Session session) {
 
-	Session session2 = getEditorInput().getSession();
-	switch (request) {
-	  case SessionListener.CLOSING:
-		  if (session2 != null && session2.equals(session)){
-			  Runnable runnable = new Runnable() {
-			      public void run() {
-			    	  close(false);
-			      }
-			  };
-			  run(runnable);
-		  }
-		  break;
-	  case SessionListener.SELECTED_VIEWS_CHANGE_KIND:
-		  if (session2 != null && session2.equals(session) && session.isOpen()){
-			  Runnable runnable = new Runnable() {
-			      public void run() {
-			    	  updateEditorPages(0);
-			      }
-			  };
-			  run(runnable);
-		  }
-		  break;
-	  case SessionListener.REPRESENTATION_CHANGE:
-		  if (session2 != null && session2.equals(session) && session.isOpen()){
-			  _editorDirtyStateChanged();
-		  }
-		  break;
-	  case SessionListener.OPENED:
-		  break;
-	  case SessionListener.DIRTY:
-	  case SessionListener.SYNC:
-	  case SessionListener.SEMANTIC_CHANGE: // Listening to changes to mark
-	  if (session2 != null && session2.equals(session) && session.isOpen()){
-		  _editorDirtyStateChanged();
-	  }
-	  break;
-	  case SessionListener.REPLACED:
-		  if (session2 != null && session2.equals(session) && session.isOpen()){
-			  _editorDirtyStateChanged();
-		  }
-		  break;
-	  }
+	  ActivityExplorerEditorInput editorInput = getEditorInput();
 
+	  if (editorInput != null){
+		  Session session2 = editorInput.getSession();
+		  switch (request) {
+		  case SessionListener.CLOSING:
+			  if (session2 != null && session2.equals(session)){
+				  Runnable runnable = new Runnable() {
+					  public void run() {
+						  close(false);
+						  ActivityExplorerManager.INSTANCE.removeActivityExplorerEditorListener(ActivityExplorerEditor.this);
+					  }
+				  };
+				  run(runnable);
+			  }
+			  break;
+		  case SessionListener.SELECTED_VIEWS_CHANGE_KIND:
+			  if (session2 != null && session2.equals(session) && session.isOpen()){
+				  Runnable runnable = new Runnable() {
+					  public void run() {
+						  updateEditorPages(0);
+					  }
+				  };
+				  run(runnable);
+			  }
+			  break;
+		  case SessionListener.REPRESENTATION_CHANGE:
+			  if (session2 != null && session2.equals(session) && session.isOpen()){
+				  _editorDirtyStateChanged();
+			  }
+			  break;
+		  case SessionListener.OPENED:
+			  break;
+		  case SessionListener.DIRTY:
+		  case SessionListener.SYNC:
+		  case SessionListener.SEMANTIC_CHANGE: // Listening to changes to mark
+			  if (session2 != null && session2.equals(session) && session.isOpen()){
+				  _editorDirtyStateChanged();
+			  }
+			  break;
+		  case SessionListener.REPLACED:
+			  if (session2 != null && session2.equals(session) && session.isOpen()){
+				  _editorDirtyStateChanged();
+			  }
+			  break;
+		  }
+	  } else {
+		  //Remove the editors with no editor input
+		  ActivityExplorerManager.INSTANCE.removeActivityExplorerEditorListener(this);
+	  }
   }
 
 
@@ -622,5 +658,4 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 		  }
 	  }
   }
-
 }

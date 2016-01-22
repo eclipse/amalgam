@@ -28,7 +28,9 @@ import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerMana
 import org.eclipse.amalgam.explorer.activity.ui.internal.actions.util.FormTextPageLinkAdapter;
 import org.eclipse.amalgam.explorer.activity.ui.internal.actions.util.MDSashForm;
 import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
+import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -105,9 +107,22 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
     if (sections != null) {
 
       for (IConfigurationElement contributor : sections) {
-        handleContributedSectionsFor(contributor);
-      }
+    	  try {
+    		  handleContributedSectionsFor(contributor);
+    	  } catch (NumberFormatException e){
 
+    		  StringBuilder message = new StringBuilder();
+    		  message.append("ActivityExplorerPage.createContributedSections() _ "); //$NON-NLS-1$
+    		  message.append("The contribution ");
+    		  message.append(ActivityExplorerExtensionManager.getId(contributor));
+    		  message.append(" has wrong index format (");
+    		  message.append(ActivityExplorerExtensionManager.getIndex(contributor));
+    		  message.append("). Only integers are valid");
+    		  
+    		  ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
+
+    	  }
+      }
     }
   }
 
@@ -363,21 +378,20 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
    */
   protected void handleContributedSectionsFor(IConfigurationElement contributor) {
 
-    // create a Activity Explorer section
-    ActivityExplorerSection section = new ActivityExplorerSection(contributor) {
-      @Override
-      protected IAction[] getToolBarActions() {
-        IAction[] toolbarActions = new IAction[] { new DescriptionAction(ActivityExplorerPage.this.getSite().getShell(), description)
+		  // create a Activity Explorer section
+		  ActivityExplorerSection section = new ActivityExplorerSection(contributor) {
+			  @Override
+			  protected IAction[] getToolBarActions() {
+				  IAction[] toolbarActions = new IAction[] { new DescriptionAction(ActivityExplorerPage.this.getSite().getShell(), description)
 
-        };
+				  };
 
-        return toolbarActions;
-      }
-    };
+				  return toolbarActions;
+			  }
+		  };
 
-    // sort
-    sections.add(section);
-
+		  // sort
+		  sections.add(section);
   }
 
   /**

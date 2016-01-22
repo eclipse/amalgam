@@ -26,9 +26,9 @@ import org.eclipse.amalgam.explorer.activity.ui.api.editor.sections.ActivityExpl
 import org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter.AbstractNewDiagramHyperlinkAdapter;
 import org.eclipse.amalgam.explorer.activity.ui.internal.actions.util.MDSashForm;
 import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
+import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener2;
 import org.eclipse.jface.action.IMenuManager;
@@ -166,7 +166,7 @@ public class BasicSessionActivityExplorerPage extends ActivityExplorerPage {
       newViewer = viewer.getConstructor(BasicSessionActivityExplorerPage.class).newInstance(this);
       viewers.add(newViewer);
     } catch (Exception ex) {
-      ActivityExplorerActivator.getDefault().sentToLogger(ex);
+    	ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, ex.toString(), ex);
     }
 
     return newViewer;
@@ -244,7 +244,16 @@ public class BasicSessionActivityExplorerPage extends ActivityExplorerPage {
       for (ExplorerActivity activity : section.getActivities()) {
         IHyperlinkListener listener = activity.getListener();
         if (listener instanceof AbstractNewDiagramHyperlinkAdapter) {
-          vps.add(((AbstractNewDiagramHyperlinkAdapter) listener).getRepresentationName());
+        	try {
+        		vps.add(((AbstractNewDiagramHyperlinkAdapter) listener).getRepresentationName());
+        	} catch (Throwable e){
+        		StringBuilder message = new StringBuilder();
+    			
+    			message.append("BasicSessionActivityExplorerPage.getHandledViewpoint() _ "); //$NON-NLS-1$
+    			message.append("Could not retrieve a representation name from contribution. See the error stack for more details."); //$NON-NLS-1$
+    			
+    			ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
+        	}
         }
       }
     }
@@ -260,33 +269,34 @@ public class BasicSessionActivityExplorerPage extends ActivityExplorerPage {
   @Override
   protected void handleContributedSectionsFor(IConfigurationElement contributor_p) {
 
-    // create the session
-    ActivityExplorerSection newSection = new ActivityExplorerSection(contributor_p) {
-      @Override
-      protected IAction[] getToolBarActions() {
+	  // create the session
+	  ActivityExplorerSection newSection = new ActivityExplorerSection(contributor_p) {
+		  @Override
+		  protected IAction[] getToolBarActions() {
 
-        IAction[] toolbarActions =
-            new IAction[] { new DescriptionAction(BasicSessionActivityExplorerPage.this.getSite().getShell(), getDescription()),
-                           new ViewerFilteringAction(BasicSessionActivityExplorerPage.this, this) };
+			  IAction[] toolbarActions =
+					  new IAction[] { new DescriptionAction(BasicSessionActivityExplorerPage.this.getSite().getShell(), getDescription()),
+							  new ViewerFilteringAction(BasicSessionActivityExplorerPage.this, this) };
 
-        if (!isFiltering()) {
-          toolbarActions = new IAction[] { new DescriptionAction(BasicSessionActivityExplorerPage.this.getSite().getShell(), getDescription()), };
-        }
+			  if (!isFiltering()) {
+				  toolbarActions = new IAction[] { new DescriptionAction(BasicSessionActivityExplorerPage.this.getSite().getShell(), getDescription()), };
+			  }
 
-        return toolbarActions;
-      }
-    };
+			  return toolbarActions;
+		  }
+	  };
 
-    // inserts sections in page
-    boolean value = getSections().add(newSection);
-    if (!value) {
-      ActivityExplorerActivator
-          .getDefault()
-          .getLog()
-          .log(
-              new Status(IStatus.ERROR, ActivityExplorerActivator.ID, "The declared section: " + newSection.getId()
-                                                                      + " has the same index of a another section. Changes it!")); //$NON-NLS-1$ 
-    }
+	  // inserts sections in page
+	  boolean value = getSections().add(newSection);
+	  if (!value) {
+		  
+		  StringBuilder message = new StringBuilder();
+		  message.append("The declared section: ");
+		  message.append(newSection.getId());
+		  message.append(" has the same index of a another section. Changes it!");
+		  
+		  ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), null);
+	  }
 
   }
 

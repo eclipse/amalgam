@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.manager;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerEditor;
@@ -19,6 +19,7 @@ import org.eclipse.amalgam.explorer.activity.ui.api.editor.input.ActivityExplore
 import org.eclipse.amalgam.explorer.activity.ui.api.preferences.PreferenceConstants;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IActivityExplorerEditorSessionListener;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.INotifier;
+import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
@@ -41,12 +42,9 @@ public class ActivityExplorerManager implements INotifier {
 	
 	public static final ActivityExplorerManager INSTANCE = new ActivityExplorerManager();
 	
-	private static final List<IActivityExplorerEditorSessionListener> observers = new ArrayList<IActivityExplorerEditorSessionListener>();
+	private static final Collection<IActivityExplorerEditorSessionListener> editorListeners = new HashSet<IActivityExplorerEditorSessionListener>();
 	
 	private ActivityExplorerManager() {
-	}
-	
-	public void setState(int newState){
 	}
 	
 
@@ -151,7 +149,7 @@ public class ActivityExplorerManager implements INotifier {
 					}
 				}
 			} catch (Exception ex) {
-				ActivityExplorerActivator.getDefault().sentToLogger(ex);
+				ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, ex.getMessage(), ex);
 			}
 		}
 
@@ -187,7 +185,8 @@ public class ActivityExplorerManager implements INotifier {
 	          } catch (Exception exception) {
 	            StringBuilder loggerMessage = new StringBuilder(".run(..) _ ActivityExplorer not Found."); //$NON-NLS-1$
 	            loggerMessage.append(exception.getMessage());
-	            ActivityExplorerActivator.getDefault().sentToLogger(loggerMessage.toString(), IStatus.ERROR);
+	            
+	            ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), null);
 	          }
 	        }
 	      };
@@ -196,21 +195,23 @@ public class ActivityExplorerManager implements INotifier {
 
 	@Override
 	public void dispatchEvent(int notification, Session session) {
-		for (IActivityExplorerEditorSessionListener iObserver : observers) {
+		for (IActivityExplorerEditorSessionListener iObserver : editorListeners) {
 			iObserver.executeRequest(notification, session);
 		}
 	}
 
 	@Override
 	public void addActivityExplorerEditorListener(IActivityExplorerEditorSessionListener observer) {
-		if (observers != null && !observers.contains(observer))
-			observers.add(observer);
+		if (editorListeners != null && !editorListeners.contains(observer)){
+			editorListeners.add(observer);
+		}
 	}
 
 	@Override
 	public void removeActivityExplorerEditorListener(IActivityExplorerEditorSessionListener observer) {
-		if (observers != null && observers.contains(observer))
-			observers.remove(observers);
+		if (editorListeners != null && editorListeners.contains(observer)){
+			editorListeners.remove(observer);
+		}
 	}
 	
 	protected void run(Runnable runnable) {

@@ -26,7 +26,9 @@ import org.eclipse.amalgam.explorer.activity.ui.internal.Couple;
 import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IOrdered;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
+import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -103,7 +105,21 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 
 		List<IConfigurationElement> activities = ActivityExplorerExtensionManager.getActivities(contributor);
 		for (IConfigurationElement element : activities) {
-			this.activities.add(new ExplorerActivity(element));
+			try {
+				this.activities.add(new ExplorerActivity(element));
+			} catch (NumberFormatException e){
+
+				StringBuilder message = new StringBuilder();
+				message.append("ActivityExplorerSection.createActivities(...) _ "); //$NON-NLS-1$
+				message.append("The Activity contribution "); //$NON-NLS-1$
+				message.append(ActivityExplorerExtensionManager.getId(contributor));
+				message.append(" has wrong index format ("); //$NON-NLS-1$
+				message.append(ActivityExplorerExtensionManager.getIndex(contributor));
+				message.append("). Only integers are valid"); //$NON-NLS-1$
+				
+				ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
+
+			}
 		}
 	}
 

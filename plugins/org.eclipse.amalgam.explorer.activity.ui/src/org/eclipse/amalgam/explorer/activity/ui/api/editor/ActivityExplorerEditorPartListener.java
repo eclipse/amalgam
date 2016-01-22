@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.editor;
 
+import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.forms.editor.IFormPage;
@@ -42,6 +43,9 @@ public class ActivityExplorerEditorPartListener implements IPartListener {
        */
 
       public void partClosed(IWorkbenchPart part) {
+    	  if (part == editor){
+    		  ActivityExplorerManager.INSTANCE.removeActivityExplorerEditorListener(editor);
+    	  }
       }
 
       /**
