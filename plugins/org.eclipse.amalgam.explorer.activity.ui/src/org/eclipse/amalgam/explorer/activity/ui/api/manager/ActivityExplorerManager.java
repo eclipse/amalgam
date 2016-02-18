@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.manager;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerEditor;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.input.ActivityExplorerEditorInput;
@@ -21,6 +18,7 @@ import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IActivityExplorerE
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.INotifier;
 import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.sirius.business.api.session.Session;
@@ -42,7 +40,7 @@ public class ActivityExplorerManager implements INotifier {
 	
 	public static final ActivityExplorerManager INSTANCE = new ActivityExplorerManager();
 	
-	private static final Collection<IActivityExplorerEditorSessionListener> editorListeners = new HashSet<IActivityExplorerEditorSessionListener>();
+	private static final ListenerList editorListeners = new ListenerList();
 	
 	private ActivityExplorerManager() {
 	}
@@ -194,24 +192,21 @@ public class ActivityExplorerManager implements INotifier {
 	}
 
 	@Override
-	public void dispatchEvent(int notification, Session session) {
-		for (IActivityExplorerEditorSessionListener iObserver : editorListeners) {
-			iObserver.executeRequest(notification, session);
+	public void dispatchEvent(int notification, Session session) {		
+		Object[] listeners = editorListeners.getListeners();
+		for (int i = 0; i < listeners.length; ++i) {
+			((IActivityExplorerEditorSessionListener) listeners[i]).executeRequest(notification, session);
 		}
 	}
 
 	@Override
 	public void addActivityExplorerEditorListener(IActivityExplorerEditorSessionListener observer) {
-		if (editorListeners != null && !editorListeners.contains(observer)){
-			editorListeners.add(observer);
-		}
+		editorListeners.add(observer);
 	}
 
 	@Override
 	public void removeActivityExplorerEditorListener(IActivityExplorerEditorSessionListener observer) {
-		if (editorListeners != null && editorListeners.contains(observer)){
-			editorListeners.remove(observer);
-		}
+		editorListeners.remove(observer);
 	}
 	
 	protected void run(Runnable runnable) {
@@ -224,5 +219,4 @@ public class ActivityExplorerManager implements INotifier {
 	      }
 	    }
 	  }
-
 }
