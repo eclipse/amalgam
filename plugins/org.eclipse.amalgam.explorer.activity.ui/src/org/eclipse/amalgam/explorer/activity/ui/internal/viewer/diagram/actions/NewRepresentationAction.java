@@ -44,52 +44,52 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * 
  */
 public class NewRepresentationAction extends BaseSelectionListenerAction {
-	private EObject _selectedEObject;
-	protected RepresentationDescription _description;
-	protected Session _session;
+	private EObject selectedEObject;
+	protected RepresentationDescription description;
+	protected Session session;
 
-	protected boolean _forceDefaultName;
-	protected boolean _openRepresentation;
+	protected boolean forceDefaultName;
+	protected boolean openRepresentation;
 
 	/**
 	 * Constructs an action allowing to create new representations.
 	 * 
-	 * @param description_p
+	 * @param description
 	 *            The representation description.
-	 * @param selectedEObject_p
+	 * @param selectedEObject
 	 *            The selected EObject.
-	 * @param session_p
+	 * @param session
 	 *            The current session.
 	 */
-	public NewRepresentationAction(RepresentationDescription description_p, EObject selectedEObject_p, Session session_p) {
-		this(description_p, selectedEObject_p, session_p, false, true);
+	public NewRepresentationAction(RepresentationDescription description, EObject selectedEObject, Session session) {
+		this(description, selectedEObject, session, false, true);
 	}
 
 	/**
 	 * Constructs an action allowing to create new representations.
 	 * 
-	 * @param description_p
+	 * @param description
 	 *            The representation description.
-	 * @param selectedEObject_p
+	 * @param selectedEObject
 	 *            The selected EObject.
-	 * @param session_p
+	 * @param session
 	 *            The current session.
-	 * @param forceDefaultName_p
-	 * @param openRepresentation_p
+	 * @param forceDefaultName
+	 * @param openRepresentation
 	 */
-	public NewRepresentationAction(RepresentationDescription description_p, EObject selectedEObject_p,
-			Session session_p, boolean forceDefaultName_p, boolean openRepresentation_p) {
-		super(description_p.getName());
-		String label = description_p.getLabel();
+	public NewRepresentationAction(RepresentationDescription description, EObject selectedEObject,
+			Session session, boolean forceDefaultName, boolean openRepresentation) {
+		super(description.getName());
+		String label = description.getLabel();
 		if ((null != label) && (label.length() > 1)) {
 			setText(label);
 		}
 		ImageDescriptor imageDescriptor = null;
 		// Handle specific diagrams : Table ones.
-		if (description_p instanceof CrossTableDescription) {
+		if (description instanceof CrossTableDescription) {
 			imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(TableUIPlugin.ID,
 					"/icons/full/obj16/CrossTableDescription.gif"); //$NON-NLS-1$
-		} else if (description_p instanceof EditionTableDescription) {
+		} else if (description instanceof EditionTableDescription) {
 			imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(TableUIPlugin.ID,
 					"/icons/full/obj16/DTable.gif"); //$NON-NLS-1$
 		} else {
@@ -103,11 +103,11 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 		setImageDescriptor(imageDescriptor);
 
 		// Registers local fields.
-		_selectedEObject = selectedEObject_p;
-		_description = description_p;
-		_session = session_p;
-		_forceDefaultName = forceDefaultName_p;
-		_openRepresentation = openRepresentation_p;
+		this.selectedEObject = selectedEObject;
+		this.description = description;
+		this.session = session;
+		this.forceDefaultName = forceDefaultName;
+		this.openRepresentation = openRepresentation;
 	}
 
 	/**
@@ -116,18 +116,19 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 	@Override
 	public void run() {
 		// 1 - Computes the default representation name.
-		String defaultName = computeDefaultName(_selectedEObject, _description);
+		String defaultName = computeDefaultName(selectedEObject, description);
 
-		if (!_forceDefaultName) {
+		if (!forceDefaultName) {
 		  
-		  String label = _description.getLabel();
+		  String label = description.getLabel();
 		  if (label == null || label.isEmpty()) {
-	      label = _description.getName();
+	      label = description.getName();
 	    }
 		  
-      String dialogTitle = "Type " + label + " name"; //$NON-NLS-1$ //$NON-NLS-2$
+		  String dialogTitle = "New "+label; //$NON-NLS-1$
+      String dialogMessage = "Name:"; //$NON-NLS-1$
 			Shell activeShell = Display.getDefault().getActiveShell();
-			InputDialog representationNameDlg = new InputDialog(activeShell, dialogTitle, dialogTitle, defaultName,
+			InputDialog representationNameDlg = new InputDialog(activeShell, dialogTitle, dialogMessage, defaultName,
 					null);
 			if (Window.OK == representationNameDlg.open()) {
 				defaultName = representationNameDlg.getValue();
@@ -139,35 +140,35 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 
 		// Do not call ToggleCanonicalRefresh anymore since DoReMi 4.18.
 		// Executes the NewRepresentationCommand.
-		NewRepresentationCommand command = new NewRepresentationCommand(defaultName, _selectedEObject, _description,
-				_session);
-		TransactionUtil.getEditingDomain(_selectedEObject).getCommandStack().execute(command);
+		NewRepresentationCommand command = new NewRepresentationCommand(defaultName, selectedEObject, description,
+				session);
+		TransactionUtil.getEditingDomain(selectedEObject).getCommandStack().execute(command);
 
 		if (null != command.getRepresentation()) {
-			SessionManager.INSTANCE.notifyRepresentationCreated(_session);
-			if (_openRepresentation) {
-				DialectUIManager.INSTANCE.openEditor(_session, command.getRepresentation(), new NullProgressMonitor());
+			SessionManager.INSTANCE.notifyRepresentationCreated(session);
+			if (openRepresentation) {
+				DialectUIManager.INSTANCE.openEditor(session, command.getRepresentation(), new NullProgressMonitor());
 			}
 		}
 	}
 
 	// Gets the default representation name.
-	protected String computeDefaultName(EObject eObject_p, RepresentationDescription repDescription_p) {
+	protected String computeDefaultName(EObject eObject, RepresentationDescription repDescription) {
 		// Gets the interpreter.
-		IInterpreter interpreter = InterpreterUtil.getInterpreter(eObject_p);
+		IInterpreter interpreter = InterpreterUtil.getInterpreter(eObject);
 
 		// Computes new representation name.
 		String newName = "New "; //$NON-NLS-1$
-		if (!StringUtil.isEmpty(repDescription_p.getLabel())) {
-			newName += repDescription_p.getLabel();
+		if (!StringUtil.isEmpty(repDescription.getLabel())) {
+			newName += repDescription.getLabel();
 		} else {
-			newName += repDescription_p.getName();
+			newName += repDescription.getName();
 		}
 
-		String titleExpression = repDescription_p.getTitleExpression();
+		String titleExpression = repDescription.getTitleExpression();
 		if (!StringUtil.isEmpty(titleExpression)) {
 			try {
-				newName = interpreter.evaluateString(eObject_p, titleExpression);
+				newName = interpreter.evaluateString(eObject, titleExpression);
 			} catch (EvaluationException e) {
 				SiriusPlugin.getDefault().error(IInterpreterMessages.EVALUATION_ERROR_ON_MODEL_MODIFICATION, e);
 			}
@@ -179,34 +180,34 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 	// The command allowing to create a new representation.
 	private class NewRepresentationCommand extends RecordingCommand {
 		// The representation name.
-		private String _newName;
+		private String newName;
 		// The new representation.
-		private DRepresentation _representation;
+		private DRepresentation representation;
 
 		// Fields.
-		private EObject _eObject;
-		private RepresentationDescription _repDescription;
-		private Session _currentSession;
+		private EObject eObject;
+		private RepresentationDescription repDescription;
+		private Session currentSession;
 
 		/**
 		 * Constructs the command allowing to create a new representation.
 		 * 
-		 * @param newName_p
+		 * @param newName
 		 *            The new representation name.
-		 * @param eObject_p
+		 * @param eObject
 		 *            The selected EObject.
-		 * @param repDescription_p
+		 * @param repDescription
 		 *            The current representation description.
-		 * @param session_p
+		 * @param session
 		 *            The current session.
 		 */
-		public NewRepresentationCommand(String newName_p, EObject eObject_p,
-				RepresentationDescription repDescription_p, Session session_p) {
-			super(TransactionUtil.getEditingDomain(eObject_p));
-			_newName = newName_p;
-			_eObject = eObject_p;
-			_repDescription = repDescription_p;
-			_currentSession = session_p;
+		public NewRepresentationCommand(String newName, EObject eObject,
+				RepresentationDescription repDescription, Session session) {
+			super(TransactionUtil.getEditingDomain(eObject));
+			this.newName = newName;
+			this.eObject = eObject;
+			this.repDescription = repDescription;
+			this.currentSession = session;
 		}
 
 		/**
@@ -223,7 +224,7 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 		 */
 
 		public void commandRolledBack() {
-			_representation = null;
+			representation = null;
 		}
 
 		/**
@@ -232,7 +233,7 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 		 * @return The new representation.
 		 */
 		public DRepresentation getRepresentation() {
-			return _representation;
+			return representation;
 		}
 
 		/**
@@ -242,12 +243,12 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 		public void doExecute() {
 			NullProgressMonitor monitor = new NullProgressMonitor();
 			/*
-			 * if (_selectedEObject instanceof Scenario) { Scenario scenario =
-			 * (Scenario) _selectedEObject; scenario.setName(_newName); }
+			 * if (selectedEObject instanceof Scenario) { Scenario scenario =
+			 * (Scenario) selectedEObject; scenario.setName(newName); }
 			 */
 
-			_representation = DialectManager.INSTANCE.createRepresentation(_newName, _eObject, _repDescription,
-					_currentSession, monitor);
+			representation = DialectManager.INSTANCE.createRepresentation(newName, eObject, repDescription,
+					currentSession, monitor);
 		}
 	}
 }
