@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="neon" sequenceNumber="1458740638">
+<target name="neon" sequenceNumber="1458741062">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.sirius.runtime.feature.group" version="4.0.0.201603231043"/>
@@ -9,15 +9,27 @@
       <repository location="http://download.eclipse.org/sirius/updates/nightly/4.0.x/neon"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.platform.feature.group" version="4.6.0.N20160322-2000"/>
+      <repository id="Eclipse-Neon-Integration" location="http://download.eclipse.org/eclipse/updates/4.6-N-builds/"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.emf.sdk.feature.group" version="2.12.0.v20160321-0508"/>
-      <unit id="org.eclipse.platform.feature.group" version="4.6.0.v20160317-0200"/>
-      <unit id="org.junit" version="4.12.0.v201504281640"/>
-      <unit id="org.eclipse.gmf.feature.group" version="1.10.0.201512160041"/>
-      <repository location="http://download.eclipse.org/releases/staging"/>
+      <repository id="EMF-LastSuccessful" location="https://hudson.eclipse.org/xtext/view/EMF/job/emf-core/lastSuccessfulBuild/artifact/build-result/p2.repository/"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.gmf.feature.group" version="1.10.0.201603221644"/>
+      <repository id="GMF-Runtime-LastSuccessful" location="https://hudson.eclipse.org/gmf-runtime/job/gmf-runtime-master/lastSuccessfulBuild/artifact/update-site/"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <repository location="http://download.eclipse.org/releases/neon"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.license.feature.group" version="1.0.1.v20140414-1359"/>
       <repository location="http://download.eclipse.org/cbi/updates/license"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.junit" version="4.12.0.v201504281640"/>
+      <repository id="Orbit-Recommended" location="http://download.eclipse.org/modeling/emf/cdo/orbit/latest-R"/>
     </location>
   </locations>
 </target>
