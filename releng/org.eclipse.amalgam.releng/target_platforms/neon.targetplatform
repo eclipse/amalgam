@@ -1,0 +1,20 @@
+target "neon"
+
+with source, requirements
+
+
+location "http://download.eclipse.org/sirius/updates/nightly/4.0.x/neon" {
+	org.eclipse.sirius.runtime.feature.group
+	org.eclipse.sirius.runtime.ide.ui.feature.group
+}
+
+location "http://download.eclipse.org/releases/staging" {	
+	org.eclipse.emf.sdk.feature.group
+	org.eclipse.platform.feature.group
+	org.junit
+	org.eclipse.gmf.feature.group
+}
+
+location "http://download.eclipse.org/cbi/updates/license" {
+   org.eclipse.license.feature.group    
+}
