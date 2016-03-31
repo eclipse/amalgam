@@ -525,7 +525,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 			if (it.hasPrevious()) {
 				Object prev = it.previous();
 				if (prev instanceof IFormPage) {
-					previousPage = (IFormPage) it.previous();
+					previousPage = (IFormPage) prev;
 				}
 			}
 		}
@@ -547,7 +547,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 			if (it.hasNext()) {
 				Object obj = it.next();
 				if (obj instanceof IFormPage) {
-					nextPage = (IFormPage) it.next();
+					nextPage = (IFormPage) obj;
 				}
 			}
 
