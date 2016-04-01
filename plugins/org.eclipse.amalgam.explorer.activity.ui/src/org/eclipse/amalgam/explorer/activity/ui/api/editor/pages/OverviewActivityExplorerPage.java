@@ -185,7 +185,9 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
   
   @Override
 	public void dispose() {
-	  	getManagedForm().getForm().getForm().getMenuManager().removeMenuListener(listener);
+	  	if (getManagedForm() != null) {
+	  		getManagedForm().getForm().getForm().getMenuManager().removeMenuListener(listener);
+	  	}
 		super.dispose();
 	}
 
