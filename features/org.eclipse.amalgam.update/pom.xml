@@ -24,6 +24,7 @@
                     <createArtifactRepository>true</createArtifactRepository>
                     <finalName>${project.artifactId}</finalName>
                     <compress>true</compress>
+                    <includePackedArtifacts>true</includePackedArtifacts>
                 </configuration>
             </plugin>
             <plugin>
