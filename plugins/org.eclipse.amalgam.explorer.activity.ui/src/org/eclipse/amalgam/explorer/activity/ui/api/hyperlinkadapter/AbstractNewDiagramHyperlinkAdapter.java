@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2016 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,8 @@
 package org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
 
 import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.amalgam.explorer.activity.ui.internal.viewer.diagram.actions.NewRepresentationAction;
@@ -28,12 +30,8 @@ import org.eclipse.ui.forms.widgets.AbstractHyperlink;
 
 /**
  * Base class to implement a diagram creation.
- * 
  */
-public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperlinkAdapter {
-
-	// private Logger _logger =
-	// ReportManagerRegistry.getInstance().subscribe(IReportManagerDefaultComponents.DIAGRAM);
+public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperlinkAdapter implements IRepresentationProvider {
 
 	/**
 	 * Constructor.
@@ -135,7 +133,14 @@ public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperli
 	}
 
 	/**
-	 * @return
+	 * @return the representation name of the diagram created
 	 */
 	public abstract String getRepresentationName();
+
+	/**
+	 * @see org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter.IRepresentationProvider#getRepresentationNames()
+	 */
+  public Set<String> getRepresentationNames() {
+    return Collections.singleton(getRepresentationName());
+  }
 }

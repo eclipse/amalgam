@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2016 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,7 @@ import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.BasicSessionAct
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.Messages;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SelectionHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.sections.ActivityExplorerSection;
-import org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter.AbstractNewDiagramHyperlinkAdapter;
+import org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter.IRepresentationProvider;
 import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.amalgam.explorer.activity.ui.internal.viewer.diagram.actions.CloneAction;
 import org.eclipse.amalgam.explorer.activity.ui.internal.viewer.diagram.actions.DeleteRepresentationAction;
@@ -316,9 +316,9 @@ public class DiagramViewer extends AbstractActivityExplorerViewer {
         final Set<String> representations = new HashSet<String>();
         for (ExplorerActivity activity : section.getActivities()) {
           IHyperlinkListener listener = activity.getListener();
-          if (listener instanceof AbstractNewDiagramHyperlinkAdapter) {
+          if (listener instanceof IRepresentationProvider) {
         	  try {
-        		  representations.add(((AbstractNewDiagramHyperlinkAdapter) listener).getRepresentationName());
+        		  representations.addAll(((IRepresentationProvider) listener).getRepresentationNames());
         	  } catch (Throwable e) {
         		StringBuilder message = new StringBuilder();
       			
