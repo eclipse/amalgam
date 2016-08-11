@@ -191,7 +191,7 @@ public class CloneDiagramCommand extends AbstractCommand {
 	 * @return
 	 */
 	protected String getCloneName(DRepresentation representation_p, Session session_p) {
-		String message = "GET_NAME_PREFIX "; //$NON-NLS-1$
+		String message = "Clone {0}of {1} "; //$NON-NLS-1$
 		String cloneName = StringHelper.formatMessage(message, new Object[] { "", representation_p.getName() }); //$NON-NLS-1$
 		boolean cloneNameFound = false;
 		Collection<DRepresentation> allRepresentations = DialectManager.INSTANCE.getAllRepresentations(session_p);
