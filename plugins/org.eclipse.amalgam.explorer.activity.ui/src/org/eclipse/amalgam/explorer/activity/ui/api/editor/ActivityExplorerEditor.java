@@ -70,6 +70,11 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 * Property Sheet page.
 	 */
 	private TabbedPropertySheetPage _propertySheetPage;
+	
+	/**
+	 * Hold active page at updating the editor
+	 */
+	private int backToActivePage = 0;
 
 	public ActivityExplorerEditor() {
 		ActivityExplorerManager.INSTANCE.setEditor(this);
@@ -154,10 +159,24 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 * Remove all Pages contained in this editor.
 	 */
 	public void removeAllPages() {
+		/*
+		 * Removing first active page leads to reactivate (i.e, create the content if it wasn't) the next active one
+		 * The next will be deleted. For performance reasons we don't allow recreating page content
+		 * that will be deleted just after. see the behavior of the editor in org.eclipse.ui.forms.editor.FormEditor.pageChange(int) when the current page change:
+		 * That fixe bug: 487226
+		 */
+		backToActivePage = getActivePage();
 		int count = super.getPageCount();
-		for (int i = 0; i < count; i++) {
-			this.removePage(0);
+		for (int i = count - 1; i >= 0; i--) {
+			if (i != backToActivePage) {
+				this.removePage(i);
+			}
 		}
+		/*
+		 * As all page are removed before, the remaining is the first page
+		 * which it index is 0
+		 */
+		this.removePage(0);
 	}
 
 	/**
@@ -562,10 +581,20 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	/**
 	 * Update the editor Remove and Create pages
 	 */
+	@Deprecated
 	public void updateEditorPages(int activatedPage) {
+		updateEditorPages();
+	}
+	
+	protected void updateEditorPages() {
 		removeAllPages();
 		addPages();
-		setActivePage(activatedPage); // we set the page ProcessMap activate
+		if (backToActivePage > 0 && backToActivePage < this.getPageCount()) {
+			setActivePage(backToActivePage);
+		} else {
+			//Set active page if the backToActivePage is out of the range
+			setActivePage(0);
+		}
 		setPartName(getPartName());
 	}
 
@@ -622,7 +651,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 				if (session2 != null && session2.equals(session) && session.isOpen()) {
 					Runnable runnable = new Runnable() {
 						public void run() {
-							updateEditorPages(0);
+							updateEditorPages();
 						}
 					};
 					run(runnable);
