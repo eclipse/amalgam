@@ -421,10 +421,14 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 
+		/*
+		 * TODO Delete
+		 *
 		IStatus status = ((ActivityExplorerEditorInput) input).getStatus();
 		if (!status.isOK()) {
 			throw new PartInitException(status);
 		}
+		*/
 
 		super.init(site, input);
 

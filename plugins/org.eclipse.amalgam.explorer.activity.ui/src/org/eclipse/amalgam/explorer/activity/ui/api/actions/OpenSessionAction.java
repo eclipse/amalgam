@@ -29,6 +29,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionManager;
+import org.eclipse.sirius.business.api.session.danalysis.DAnalysisSession;
 import org.eclipse.sirius.ui.business.api.session.IEditingSession;
 import org.eclipse.sirius.ui.business.api.session.SessionUIManager;
 import org.eclipse.swt.widgets.Display;
@@ -44,8 +45,7 @@ import org.eclipse.ui.actions.BaseSelectionListenerAction;
 public class OpenSessionAction extends BaseSelectionListenerAction {
 
 	/**
-	 * Whether or not this action should be ran within a progress service
-	 * runnable ?
+	 * Whether or not this action should be ran within a progress service runnable ?
 	 */
 	private boolean _shouldRunInProgressService;
 
@@ -79,8 +79,7 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
 	protected void doOpenSessions() {
 		_failedOpeningSessions = new ArrayList<IFile>();
 		_status = new MultiStatus(ActivityExplorerActivator.ID, Status.OK_STATUS.getCode(),
-				org.eclipse.amalgam.explorer.activity.ui.api.editor.Messages.ActivityExplorerEditor_Error_Message,
-				null);
+				org.eclipse.amalgam.explorer.activity.ui.api.editor.Messages.ActivityExplorerEditor_Error_Message, null);
 
 		Iterator<?> iterator = getStructuredSelection().iterator();
 		while (iterator.hasNext()) {
@@ -89,8 +88,7 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
 				// don't open session if already opened (bad performance)
 				IFile file = (IFile) selectedElement;
 				try {
-					if (org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
-							.getSession(file) != null) {
+					if (org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper.getSession(file) != null) {
 						continue;
 					}
 
@@ -111,8 +109,7 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
 					}
 				} catch (Exception ex) {
 					_failedOpeningSessions.add(file);
-					((MultiStatus) _status)
-							.add(new Status(IStatus.ERROR, ActivityExplorerActivator.ID, ex.getMessage(), ex));
+					((MultiStatus) _status).add(new Status(IStatus.ERROR, ActivityExplorerActivator.ID, ex.getMessage(), ex));
 				}
 			}
 		}
@@ -164,8 +161,7 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
 	 * Get ActivityExplorer should be open when running this action.
 	 * 
 	 * @param open
-	 *            <code>true</code> means the Activity Explorer will be open
-	 *            after session open operation.
+	 *          <code>true</code> means the Activity Explorer will be open after session open operation.
 	 */
 	@Deprecated
 	public static boolean getActivityExplorerPreference() {
@@ -177,8 +173,7 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
 	 * Set if this action should be ran within a progress service runnable.
 	 * 
 	 * @param runInProgressService
-	 *            <code>true</code> means this action should be ran within a
-	 *            progress service runnable.
+	 *          <code>true</code> means this action should be ran within a progress service runnable.
 	 */
 	public void setRunInProgressService(boolean runInProgressService) {
 		_shouldRunInProgressService = runInProgressService;
@@ -202,10 +197,12 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
 				try {
 					IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 					if ((activePage != null) && session.isOpen()) {
-						activePage.openEditor(new ActivityExplorerEditorInput(session,
-								org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
-										.getRootSemanticModel(session)),
-								ActivityExplorerEditor.ID);
+						IFile file = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.
+								SessionHelper.getFirstAnalysisFile((DAnalysisSession)session);
+						ActivityExplorerEditorInput input = new ActivityExplorerEditorInput(file);
+
+						
+						activePage.openEditor(input, ActivityExplorerEditor.ID);
 						welcomeOpen[0] = true;
 					}
 				} catch (PartInitException exception) {
@@ -233,13 +230,13 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
 	public void setUnAvailableOpenActivityExplorer() {
 		userValue = getActivityExplorerPreference();
 		ActivityExplorerActivator.getDefault().getPreferenceStore()
-				.setValue(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER, false);
+		.setValue(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER, false);
 
 	}
-	
+
 	@Deprecated
 	public void restoreAvailableOpenActivityExplorer() {
 		ActivityExplorerActivator.getDefault().getPreferenceStore()
-				.setValue(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER, userValue);
+		.setValue(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER, userValue);
 	}
 }

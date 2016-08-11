@@ -10,18 +10,18 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.manager;
 
-import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerEditor;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.input.ActivityExplorerEditorInput;
-import org.eclipse.amalgam.explorer.activity.ui.api.preferences.PreferenceConstants;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IActivityExplorerEditorSessionListener;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.INotifier;
 import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.sirius.business.api.session.Session;
+import org.eclipse.sirius.business.api.session.danalysis.DAnalysisSession;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -37,14 +37,13 @@ import org.eclipse.ui.PlatformUI;
  * 
  */
 public class ActivityExplorerManager implements INotifier {
-	
+
 	public static final ActivityExplorerManager INSTANCE = new ActivityExplorerManager();
-	
+
 	private static final ListenerList editorListeners = new ListenerList();
-	
+
 	private ActivityExplorerManager() {
 	}
-	
 
 	/**
 	 * Get the Activity Explorer editor.
@@ -90,7 +89,7 @@ public class ActivityExplorerManager implements INotifier {
 	 */
 	public EObject getRootSemanticModel() {
 		ActivityExplorerEditor editor = getEditor();
-		if (editor  !=null){
+		if (editor != null) {
 			ActivityExplorerEditorInput input = editor.getEditorInput();
 			return input.getRootSemanticElement();
 		}
@@ -159,40 +158,39 @@ public class ActivityExplorerManager implements INotifier {
 	public IEditorPart getCurrentEditor() {
 		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 	}
-	
-	public void openEditor(final Session session){
-		Runnable runnable = new Runnable() {
-	        public void run() {
-	          try {
-	            final boolean open = ActivityExplorerActivator.getDefault().getPreferenceStore()
-	                .getBoolean(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER);
-	            Session currentSession = session;
-	            if (open && (currentSession != null) && currentSession.isOpen()) {
-	              IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-	              if (activePage != null) {
-	                ActivityExplorerEditorInput input = new ActivityExplorerEditorInput(currentSession,
-	                    org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
-	                        .getRootSemanticModel(currentSession));
 
-	                IEditorPart part = activePage.findEditor(input);
-	                if (part == null) {
-	                  activePage.openEditor(input, ActivityExplorerEditor.ID);
-	                }
-	              }
-	            }
-	          } catch (Exception exception) {
-	            StringBuilder loggerMessage = new StringBuilder(".run(..) _ ActivityExplorer not Found."); //$NON-NLS-1$
-	            loggerMessage.append(exception.getMessage());
-	            
-	            ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), null);
-	          }
-	        }
-	      };
-	      run(runnable);
+	public void openEditor(final Session session) {
+		Runnable runnable = new Runnable() {
+			public void run() {
+				try {
+					Session currentSession = session;
+					if ((currentSession != null) && currentSession.isOpen()) {
+						IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+								.getActivePage();
+						if (activePage != null) {
+							IFile file = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
+									.getFirstAnalysisFile((DAnalysisSession) currentSession);
+							ActivityExplorerEditorInput input = new ActivityExplorerEditorInput(file);
+
+							IEditorPart part = activePage.findEditor(input);
+							if (part == null) {
+								activePage.openEditor(input, ActivityExplorerEditor.ID);
+							}
+						}
+					}
+				} catch (Exception exception) {
+					StringBuilder loggerMessage = new StringBuilder(".run(..) _ ActivityExplorer not Found."); //$NON-NLS-1$
+					loggerMessage.append(exception.getMessage());
+
+					ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), null);
+				}
+			}
+		};
+		run(runnable);
 	}
 
 	@Override
-	public void dispatchEvent(int notification, Session session) {		
+	public void dispatchEvent(int notification, Session session) {
 		Object[] listeners = editorListeners.getListeners();
 		for (int i = 0; i < listeners.length; ++i) {
 			((IActivityExplorerEditorSessionListener) listeners[i]).executeRequest(notification, session);
@@ -208,15 +206,15 @@ public class ActivityExplorerManager implements INotifier {
 	public void removeActivityExplorerEditorListener(IActivityExplorerEditorSessionListener observer) {
 		editorListeners.remove(observer);
 	}
-	
+
 	protected void run(Runnable runnable) {
-	    if (null != runnable) {
-	      Display display = Display.getCurrent();
-	      if (null == display) {
-	        PlatformUI.getWorkbench().getDisplay().asyncExec(runnable);
-	      } else {
-	        runnable.run();
-	      }
-	    }
-	  }
+		if (null != runnable) {
+			Display display = Display.getCurrent();
+			if (null == display) {
+				PlatformUI.getWorkbench().getDisplay().asyncExec(runnable);
+			} else {
+				runnable.run();
+			}
+		}
+	}
 }

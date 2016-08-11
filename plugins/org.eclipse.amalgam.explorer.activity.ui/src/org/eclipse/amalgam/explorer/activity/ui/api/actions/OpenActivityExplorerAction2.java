@@ -16,9 +16,11 @@ import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.EObjectL
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager;
 import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.sirius.business.api.session.Session;
+import org.eclipse.sirius.business.api.session.danalysis.DAnalysisSession;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
@@ -58,9 +60,10 @@ public class OpenActivityExplorerAction2 extends OpenActivityExplorerAction {
 		}
 		if (null != selectedSession && selectedSession != current.getEditorInput().getSession()) {
 			ActivityExplorerEditor editor = current;
-			ActivityExplorerEditorInput input = new ActivityExplorerEditorInput(selectedSession,
-					org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
-							.getRootSemanticModel(selectedSession));
+			IFile file = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.
+					SessionHelper.getFirstAnalysisFile((DAnalysisSession)selectedSession);
+			ActivityExplorerEditorInput input = new ActivityExplorerEditorInput(file);
+
 			IEditorSite site = editor.getEditorSite();
 			try {
 				editor.init(site, input);
