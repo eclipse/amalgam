@@ -156,7 +156,7 @@ public class ActivityExplorerEditorInput extends FileEditorInput implements IEdi
 	 * @see org.eclipse.ui.IEditorInput#getName()
 	 */
 	public String getName() {
-		return getModelUiName();
+		return getModelUiName() + Messages.ActivityExplorerEditor_Title_Suffix;
 	}
 
 	/**

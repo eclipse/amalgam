@@ -402,7 +402,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 */
 	@Override
 	public String getPartName() {
-		return getEditorInput().getName() + Messages.ActivityExplorerEditor_Title_Suffix;
+		return getEditorInput().getName();
 	}
 
 	/**
