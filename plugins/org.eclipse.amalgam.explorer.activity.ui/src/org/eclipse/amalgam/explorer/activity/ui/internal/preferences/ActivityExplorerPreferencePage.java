@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2016 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,10 +13,7 @@ package org.eclipse.amalgam.explorer.activity.ui.internal.preferences;
 import java.io.IOException;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
-import org.eclipse.amalgam.explorer.activity.ui.api.preferences.PreferenceConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.preference.BooleanFieldEditor;
-import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -71,9 +68,6 @@ public class ActivityExplorerPreferencePage extends FieldEditorPreferencePage im
 	 */
 	@Override
 	public void createFieldEditors() {
-		FieldEditor viewpointsSelection = new BooleanFieldEditor(PreferenceConstants.P_OPEN_ACTIVITY_EXPLORER,
-				Messages.ActivityExplorerPreferencePage_2, getFieldEditorParent());
-		addField(viewpointsSelection);
 	}
 
 	/**
