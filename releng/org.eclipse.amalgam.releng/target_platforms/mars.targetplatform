@@ -1,15 +1,14 @@
-target "mars"
+target "mars" with source, requirements
 
-with source, requirements
 location "http://download.eclipse.org/releases/mars" {	
-	org.eclipse.emf.sdk.feature.group
-	org.eclipse.platform.feature.group
-	org.junit
-	org.eclipse.sirius.runtime.feature.group
-	org.eclipse.sirius.runtime.ide.ui.feature.group
-	org.eclipse.gmf.feature.group
+	org.eclipse.platform.feature.group lazy
+	org.eclipse.emf.sdk.feature.group lazy
+	org.eclipse.gmf.feature.group lazy
+	org.eclipse.sirius.runtime.feature.group lazy
+	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
+	org.junit lazy
 }
 
 location "http://download.eclipse.org/cbi/updates/license" {
-   org.eclipse.license.feature.group    
+	org.eclipse.license.feature.group lazy
 }

@@ -1,30 +1,14 @@
 target "neon" with source, requirements
 
-location "http://download.eclipse.org/sirius/updates/nightly/4.0.x/neon" {
+location "http://download.eclipse.org/releases/neon" {
+	org.eclipse.platform.feature.group lazy
+	org.eclipse.emf.sdk.feature.group lazy
+	org.eclipse.gmf.feature.group lazy
 	org.eclipse.sirius.runtime.feature.group lazy
 	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
-}
-
-location Eclipse-Neon-Integration "http://download.eclipse.org/eclipse/updates/4.6-N-builds/" {
-	org.eclipse.platform.feature.group lazy
-}
-
-location EMF-LastSuccessful "https://hudson.eclipse.org/xtext/view/EMF/job/emf-core/lastSuccessfulBuild/artifact/build-result/p2.repository/" {
-	org.eclipse.emf.sdk.feature.group lazy
-}
-
-location GMF-Runtime-LastSuccessful "https://hudson.eclipse.org/gmf-runtime/job/gmf-runtime-master/lastSuccessfulBuild/artifact/update-site/" {
-	org.eclipse.gmf.feature.group lazy
-}
-
-location "http://download.eclipse.org/releases/neon" {
-
+	org.junit lazy
 }
 
 location "http://download.eclipse.org/cbi/updates/license" {
 	org.eclipse.license.feature.group lazy
-}
-
-location Orbit-Recommended "http://download.eclipse.org/modeling/emf/cdo/orbit/latest-R" {
-	org.junit lazy
 }
