@@ -31,7 +31,7 @@ import org.eclipse.sirius.ui.tools.api.views.common.item.ViewpointItem;
 import org.eclipse.sirius.ui.tools.api.views.common.item.ViewpointsFolderItem;
 import org.eclipse.sirius.ui.tools.internal.views.common.item.RepresentationItemImpl;
 import org.eclipse.sirius.ui.tools.internal.views.common.item.ViewpointsFolderItemImpl;
-import org.eclipse.sirius.viewpoint.DRepresentation;
+import org.eclipse.sirius.viewpoint.DRepresentationDescriptor;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.sirius.viewpoint.description.audit.provider.AuditItemProviderAdapterFactory;
 import org.eclipse.sirius.viewpoint.description.provider.DescriptionItemProviderAdapterFactory;
@@ -105,28 +105,32 @@ public class DiagramViewerContentProvider extends AdapterFactoryContentProvider 
 			result = getSessionChildren((Session) parentElement_p);
 		}
 		// Handle ViewpointItem.
-		else if (parentElement_p instanceof ViewpointItem) {
-			ViewpointItem viewpointItem = (ViewpointItem) parentElement_p;
-			result = handleViewPointItem(parentElement_p, viewpointItem.getChildren());
-		}
-		// Handle all wrapped objects
-		else if (parentElement_p instanceof RepresentationDescriptionItem) {
-			RepresentationDescriptionItem representationDescriptionItem = (RepresentationDescriptionItem) parentElement_p;
-			// Get children for current representation description item.
-			Collection<?> representationItems = representationDescriptionItem.getChildren();
-			// Check thate the children are not empty
-			if (!representationItems.isEmpty()) {
+		else {
+			if (parentElement_p instanceof ViewpointItem) {
+				ViewpointItem viewpointItem = (ViewpointItem) parentElement_p;
+				result = handleViewPointItem(parentElement_p, viewpointItem.getChildren());
+			}
+			// Handle all wrapped objects
+			else {
+				if (parentElement_p instanceof RepresentationDescriptionItem) {
+					RepresentationDescriptionItem representationDescriptionItem = (RepresentationDescriptionItem) parentElement_p;
+					// Get children for current representation description item.
+					Collection<?> representationItems = representationDescriptionItem.getChildren();
+					// Check thate the children are not empty
+					if (!representationItems.isEmpty()) {
 
-				RepresentationDescription representationDescription = (RepresentationDescription) representationDescriptionItem
-						.getWrappedObject();
-				if (_handledViewpoint.contains(representationDescription.getName())) {
-					Iterator<?> it = representationItems.iterator();
-					Collection<DRepresentation> desc = new ArrayList<DRepresentation>();
-					while (it.hasNext()) {
-						RepresentationItemImpl item = (RepresentationItemImpl) it.next();
-						desc.add(item.getRepresentation());
+						RepresentationDescription representationDescription = (RepresentationDescription) representationDescriptionItem
+								.getWrappedObject();
+						if (_handledViewpoint.contains(representationDescription.getName())) {
+							Iterator<?> it = representationItems.iterator();
+							Collection<DRepresentationDescriptor> desc = new ArrayList<DRepresentationDescriptor>();
+							while (it.hasNext()) {
+								RepresentationItemImpl item = (RepresentationItemImpl) it.next();
+								desc.add(item.getDRepresentationDescriptor());
+							}
+							result = desc.toArray();
+						}
 					}
-					result = desc.toArray();
 				}
 			}
 

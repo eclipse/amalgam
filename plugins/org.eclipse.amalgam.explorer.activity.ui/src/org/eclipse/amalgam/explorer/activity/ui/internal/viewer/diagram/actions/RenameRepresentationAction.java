@@ -21,6 +21,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.sirius.common.tools.api.util.StringUtil;
 import org.eclipse.sirius.common.ui.tools.api.dialog.RenameDialog;
 import org.eclipse.sirius.viewpoint.DRepresentation;
+import org.eclipse.sirius.viewpoint.DRepresentationDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
@@ -36,6 +37,7 @@ public class RenameRepresentationAction extends BaseSelectionListenerAction {
 	public RenameRepresentationAction() {
 		super("Rename"); //$NON-NLS-1$
 		setActionDefinitionId("org.eclipse.ui.edit.rename"); //$NON-NLS-1$
+		setAccelerator(findKeyCode("F2"));
 	}
 
 	/**
@@ -48,8 +50,9 @@ public class RenameRepresentationAction extends BaseSelectionListenerAction {
 		IStructuredSelection structuredSelection = getStructuredSelection();
 		for (Iterator<?> iterator = structuredSelection.iterator(); iterator.hasNext();) {
 			Object selectedObject = iterator.next();
-			if (selectedObject instanceof DRepresentation) {
-				representations.add((DRepresentation) selectedObject);
+			if (selectedObject instanceof DRepresentationDescriptor) {
+				DRepresentation representation = ((DRepresentationDescriptor)selectedObject).getRepresentation();
+				representations.add((DRepresentation) representation);
 			}
 		}
 

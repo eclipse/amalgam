@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.viewpoint.DRepresentation;
+import org.eclipse.sirius.viewpoint.DRepresentationDescriptor;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
@@ -31,7 +32,7 @@ public class CloneAction extends BaseSelectionListenerAction {
 	/**
 	 * Latest selection of representations.
 	 */
-	private Collection<DRepresentation> _representations;
+	private Collection<DRepresentationDescriptor> _representationDescriptors;
 
 	/**
 	 * Common viewer reminder.
@@ -52,21 +53,21 @@ public class CloneAction extends BaseSelectionListenerAction {
 	 * @param selectedElements_p
 	 *            A list of selected elements.
 	 * @return A not <code>null</code> (possibly empty) collection of
-	 *         representations.
+	 *         representations descriptor.
 	 */
-	protected Collection<DRepresentation> getSelectedRepresentations(List<?> selectedElements_p) {
+	protected Collection<DRepresentationDescriptor> getSelectedRepresentations(List<?> selectedElements_p) {
 		// Resulting collection.
-		Collection<DRepresentation> result = null;
+		Collection<DRepresentationDescriptor> result = null;
 		// Cycle through selected elements.
 		for (Object element : selectedElements_p) {
 			// Got a representation, store it.
-			if (element instanceof DRepresentation) {
+			if (element instanceof DRepresentationDescriptor) {
 				// Lazy initialization.
 				if (null == result) {
-					result = new ArrayList<DRepresentation>(1);
+					result = new ArrayList<DRepresentationDescriptor>(1);
 				}
 				// Add representation.
-				result.add((DRepresentation) element);
+				result.add((DRepresentationDescriptor) element);
 			}
 		}
 		// Do not return a null collection.
@@ -81,7 +82,7 @@ public class CloneAction extends BaseSelectionListenerAction {
 	 */
 	@Override
 	public void run() {
-		CloneDiagramCommand command = new CloneDiagramCommand(_representations);
+		CloneDiagramCommand command = new CloneDiagramCommand(_representationDescriptors);
 		// Add a listener that refreshes the model explorer during
 		// execution/undo/redo operations.
 		command.addCloneListener(new ICloneListener() {
@@ -134,7 +135,7 @@ public class CloneAction extends BaseSelectionListenerAction {
 		// recording command implementation.
 		// Thus is more adequate to execute it against the command stack
 		// directly, rather than use the default behavior.
-		TransactionUtil.getEditingDomain(_representations.iterator().next()).getCommandStack().execute(command);
+		TransactionUtil.getEditingDomain(_representationDescriptors.iterator().next()).getCommandStack().execute(command);
 	}
 
 	/**
@@ -143,9 +144,9 @@ public class CloneAction extends BaseSelectionListenerAction {
 	@Override
 	protected boolean updateSelection(IStructuredSelection selection_p) {
 		List<?> selectedElements = selection_p.toList();
-		_representations = getSelectedRepresentations(selectedElements);
+		_representationDescriptors = getSelectedRepresentations(selectedElements);
 		// Enable action only if all selected elements are representations.
 		int size = selectedElements.size();
-		return (size > 0) && (size == _representations.size());
+		return (size > 0) && (size == _representationDescriptors.size());
 	}
 }

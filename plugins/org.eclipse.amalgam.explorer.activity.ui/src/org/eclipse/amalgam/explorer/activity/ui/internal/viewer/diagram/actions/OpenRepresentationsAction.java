@@ -20,6 +20,7 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.sirius.viewpoint.DRepresentation;
+import org.eclipse.sirius.viewpoint.DRepresentationDescriptor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
 
@@ -64,15 +65,20 @@ public class OpenRepresentationsAction extends BaseSelectionListenerAction {
 		}
 	}
 
-	// Filters representations.
+	/**
+	 * Filter representation from viewer
+	 * @param selection_p
+	 * @return
+	 */
 	protected List<DRepresentation> getRepresentations(IStructuredSelection selection_p) {
 
 		List<DRepresentation> representations = new ArrayList<DRepresentation>();
 		Iterator<?> iterator = selection_p.iterator();
 		while (iterator.hasNext()) {
 			Object selectedObject = iterator.next();
-			if (selectedObject instanceof DRepresentation) {
-				representations.add((DRepresentation) selectedObject);
+			if (selectedObject instanceof DRepresentationDescriptor) {
+				DRepresentation representation = ((DRepresentationDescriptor) selectedObject).getRepresentation();
+				representations.add(representation);
 			}
 		}
 		return representations;

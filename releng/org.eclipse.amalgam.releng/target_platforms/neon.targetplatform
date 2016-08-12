@@ -5,12 +5,11 @@ location "http://download.eclipse.org/releases/neon" {
 	org.eclipse.emf.sdk.feature.group lazy
 	org.eclipse.gmf.feature.group lazy
 	org.junit lazy
-
-	org.eclipse.sirius.runtime.feature.group lazy
-	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
 }
 
 location "http://download.eclipse.org/sirius/updates/stable/4.1.0-S20160809-110054/neon/" {
+	org.eclipse.sirius.runtime.feature.group lazy
+	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
 }
 
 location "http://download.eclipse.org/cbi/updates/license" {

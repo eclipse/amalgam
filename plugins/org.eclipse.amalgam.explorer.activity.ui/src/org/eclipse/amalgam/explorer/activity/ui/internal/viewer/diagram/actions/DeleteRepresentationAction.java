@@ -17,7 +17,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.StringHelper;
+import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -26,6 +31,7 @@ import org.eclipse.sirius.business.api.dialect.command.DeleteRepresentationComma
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.viewpoint.DRepresentation;
+import org.eclipse.sirius.viewpoint.DRepresentationDescriptor;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
@@ -53,7 +59,7 @@ public class DeleteRepresentationAction extends BaseSelectionListenerAction {
 	@Override
 	public void run() {
 		// Gets selected representations from the current selection.
-		Set<DRepresentation> selectedRepresentations = getRepresentationsFromSelection();
+		Set<DRepresentationDescriptor> selectedRepresentations = getRepresentationsFromSelection();
 		if (!selectedRepresentations.isEmpty()) {
 			int deletedDiagramCount = selectedRepresentations.size();
 			String contextualMessage = null;
@@ -70,21 +76,39 @@ public class DeleteRepresentationAction extends BaseSelectionListenerAction {
 				TransactionalEditingDomain domain = TransactionUtil.getEditingDomain(getRepresentationsFromSelection()
 						.iterator().next());
 				if (domain != null) {
-					SessionManager.INSTANCE.getSessions();
-					Session session = SessionManager.INSTANCE
-							.getSession(((DSemanticDecorator) getRepresentationsFromSelection().iterator().next())
-									.getTarget());
-					DeleteRepresentationCommand command = new DeleteRepresentationCommand(session,
-							selectedRepresentations);
-					domain.getCommandStack().execute(command);
+					DRepresentationDescriptor dRepresentationDescriptor = getRepresentationsFromSelection().iterator().next();
+					Session session = getSessionOf(dRepresentationDescriptor);
+					if (session != null) {
+						DeleteRepresentationCommand command = new DeleteRepresentationCommand(session,
+								selectedRepresentations);
+						domain.getCommandStack().execute(command);
+					} else {
+						IStatus status = new Status(IStatus.ERROR, ActivityExplorerActivator.ID, 
+								"Cannot find the session of " + dRepresentationDescriptor.getName()); //$NON-NLS-1$
+						ActivityExplorerLoggerService.getInstance().log(status);
+					}
 				}
 			}
 		}
 	}
+	
+	/**
+	 * @param dRepresentationDescriptor
+	 * @return return the session behind the dReprestationDescription or null
+	 */
+	private Session getSessionOf(DRepresentationDescriptor dRepresentationDescriptor){
+		Session session = null;
+		DRepresentation representation = dRepresentationDescriptor.getRepresentation();
+		if (representation instanceof DSemanticDecorator){
+			EObject Elt = ((DSemanticDecorator)representation).getTarget();
+			session = SessionManager.INSTANCE.getSession(Elt);
+		}
+		return session;
+	}
 
 	// Gets the selected representations from the current selection.
-	private Set<DRepresentation> getRepresentationsFromSelection() {
-		Set<DRepresentation> representations = new HashSet<DRepresentation>();
+	private Set<DRepresentationDescriptor> getRepresentationsFromSelection() {
+		Set<DRepresentationDescriptor> representations = new HashSet<DRepresentationDescriptor>();
 
 		IStructuredSelection structuredSelection = getStructuredSelection();
 		for (Iterator<?> iterator = structuredSelection.iterator(); iterator.hasNext();) {
@@ -94,8 +118,8 @@ public class DeleteRepresentationAction extends BaseSelectionListenerAction {
 			// semantic decorators.
 			// Semantic decorators allow to retrieve the parent session of each
 			// representation.
-			if ((selectedObject instanceof DRepresentation) && (selectedObject instanceof DSemanticDecorator)) {
-				DRepresentation selectedRepresentation = (DRepresentation) selectedObject;
+			if ((selectedObject instanceof DRepresentationDescriptor)) {
+				DRepresentationDescriptor selectedRepresentation = (DRepresentationDescriptor) selectedObject;
 				representations.add(selectedRepresentation);
 			}
 		}
