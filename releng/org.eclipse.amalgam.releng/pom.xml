@@ -19,7 +19,7 @@
 
     <groupId>org.eclipse.amalgam</groupId>
     <artifactId>org.eclipse.amalgam.releng</artifactId>
-    <version>1.7.0-SNAPSHOT</version>
+    <version>1.8.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -85,7 +85,7 @@
                         <artifact>
                             <groupId>org.eclipse.amalgam</groupId>
                             <artifactId>org.eclipse.amalgam.releng</artifactId>
-                            <version>1.7.0-SNAPSHOT</version>
+                            <version>1.8.0-SNAPSHOT</version>
                             <classifier>target_platforms/neon</classifier>
                         </artifact>
                     </target>
