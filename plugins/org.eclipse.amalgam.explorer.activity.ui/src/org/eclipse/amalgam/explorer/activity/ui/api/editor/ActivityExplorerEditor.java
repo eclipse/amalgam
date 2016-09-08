@@ -28,6 +28,7 @@ import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLo
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ILabelDecorator;
@@ -47,9 +48,12 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.forms.editor.SharedHeaderFormEditor;
 import org.eclipse.ui.part.IPageSite;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 /**
  * Base class to implement Activity Explorer.
@@ -326,10 +330,24 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 */
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		if (isDirty()) {
-			getEditorInput().getSession().save(new NullProgressMonitor());
-		}
-	}
+	  if (isDirty()) {
+      try {
+        getEditorInput().getSession().save(new NullProgressMonitor());
+      } catch (RuntimeException ite) {
+        StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(ite), ite.getMessage(), ite), StatusManager.BLOCK);
+      }
+    }
+  }
+  
+  String getBundleId(Object obj) {
+    ClassLoader cl = obj.getClass().getClassLoader();
+    Bundle bundle = FrameworkUtil.getBundle(obj.getClass());
+    if (bundle != null)
+    {
+      return bundle.getSymbolicName();
+    }
+    return obj.getClass().getCanonicalName();
+  }
 
 	/**
 	 * @see org.eclipse.ui.part.EditorPart#doSaveAs()
