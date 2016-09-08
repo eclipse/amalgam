@@ -28,9 +28,13 @@ import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLo
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ILabelDecorator;
+import org.eclipse.osgi.framework.adaptor.BundleClassLoader;
+import org.eclipse.osgi.framework.adaptor.ClassLoaderDelegate;
+import org.eclipse.osgi.internal.loader.BundleLoader;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionListener;
 import org.eclipse.sirius.business.api.session.SessionStatus;
@@ -47,6 +51,7 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.forms.editor.SharedHeaderFormEditor;
 import org.eclipse.ui.part.IPageSite;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
@@ -327,8 +332,22 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		if (isDirty()) {
-			getEditorInput().getSession().save(new NullProgressMonitor());
+		  try {
+			  getEditorInput().getSession().save(new NullProgressMonitor());
+	    } catch (RuntimeException ite) {
+	      StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(ite), ite.getMessage(), ite), StatusManager.BLOCK);
+	    }
 		}
+	}
+	
+	String getBundleId(Object obj) {
+    ClassLoader cl = obj.getClass().getClassLoader();
+    if (cl instanceof BundleClassLoader) {
+      ClassLoaderDelegate delegate = ((BundleClassLoader) cl).getDelegate();
+      if (delegate instanceof BundleLoader)
+        return ((BundleLoader) delegate).getBundle().getSymbolicName();
+    }
+    return obj.getClass().getCanonicalName();
 	}
 
 	/**
