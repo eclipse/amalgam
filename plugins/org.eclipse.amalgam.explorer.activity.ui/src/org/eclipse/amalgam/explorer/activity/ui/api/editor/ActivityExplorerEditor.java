@@ -339,8 +339,11 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     }
   }
   
-  String getBundleId(Object obj) {
-    ClassLoader cl = obj.getClass().getClassLoader();
+	/**
+	 * @param obj
+	 * @return the bundle containing the object's class or the class's name if it's not contained in a bundle
+	 */
+  private String getBundleId(Object obj) {
     Bundle bundle = FrameworkUtil.getBundle(obj.getClass());
     if (bundle != null)
     {
