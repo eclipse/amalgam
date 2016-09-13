@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2016 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,9 +30,10 @@ import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.business.api.session.danalysis.DAnalysisSession;
 import org.eclipse.sirius.ui.business.api.session.IEditingSession;
 import org.eclipse.sirius.ui.business.api.session.SessionUIManager;
+import org.eclipse.sirius.ui.tools.api.views.common.item.ItemWrapper;
 import org.eclipse.sirius.viewpoint.DAnalysis;
 import org.eclipse.sirius.viewpoint.DRepresentation;
-import org.eclipse.sirius.viewpoint.DSemanticDecorator;
+import org.eclipse.sirius.viewpoint.DRepresentationDescriptor;
 import org.eclipse.sirius.viewpoint.ViewpointPackage;
 import org.eclipse.sirius.viewpoint.provider.SiriusEditPlugin;
 import org.eclipse.ui.IEditorPart;
@@ -57,9 +58,9 @@ public class MoveRepresentationAction extends BaseSelectionListenerAction {
 	}
 
 	/**
-	 * Latest selection of representations to move.
+	 * Latest selection of DRepresentationDescriptors to move.
 	 */
-	private ArrayList<DRepresentation> _representationsToMove;
+	private ArrayList<DRepresentationDescriptor> _representationsToMove;
 	private Session _session;
 	private Collection<Resource> _availableTargetResources;
 
@@ -87,20 +88,23 @@ public class MoveRepresentationAction extends BaseSelectionListenerAction {
 		}
 		boolean enabled = true;
 		// Clean previous execution.
-		_representationsToMove = new ArrayList<DRepresentation>(0);
+		_representationsToMove = new ArrayList<DRepresentationDescriptor>();
 		_session = null;
 		Iterator<?> iterator = selection_p.toList().iterator();
 		while (iterator.hasNext() && enabled) {
 			Object element = iterator.next();
 			// Got a representation, store it.
-			if (element instanceof DRepresentation) {
-				// Add representation.
-				_representationsToMove.add((DRepresentation) element);
-				if (null != _session) {
-					enabled = SessionManager.INSTANCE.getSession(((DSemanticDecorator) element).getTarget()).equals(
-							_session);
+      if (element instanceof ItemWrapper) {
+        element = ((ItemWrapper) element).getWrappedObject();
+      }
+      if (element instanceof DRepresentationDescriptor) {
+        DRepresentationDescriptor dRepresentationDescriptor = (DRepresentationDescriptor) element;
+        // Keep representationDescriptor
+				_representationsToMove.add(dRepresentationDescriptor);
+			  if (null != _session) {
+					enabled = SessionManager.INSTANCE.getSession(dRepresentationDescriptor.getTarget()).equals(_session);
 				} else {
-					_session = SessionManager.INSTANCE.getSession(((DSemanticDecorator) element).getTarget());
+					_session = SessionManager.INSTANCE.getSession(dRepresentationDescriptor.getTarget());
 					enabled = null != _session;
 				}
 			} else {
@@ -126,9 +130,9 @@ public class MoveRepresentationAction extends BaseSelectionListenerAction {
 	 * @param movableRepresentations_p
 	 * @return a not <code>null</code> collection.
 	 */
-	private Collection<Resource> collectRepresentationResources(Collection<DRepresentation> movableRepresentations_p) {
+	private Collection<Resource> collectRepresentationResources(Collection<DRepresentationDescriptor> movableRepresentations_p) {
 		Collection<Resource> result = new HashSet<Resource>();
-		for (DRepresentation representation : movableRepresentations_p) {
+		for (DRepresentationDescriptor representation : movableRepresentations_p) {
 			result.add(representation.eResource());
 		}
 		return result;
@@ -161,9 +165,13 @@ public class MoveRepresentationAction extends BaseSelectionListenerAction {
 	 * @return
 	 */
 	private Action createMoveRepresentationsActions(final DAnalysisSession session,
-			final Collection<DRepresentation> movableRepresentations, final DAnalysis targetAnalysis) {
+			final Collection<DRepresentationDescriptor> movableRepresentations, final DAnalysis targetAnalysis) {
 		ImageDescriptor descriptor = AbstractUIPlugin.imageDescriptorFromPlugin(SiriusEditPlugin.ID,
 				"/icons/full/others/forward.gif"); //$NON-NLS-1$
+		// Keep a copy of the representations list to move (the original can be cleaned when the Action is executed).
+		final Collection<DRepresentationDescriptor> movableRepresentationsLocalCopy = new ArrayList<DRepresentationDescriptor>();
+		movableRepresentationsLocalCopy.addAll(movableRepresentations);
+		
 		return new Action(Messages.MoveRepresentationAction_1 + targetAnalysis.eResource().getURI(), descriptor) {
 			/**
 			 * @see org.eclipse.jface.action.Action#run()
@@ -180,11 +188,11 @@ public class MoveRepresentationAction extends BaseSelectionListenerAction {
 							public void doExecute() {
 								final IEditingSession uiSession = SessionUIManager.INSTANCE.getUISession(session);
 								if (uiSession != null) {
-									for (final DRepresentation representation : movableRepresentations) {
-										closeOpenedEditor(uiSession, representation);
+									for (final DRepresentationDescriptor representation : movableRepresentationsLocalCopy) {
+										closeOpenedEditor(uiSession, representation.getRepresentation());
 									}
 								}
-								for (final DRepresentation representation : movableRepresentations) {
+								for (final DRepresentationDescriptor representation : movableRepresentationsLocalCopy) {
 									session.moveRepresentation(targetAnalysis, representation);
 								}
 							}
@@ -208,7 +216,7 @@ public class MoveRepresentationAction extends BaseSelectionListenerAction {
 	 * @return a sub menu manager with all real move actions.
 	 */
 	public IMenuManager fillContextMenu(IStructuredSelection structuredSelection_p) {
-		IMenuManager subMenuManager = new MenuManager(Messages.MoveRepresentationAction_2);
+		IMenuManager subMenuManager = new MenuManager(Messages.MoveRepresentationAction_2, MOVE_DIAGRAMS_MENU_ID);
 		updateSelection(structuredSelection_p);
 		// In this case, check really if the action is compatible with current
 		// selection.

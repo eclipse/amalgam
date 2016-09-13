@@ -7,7 +7,7 @@ location "http://download.eclipse.org/releases/mars" {
 	org.junit lazy
 }
 
-location "http://download.eclipse.org/sirius/updates/stable/4.1.0-S20160809-110054/mars/" {
+location "http://download.eclipse.org/sirius/updates/stable/4.1.0-S20160902-064512/mars/" {
 	org.eclipse.sirius.runtime.feature.group lazy
 	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
 }
