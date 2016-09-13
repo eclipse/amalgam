@@ -86,7 +86,11 @@ public class ActivityExplorerManager implements INotifier {
 	 * session.
 	 * 
 	 * @return EObject
+	 * 
+	 * @deprecated will be remove. Client must not call this method
+	 * 
 	 */
+	@Deprecated
 	public EObject getRootSemanticModel() {
 		ActivityExplorerEditor editor = getEditor();
 		if (editor != null) {

@@ -208,9 +208,6 @@ public class OpenSessionAction extends BaseSelectionListenerAction {
 				} catch (PartInitException exception) {
 					StringBuilder loggerMessage = new StringBuilder(".run(..) _ Activity Explorer not Found."); //$NON-NLS-1$
 					loggerMessage.append(exception.getMessage());
-					// __logger.warn(new
-					// EmbeddedMessage(loggerMessage.toString(),
-					// IReportManagerDefaultComponents.UI), exception);
 				}
 			}
 		};
