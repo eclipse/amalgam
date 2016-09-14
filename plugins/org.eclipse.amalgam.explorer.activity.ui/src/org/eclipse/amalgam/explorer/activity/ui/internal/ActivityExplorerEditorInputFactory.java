@@ -40,14 +40,17 @@ public class ActivityExplorerEditorInputFactory implements IElementFactory {
 	 */
 	public IAdaptable createElement(IMemento memento_p) {
 		String path = memento_p.getString(ACTIVITY_EXPLORER_FILE);
+		
 		if (path == null || path.isEmpty()) {
 			IStatus status = new Status(IStatus.ERROR, ActivityExplorerActivator.ID,
 					"Activity Explorer cannot find the path of file to restaure"); //$NON-NLS-1$
 			ActivityExplorerLoggerService.getInstance().log(status);
 			return null;
 		}
+		
 
 		IResource file = getPlatformResource(new Path(path));
+		
 		if (file != null && file instanceof IFile) {
 			ActivityExplorerEditorInput input = new ActivityExplorerEditorInput((IFile) file);
 			return input;

@@ -24,6 +24,13 @@ import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.business.api.session.danalysis.DAnalysisSession;
 
 public class SessionHelper {
+	
+	/**
+	 * @deprecated never use this. It is introduced for technical reason and will be removed
+	 */
+	@Deprecated
+	private static final String AFM_EXTENSION = "afm";
+	
 	public static IFile getFirstAnalysisFile(DAnalysisSession session_p) {
 		IFile result = null;
 		Resource resource = session_p.getSessionResource();
@@ -40,8 +47,13 @@ public class SessionHelper {
 	 * Get the project (only one instance) for given session.
 	 * 
 	 * @param session_p
-	 * @return must be not <code>null</code>.
+	 * @return model root of the first semantic resource managed by session_p or null
+	 * 
+	 * @deprecated will be removed. Do not base client code by calling this method
+	 * or calling {@link org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager.getRootSemanticModel()}
+	 * 
 	 */
+	@Deprecated
 	public static EObject getRootSemanticModel(Session session_p) {
 
 		EObject result = null;
@@ -49,6 +61,10 @@ public class SessionHelper {
 		// Iterate over semantic resources to search for a project.
 		while (semanticResources.hasNext()) {
 			Resource semanticResource = semanticResources.next();
+			String fileExtension = semanticResource.getURI().fileExtension();
+			if (fileExtension == null || fileExtension.isEmpty() || AFM_EXTENSION.equals(fileExtension)){
+				continue;
+			}
 			result = semanticResource.getContents().get(0);
 			break;
 		}

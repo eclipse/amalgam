@@ -12,7 +12,6 @@ package org.eclipse.amalgam.explorer.activity.ui.api.editor.input;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.Iterator;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.Messages;
@@ -26,7 +25,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.sirius.business.api.session.Session;
@@ -47,13 +45,14 @@ public class ActivityExplorerEditorInput extends FileEditorInput implements IEdi
 	 * File linked to this activity explorer.
 	 */
 	private static final String ACTIVITY_EXPLORER_FILE = "activityExplorerFile"; //$NON-NLS-1$
+	
 
 	/**
 	 * status of the input FIXME why this is added here?
 	 */
 	@Deprecated
 	private IStatus _status;
-
+	
 	public ActivityExplorerEditorInput(IFile file) {
 		super(file);
 		loadState(getFile());
@@ -63,6 +62,7 @@ public class ActivityExplorerEditorInput extends FileEditorInput implements IEdi
 	public ActivityExplorerEditorInput(Session session, EObject eObject) {
 		this(SessionHelper.getFirstAnalysisFile((DAnalysisSession) session));
 	}
+	
 
 	/**
 	 * Dispose.
@@ -229,21 +229,15 @@ public class ActivityExplorerEditorInput extends FileEditorInput implements IEdi
 		memento_p.putString(ACTIVITY_EXPLORER_FILE, getFile().getFullPath().toString());
 	}
 
+	/**
+	 * 
+	 * @param session_p
+	 * @return model root of the first semantic resource managed by session_p or null
+	 * 
+	 * @deprecated will be deteled
+	 */
 	@Deprecated
-	public static EObject getRootSemanticElement(Session session_p) {
-		EObject result = null;
-		if (session_p != null) {
-			Iterator<Resource> semanticResources = session_p.getSemanticResources().iterator();
-			// Iterate over semantic resources to search for a project.
-			while (semanticResources.hasNext()) {
-				Resource semanticResource = semanticResources.next();
-				EObject object = semanticResource.getContents().get(0);
-				if (object instanceof EObject) {
-					result = object;
-					break;
-				}
-			}
-		}
-		return result;
+	public EObject getRootSemanticElement(Session session_p) {
+		return SessionHelper.getRootSemanticModel(session_p);
 	}
 }
