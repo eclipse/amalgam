@@ -118,7 +118,7 @@ public class ActivityExplorerEditorInput extends FileEditorInput implements IEdi
 	 */
 	@Deprecated
 	public String getModelUiName() {
-		String result = Messages.ActivityExplorerEditor_Title;
+		String result = ""; //$NON-NLS-1$
 		EObject project = getRootSemanticElement();
 		if (null != project) {
 			result = EObjectLabelProviderHelper.getText(project);
@@ -156,7 +156,7 @@ public class ActivityExplorerEditorInput extends FileEditorInput implements IEdi
 	 * @see org.eclipse.ui.IEditorInput#getName()
 	 */
 	public String getName() {
-		return getModelUiName() + Messages.ActivityExplorerEditor_Title_Suffix;
+		return getModelUiName();
 	}
 
 	/**

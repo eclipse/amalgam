@@ -20,8 +20,6 @@ public class Messages extends NLS {
   private static final String BUNDLE_NAME = "org.eclipse.amalgam.explorer.activity.ui.api.editor.messages"; //$NON-NLS-1$
   public static String ActivityExplorerEditor_1;
   public static String ActivityExplorerEditor_Error_Message;
-  public static String ActivityExplorerEditor_Title_Suffix;
-  public static String ActivityExplorerEditor_Title;
 
   static {
     // initialize resource bundle
