@@ -50,6 +50,7 @@ import org.eclipse.sirius.ui.tools.api.views.common.item.RepresentationDescripti
 import org.eclipse.sirius.ui.tools.api.views.common.item.ViewpointItem;
 import org.eclipse.sirius.ui.tools.internal.views.common.navigator.SiriusCommonLabelProvider;
 import org.eclipse.sirius.viewpoint.DRepresentation;
+import org.eclipse.sirius.viewpoint.DRepresentationDescriptor;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.ui.IActionBars;
@@ -62,15 +63,15 @@ import org.eclipse.ui.forms.events.IHyperlinkListener;
 public class DiagramViewer extends AbstractActivityExplorerViewer {
 
 	private static final String GROUP_MOVE = "Move"; //$NON-NLS-1$
-	private MoveRepresentationAction _moveDiagramAction;
-	private OpenRepresentationsAction _openRepresentation;
-	private RenameRepresentationAction _renameRepresentationAction;
-	private BaseSelectionListenerAction _showInModelExplorerAction;
-	private CloneAction _cloneAction;
-	private DeleteRepresentationAction _deleteRepresentationAction;
+	private MoveRepresentationAction moveDiagramAction;
+	private OpenRepresentationsAction openRepresentation;
+	private RenameRepresentationAction renameRepresentationAction;
+	private BaseSelectionListenerAction showInModelExplorerAction;
+	private CloneAction cloneAction;
+	private DeleteRepresentationAction deleteRepresentationAction;
 
-	public DiagramViewer(BasicSessionActivityExplorerPage page_p) {
-		super(page_p);
+	public DiagramViewer(BasicSessionActivityExplorerPage page) {
+		super(page);
 	}
 
 	@Override
@@ -99,8 +100,9 @@ public class DiagramViewer extends AbstractActivityExplorerViewer {
 			/**
 			 * @see org.eclipse.jface.viewers.IDoubleClickListener#doubleClick(org.eclipse.jface.viewers.DoubleClickEvent)
 			 */
-			public void doubleClick(DoubleClickEvent event_p) {
-				IStructuredSelection selection = (IStructuredSelection) event_p.getSelection();
+		  @Override
+			public void doubleClick(DoubleClickEvent event) {
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				// Open selected representations.
 				OpenRepresentationsAction action = new OpenRepresentationsAction();
 				action.selectionChanged(selection);
@@ -114,30 +116,30 @@ public class DiagramViewer extends AbstractActivityExplorerViewer {
 		super.dispose();
 
 		ISelectionProvider selectionProvider = page.getEditorSite().getSelectionProvider();
-		if (null != _renameRepresentationAction) {
-			selectionProvider.removeSelectionChangedListener(_renameRepresentationAction);
-			_renameRepresentationAction = null;
+		if (null != renameRepresentationAction) {
+			selectionProvider.removeSelectionChangedListener(renameRepresentationAction);
+			renameRepresentationAction = null;
 		}
-		if (null != _deleteRepresentationAction) {
-			selectionProvider.removeSelectionChangedListener(_deleteRepresentationAction);
-			_deleteRepresentationAction = null;
+		if (null != deleteRepresentationAction) {
+			selectionProvider.removeSelectionChangedListener(deleteRepresentationAction);
+			deleteRepresentationAction = null;
 		}
-		if (null != _openRepresentation) {
-			selectionProvider.removeSelectionChangedListener(_openRepresentation);
-			_openRepresentation = null;
+		if (null != openRepresentation) {
+			selectionProvider.removeSelectionChangedListener(openRepresentation);
+			openRepresentation = null;
 		}
-		if (null != _moveDiagramAction) {
-			selectionProvider.removeSelectionChangedListener(_moveDiagramAction);
-			_moveDiagramAction.dispose();
-			_moveDiagramAction = null;
+		if (null != moveDiagramAction) {
+			selectionProvider.removeSelectionChangedListener(moveDiagramAction);
+			moveDiagramAction.dispose();
+			moveDiagramAction = null;
 		}
-		if (null != _cloneAction) {
-			selectionProvider.removeSelectionChangedListener(_cloneAction);
-			_cloneAction = null;
+		if (null != cloneAction) {
+			selectionProvider.removeSelectionChangedListener(cloneAction);
+			cloneAction = null;
 		}
-		if (null != _showInModelExplorerAction) {
-			selectionProvider.removeSelectionChangedListener(_showInModelExplorerAction);
-			_showInModelExplorerAction = null;
+		if (null != showInModelExplorerAction) {
+			selectionProvider.removeSelectionChangedListener(showInModelExplorerAction);
+			showInModelExplorerAction = null;
 		}
 
 	}
@@ -145,30 +147,32 @@ public class DiagramViewer extends AbstractActivityExplorerViewer {
 	/**
 	 * Make a contextual menu for specified viewer.
 	 * 
-	 * @param treeViewer_p
+	 * @param treeViewer
 	 */
 	@Override
-	protected MenuManager initMenuToViewer(final TreeViewer treeViewer_p) {
-		MenuManager contextMenuManager = super.initMenuToViewer(treeViewer_p);
+	protected MenuManager initMenuToViewer(final TreeViewer treeViewer) {
+		MenuManager contextMenuManager = super.initMenuToViewer(treeViewer);
 		contextMenuManager.addMenuListener(new IMenuListener2() {
 			/**
 			 * {@inheritDoc}
 			 */
+		  @Override
 			@SuppressWarnings("synthetic-access")
-			public void menuAboutToHide(IMenuManager manager_p) {
-				manager_p.remove(MoveRepresentationAction.MOVE_DIAGRAMS_MENU_ID);
+			public void menuAboutToHide(IMenuManager manager) {
+				manager.remove(MoveRepresentationAction.MOVE_DIAGRAMS_MENU_ID);
 				// Make sure action contained list are freed at each selection
 				// time.
-				_moveDiagramAction.dispose();
+				moveDiagramAction.dispose();
 			}
 
 			/**
 			 * {@inheritDoc}
 			 */
+		  @Override
 			@SuppressWarnings("synthetic-access")
-			public void menuAboutToShow(IMenuManager manager_p) {
-				manager_p.appendToGroup(GROUP_MOVE,
-						_moveDiagramAction.fillContextMenu((IStructuredSelection) treeViewer_p.getSelection()));
+			public void menuAboutToShow(IMenuManager manager) {
+				manager.appendToGroup(GROUP_MOVE,
+						moveDiagramAction.fillContextMenu((IStructuredSelection) treeViewer.getSelection()));
 			}
 		});
 
@@ -180,16 +184,16 @@ public class DiagramViewer extends AbstractActivityExplorerViewer {
 	 * Declare viewer actions.<br>
 	 * This methods is called eache time the menu is pop-up.
 	 * 
-	 * @param contextMenuManager_p
-	 * @param treeViewer_p
+	 * @param contextMenuManager
+	 * @param treeViewer
 	 */
 	@Override
-	protected void declareViewerActions(MenuManager contextMenuManager_p, TreeViewer treeViewer_p) {
+	protected void declareViewerActions(MenuManager contextMenuManager, TreeViewer treeViewer) {
 		// Menu manager is not extensible at the moment.
 		ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
 		ISelectionProvider selectionProvider = page.getEditorSite().getSelectionProvider();
 
-		_showInModelExplorerAction = new BaseSelectionListenerAction(Messages.BasicSessionActivityExplorerPage_1) {
+		showInModelExplorerAction = new BaseSelectionListenerAction(Messages.BasicSessionActivityExplorerPage_1) {
 			/**
 			 * {@inheritDoc}
 			 */
@@ -198,77 +202,77 @@ public class DiagramViewer extends AbstractActivityExplorerViewer {
 			public void run() {
 				LocateInExplorerAction callback = new LocateInExplorerAction();
 				callback.setSite(page.getEditorSite());
-				callback.run(_showInModelExplorerAction);
+				callback.run(showInModelExplorerAction);
 			}
 
 			/**
 			 * {@inheritDoc}
 			 */
 			@Override
-			protected boolean updateSelection(IStructuredSelection selection_p) {
-				return containsOnlyRepresentations(selection_p);
+			protected boolean updateSelection(IStructuredSelection selection) {
+				return containsOnlyRepresentations(selection);
 			}
 		};
 
-		SelectionHelper.registerToSelectionChanges(_showInModelExplorerAction, selectionProvider);
-		contextMenuManager_p.add(_showInModelExplorerAction);
+		SelectionHelper.registerToSelectionChanges(showInModelExplorerAction, selectionProvider);
+		contextMenuManager.add(showInModelExplorerAction);
 
-		contextMenuManager_p.add(new Separator());
-		_openRepresentation = new OpenRepresentationsAction() {
+		contextMenuManager.add(new Separator());
+		openRepresentation = new OpenRepresentationsAction() {
 			/**
 			 * {@inheritDoc}
 			 */
 			@Override
-			protected boolean updateSelection(IStructuredSelection selection_p) {
-				return containsOnlyRepresentations(selection_p);
+			protected boolean updateSelection(IStructuredSelection selection) {
+				return containsOnlyRepresentations(selection);
 			}
 		};
-		SelectionHelper.registerToSelectionChanges(_openRepresentation, selectionProvider);
-		contextMenuManager_p.add(_openRepresentation);
-		contextMenuManager_p.add(new Separator());
+		SelectionHelper.registerToSelectionChanges(openRepresentation, selectionProvider);
+		contextMenuManager.add(openRepresentation);
+		contextMenuManager.add(new Separator());
 
-		_cloneAction = new CloneAction(treeViewer_p);
-		_cloneAction.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
-		SelectionHelper.registerToSelectionChanges(_cloneAction, selectionProvider);
-		contextMenuManager_p.add(_cloneAction);
+		cloneAction = new CloneAction(treeViewer);
+		cloneAction.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
+		SelectionHelper.registerToSelectionChanges(cloneAction, selectionProvider);
+		contextMenuManager.add(cloneAction);
 
-		_deleteRepresentationAction = new DeleteRepresentationAction() {
+		deleteRepresentationAction = new DeleteRepresentationAction() {
 			/**
 			 * {@inheritDoc}
 			 */
 			@Override
-			protected boolean updateSelection(IStructuredSelection selection_p) {
-				return containsOnlyRepresentations(selection_p);
+			protected boolean updateSelection(IStructuredSelection selection) {
+				return containsOnlyRepresentations(selection);
 			}
 		};
-		_deleteRepresentationAction.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
-		_deleteRepresentationAction
+		deleteRepresentationAction.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
+		deleteRepresentationAction
 				.setDisabledImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE_DISABLED));
-		SelectionHelper.registerToSelectionChanges(_deleteRepresentationAction, selectionProvider);
-		contextMenuManager_p.add(_deleteRepresentationAction);
+		SelectionHelper.registerToSelectionChanges(deleteRepresentationAction, selectionProvider);
+		contextMenuManager.add(deleteRepresentationAction);
 
-		contextMenuManager_p.add(new Separator(GROUP_MOVE));
-		_moveDiagramAction = new MoveRepresentationAction();
-		SelectionHelper.registerToSelectionChanges(_moveDiagramAction, selectionProvider);
-		_renameRepresentationAction = new RenameRepresentationAction() {
+		contextMenuManager.add(new Separator(GROUP_MOVE));
+		moveDiagramAction = new MoveRepresentationAction();
+		SelectionHelper.registerToSelectionChanges(moveDiagramAction, selectionProvider);
+		renameRepresentationAction = new RenameRepresentationAction() {
 			/**
 			 * {@inheritDoc}
 			 */
 			@Override
-			protected boolean updateSelection(IStructuredSelection selection_p) {
-				return containsOnlyRepresentations(selection_p);
+			protected boolean updateSelection(IStructuredSelection selection) {
+				return containsOnlyRepresentations(selection);
 			}
 		};
-		SelectionHelper.registerToSelectionChanges(_renameRepresentationAction, selectionProvider);
-		contextMenuManager_p.add(_renameRepresentationAction);
+		SelectionHelper.registerToSelectionChanges(renameRepresentationAction, selectionProvider);
+		contextMenuManager.add(renameRepresentationAction);
 
 		updateActionBars();
 	}
 
 	private void updateActionBars() {
 		IActionBars editorActionBars = page.getEditorSite().getActionBars();
-		editorActionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), _deleteRepresentationAction);
-		editorActionBars.setGlobalActionHandler(ActionFactory.RENAME.getId(), _renameRepresentationAction);
+		editorActionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), deleteRepresentationAction);
+		editorActionBars.setGlobalActionHandler(ActionFactory.RENAME.getId(), renameRepresentationAction);
 		// Update action bars to make sure global ActionHandler are updated accordingly.
 		editorActionBars.updateActionBars();
 	}
@@ -277,19 +281,19 @@ public class DiagramViewer extends AbstractActivityExplorerViewer {
 	 * Returns <code>true</code> if specified selection contains only
 	 * {@link DRepresentation}.
 	 * 
-	 * @param selection_p
+	 * @param selection
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	protected boolean containsOnlyRepresentations(final IStructuredSelection selection_p) {
+	protected boolean containsOnlyRepresentations(final IStructuredSelection selection) {
 		boolean result = true;
-		Iterator<Object> iterator = selection_p.toList().iterator();
-		while (iterator.hasNext() && result) {
+		Iterator<Object> iterator = selection.toList().iterator();
+		while (iterator.hasNext()) {
 			Object representation = iterator.next();
 			if (representation instanceof ItemWrapper) {
 				representation = ((ItemWrapper) representation).getWrappedObject();
 			}
-			if (!(representation instanceof DRepresentation)) {
+			if (!(representation instanceof DRepresentation || representation instanceof DRepresentationDescriptor)) {
 				result = false;
 				break;
 			}
@@ -304,24 +308,24 @@ public class DiagramViewer extends AbstractActivityExplorerViewer {
 		return new ViewerFilter() {
 
 			@Override
-			public boolean select(Viewer viewer_p, Object parentElement_p, Object element_p) {
+			public boolean select(Viewer viewer, Object parentElement, Object element) {
 				boolean selected = true;
 				// Filter out viewpoint if any.
-				if (element_p instanceof ViewpointItem) {
-					ViewpointItem viewpointItem = (ViewpointItem) element_p;
+				if (element instanceof ViewpointItem) {
+					ViewpointItem viewpointItem = (ViewpointItem) element;
 					Viewpoint viewpoint = (Viewpoint) viewpointItem.getWrappedObject();
 					if (viewpoint.getName().equals(getFilteredViewpoint())) {
 						selected = false;
 					}
 				}
 				// Filter representations.
-				else if (element_p instanceof RepresentationDescriptionItem) {
-					selected = isRepresentationDescriptionItemTypeSelected((RepresentationDescriptionItem) element_p,
+				else if (element instanceof RepresentationDescriptionItem) {
+					selected = isRepresentationDescriptionItemTypeSelected((RepresentationDescriptionItem) element,
 							getRetainedRepresentationDescriptions());
 				}
 				// Filter diagrams.
-				else if (element_p instanceof DSemanticDiagram) {
-					DSemanticDiagram semanticDiagram = (DSemanticDiagram) element_p;
+				else if (element instanceof DSemanticDiagram) {
+					DSemanticDiagram semanticDiagram = (DSemanticDiagram) element;
 					selected = isDiagramSelected(semanticDiagram.getTarget(), semanticDiagram.getDescription());
 				}
 				return selected;
@@ -353,27 +357,27 @@ public class DiagramViewer extends AbstractActivityExplorerViewer {
 				return representations;
 			}
 
-			protected boolean isDiagramSelected(EObject semanticElement_p, DiagramDescription diagramDescription_p) {
+			protected boolean isDiagramSelected(EObject semanticElement, DiagramDescription diagramDescription) {
 				return true;
 			}
 
 			/**
 			 * Is a {@link RepresentationDescriptionItem} selected ?
 			 * 
-			 * @param representationDescriptionItem_p
+			 * @param representationDescriptionItem
 			 * @return <code>true</code> means given
-			 *         <code>representationDescriptionItem_p</code> is selected
+			 *         <code>representationDescriptionItem</code> is selected
 			 *         i.e not filtered.
 			 */
 			protected boolean isRepresentationDescriptionItemTypeSelected(
-					RepresentationDescriptionItem representationDescriptionItem_p,
-					Set<String> retainedDiagramTypeNames_p) {
+					RepresentationDescriptionItem representationDescriptionItem,
+					Set<String> retainedDiagramTypeNames) {
 				boolean selected = true;
-				if (retainedDiagramTypeNames_p != null) {
-					RepresentationDescription representationDescription = (RepresentationDescription) representationDescriptionItem_p
+				if (retainedDiagramTypeNames != null) {
+					RepresentationDescription representationDescription = (RepresentationDescription) representationDescriptionItem
 							.getWrappedObject();
 					String diagramTypeName = representationDescription.getName();
-					if (retainedDiagramTypeNames_p.contains(diagramTypeName)) {
+					if (retainedDiagramTypeNames.contains(diagramTypeName)) {
 						selected = true;
 					} else {
 						selected = false;
