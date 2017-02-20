@@ -19,6 +19,7 @@ import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
+import org.eclipse.amalgam.explorer.activity.ui.api.configuration.SectionConfiguration;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.activities.ExplorerActivity;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.HTMLHelper;
@@ -46,34 +47,70 @@ import org.eclipse.ui.forms.widgets.Section;
  *
  */
 public class ActivityExplorerSection implements IVisibility, IOrdered, IPropertyChangeListener {
-
+	private SectionConfiguration config;
 	private static final Pattern P_PATTERN = Pattern.compile("<p>.*</p>"); //$NON-NLS-1$
+	private IAction[] toolbarActions;
+    private Section widget;
+    private FormToolkit toolkit;
+    private Composite activityContainer;
+    private IFormPage page;
+    
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param contributor
-	 */
-	public ActivityExplorerSection(IConfigurationElement contributor) {
-		this.id = ActivityExplorerExtensionManager.getId(contributor);
-		this.name = ActivityExplorerExtensionManager.getName(contributor);
-		this.isExpanded = ActivityExplorerExtensionManager.getIsExpanded(contributor);
-		String desc = ActivityExplorerExtensionManager.getDescription(contributor);
-		if (null != desc){
-			boolean isInParagraph = P_PATTERN.matcher(desc).find();
-			this.description = isInParagraph ? HTMLHelper.formWrapper2(desc) : HTMLHelper.formWrapper(desc);
-			}
-       String indice = ActivityExplorerExtensionManager.getIndex(contributor);
-       try {
-            this.index = Integer.parseInt(indice);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(MessageFormat.format("Attribute ''{0}'' of section {1} must be an int, but was ''{2}''", ActivityExplorerExtensionManager.ATT_INDEX, ActivityExplorerExtensionManager.getId(contributor), indice));
+    private static SectionConfiguration parseConfiguration(IConfigurationElement contributor) {
+        SectionConfiguration sectionDescription = new SectionConfiguration();
+        sectionDescription.setId(ActivityExplorerExtensionManager.getId(contributor));
+        sectionDescription.setName(ActivityExplorerExtensionManager.getName(contributor));
+        sectionDescription.setExpanded(ActivityExplorerExtensionManager.getIsExpanded(contributor));
+        String desc = ActivityExplorerExtensionManager.getDescription(contributor);
+        if (null != desc) {
+            boolean isInParagraph = P_PATTERN.matcher(desc).find();
+            sectionDescription.setDescription(isInParagraph ? HTMLHelper.formWrapper2(desc) : HTMLHelper.formWrapper(desc));
         }
-		this.isFiltering = ActivityExplorerExtensionManager.getIsFiltering(contributor);
-		createActivities(contributor);
+        String indice = ActivityExplorerExtensionManager.getIndex(contributor);
+        try {
+            sectionDescription.setIndex(Integer.parseInt(indice));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(MessageFormat.format("Attribute ''{0}'' of section {1} must be an int, but was ''{2}''", ActivityExplorerExtensionManager.ATT_INDEX,
+                    ActivityExplorerExtensionManager.getId(contributor), indice));
+        }
+        sectionDescription.setFiltering(ActivityExplorerExtensionManager.getIsFiltering(contributor));
+        createActivities(contributor, sectionDescription);
+        return sectionDescription;
+    }
 
-	}
+    /**
+     * Create theirs Activities.
+     * 
+     * @param contributor
+     */
+    private static void createActivities(IConfigurationElement contributor, SectionConfiguration sectionDescription) {
+        sectionDescription.activities = new TreeSet<ExplorerActivity>();
+        List<IConfigurationElement> activities = ActivityExplorerExtensionManager.getActivities(contributor);
+        for (IConfigurationElement element : activities) {
+            try {
+                sectionDescription.activities.add(new ExplorerActivity(element));
+            } catch (NumberFormatException e){
+                StringBuilder message = new StringBuilder();
+                message.append("ActivityExplorerSection.createActivities(...) _ "); //$NON-NLS-1$
+                message.append("The Activity contribution "); //$NON-NLS-1$
+                message.append(ActivityExplorerExtensionManager.getId(contributor));
+                message.append(" has wrong index format ("); //$NON-NLS-1$
+                message.append(ActivityExplorerExtensionManager.getIndex(contributor));
+                message.append("). Only integers are valid"); //$NON-NLS-1$
+                ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
+            }
+        }
+    }
 
+    /**
+     * Constructor.
+     * 
+     * @param contributor
+     */
+    public ActivityExplorerSection(IConfigurationElement contributor) {
+        this.config = parseConfiguration(contributor);
+    }
+    
 	/**
 	 * Constructor.
 	 * 
@@ -84,48 +121,15 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 * @param description
 	 * @param activities
 	 */
-
 	public ActivityExplorerSection(String id, String name, int index, boolean isExpanded, boolean isFiltering,
 			String description, List<ExplorerActivity> activities) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.index = index;
-		this.isExpanded = isExpanded;
-		this.isFiltering = isFiltering;
-		this.activities.addAll(activities);
-	}
-
-	private TreeSet<ExplorerActivity> activities;
-
-	/**
-	 * Create theirs Activities.
-	 * 
-	 * @param contributor
-	 */
-
-	private void createActivities(IConfigurationElement contributor) {
-
-		activities = new TreeSet<ExplorerActivity>();
-
-		List<IConfigurationElement> activities = ActivityExplorerExtensionManager.getActivities(contributor);
-		for (IConfigurationElement element : activities) {
-			try {
-				this.activities.add(new ExplorerActivity(element));
-			} catch (NumberFormatException e){
-
-				StringBuilder message = new StringBuilder();
-				message.append("ActivityExplorerSection.createActivities(...) _ "); //$NON-NLS-1$
-				message.append("The Activity contribution "); //$NON-NLS-1$
-				message.append(ActivityExplorerExtensionManager.getId(contributor));
-				message.append(" has wrong index format ("); //$NON-NLS-1$
-				message.append(ActivityExplorerExtensionManager.getIndex(contributor));
-				message.append("). Only integers are valid"); //$NON-NLS-1$
-				
-				ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
-
-			}
-		}
+	    this.config = new SectionConfiguration();
+		this.config.setId(id);
+		this.config.setName(name);
+		this.config.setIndex(index);
+		this.config.setExpanded(isExpanded);
+		this.config.setFiltering(isFiltering);
+		this.config.activities.addAll(activities);
 	}
 
 	/**
@@ -135,7 +139,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 */
 
 	public Set<ExplorerActivity> getActivities() {
-		return activities;
+		return this.config.activities;
 	}
 
 	/**
@@ -163,7 +167,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 */
 
 	public void setActivities(TreeSet<ExplorerActivity> activities) {
-		this.activities = activities;
+	    this.config.activities = activities;
 	}
 
 	/**
@@ -173,7 +177,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 */
 
 	public String getId() {
-		return id;
+		return this.config.getId();
 	}
 
 	/**
@@ -183,17 +187,9 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 */
 
 	public String getName() {
-		return name;
+		return this.config.getName();
 	}
 
-	private String id;
-	private String name;
-	private int index;
-	private boolean isExpanded;
-	private boolean isFiltering;
-	private String description;
-	private IAction[] toolbarActions;
-	private Section widget;
 
 	/**
 	 * Return true if the section is defined as expanded.
@@ -201,7 +197,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 * @return
 	 */
 	public boolean isExpanded() {
-		return isExpanded;
+		return this.config.isExpanded();
 	}
 
 	/**
@@ -210,7 +206,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 * @return
 	 */
 	public boolean isFiltering() {
-		return isFiltering;
+		return this.config.isFiltering();
 	}
 
 	/**
@@ -219,7 +215,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 * @return
 	 */
 	public String getDescription() {
-		return description;
+		return this.config.getDescription();
 	}
 
 	/**
@@ -236,7 +232,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 */
 
 	public int getPosition() {
-		return index;
+		return this.config.getIndex();
 	}
 
 	/**
@@ -244,13 +240,9 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 */
 
 	public void setPosition(int index) {
-		this.index = index;
+		this.config.setIndex(index);
 
 	}
-
-	private FormToolkit toolkit;
-	private Composite activityContainer;
-	private IFormPage page;
 
 	/**
 	 * Initialize the DashBaord Section
@@ -264,7 +256,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 		this.page = page;
 		toolkit = managedForm.getToolkit();
 		Couple<Section, Composite> section = FormHelper.createTwistieSectionWithToolbar(sectionContainer,
-				managedForm, getName(), null, isExpanded, Arrays.asList(getToolBarActions()));
+				managedForm, getName(), null, this.config.isExpanded(), Arrays.asList(getToolBarActions()));
 
 		widget = (Section) section.getKey();
 
