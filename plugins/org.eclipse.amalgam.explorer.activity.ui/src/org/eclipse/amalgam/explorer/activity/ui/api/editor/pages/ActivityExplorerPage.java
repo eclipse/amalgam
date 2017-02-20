@@ -348,7 +348,7 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
    * @param title
    */
   protected void setHeaderTitle(String title) {
-    title = title;
+    this.title = title;
   }
 
   /**
@@ -489,7 +489,7 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
    */
 
   private void setPageDescription(String description) {
-    description = description;
+    this.description = description;
   }
 
   /**
