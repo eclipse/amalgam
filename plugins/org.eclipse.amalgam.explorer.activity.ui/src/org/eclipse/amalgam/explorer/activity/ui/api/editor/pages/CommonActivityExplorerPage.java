@@ -14,8 +14,8 @@ import java.text.MessageFormat;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.IImageKeys;
+import org.eclipse.amalgam.explorer.activity.ui.api.configuration.CommonActivityExplorerPageConfiguration;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerEditor;
-import org.eclipse.amalgam.explorer.activity.ui.api.editor.predicates.IPredicate;
 import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IOrdered;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
@@ -31,218 +31,178 @@ import org.eclipse.ui.forms.editor.SharedHeaderFormEditor;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
- * Base class to implement ActivityExplorer pages in an {@link ActivityExplorerEditor}.
+ * Base class to implement ActivityExplorer pages in an
+ * {@link ActivityExplorerEditor}.
  */
 public class CommonActivityExplorerPage extends FormPage implements IExecutableExtension, IOrdered, IVisibility, IPropertyListener {
 
-  private boolean overview;
-  private Image overviewImageOff;
-  private String overviewText;
-  private Image overviewImageOn;
-  private String overviewImageOnPath;
-  private String overviewImageOffPath;
-  protected IPredicate predicate;
+    public static final int PROP_ACTIVE = 0x185;
 
-  public static final int PROP_ACTIVE = 0x185;
+    private static String ids;
 
-  private int index;
-
-  private static String ids;
-
-  public static void setID(String id) {
-    ids = id;
-  }
-
-  public CommonActivityExplorerPage() {
-    this(null, ids, ""); //$NON-NLS-1$
-  }
-
-  public CommonActivityExplorerPage(FormEditor editor, String id, String title) {
-    super(editor, id, title);
-
-  }
-
-  /**
-   * @see org.eclipse.ui.forms.editor.FormPage#createFormContent(org.eclipse.ui.forms.IManagedForm)
-   */
-  @Override
-  protected void createFormContent(IManagedForm managedForm) {
-    FormToolkit toolkit = managedForm.getToolkit();
-    toolkit.decorateFormHeading(managedForm.getForm().getForm());
-    // For performance optimization.
-    // managedForm.getForm().setDelayedReflow(true);
-
-    getEditor().addPropertyListener(this);
-
-  }
-
-  /**
-   * @see org.eclipse.ui.forms.editor.FormPage#getEditor()
-   */
-  @Override
-  public SharedHeaderFormEditor getEditor() {
-    return (SharedHeaderFormEditor) super.getEditor();
-  }
-
-  @Override
-  public void setInitializationData(IConfigurationElement cfig, String propertyName, Object data) {
-
-    super.setInitializationData(cfig, propertyName, data);
-
-    String title = ActivityExplorerExtensionManager.getTitle(cfig);
-    String tabName = ActivityExplorerExtensionManager.getTabName(cfig);
-
-    if (tabName == null) {
-      tabName = title;
-    }
-    setPartName(tabName);
-
-    overview = ActivityExplorerExtensionManager.getOverviewElement(cfig) != null;
-    if (overview) {
-
-      overviewImageOffPath = ActivityExplorerExtensionManager.getOverviewImageOff(cfig);
-      overviewImageOnPath = ActivityExplorerExtensionManager.getOverviewImageOn(cfig);
-
-      String plugin_id = ActivityExplorerExtensionManager.getPluginId(cfig);
-
-      if ((overviewImageOffPath.equals(IImageKeys.IMAGE_DEFAULT_OVERVIEW_OFF))) {
-        plugin_id = ActivityExplorerActivator.ID;
-      }
-
-      setOverviewImageOff(ActivityExplorerActivator.getDefault().getImage(plugin_id, overviewImageOffPath));
-
-      if ((overviewImageOnPath.equals(IImageKeys.IMAGE_DEFAULT_OVERVIEW_ON))) {
-        plugin_id = ActivityExplorerActivator.ID;
-      }
-
-      setOverviewImageOn(ActivityExplorerActivator.getDefault().getImage(plugin_id, overviewImageOnPath));
-
-      setOverViewText(ActivityExplorerExtensionManager.getOverviewDescription(cfig));
+    public static void setID(String id) {
+        ids = id;
     }
 
-    predicate = ActivityExplorerExtensionManager.getPredicate(cfig);
+    protected final CommonActivityExplorerPageConfiguration config = new CommonActivityExplorerPageConfiguration();
 
-    String indice = ActivityExplorerExtensionManager.getIndex(cfig);
-    try {
-        setIndex(Integer.parseInt(indice));
-    } catch (NumberFormatException e) {
-        throw new IllegalArgumentException(MessageFormat.format("Attribute ''{0}'' of page {1} must be an int, but was ''{2}''", ActivityExplorerExtensionManager.ATT_INDEX, ActivityExplorerExtensionManager.getId(cfig), indice));
+    private Image overviewImageOff;
+
+    private Image overviewImageOn;
+
+    public CommonActivityExplorerPage() {
+        this(null, ids, ""); //$NON-NLS-1$
     }
-  }
 
-  private void setOverviewImageOn(Image image) {
-    overviewImageOn = image;
-
-  }
-
-  public String getOverViewImageOnPath() {
-    return overviewImageOnPath;
-
-  }
-
-  public String getOverViewImageOffPath() {
-    return overviewImageOffPath;
-
-  }
-
-  public Image getOverViewImageOn() {
-    return overviewImageOn;
-
-  }
-
-  private void setOverViewText(String text) {
-    overviewText = text;
-
-  }
-
-  public String getOverViewText() {
-    return overviewText;
-
-  }
-
-  private void setOverviewImageOff(Image image) {
-    overviewImageOff = image;
-  }
-
-  public Image getOverviewImageOff() {
-    return overviewImageOff;
-  }
-
-  public boolean contributeToOverview() {
-    return overview;
-  }
-
-  public void contributeToOverview(boolean contribute) {
-    overview = contribute;
-  }
-
-  /**
-   * Return true this page is visible.
-   */
-  @Override
-  public boolean isVisible() {
-    boolean result = ActivityExplorerActivator.getDefault().getPreferenceStore().getBoolean(getId());
-
-    if (predicate != null) {
-      result &= predicate.isOk();
+    public CommonActivityExplorerPage(FormEditor editor, String id, String title) {
+        super(editor, id, title);
     }
-    return result;
-  }
 
-  public int getPosition() {
-    return index;
-  }
-
-  public void setPosition(int index) {
-    this.index = index;
-
-  }
-
-  @Override
-  public int getIndex() {
-    return index;
-  }
-
-  @Override
-  public void setIndex(int index) {
-    this.index = index;
-
-  }
-
-  public int compareTo(IOrdered arg0) {
-    int result = 1;
-    if (null != arg0) {
-      result = new Integer(getPosition()).compareTo(new Integer(arg0.getPosition()));
+    @Override
+    protected void createFormContent(IManagedForm managedForm) {
+        FormToolkit toolkit = managedForm.getToolkit();
+        toolkit.decorateFormHeading(managedForm.getForm().getForm());
+        // For performance optimization.
+        // managedForm.getForm().setDelayedReflow(true);
+        getEditor().addPropertyListener(this);
     }
-    return result;
 
-  }
-
-  @Override
-  public void setActive(boolean active) {
-    super.setActive(active);
-    if (active) {
-      markAsActive();
+    @Override
+    public SharedHeaderFormEditor getEditor() {
+        return (SharedHeaderFormEditor) super.getEditor();
     }
-  }
 
-  /*
-   * (non-Javadoc)
-   * @see org.eclipse.ui.IPropertyListener#propertyChanged(java.lang.Object, int)
-   */
-  @Override
-  public void propertyChanged(Object source, int propId) {
-    if (IEditorPart.PROP_DIRTY == propId) {
-      markAsDirty();
+    @Override
+    public void setInitializationData(IConfigurationElement cfg, String propertyName, Object data) {
+        super.setInitializationData(cfg, propertyName, data);
+
+        parseConfiguration(cfg);
+        setPartName(config.getTabName());
+
+        String plugin_id = config.pluginId;
+        if (config.getOverviewImageOffPath().equals(IImageKeys.IMAGE_DEFAULT_OVERVIEW_OFF)) {
+            plugin_id = ActivityExplorerActivator.ID;
+        }
+        overviewImageOff = ActivityExplorerActivator.getDefault().getImage(plugin_id, config.getOverviewImageOffPath());
+        if (config.getOverviewImageOnPath().equals(IImageKeys.IMAGE_DEFAULT_OVERVIEW_ON)) {
+            plugin_id = ActivityExplorerActivator.ID;
+        }
+        overviewImageOn = ActivityExplorerActivator.getDefault().getImage(plugin_id, config.getOverviewImageOnPath());
+
+        setIndex(config.getIndex());
     }
-  }
 
-  public void markAsDirty() {
-    firePropertyChange(IEditorPart.PROP_DIRTY);
-  }
+    private void parseConfiguration(IConfigurationElement cfig) {
+        config.setTitle(ActivityExplorerExtensionManager.getTitle(cfig));
+        config.setTabName(ActivityExplorerExtensionManager.getTabName(cfig));
+        if (config.getTabName() == null) {
+            config.setTabName(config.getTitle());
+        }
+        config.setOverview(ActivityExplorerExtensionManager.getOverviewElement(cfig) != null);
+        config.pluginId = ActivityExplorerExtensionManager.getPluginId(cfig);
+        if (config.isOverview()) {
+            config.setOverviewImageOffPath(ActivityExplorerExtensionManager.getOverviewImageOff(cfig));
+            config.setOverviewImageOnPath(ActivityExplorerExtensionManager.getOverviewImageOn(cfig));
+            config.setOverviewText(ActivityExplorerExtensionManager.getOverviewDescription(cfig));
+        }
+        config.setPredicate(ActivityExplorerExtensionManager.getPredicate(cfig));
 
-  public void markAsActive() {
-    firePropertyChange(PROP_ACTIVE);
-  }
+        String indice = ActivityExplorerExtensionManager.getIndex(cfig);
+        try {
+            this.config.setIndex(Integer.parseInt(indice));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(MessageFormat.format("Attribute ''{0}'' of page {1} must be an int, but was ''{2}''", ActivityExplorerExtensionManager.ATT_INDEX,
+                    ActivityExplorerExtensionManager.getId(cfig), indice));
+        }
+    }
+
+    public String getOverViewImageOnPath() {
+        return config.getOverviewImageOnPath();
+    }
+
+    public String getOverViewImageOffPath() {
+        return config.getOverviewImageOffPath();
+    }
+
+    public Image getOverViewImageOn() {
+        return overviewImageOn;
+    }
+
+    public String getOverViewText() {
+        return config.getOverviewText();
+    }
+
+    public Image getOverviewImageOff() {
+        return overviewImageOff;
+    }
+
+    public boolean contributeToOverview() {
+        return config.isOverview();
+    }
+
+    public void contributeToOverview(boolean contribute) {
+        config.setOverview(contribute);
+    }
+
+    /**
+     * Return true this page is visible.
+     */
+    @Override
+    public boolean isVisible() {
+        boolean result = ActivityExplorerActivator.getDefault().getPreferenceStore().getBoolean(getId());
+        if (config.getPredicate() != null) {
+            result &= config.getPredicate().isOk();
+        }
+        return result;
+    }
+
+    public int getPosition() {
+        return config.getIndex();
+    }
+
+    public void setPosition(int index) {
+        this.config.setIndex(index);
+    }
+
+    @Override
+    public int getIndex() {
+        return config.getIndex();
+    }
+
+    @Override
+    public void setIndex(int index) {
+        this.config.setIndex(index);
+    }
+
+    public int compareTo(IOrdered other) {
+        int result = 1;
+        if (null != other) {
+            result = Integer.valueOf(getPosition()).compareTo(Integer.valueOf(other.getPosition()));
+        }
+        return result;
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        super.setActive(active);
+        if (active) {
+            markAsActive();
+        }
+    }
+
+    @Override
+    public void propertyChanged(Object source, int propId) {
+        if (IEditorPart.PROP_DIRTY == propId) {
+            markAsDirty();
+        }
+    }
+
+    public void markAsDirty() {
+        firePropertyChange(IEditorPart.PROP_DIRTY);
+    }
+
+    public void markAsActive() {
+        firePropertyChange(PROP_ACTIVE);
+    }
 
 }

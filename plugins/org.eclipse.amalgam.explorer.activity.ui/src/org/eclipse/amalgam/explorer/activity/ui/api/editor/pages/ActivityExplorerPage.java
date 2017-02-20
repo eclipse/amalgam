@@ -531,7 +531,7 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
    * @return {@link IPredicate}
    */
   public IPredicate getPredicate() {
-    return predicate;
+    return config.getPredicate();
   }
 
 }
