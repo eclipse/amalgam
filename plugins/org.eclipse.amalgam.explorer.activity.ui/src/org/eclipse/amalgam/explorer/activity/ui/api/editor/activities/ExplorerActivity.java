@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2017 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.amalgam.explorer.activity.ui.api.editor.activities;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
+import org.eclipse.amalgam.explorer.activity.ui.api.configuration.ActivityConfiguration;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.predicates.IPredicate;
 import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
@@ -25,90 +26,86 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ImageHyperlink;
 
 public class ExplorerActivity implements IVisibility, IOrdered {
+    private ActivityConfiguration config;
+    private ImageHyperlink widget;
 
+    private static ActivityConfiguration parseConfiguration(IConfigurationElement element_p) {
+        ActivityConfiguration config = new ActivityConfiguration();
+        config.setName(ActivityExplorerExtensionManager.getName(element_p));
+        config.setDescription(ActivityExplorerExtensionManager.getDescription(element_p));
+        config.setIndex(Integer.parseInt(ActivityExplorerExtensionManager.getIndex(element_p)));
+        config.setListener(ActivityExplorerExtensionManager.getActivityAdapter(element_p));
+        config.setImage(ActivityExplorerExtensionManager.getImage(element_p));
+        config.setId(ActivityExplorerExtensionManager.getId(element_p));
+        config.setPredicate(ActivityExplorerExtensionManager.getPredicate(element_p));
+        return config;
+    }
+    
 	public ExplorerActivity(IConfigurationElement element_p) {
-		name = ActivityExplorerExtensionManager.getName(element_p);
-		description = ActivityExplorerExtensionManager.getDescription(element_p);
-		index = Integer.parseInt(ActivityExplorerExtensionManager.getIndex(element_p));
-
-		listener = ActivityExplorerExtensionManager.getActivityAdapter(element_p);
-
-		image = ActivityExplorerExtensionManager.getImage(element_p);
-		id = ActivityExplorerExtensionManager.getId(element_p);
-		predicate = ActivityExplorerExtensionManager.getPredicate(element_p);
+	    this.config = parseConfiguration(element_p);
 	}
 
 	public ExplorerActivity(String id, String name, IHyperlinkListener listener, IPredicate predicate, int index) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.listener = listener;
-		this.predicate = predicate;
-		setPosition(index);
-
+	    this.config = new ActivityConfiguration();
+		this.config.setId(id);
+		this.config.setName(name);
+		this.config.setListener(listener);
+		this.config.setPredicate(predicate);
+		this.config.setIndex(index);
 	}
 
 	public String getId() {
-		return id;
+		return config.getId();
 	}
 
 	public String getName() {
-		return name;
+		return config.getName();
 	}
 
 	public IHyperlinkListener getListener() {
-		return listener;
+		return config.getListener();
 	}
 
-	private String id;
-	private String name;
-	private IHyperlinkListener listener;
-	private int index;
-	private Image image;
-	private String description;
-	private IPredicate predicate;
-
 	public Image getImage() {
-		return image;
+		return config.getImage();
 	}
 
 	public String getDescription() {
-		return description;
+		return config.getDescription();
 	}
 
 	/**
 	 * Return true this activity is visible.
 	 */
 	public boolean isVisible() {
-
 		boolean result = ActivityExplorerActivator.getDefault().getPreferenceStore().getBoolean(getId());
-		if (predicate != null) {
-			result &= predicate.isOk();
+		if (config.getPredicate() != null) {
+			result &= config.getPredicate().isOk();
 		}
 		return result;
 	}
 
 	public IPredicate getPredicate() {
-		return predicate;
+		return config.getPredicate();
 	}
 
 	public int getPosition() {
-		return index;
+		return config.getIndex();
 	}
 
 	public void setPosition(int index_p) {
-		this.index = index_p;
-
+		this.config.setIndex(index_p);
 	}
 
+    public int compareTo(IOrdered arg0) {
+        return new Integer(getPosition()).compareTo(new Integer(arg0.getPosition()));
+    }
+    
 	public Control init(Composite activityContainer_p, FormToolkit toolkit_p) {
-		widget = FormHelper.createLinkWithDescription(toolkit_p, activityContainer_p, image, name, null, description,
-				listener);
+		widget = FormHelper.createLinkWithDescription(toolkit_p, activityContainer_p, config.getImage(), config.getName(), null, config.getDescription(),
+		        config.getListener());
 		return widget;
-
 	}
-
-	ImageHyperlink widget;
 
 	public ImageHyperlink getWidget() {
 		return widget;
@@ -118,11 +115,6 @@ public class ExplorerActivity implements IVisibility, IOrdered {
 		// dispose the section widget
 		if (widget != null && !widget.isDisposed())
 			widget.dispose();
-
 	}
 
-	public int compareTo(IOrdered arg0) {
-		return new Integer(getPosition()).compareTo(new Integer(arg0.getPosition()));
-
-	}
 }
