@@ -47,7 +47,7 @@ import org.eclipse.ui.forms.widgets.Section;
  */
 public class ActivityExplorerSection implements IVisibility, IOrdered, IPropertyChangeListener {
 
-	private static final String P_PATTERN = "<p>.*</p>"; //$NON-NLS-1$
+	private static final Pattern P_PATTERN = Pattern.compile("<p>.*</p>"); //$NON-NLS-1$
 
 	/**
 	 * Constructor.
@@ -60,8 +60,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 		this.isExpanded = ActivityExplorerExtensionManager.getIsExpanded(contributor);
 		String desc = ActivityExplorerExtensionManager.getDescription(contributor);
 		if (null != desc){
-			Pattern pPattern = Pattern.compile(P_PATTERN);
-			boolean isInParagraph = pPattern.matcher(desc).find();
+			boolean isInParagraph = P_PATTERN.matcher(desc).find();
 			this.description = isInParagraph ? HTMLHelper.formWrapper2(desc) : HTMLHelper.formWrapper(desc);
 			}
        String indice = ActivityExplorerExtensionManager.getIndex(contributor);
