@@ -44,7 +44,7 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
         ids = id;
     }
 
-    protected final CommonActivityExplorerPageConfiguration config = new CommonActivityExplorerPageConfiguration();
+    protected final CommonActivityExplorerPageConfiguration config = createConfiguration();
 
     private Image overviewImageOff;
 
@@ -56,6 +56,10 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
 
     public CommonActivityExplorerPage(FormEditor editor, String id, String title) {
         super(editor, id, title);
+    }
+
+    protected CommonActivityExplorerPageConfiguration createConfiguration() {
+        return new CommonActivityExplorerPageConfiguration();
     }
 
     @Override
