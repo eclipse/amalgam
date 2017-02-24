@@ -19,6 +19,7 @@ import org.eclipse.amalgam.explorer.activity.ui.api.actions.AbstractDescriptionA
 import org.eclipse.amalgam.explorer.activity.ui.api.actions.DescriptionAction;
 import org.eclipse.amalgam.explorer.activity.ui.api.configuration.ActivityExplorerPageConfiguration;
 import org.eclipse.amalgam.explorer.activity.ui.api.configuration.CommonActivityExplorerPageConfiguration;
+import org.eclipse.amalgam.explorer.activity.ui.api.configuration.SectionConfiguration;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerEditor;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.input.ActivityExplorerEditorInput;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper.LayoutType;
@@ -398,9 +399,9 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
      * @param contributor
      */
     protected void handleContributedSectionsFor(IConfigurationElement contributor) {
-
         // create a Activity Explorer section
-        ActivityExplorerSection section = new ActivityExplorerSection(contributor) {
+        SectionConfiguration cfg = ActivityExplorerExtensionManager.parseSectionConfiguration(contributor);
+        ActivityExplorerSection section = new ActivityExplorerSection(cfg) {
             @Override
             protected IAction[] getToolBarActions() {
                 ActivityExplorerPage page = ActivityExplorerPage.this;
@@ -469,37 +470,8 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
     @Override
     public void setInitializationData(IConfigurationElement cfig, String propertyName, Object data) {
         super.setInitializationData(cfig, propertyName, data);
-
-        String title = ActivityExplorerExtensionManager.getTitle(cfig);
-        setHeaderTitle(title);
-
-        Image image = ActivityExplorerExtensionManager.getImageOff(cfig);
-        if (image != null) {
-            setHeaderImageOff(image);
-
-        }
-
-        image = ActivityExplorerExtensionManager.getImageOn(cfig);
-        if (image != null) {
-            setHeaderImageOn(image);
-
-        }
-
-        String description = ActivityExplorerExtensionManager.getDescription(cfig);
-        if (null != description) {
-            setPageDescription(HTMLHelper.formWrapper(description));
-        }
-
-    }
-
-    /**
-     * Set the page description.
-     * 
-     * @param description
-     */
-
-    private void setPageDescription(String description) {
-        getConfiguration().setDescription(description);
+        // Complete the page's configuration with ActivityExplorerPage-specific elements
+        ActivityExplorerExtensionManager.parseActivityExplorerPageConfiguration(cfig, getConfiguration());
     }
 
     /**

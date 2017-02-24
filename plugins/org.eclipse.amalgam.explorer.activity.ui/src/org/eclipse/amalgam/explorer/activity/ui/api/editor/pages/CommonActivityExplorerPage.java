@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.editor.pages;
 
-import java.text.MessageFormat;
-
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.IImageKeys;
 import org.eclipse.amalgam.explorer.activity.ui.api.configuration.CommonActivityExplorerPageConfiguration;
@@ -79,10 +77,9 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
     @Override
     public void setInitializationData(IConfigurationElement cfg, String propertyName, Object data) {
         super.setInitializationData(cfg, propertyName, data);
-
-        parseConfiguration(cfg);
+        ActivityExplorerExtensionManager.parseCommonActivityExplorerPageConfiguration(cfg, this.config);
+        
         setPartName(config.getTabName());
-
         String plugin_id = config.getPluginId();
         if (config.getOverviewImageOffPath().equals(IImageKeys.IMAGE_DEFAULT_OVERVIEW_OFF)) {
             plugin_id = ActivityExplorerActivator.ID;
@@ -92,35 +89,7 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
             plugin_id = ActivityExplorerActivator.ID;
         }
         overviewImageOn = ActivityExplorerActivator.getDefault().getImage(plugin_id, config.getOverviewImageOnPath());
-
         setIndex(config.getIndex());
-    }
-
-    private void parseConfiguration(IConfigurationElement cfig) {
-        config.setTitle(ActivityExplorerExtensionManager.getTitle(cfig));
-        config.setTabName(ActivityExplorerExtensionManager.getTabName(cfig));
-        if (config.getTabName() == null) {
-            config.setTabName(config.getTitle());
-        }
-        config.setOverview(ActivityExplorerExtensionManager.getOverviewElement(cfig) != null);
-        config.setPluginId(ActivityExplorerExtensionManager.getPluginId(cfig));
-        if (config.isOverview()) {
-            config.setOverviewImageOffPath(ActivityExplorerExtensionManager.getOverviewImageOff(cfig));
-            config.setOverviewImageOnPath(ActivityExplorerExtensionManager.getOverviewImageOn(cfig));
-            config.setOverviewText(ActivityExplorerExtensionManager.getOverviewDescription(cfig));
-        } else {
-            config.setOverviewImageOffPath(IImageKeys.IMAGE_DEFAULT_OVERVIEW_OFF);
-            config.setOverviewImageOnPath(IImageKeys.IMAGE_DEFAULT_OVERVIEW_ON);
-        }
-        config.setPredicate(ActivityExplorerExtensionManager.getPredicate(cfig));
-
-        String indice = ActivityExplorerExtensionManager.getIndex(cfig);
-        try {
-            this.config.setIndex(Integer.parseInt(indice));
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(MessageFormat.format("Attribute ''{0}'' of page {1} must be an int, but was ''{2}''", ActivityExplorerExtensionManager.ATT_INDEX,
-                    ActivityExplorerExtensionManager.getId(cfig), indice));
-        }
     }
 
     public String getOverViewImageOnPath() {

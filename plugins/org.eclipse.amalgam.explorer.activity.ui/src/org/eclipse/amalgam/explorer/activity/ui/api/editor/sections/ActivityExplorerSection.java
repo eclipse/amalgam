@@ -10,27 +10,21 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.editor.sections;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.regex.Pattern;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.configuration.SectionConfiguration;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.activities.ExplorerActivity;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper;
-import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.HTMLHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager;
 import org.eclipse.amalgam.explorer.activity.ui.internal.Couple;
 import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IOrdered;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
-import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -48,7 +42,6 @@ import org.eclipse.ui.forms.widgets.Section;
  */
 public class ActivityExplorerSection implements IVisibility, IOrdered, IPropertyChangeListener {
 	private SectionConfiguration config;
-	private static final Pattern P_PATTERN = Pattern.compile("<p>.*</p>"); //$NON-NLS-1$
 	private IAction[] toolbarActions;
     private Section widget;
     private FormToolkit toolkit;
@@ -56,59 +49,14 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
     private IFormPage page;
     
 
-    private static SectionConfiguration parseConfiguration(IConfigurationElement contributor) {
-        SectionConfiguration sectionDescription = new SectionConfiguration();
-        sectionDescription.setId(ActivityExplorerExtensionManager.getId(contributor));
-        sectionDescription.setName(ActivityExplorerExtensionManager.getName(contributor));
-        sectionDescription.setExpanded(ActivityExplorerExtensionManager.getIsExpanded(contributor));
-        String desc = ActivityExplorerExtensionManager.getDescription(contributor);
-        if (null != desc) {
-            boolean isInParagraph = P_PATTERN.matcher(desc).find();
-            sectionDescription.setDescription(isInParagraph ? HTMLHelper.formWrapper2(desc) : HTMLHelper.formWrapper(desc));
-        }
-        String indice = ActivityExplorerExtensionManager.getIndex(contributor);
-        try {
-            sectionDescription.setIndex(Integer.parseInt(indice));
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(MessageFormat.format("Attribute ''{0}'' of section {1} must be an int, but was ''{2}''", ActivityExplorerExtensionManager.ATT_INDEX,
-                    ActivityExplorerExtensionManager.getId(contributor), indice));
-        }
-        sectionDescription.setFiltering(ActivityExplorerExtensionManager.getIsFiltering(contributor));
-        createActivities(contributor, sectionDescription);
-        return sectionDescription;
-    }
-
-    /**
-     * Create theirs Activities.
-     * 
-     * @param contributor
-     */
-    private static void createActivities(IConfigurationElement contributor, SectionConfiguration sectionDescription) {
-        sectionDescription.activities = new TreeSet<ExplorerActivity>();
-        List<IConfigurationElement> activities = ActivityExplorerExtensionManager.getActivities(contributor);
-        for (IConfigurationElement element : activities) {
-            try {
-                sectionDescription.activities.add(new ExplorerActivity(element));
-            } catch (NumberFormatException e){
-                StringBuilder message = new StringBuilder();
-                message.append("ActivityExplorerSection.createActivities(...) _ "); //$NON-NLS-1$
-                message.append("The Activity contribution "); //$NON-NLS-1$
-                message.append(ActivityExplorerExtensionManager.getId(contributor));
-                message.append(" has wrong index format ("); //$NON-NLS-1$
-                message.append(ActivityExplorerExtensionManager.getIndex(contributor));
-                message.append("). Only integers are valid"); //$NON-NLS-1$
-                ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
-            }
-        }
-    }
 
     /**
      * Constructor.
      * 
-     * @param contributor
+     * @param cfg the configuration.
      */
-    public ActivityExplorerSection(IConfigurationElement contributor) {
-        this.config = parseConfiguration(contributor);
+    public ActivityExplorerSection(SectionConfiguration cfg) {
+        this.config = cfg;
     }
     
 	/**

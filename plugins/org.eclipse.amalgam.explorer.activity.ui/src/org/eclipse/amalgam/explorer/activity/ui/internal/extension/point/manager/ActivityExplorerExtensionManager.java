@@ -10,15 +10,25 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 import javax.activity.InvalidActivityException;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.IImageKeys;
+import org.eclipse.amalgam.explorer.activity.ui.api.configuration.ActivityConfiguration;
+import org.eclipse.amalgam.explorer.activity.ui.api.configuration.ActivityExplorerPageConfiguration;
+import org.eclipse.amalgam.explorer.activity.ui.api.configuration.BasicSessionActivityExplorerPageConfiguration;
+import org.eclipse.amalgam.explorer.activity.ui.api.configuration.CommonActivityExplorerPageConfiguration;
+import org.eclipse.amalgam.explorer.activity.ui.api.configuration.SectionConfiguration;
+import org.eclipse.amalgam.explorer.activity.ui.api.editor.activities.ExplorerActivity;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityExplorerPage;
+import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.HTMLHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.predicates.IPredicate;
 import org.eclipse.amalgam.explorer.activity.ui.internal.ActivityExplorerConstants;
 import org.eclipse.amalgam.explorer.activity.ui.internal.exceptions.InvalidActivityExplorerIndexException;
@@ -558,5 +568,117 @@ public class ActivityExplorerExtensionManager {
 
     return result;
   }
+  
+    public static ActivityConfiguration parseActivityConfiguration(IConfigurationElement element_p) {
+        ActivityConfiguration config = new ActivityConfiguration();
+        config.setName(ActivityExplorerExtensionManager.getName(element_p));
+        config.setDescription(ActivityExplorerExtensionManager.getDescription(element_p));
+        config.setIndex(Integer.parseInt(ActivityExplorerExtensionManager.getIndex(element_p)));
+        config.setListener(ActivityExplorerExtensionManager.getActivityAdapter(element_p));
+        config.setImage(ActivityExplorerExtensionManager.getImage(element_p));
+        config.setId(ActivityExplorerExtensionManager.getId(element_p));
+        config.setPredicate(ActivityExplorerExtensionManager.getPredicate(element_p));
+        return config;
+    }
+
+    private static final Pattern P_PATTERN = Pattern.compile("<p>.*</p>"); //$NON-NLS-1$
+    
+    public static SectionConfiguration parseSectionConfiguration(IConfigurationElement contributor) {
+        SectionConfiguration sectionDescription = new SectionConfiguration();
+        sectionDescription.setId(ActivityExplorerExtensionManager.getId(contributor));
+        sectionDescription.setName(ActivityExplorerExtensionManager.getName(contributor));
+        sectionDescription.setExpanded(ActivityExplorerExtensionManager.getIsExpanded(contributor));
+        String desc = ActivityExplorerExtensionManager.getDescription(contributor);
+        if (null != desc) {
+            boolean isInParagraph = P_PATTERN.matcher(desc).find();
+            sectionDescription.setDescription(isInParagraph ? HTMLHelper.formWrapper2(desc) : HTMLHelper.formWrapper(desc));
+        }
+        String indice = ActivityExplorerExtensionManager.getIndex(contributor);
+        try {
+            sectionDescription.setIndex(Integer.parseInt(indice));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(MessageFormat.format("Attribute ''{0}'' of section {1} must be an int, but was ''{2}''", ActivityExplorerExtensionManager.ATT_INDEX,
+                    ActivityExplorerExtensionManager.getId(contributor), indice));
+        }
+        sectionDescription.setFiltering(ActivityExplorerExtensionManager.getIsFiltering(contributor));
+        createActivities(contributor, sectionDescription);
+        return sectionDescription;
+    }
+    
+
+    public static void parseCommonActivityExplorerPageConfiguration(IConfigurationElement cfg, CommonActivityExplorerPageConfiguration target) {
+        target.setTitle(ActivityExplorerExtensionManager.getTitle(cfg));
+        target.setTabName(ActivityExplorerExtensionManager.getTabName(cfg));
+        if (target.getTabName() == null) {
+            target.setTabName(target.getTitle());
+        }
+        target.setOverview(ActivityExplorerExtensionManager.getOverviewElement(cfg) != null);
+        target.setPluginId(ActivityExplorerExtensionManager.getPluginId(cfg));
+        if (target.isOverview()) {
+            target.setOverviewImageOffPath(ActivityExplorerExtensionManager.getOverviewImageOff(cfg));
+            target.setOverviewImageOnPath(ActivityExplorerExtensionManager.getOverviewImageOn(cfg));
+            target.setOverviewText(ActivityExplorerExtensionManager.getOverviewDescription(cfg));
+        } else {
+            target.setOverviewImageOffPath(IImageKeys.IMAGE_DEFAULT_OVERVIEW_OFF);
+            target.setOverviewImageOnPath(IImageKeys.IMAGE_DEFAULT_OVERVIEW_ON);
+        }
+        target.setPredicate(ActivityExplorerExtensionManager.getPredicate(cfg));
+
+        String indice = ActivityExplorerExtensionManager.getIndex(cfg);
+        try {
+            target.setIndex(Integer.parseInt(indice));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(MessageFormat.format("Attribute ''{0}'' of page {1} must be an int, but was ''{2}''", ActivityExplorerExtensionManager.ATT_INDEX,
+                    ActivityExplorerExtensionManager.getId(cfg), indice));
+        }
+    }
+
+    public static void parseActivityExplorerPageConfiguration(IConfigurationElement cfig, ActivityExplorerPageConfiguration target) {
+        target.setHeaderTitle(ActivityExplorerExtensionManager.getTitle(cfig));
+        Image image = ActivityExplorerExtensionManager.getImageOff(cfig);
+        if (image != null) {
+            target.setHeaderImageOff(image);
+        }
+
+        image = ActivityExplorerExtensionManager.getImageOn(cfig);
+        if (image != null) {
+            target.setHeaderImageOn(image);
+        }
+
+        String description = ActivityExplorerExtensionManager.getDescription(cfig);
+        if (null != description) {
+            target.setDescription(HTMLHelper.formWrapper(description));
+        }
+    }
+
+    public static void parseBasicSessionActivityExplorerPageConfiguration(IConfigurationElement cfg, BasicSessionActivityExplorerPageConfiguration target) {
+        target.setDisplayViewer(ActivityExplorerExtensionManager.getIsDisplayViewerInPage(cfg));
+    }
+
+    /**
+     * Create theirs Activities.
+     * 
+     * @param contributor
+     */
+    private static void createActivities(IConfigurationElement contributor, SectionConfiguration sectionDescription) {
+        sectionDescription.activities = new TreeSet<ExplorerActivity>();
+        List<IConfigurationElement> activities = ActivityExplorerExtensionManager.getActivities(contributor);
+        for (IConfigurationElement element : activities) {
+            try {
+                ActivityConfiguration config = ActivityExplorerExtensionManager.parseActivityConfiguration(element);
+                sectionDescription.activities.add(new ExplorerActivity(config));
+            } catch (NumberFormatException e){
+                StringBuilder message = new StringBuilder();
+                message.append("ActivityExplorerSection.createActivities(...) _ "); //$NON-NLS-1$
+                message.append("The Activity contribution "); //$NON-NLS-1$
+                message.append(ActivityExplorerExtensionManager.getId(contributor));
+                message.append(" has wrong index format ("); //$NON-NLS-1$
+                message.append(ActivityExplorerExtensionManager.getIndex(contributor));
+                message.append("). Only integers are valid"); //$NON-NLS-1$
+                ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, message.toString(), e);
+            }
+        }
+    }
+
 
 }

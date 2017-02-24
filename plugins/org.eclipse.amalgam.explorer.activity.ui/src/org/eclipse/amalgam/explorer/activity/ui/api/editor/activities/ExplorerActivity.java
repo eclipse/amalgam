@@ -14,10 +14,8 @@ import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.configuration.ActivityConfiguration;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.predicates.IPredicate;
-import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IOrdered;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
-import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -29,20 +27,8 @@ public class ExplorerActivity implements IVisibility, IOrdered {
     private ActivityConfiguration config;
     private ImageHyperlink widget;
 
-    private static ActivityConfiguration parseConfiguration(IConfigurationElement element_p) {
-        ActivityConfiguration config = new ActivityConfiguration();
-        config.setName(ActivityExplorerExtensionManager.getName(element_p));
-        config.setDescription(ActivityExplorerExtensionManager.getDescription(element_p));
-        config.setIndex(Integer.parseInt(ActivityExplorerExtensionManager.getIndex(element_p)));
-        config.setListener(ActivityExplorerExtensionManager.getActivityAdapter(element_p));
-        config.setImage(ActivityExplorerExtensionManager.getImage(element_p));
-        config.setId(ActivityExplorerExtensionManager.getId(element_p));
-        config.setPredicate(ActivityExplorerExtensionManager.getPredicate(element_p));
-        return config;
-    }
-    
-	public ExplorerActivity(IConfigurationElement element_p) {
-	    this.config = parseConfiguration(element_p);
+	public ExplorerActivity(ActivityConfiguration cfg) {
+	    this.config = cfg;
 	}
 
 	public ExplorerActivity(String id, String name, IHyperlinkListener listener, IPredicate predicate, int index) {

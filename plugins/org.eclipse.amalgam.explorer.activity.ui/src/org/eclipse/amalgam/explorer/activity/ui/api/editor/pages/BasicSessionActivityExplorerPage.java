@@ -19,6 +19,7 @@ import org.eclipse.amalgam.explorer.activity.ui.api.actions.OpenActivityExplorer
 import org.eclipse.amalgam.explorer.activity.ui.api.actions.ViewerFilteringAction;
 import org.eclipse.amalgam.explorer.activity.ui.api.configuration.BasicSessionActivityExplorerPageConfiguration;
 import org.eclipse.amalgam.explorer.activity.ui.api.configuration.CommonActivityExplorerPageConfiguration;
+import org.eclipse.amalgam.explorer.activity.ui.api.configuration.SectionConfiguration;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.activities.ExplorerActivity;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper.LayoutType;
@@ -247,7 +248,8 @@ public class BasicSessionActivityExplorerPage extends ActivityExplorerPage {
     protected void handleContributedSectionsFor(IConfigurationElement contributor_p) {
 
         // create the session
-	  ActivityExplorerSection newSection = new ActivityExplorerSection(contributor_p) {
+      SectionConfiguration cfg = ActivityExplorerExtensionManager.parseSectionConfiguration(contributor_p);
+	  ActivityExplorerSection newSection = new ActivityExplorerSection(cfg) {
             @Override
             protected IAction[] getToolBarActions() {
 
@@ -349,7 +351,8 @@ public class BasicSessionActivityExplorerPage extends ActivityExplorerPage {
     @Override
     public void setInitializationData(IConfigurationElement cfig, String propertyName, Object data) {
         super.setInitializationData(cfig, propertyName, data);
-        getConfiguration().setDisplayViewer(ActivityExplorerExtensionManager.getIsDisplayViewerInPage(cfig));
+        // Complete the page's configuration with BasicSessionActivityExplorerPage-specific elements
+        ActivityExplorerExtensionManager.parseBasicSessionActivityExplorerPageConfiguration(cfig, getConfiguration());
     }
 
     /**
