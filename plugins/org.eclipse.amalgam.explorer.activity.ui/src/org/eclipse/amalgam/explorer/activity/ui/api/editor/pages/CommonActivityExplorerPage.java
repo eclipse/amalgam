@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2016 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2017 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *    Thales - initial API and implementation
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.editor.pages;
+
+import java.text.MessageFormat;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.IImageKeys;
@@ -121,7 +123,11 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
     predicate = ActivityExplorerExtensionManager.getPredicate(cfig);
 
     String indice = ActivityExplorerExtensionManager.getIndex(cfig);
-    setIndex(Integer.parseInt(indice));
+    try {
+        setIndex(Integer.parseInt(indice));
+    } catch (NumberFormatException e) {
+        throw new IllegalArgumentException(MessageFormat.format("Attribute ''{0}'' of page {1} must be an int, but was ''{2}''", ActivityExplorerExtensionManager.ATT_INDEX, ActivityExplorerExtensionManager.getId(cfig), indice));
+    }
   }
 
   private void setOverviewImageOn(Image image) {

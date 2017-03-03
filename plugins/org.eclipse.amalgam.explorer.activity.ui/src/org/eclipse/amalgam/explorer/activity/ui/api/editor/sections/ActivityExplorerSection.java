@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2017 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.editor.sections;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,7 +64,12 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 			boolean isInParagraph = pPattern.matcher(desc).find();
 			this.description = isInParagraph ? HTMLHelper.formWrapper2(desc) : HTMLHelper.formWrapper(desc);
 			}
-		this.index = Integer.parseInt(ActivityExplorerExtensionManager.getIndex(contributor));
+       String indice = ActivityExplorerExtensionManager.getIndex(contributor);
+       try {
+            this.index = Integer.parseInt(indice);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(MessageFormat.format("Attribute ''{0}'' of section {1} must be an int, but was ''{2}''", ActivityExplorerExtensionManager.ATT_INDEX, ActivityExplorerExtensionManager.getId(contributor), indice));
+        }
 		this.isFiltering = ActivityExplorerExtensionManager.getIsFiltering(contributor);
 		createActivities(contributor);
 
