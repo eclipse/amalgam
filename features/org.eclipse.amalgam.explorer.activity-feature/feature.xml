@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.amalgam.explorer.activity"
       label="Amalgam Activity Explorer"
-      version="1.9.0.qualifier"
+      version="2.0.0.qualifier"
       provider-name="Eclipse Modeling Project"
       license-feature="org.eclipse.license"
       license-feature-version="0.0.0">
