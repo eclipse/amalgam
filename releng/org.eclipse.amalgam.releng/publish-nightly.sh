@@ -120,3 +120,8 @@ create_redirect "$TARGET_ROOT/$STREAM/$PLATFORM" "$BUILD_TYPE/$FULL_VERSION/$PLA
 if [ "master" = "$GIT_BRANCH" ]; then
     create_redirect "$TARGET_ROOT/latest/$PLATFORM" "$BUILD_TYPE/$FULL_VERSION/$PLATFORM"
 fi
+
+echo "############################################################################"
+echo "[PUBLISH] Promoted into folder:  " $TARGET_DIR
+echo "[PUBLISH] Build accessible at http:/"`echo $TARGET_DIR | cut -c17-`
+echo "############################################################################"
