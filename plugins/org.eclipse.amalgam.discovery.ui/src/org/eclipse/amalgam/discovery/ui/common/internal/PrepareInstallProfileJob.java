@@ -35,22 +35,33 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.equinox.internal.p2.ui.IProvHelpContextIds;
+import org.eclipse.equinox.internal.p2.ui.ProvUI;
+import org.eclipse.equinox.internal.p2.ui.dialogs.InstallWizard;
+import org.eclipse.equinox.internal.p2.ui.dialogs.PreselectedIUInstallWizard;
+import org.eclipse.equinox.internal.p2.ui.dialogs.ProvisioningWizardDialog;
 import org.eclipse.equinox.p2.core.ProvisionException;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 import org.eclipse.equinox.p2.metadata.Version;
 import org.eclipse.equinox.p2.operations.InstallOperation;
 import org.eclipse.equinox.p2.operations.ProvisioningSession;
+import org.eclipse.equinox.p2.operations.RemediationOperation;
 import org.eclipse.equinox.p2.operations.RepositoryTracker;
 import org.eclipse.equinox.p2.query.IQuery;
 import org.eclipse.equinox.p2.query.IQueryResult;
 import org.eclipse.equinox.p2.query.QueryUtil;
 import org.eclipse.equinox.p2.repository.metadata.IMetadataRepository;
 import org.eclipse.equinox.p2.repository.metadata.IMetadataRepositoryManager;
+import org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob;
 import org.eclipse.equinox.p2.ui.ProvisioningUI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * A job that configures a p2 {@link #getInstallAction() install action} for
@@ -110,8 +121,8 @@ public class PrepareInstallProfileJob implements IRunnableWithProgress {
 				if (!headless) {
 					Display.getDefault().asyncExec(new Runnable() {
 						public void run() {
-							provisioningUI.openInstallWizard(ius,
-									installOperation, null);
+							openInstallWizard(provisioningUI,ius,
+									installOperation);
 						}
 					});
 				}
@@ -124,7 +135,18 @@ public class PrepareInstallProfileJob implements IRunnableWithProgress {
 			throw new InvocationTargetException(e);
 		}
 	}
-
+	
+	private static int openInstallWizard(ProvisioningUI ui,Collection<IInstallableUnit> initialSelections, InstallOperation operation) {		
+		PreselectedIUInstallWizard wizard = new PreselectedIUInstallWizard(ui, operation, initialSelections, null);
+		wizard.setRemediationOperation(null);
+		Shell defaultParentShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+		
+		WizardDialog dialog = new ProvisioningWizardDialog(defaultParentShell, wizard);
+		dialog.create();
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(dialog.getShell(), IProvHelpContextIds.INSTALL_WIZARD);
+		return dialog.open();
+	}
+	
 	private void checkCancelled(IProgressMonitor monitor) {
 		if (monitor.isCanceled()) {
 			throw new OperationCanceledException();
