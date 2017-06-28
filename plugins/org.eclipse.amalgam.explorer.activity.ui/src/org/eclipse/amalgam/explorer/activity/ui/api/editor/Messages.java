@@ -29,4 +29,7 @@ public class Messages extends NLS {
   private Messages() {
     // Private constructor.
   }
+  
+  public static String ActivityExplorerEditor_IEditingSessionRetrieval_ShouldAlsoImplementISaveablesSource;
+  public static String ActivityExplorerEditor_IEditingSessionRetrieval_WrongNumberOfSaveables;
 }

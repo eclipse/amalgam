@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2017 THALES GLOBAL SERVICES.
+ * Copyright (c) 2006, 2017 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IActivityExplorerEditorSessionListener;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
 import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -35,6 +36,8 @@ import org.eclipse.jface.viewers.ILabelDecorator;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionListener;
 import org.eclipse.sirius.business.api.session.SessionStatus;
+import org.eclipse.sirius.ui.business.api.session.IEditingSession;
+import org.eclipse.sirius.ui.business.api.session.SessionUIManager;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Image;
@@ -42,8 +45,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.ISaveablesSource;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.Saveable;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.forms.editor.SharedHeaderFormEditor;
@@ -351,13 +356,32 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 	  if (isDirty()) {
-      try {
-        getEditorInput().getSession().save(new NullProgressMonitor());
-      } catch (RuntimeException ite) {
-        StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(ite), ite.getMessage(), ite), StatusManager.BLOCK);
+        try {
+          Session session = getEditorInput().getSession();
+          // Instead of directly saving the Session, rely on the UISession to provide the Saveables.
+          IEditingSession uiSession = SessionUIManager.INSTANCE.getOrCreateUISession(session);
+          if(uiSession instanceof ISaveablesSource){
+            ISaveablesSource saveablesProvider = (ISaveablesSource) uiSession;
+    	    Saveable[] saveables = saveablesProvider.getActiveSaveables();
+    	    if(saveables.length == 1 && saveables[0] != null){
+    	    	try {
+    	    		saveables[0].doSave(monitor);
+    			} catch (CoreException ce) {
+    				StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(ce), ce.getMessage(), ce), StatusManager.BLOCK);
+    			}
+    	    } else{
+    	      // ISaveableSource returned 0 or more than 1 saveables.
+    		  throw new IllegalArgumentException(String.format(Messages.ActivityExplorerEditor_IEditingSessionRetrieval_WrongNumberOfSaveables, ISaveablesSource.class.getSimpleName(), uiSession.getClass().getSimpleName(), Saveable.class.getSimpleName(), saveables.length));
+    	    }
+    	  } else{
+    	    // IEditingSession instance does not implement ISaveablesSource.
+    	    throw new ClassCastException(String.format(Messages.ActivityExplorerEditor_IEditingSessionRetrieval_ShouldAlsoImplementISaveablesSource, IEditingSession.class.getSimpleName(), ISaveablesSource.class.getSimpleName()));
+    	  }
+        } catch (RuntimeException rte) {
+          StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(rte), rte.getMessage(), rte), StatusManager.BLOCK);
+        }
       }
-    }
-  }
+	}
   
 	/**
 	 * @param obj
