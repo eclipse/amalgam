@@ -108,6 +108,9 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
             config.setOverviewImageOffPath(ActivityExplorerExtensionManager.getOverviewImageOff(cfig));
             config.setOverviewImageOnPath(ActivityExplorerExtensionManager.getOverviewImageOn(cfig));
             config.setOverviewText(ActivityExplorerExtensionManager.getOverviewDescription(cfig));
+        } else {
+            config.setOverviewImageOffPath(IImageKeys.IMAGE_DEFAULT_OVERVIEW_OFF);
+            config.setOverviewImageOnPath(IImageKeys.IMAGE_DEFAULT_OVERVIEW_ON);
         }
         config.setPredicate(ActivityExplorerExtensionManager.getPredicate(cfig));
 
