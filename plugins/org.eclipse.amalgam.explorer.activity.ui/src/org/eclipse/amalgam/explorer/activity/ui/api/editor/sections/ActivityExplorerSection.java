@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.configuration.SectionConfiguration;
+import org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerEditor;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.activities.ExplorerActivity;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager;
@@ -26,6 +26,7 @@ import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IOrdered;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
@@ -36,319 +37,222 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 /**
- * This Class defined a Section for the DashBaord.
- * 
- *
+ * Represents a titled section inside a page, which can contain a number of
+ * activities.
  */
 public class ActivityExplorerSection implements IVisibility, IOrdered, IPropertyChangeListener {
-	private SectionConfiguration config;
-	private IAction[] toolbarActions;
-    private Section widget;
-    private FormToolkit toolkit;
-    private Composite activityContainer;
-    private IFormPage page;
-    
+    /**
+     * The configuration for this section.
+     */
+    private final SectionConfiguration config;
 
+    /**
+     * The preference store where to look for visibility configuration (can be
+     * changed the the end-user).
+     */
+    private final IPreferenceStore preferenceStore = ActivityExplorerActivator.getDefault().getPreferenceStore();
+
+    /**
+     * The parent page in which the section is displayed.
+     */
+    private IFormPage page;
+
+    /**
+     * The toolkit to use for widget creation & styling.
+     */
+    private FormToolkit toolkit;
+
+    /**
+     * The actual widget representing the section in the UI.
+     */
+    private Section widget;
+
+    /**
+     * The composite for the content of the section.
+     */
+    private Composite activityContainer;
 
     /**
      * Constructor.
-     * 
-     * @param cfg the configuration.
+     *
+     * @param cfg
+     *            the configuration.
      */
     public ActivityExplorerSection(SectionConfiguration cfg) {
         this.config = cfg;
     }
-    
-	/**
-	 * Constructor.
-	 * 
-	 * @param id
-	 * @param name
-	 * @param index
-	 * @param isExpanded
-	 * @param description
-	 * @param activities
-	 */
-	public ActivityExplorerSection(String id, String name, int index, boolean isExpanded, boolean isFiltering,
-			String description, List<ExplorerActivity> activities) {
-	    this.config = new SectionConfiguration();
-		this.config.setId(id);
-		this.config.setName(name);
-		this.config.setIndex(index);
-		this.config.setExpanded(isExpanded);
-		this.config.setFiltering(isFiltering);
-		this.config.activities.addAll(activities);
-	}
 
-	/**
-	 * Get all activities defined for the Section.
-	 * 
-	 * @return Set<ExplorerActivity>
-	 */
+    public String getId() {
+        return this.config.getId();
+    }
 
-	public Set<ExplorerActivity> getActivities() {
-		return this.config.activities;
-	}
+    public String getName() {
+        return this.config.getName();
+    }
 
-	/**
-	 * Get an particular activity from its ID.
-	 * 
-	 * @param id
-	 * @return {@link ExplorerActivity}
-	 */
+    /**
+     * Get all activities defined for the Section.
+     *
+     * @return Set<ExplorerActivity>
+     */
+    public Set<ExplorerActivity> getActivities() {
+        return this.config.activities;
+    }
 
-	public ExplorerActivity getActivityById(final String id) {
-		ExplorerActivity result = null;
-		for (ExplorerActivity activity : getActivities()) {
-			if (activity.getId().equals(id)) {
-				result = activity;
-			}
-		}
-		return result;
-	}
+    /**
+     * Return true if the section should support the filtering.
+     *
+     * @return
+     */
+    public boolean isFiltering() {
+        return this.config.isFiltering();
+    }
 
-	/**
-	 * Set a Collections of {@link ExplorerActivity} in the
-	 * {@link ActivityExplorerSection}.
-	 * 
-	 * @param activities
-	 */
+    /**
+     * Get its description.
+     *
+     * @return
+     */
+    public String getDescription() {
+        return this.config.getDescription();
+    }
 
-	public void setActivities(TreeSet<ExplorerActivity> activities) {
-	    this.config.activities = activities;
-	}
+    /**
+     * Return true this section is visible. Empty sections (with no visible
+     * activities) are automatically hidden.
+     */
+    @Override
+    public boolean isVisible() {
+        return preferenceStore.getBoolean(getId()) && !getVisibleActivities().isEmpty();
+    }
 
-	/**
-	 * Get its ID.
-	 * 
-	 * @return String
-	 */
+    /**
+     * Get the position defined in the extension point.
+     */
+    @Override
+    public int getPosition() {
+        return this.config.getIndex();
+    }
 
-	public String getId() {
-		return this.config.getId();
-	}
+    /**
+     * Set the position.
+     */
+    @Override
+    public void setPosition(int index) {
+        this.config.setIndex(index);
+    }
 
-	/**
-	 * Get its Name.
-	 * 
-	 * @return String
-	 */
+    /**
+     * Allows to Compare Two ActivityExplorerSection.
+     */
+    @Override
+    public int compareTo(IOrdered other) {
+        int value = Integer.valueOf(getPosition()).compareTo(Integer.valueOf(other.getPosition()));
+        return value == 0 ? 1 : value;
+    }
 
-	public String getName() {
-		return this.config.getName();
-	}
+    /**
+     * Initialize the section.
+     *
+     * @param sectionContainer
+     * @param page
+     * @param managedForm
+     * @return Control
+     */
+    public Control initialize(Composite sectionContainer, IFormPage page, IManagedForm managedForm) {
+        // Create the widgets.
+        this.page = page;
+        this.toolkit = managedForm.getToolkit();
+        Couple<Section, Composite> section = FormHelper.createTwistieSectionWithToolbar(sectionContainer, managedForm, getName(), null, this.config.isExpanded(), Arrays.asList(getToolBarActions()));
+        this.widget = section.getKey();
+        this.activityContainer = section.getValue();
 
+        // Register as property listener, to live refresh check / unckeck sections.
+        this.preferenceStore.addPropertyChangeListener(this);
 
-	/**
-	 * Return true if the section is defined as expanded.
-	 * 
-	 * @return
-	 */
-	public boolean isExpanded() {
-		return this.config.isExpanded();
-	}
+        // Add/init activities
+        initOwnActivities(this.activityContainer, this.toolkit);
+        return this.widget;
+    }
 
-	/**
-	 * Return true if the section should support the filtering.
-	 * 
-	 * @return
-	 */
-	public boolean isFiltering() {
-		return this.config.isFiltering();
-	}
+    /**
+     * Dispose the Activity Explorer Section.
+     */
+    public void dispose() {
+        // dispose the section widget
+        if (widget != null && !widget.isDisposed()) {
+            widget.dispose();
+        }
+        // dispose the editor
+        ActivityExplorerManager.INSTANCE.getEditor().dispose();
+        // dispose the preference property listener
+        preferenceStore.removePropertyChangeListener(this);
+    }
 
-	/**
-	 * Get its description.
-	 * 
-	 * @return
-	 */
-	public String getDescription() {
-		return this.config.getDescription();
-	}
+    /**
+     * Get all visible activities.
+     *
+     * @return List<ExplorerActivity>
+     */
+    public List<ExplorerActivity> getVisibleActivities() {
+        List<ExplorerActivity> visibleActivities = new ArrayList<ExplorerActivity>();
+        for (ExplorerActivity activity : getActivities()) {
+            if (activity.isVisible()) {
+                visibleActivities.add(activity);
+            }
+        }
+        return visibleActivities;
+    }
 
-	/**
-	 * Return true this section is visible.
-	 */
+    /**
+     * Init own ExplorerActivity.
+     *
+     * @param activityContainer
+     * @param toolkit
+     */
 
-	public boolean isVisible() {
-		return ActivityExplorerActivator.getDefault().getPreferenceStore().getBoolean(getId())
-				&& !getVisibleActivities().isEmpty();
-	}
+    private void initOwnActivities(Composite activityContainer, FormToolkit toolkit) {
+        for (ExplorerActivity activity : getVisibleActivities()) {
+            activity.init(activityContainer, toolkit);
+        }
+    }
 
-	/**
-	 * Get the position defined in the extension point.
-	 */
+    /**
+     * Get the ToolBarActions
+     *
+     * @return IAction[]
+     */
+    protected IAction[] getToolBarActions() {
+        return new IAction[0];
+    }
 
-	public int getPosition() {
-		return this.config.getIndex();
-	}
+    @Override
+    public void propertyChange(PropertyChangeEvent event) {
+        String property = event.getProperty();
+        boolean value = Boolean.valueOf(event.getNewValue().toString());
+        if (doPropertyChange(event, value, property)) {
+            ActivityExplorerEditor editor = ActivityExplorerManager.INSTANCE.getEditor();
+            if (editor != null && editor.getActivePageInstance() != null) {
+                editor.getActivePageInstance().getManagedForm().reflow(true);
+            }
+        }
+    }
 
-	/**
-	 * Set the position.
-	 */
+    protected boolean doPropertyChange(PropertyChangeEvent event, boolean value, String property) {
+        boolean result = false;
+        if (ActivityExplorerExtensionManager.isActivity(page.getId(), this.getId(), property)) {
+            updateSectionForm();
+            result = true;
+        }
+        return result;
+    }
 
-	public void setPosition(int index) {
-		this.config.setIndex(index);
-
-	}
-
-	/**
-	 * Initialize the DashBaord Section
-	 * 
-	 * @param sectionContainer
-	 * @param page
-	 * @param managedForm
-	 * @return Control
-	 */
-	public Control init(Composite sectionContainer, IFormPage page, IManagedForm managedForm) {
-		this.page = page;
-		toolkit = managedForm.getToolkit();
-		Couple<Section, Composite> section = FormHelper.createTwistieSectionWithToolbar(sectionContainer,
-				managedForm, getName(), null, this.config.isExpanded(), Arrays.asList(getToolBarActions()));
-
-		widget = (Section) section.getKey();
-
-		activityContainer = section.getValue();
-
-		// Register as property listener, to live refresh check / unckeck
-		// sections.
-		ActivityExplorerActivator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
-		return widget;
-	}
-
-	/**
-	 * Initialise the DashBaordSection.
-	 * 
-	 * @param sectionContainer
-	 * @param page
-	 * @param managedForm
-	 * @return Control
-	 */
-	public Control initialize(Composite sectionContainer, IFormPage page, IManagedForm managedForm) {
-
-		// init the section
-		init(sectionContainer, page, managedForm);
-
-		// add/init activities
-		initOwnActivities(activityContainer, toolkit);
-		return widget;
-	}
-
-	/**
-	 * Get its Widget.
-	 * 
-	 * @return Section
-	 */
-
-	public Section getWidget() {
-		return widget;
-	}
-
-	/**
-	 * Get all visible activities.
-	 * 
-	 * @return List<ExplorerActivity>
-	 */
-	public List<ExplorerActivity> getVisibleActivities() {
-		List<ExplorerActivity> visibleActivities = new ArrayList<ExplorerActivity>();
-		for (ExplorerActivity activity : getActivities()) {
-			if (activity.isVisible())
-				visibleActivities.add(activity);
-
-		}
-		return visibleActivities;
-
-	}
-
-	/**
-	 * Init own ExplorerActivity.
-	 * 
-	 * @param activityContainer
-	 * @param toolkit
-	 */
-
-	private void initOwnActivities(Composite activityContainer, FormToolkit toolkit) {
-		for (ExplorerActivity activity : getVisibleActivities()) {
-			activity.init(activityContainer, toolkit);
-		}
-	}
-
-	/**
-	 * Get the ToolBarActions
-	 * 
-	 * @return IAction[]
-	 */
-	protected IAction[] getToolBarActions() {
-		return toolbarActions;
-	}
-
-	/**
-	 * @see org.eclipse.jface.util.IPropertyChangeListener#propertyChange(org.eclipse.jface.util.PropertyChangeEvent)
-	 */
-	@Override
-	public void propertyChange(org.eclipse.jface.util.PropertyChangeEvent event) {
-		String property = event.getProperty();
-		boolean value = (Boolean.valueOf(event.getNewValue().toString()));
-		if (doPropertyChange(event, value, property)) {
-		      if (ActivityExplorerManager.INSTANCE.getEditor() != null && ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance()!= null) {
-				ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance().getManagedForm().reflow(true);
-		      }
-		}
-	}
-
-	protected boolean doPropertyChange(PropertyChangeEvent event, boolean value, String property) {
-		boolean result = false;
-
-		if (isActivity(property)) {
-			updateSectionForm();
-			result = true;
-		}
-
-		return result;
-	}
-
-	/**
-	 * Test if the id is a Activity.
-	 * 
-	 * @param id
-	 * @return boolean
-	 */
-	private boolean isActivity(String id) {
-		return ActivityExplorerExtensionManager.isActivity(page.getId(), this.getId(), id);
-	}
-
-	/**
-	 * Dispose the Activity Explorer Section.
-	 */
-	public void dispose() {
-		// dispose the section widget
-		if (widget != null && !widget.isDisposed())
-			widget.dispose();
-		/*
-		 * for(ExplorerActivity activity: getActivities()){ activity.dispose();
-		 * }
-		 */
-		// dispose the editor
-		ActivityExplorerManager.INSTANCE.getEditor().dispose();
-		// dispose the preference property listener
-		ActivityExplorerActivator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
-	}
-
-	/**
-	 * Allows to Compare Two ActivityExplorerSection.
-	 */
-	public int compareTo(IOrdered arg0) {
-		int value = new Integer(getPosition()).compareTo(new Integer(arg0.getPosition()));
-		return value == 0 ? 1 : value;
-	}
-
-	public void updateSectionForm() {
-		if (!activityContainer.isDisposed()) {
-			for (Control c : activityContainer.getChildren()) {
-				c.dispose();
-			}
-			initOwnActivities(activityContainer, toolkit);
-		}
-		// widget.getParent().layout(true, true);
-	}
+    private void updateSectionForm() {
+        if (!activityContainer.isDisposed()) {
+            for (Control c : activityContainer.getChildren()) {
+                c.dispose();
+            }
+            initOwnActivities(activityContainer, toolkit);
+        }
+    }
 }
