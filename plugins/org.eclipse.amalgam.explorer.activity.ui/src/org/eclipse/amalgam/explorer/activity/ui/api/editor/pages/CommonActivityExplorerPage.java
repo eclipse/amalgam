@@ -83,7 +83,7 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
         parseConfiguration(cfg);
         setPartName(config.getTabName());
 
-        String plugin_id = config.pluginId;
+        String plugin_id = config.getPluginId();
         if (config.getOverviewImageOffPath().equals(IImageKeys.IMAGE_DEFAULT_OVERVIEW_OFF)) {
             plugin_id = ActivityExplorerActivator.ID;
         }
@@ -103,7 +103,7 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
             config.setTabName(config.getTitle());
         }
         config.setOverview(ActivityExplorerExtensionManager.getOverviewElement(cfig) != null);
-        config.pluginId = ActivityExplorerExtensionManager.getPluginId(cfig);
+        config.setPluginId(ActivityExplorerExtensionManager.getPluginId(cfig));
         if (config.isOverview()) {
             config.setOverviewImageOffPath(ActivityExplorerExtensionManager.getOverviewImageOff(cfig));
             config.setOverviewImageOnPath(ActivityExplorerExtensionManager.getOverviewImageOn(cfig));

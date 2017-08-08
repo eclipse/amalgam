@@ -27,7 +27,7 @@ public class CommonActivityExplorerPageConfiguration {
 
     private String tabName;
 
-    public String pluginId;
+    private String pluginId;
 
     private boolean overview;
 
@@ -101,6 +101,14 @@ public class CommonActivityExplorerPageConfiguration {
 
     public void setPredicate(IPredicate predicate) {
         this.predicate = predicate;
+    }
+
+    public String getPluginId() {
+        return pluginId;
+    }
+
+    public void setPluginId(String pluginId) {
+        this.pluginId = pluginId;
     }
     
     
