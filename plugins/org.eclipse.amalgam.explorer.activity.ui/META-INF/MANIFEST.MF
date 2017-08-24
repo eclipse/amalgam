@@ -21,7 +21,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.sirius.ext.base,
  org.eclipse.sirius.diagram,
  org.eclipse.sirius.diagram.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.amalgam.explorer.activity.ui,
  org.eclipse.amalgam.explorer.activity.ui.api.actions,
