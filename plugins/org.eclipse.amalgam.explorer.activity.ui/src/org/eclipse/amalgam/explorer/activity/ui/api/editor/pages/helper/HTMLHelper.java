@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2017 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,58 +10,37 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper;
 
-import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityExplorerPage;
-import org.eclipse.ui.forms.editor.IFormPage;
-
 public class HTMLHelper {
 
-	public static String overviewDescForm(CommonActivityExplorerPage page) {
-		String description = page.getOverViewText();
+    public static String overviewDescForm(String description) {
+        return formWrapper2(description);
+    }
 
-		return formWrapper2(description);
-	}
+    public static String imageLinkForm(String id) {
+        String link = linkForm(id);
+        return formWrapper(link);
+    }
 
-	public static String imageLinkForm(IFormPage page) {
-		String link = linkForm(page);
-		return formWrapper(link);
-	}
+    public static String linkForm(String id) {
+        return String.format("<a href=\"%s\"><img href=\"%s\"/></a>", id, id); //$NON-NLS-1$
+    }
 
-	public static String linkForm(IFormPage page) {
-		String id = page.getId();
-		String link = "<a href=\"" + id + "\"><img href=\"" + id //$NON-NLS-1$ //$NON-NLS-2$
-				+ "\"/>" + "</a>"; //$NON-NLS-1$ //$NON-NLS-2$
-		return link;
-	}
+    public static String breadcrumbForm(String previous, String current, String next) {
+        String txt = ""; //$NON-NLS-1$
+        if (previous != null)
+            txt += linkForm(previous);
+        if (current != null)
+            txt += linkForm(current);
+        if (next != null)
+            txt += linkForm(next);
+        return formWrapper(txt);
+    }
 
-	public static String breadcrumbForm(IFormPage previous, IFormPage current, IFormPage next) {
-		String txt = ""; //$NON-NLS-1$
+    public static String formWrapper(String txt) {
+        return String.format("<form><p>%s</p></form>", txt); //$NON-NLS-1$
+    }
 
-		if (previous != null)
-			txt += linkForm(previous);
-		if (current != null)
-			txt += linkForm(current);
-		if (next != null)
-			txt += linkForm(next);
-
-		return formWrapper(txt);
-	}
-
-	public static String formWrapper(String txt) {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("<form>"); //$NON-NLS-1$
-		buffer.append("<p>"); //$NON-NLS-1
-		buffer.append(txt);
-		buffer.append("</p>"); //$NON-NLS-1$
-		buffer.append("</form>"); //$NON-NLS-1$
-		return buffer.toString();
-	}
-
-	public static String formWrapper2(String txt) {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("<form>"); //$NON-NLS-1$
-		buffer.append(txt);
-		buffer.append("</form>"); //$NON-NLS-1$
-		return buffer.toString();
-	}
-
+    public static String formWrapper2(String txt) {
+        return String.format("<form>%s</form>", txt); //$NON-NLS-1$
+    }
 }

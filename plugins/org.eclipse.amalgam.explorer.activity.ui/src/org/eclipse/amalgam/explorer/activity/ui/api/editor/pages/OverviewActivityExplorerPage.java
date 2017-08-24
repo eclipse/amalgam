@@ -206,7 +206,7 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
 		if (page.isVisible()) {
 			// image
 
-			String txt = HTMLHelper.imageLinkForm(page);
+			String txt = HTMLHelper.imageLinkForm(page.getId());
 			if (!(txt == null || txt.isEmpty())) {
 
 				richText = FormHelper.createRichText(managedForm.getToolkit(), composite, txt,
@@ -221,7 +221,7 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
 				layoutData.valign = TableWrapData.MIDDLE;
 				richText.setLayoutData(layoutData);
 
-				txt = HTMLHelper.overviewDescForm(page);
+				txt = HTMLHelper.overviewDescForm(page.getOverViewText());
 
 				// Set Layout data.
 
