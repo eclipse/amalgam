@@ -222,7 +222,7 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
         final IFormPage nextPage = getEditor().getNextPage(this);
 
         // create rich text
-        String body = HTMLHelper.breadcrumbForm(previousPage.getId(), this.getId(), nextPage.getId());
+        String body = HTMLHelper.breadcrumbForm(previousPage != null ? previousPage.getId() : null, this.getId(), nextPage != null ? nextPage.getId() : null);
 
         FormText richText = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper.createRichText(managedForm.getToolkit(), sectionContainer, body,
                 new FormTextPageLinkAdapter(getEditor()));
