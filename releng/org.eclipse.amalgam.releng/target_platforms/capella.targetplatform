@@ -1,0 +1,17 @@
+target "capella" with source, requirements
+
+location "http://download.eclipse.org/releases/neon" {
+	org.eclipse.platform.feature.group lazy
+	org.eclipse.emf.sdk.feature.group lazy
+	org.eclipse.gmf.feature.group lazy
+	org.junit lazy
+}
+
+location "http://download.eclipse.org/sirius/updates/nightly/5.1.x/neon" {
+	org.eclipse.sirius.runtime.feature.group lazy
+	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
+}
+
+location "http://download.eclipse.org/cbi/updates/license" {
+	org.eclipse.license.feature.group lazy
+}
