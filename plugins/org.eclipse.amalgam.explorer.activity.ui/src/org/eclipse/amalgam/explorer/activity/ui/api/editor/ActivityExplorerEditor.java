@@ -63,692 +63,725 @@ import org.osgi.framework.FrameworkUtil;
 /**
  * Base class to implement Activity Explorer.
  */
-public class ActivityExplorerEditor extends SharedHeaderFormEditor implements ITabbedPropertySheetPageContributor,
-		IPropertyChangeListener, IActivityExplorerEditorSessionListener {
+public class ActivityExplorerEditor extends SharedHeaderFormEditor implements ITabbedPropertySheetPageContributor, IPropertyChangeListener, IActivityExplorerEditorSessionListener, ISaveablesSource {
 
-	/**
-	 * Editor ID.
-	 */
-	public static final String ID = "org.eclipse.amalgam.explorer.activity.ui.editor.activityExplorerEditor"; //$NON-NLS-1$
-	/**
-	 * Part listener to detect editor activation.
-	 */
-	private IPartListener _partListener;
+    /**
+     * Editor ID.
+     */
+    public static final String ID = "org.eclipse.amalgam.explorer.activity.ui.editor.activityExplorerEditor"; //$NON-NLS-1$
 
-	/**
-	 * Property Sheet page.
-	 */
-	private TabbedPropertySheetPage _propertySheetPage;
-	
-	/**
-	 * Hold active page at updating the editor
-	 */
-	private int backToActivePage = 0;
+    /**
+     * Part listener to detect editor activation.
+     */
+    private IPartListener _partListener;
 
-	public ActivityExplorerEditor() {
-		ActivityExplorerManager.INSTANCE.setEditor(this);
-		ActivityExplorerManager.INSTANCE.addActivityExplorerEditorListener(this);
-		_partListener = new ActivityExplorerEditorPartListener(this);
-	}
+    /**
+     * Property Sheet page.
+     */
+    private TabbedPropertySheetPage _propertySheetPage;
 
-	@Override
-	public void setFocus() {
-		super.setFocus();
-		getContainer().setFocus();
-		ActivityExplorerManager.INSTANCE.setEditor(this);
-	}
+    /**
+     * Hold active page at updating the editor
+     */
+    private int backToActivePage = 0;
 
-	/**
-	 * @see org.eclipse.ui.forms.editor.FormEditor#addPages()
-	 */
-	@Override
-	protected void addPages() {
-		try {
+    public ActivityExplorerEditor() {
+        ActivityExplorerManager.INSTANCE.setEditor(this);
+        ActivityExplorerManager.INSTANCE.addActivityExplorerEditorListener(this);
+        _partListener = new ActivityExplorerEditorPartListener(this);
+    }
 
-			// set editor in the Activity Explorer Manager
-			ActivityExplorerManager.INSTANCE.setEditor(this);
+    @Override
+    public void setFocus() {
+        super.setFocus();
+        getContainer().setFocus();
+        ActivityExplorerManager.INSTANCE.setEditor(this);
+    }
 
-			// Add other Pages (plug-ins contribution)
-			createContributedPages();
+    /**
+     * @see org.eclipse.ui.forms.editor.FormEditor#addPages()
+     */
+    @Override
+    protected void addPages() {
+        try {
 
-		} catch (PartInitException exception) {
-			StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addPages(..) _ "); //$NON-NLS-1$
-			loggerMessage.append(exception.getMessage());
+            // set editor in the Activity Explorer Manager
+            ActivityExplorerManager.INSTANCE.setEditor(this);
 
-			ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), exception);
+            // Add other Pages (plug-ins contribution)
+            createContributedPages();
 
-		} catch (Exception exception) {
-			StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addPages(..) _ "); //$NON-NLS-1$
-			loggerMessage.append(exception.getMessage());
+        } catch (PartInitException exception) {
+            StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addPages(..) _ "); //$NON-NLS-1$
+            loggerMessage.append(exception.getMessage());
 
-			ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, loggerMessage.toString(), exception);
+            ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), exception);
 
-		}
+        } catch (Exception exception) {
+            StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addPages(..) _ "); //$NON-NLS-1$
+            loggerMessage.append(exception.getMessage());
 
-		// Add a control listener to force reflow
-		getContainer().addControlListener(new ControlListener() {
-			public void controlMoved(ControlEvent cevent) {
-				// Do nothing.
+            ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, loggerMessage.toString(), exception);
 
-			}
+        }
 
-			public void controlResized(ControlEvent cevent) {
-				IFormPage activePageInstance = ActivityExplorerEditor.this.getActivePageInstance();
-				IManagedForm managedForm = activePageInstance.getManagedForm();
-				managedForm.reflow(true);
-			}
+        // Add a control listener to force reflow
+        getContainer().addControlListener(new ControlListener() {
+            public void controlMoved(ControlEvent cevent) {
+                // Do nothing.
 
-		});
-		// Refresh dirty state when the part is activated : open time for
-		// instance.
-		getHeaderForm().dirtyStateChanged();
-		ActivityExplorerActivator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+            }
 
-		// because the pages is update later
-		pages.remove(null);
+            public void controlResized(ControlEvent cevent) {
+                IFormPage activePageInstance = ActivityExplorerEditor.this.getActivePageInstance();
+                IManagedForm managedForm = activePageInstance.getManagedForm();
+                managedForm.reflow(true);
+            }
 
-	}
+        });
+        // Refresh dirty state when the part is activated : open time for
+        // instance.
+        getHeaderForm().dirtyStateChanged();
+        ActivityExplorerActivator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 
-	/**
-	 * Returns all pages in the Editor
-	 * 
-	 * @return Vector<AbstractActivityExplorerPage>
-	 */
-	@SuppressWarnings("unchecked")
-	public Vector<CommonActivityExplorerPage> getPages() {
-		Vector<CommonActivityExplorerPage> result = new Vector<CommonActivityExplorerPage>(pages.size());
-		for (Object obj : pages) {
-			if (obj instanceof CommonActivityExplorerPage) {
-				result.add((CommonActivityExplorerPage) obj);
-			}
-		}
-		return result;
-	}
+        // because the pages is update later
+        pages.remove(null);
 
-	/**
-	 * Remove all Pages contained in this editor.
-	 */
-	public void removeAllPages() {
-		/*
+    }
+
+    /**
+     * Returns all pages in the Editor
+     * 
+     * @return Vector<AbstractActivityExplorerPage>
+     */
+    @SuppressWarnings("unchecked")
+    public Vector<CommonActivityExplorerPage> getPages() {
+        Vector<CommonActivityExplorerPage> result = new Vector<CommonActivityExplorerPage>(pages.size());
+        for (Object obj : pages) {
+            if (obj instanceof CommonActivityExplorerPage) {
+                result.add((CommonActivityExplorerPage) obj);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Remove all Pages contained in this editor.
+     */
+    public void removeAllPages() {
+        /*
 		 * Removing first active page leads to reactivate (i.e, create the content if it wasn't) the next active one
 		 * The next will be deleted. For performance reasons we don't allow recreating page content
 		 * that will be deleted just after. see the behavior of the editor in org.eclipse.ui.forms.editor.FormEditor.pageChange(int) when the current page change:
 		 * That fixe bug: 487226
-		 */
-		backToActivePage = getActivePage();
-		int count = super.getPageCount();
-		for (int i = count - 1; i >= 0; i--) {
-			if (i != backToActivePage) {
-				this.removePage(i);
-			}
-		}
-		/*
+         */
+        backToActivePage = getActivePage();
+        int count = super.getPageCount();
+        for (int i = count - 1; i >= 0; i--) {
+            if (i != backToActivePage) {
+                this.removePage(i);
+            }
+        }
+        /*
 		 * As all page are removed before, the remaining is the first page
 		 * which it index is 0
-		 */
-		this.removePage(0);
-	}
+         */
+        this.removePage(0);
+    }
 
-	/**
-	 * Create and Insert Contributed pages in the editor
-	 */
-	private void createContributedPages() throws PartInitException {
-		List<CommonActivityExplorerPage> contributedPages = ActivityExplorerExtensionManager.getAllPages();
-		Collections.sort(contributedPages);
-		addOverviewPage(contributedPages);
-		addContributedPages(contributedPages);
-	}
+    /**
+     * Create and Insert Contributed pages in the editor
+     */
+    private void createContributedPages() throws PartInitException {
+        List<CommonActivityExplorerPage> contributedPages = ActivityExplorerExtensionManager.getAllPages();
+        Collections.sort(contributedPages);
+        addOverviewPage(contributedPages);
+        addContributedPages(contributedPages);
+    }
 
-	private void addContributedPages(List<CommonActivityExplorerPage> contributedPages) {
-		for (CommonActivityExplorerPage page : contributedPages) {
-			if ((page instanceof IVisibility) && !(page.getPosition() == 0)) {
-				try {
-					if (page.isVisible()) {
-						addNewPage(page);
-					}
-				} catch (Throwable e) {
+    private void addContributedPages(List<CommonActivityExplorerPage> contributedPages) {
+        for (CommonActivityExplorerPage page : contributedPages) {
+            if ((page instanceof IVisibility) && !(page.getPosition() == 0)) {
+                try {
+                    if (page.isVisible()) {
+                        addNewPage(page);
+                    }
+                } catch (Throwable e) {
 
 					StringBuilder loggerMessage = new StringBuilder(
 							"ActivityExplorerEditor.addContributedPages(..) _ "); //$NON-NLS-1$
 					loggerMessage
 							.append("An error was occured at the evaluation of the predicat or the adding of page ") //$NON-NLS-1$
-							.append(page.getId());
-					loggerMessage.append(". Refer to the exception stack for more details"); //$NON-NLS-1$
+                            .append(page.getId());
+                    loggerMessage.append(". Refer to the exception stack for more details"); //$NON-NLS-1$
 
-					ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), e);
-				}
-			}
-		}
-	}
+                    ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), e);
+                }
+            }
+        }
+    }
 
-	/**
-	 * Find a first visible overview page which it index is 0
-	 * 
-	 * @param contributedPages
-	 * @throws PartInitException
-	 */
-	private void addOverviewPage(List<CommonActivityExplorerPage> contributedPages) throws PartInitException {
-		OverviewActivityExplorerPage overviewPage = null;
+    /**
+     * Find a first visible overview page which it index is 0
+     * 
+     * @param contributedPages
+     * @throws PartInitException
+     */
+    private void addOverviewPage(List<CommonActivityExplorerPage> contributedPages) throws PartInitException {
+        OverviewActivityExplorerPage overviewPage = null;
 
-		for (CommonActivityExplorerPage page : contributedPages) {
+        for (CommonActivityExplorerPage page : contributedPages) {
 
-			try {
-				// Force to accept only overview page at the index 0.
-				if (page.getPosition() == 0) {
+            try {
+                // Force to accept only overview page at the index 0.
+                if (page.getPosition() == 0) {
 
-					// bug 485652: check the visibility
-					if ((page instanceof OverviewActivityExplorerPage) && (page.isVisible())) {
-						overviewPage = (OverviewActivityExplorerPage) page;
-						break;
-					} else {
-						// Log visibile pages with index 0 which are not
-						// Overview pages
-						if (page.isVisible()) {
+                    // bug 485652: check the visibility
+                    if ((page instanceof OverviewActivityExplorerPage) && (page.isVisible())) {
+                        overviewPage = (OverviewActivityExplorerPage) page;
+                        break;
+                    } else {
+                        // Log visibile pages with index 0 which are not
+                        // Overview pages
+                        if (page.isVisible()) {
 							StringBuilder loggerMessage = new StringBuilder(
 									"ActivityExplorerEditor.addOverviewPage(..) _ "); //$NON-NLS-1$
-							loggerMessage.append("Page ").append(page.getId()); //$NON-NLS-1$
+                            loggerMessage.append("Page ").append(page.getId()); //$NON-NLS-1$
 							loggerMessage
 									.append(" is not an overview page. Only overview pages are allowed to index 0"); //$NON-NLS-1$
 
 							ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, loggerMessage.toString(),
 									null);
-						}
-					}
-				} else {
-					// Focus only on pages with index 0.
-					// The list is sorted, if the first page has an index
-					// different from 0, we stop.
-					break;
-				}
-			} catch (Throwable e) {
-				// Unknown errors from contributions
-				StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addOverviewPage(..) _ "); //$NON-NLS-1$
-				loggerMessage.append("An error was occured at the evaluation of the predicat of page ") //$NON-NLS-1$
-						.append(page.getId());
-				loggerMessage.append(". Refer to the exception stack for more details"); //$NON-NLS-1$
+                        }
+                    }
+                } else {
+                    // Focus only on pages with index 0.
+                    // The list is sorted, if the first page has an index
+                    // different from 0, we stop.
+                    break;
+                }
+            } catch (Throwable e) {
+                // Unknown errors from contributions
+                StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addOverviewPage(..) _ "); //$NON-NLS-1$
+                loggerMessage.append("An error was occured at the evaluation of the predicat of page ") //$NON-NLS-1$
+                        .append(page.getId());
+                loggerMessage.append(". Refer to the exception stack for more details"); //$NON-NLS-1$
 
-				ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), e);
-			}
-		}
-
-		// Add the overview page
-		if (overviewPage != null) {
-			overviewPage.initialize(this);
-		} else {
-			// default page
-			overviewPage = new OverviewActivityExplorerPage(this);
-		}
-
-		addPage(overviewPage);
-	}
-
-	/**
-	 * Create a documentation page.
-	 * 
-	 * @return a not <code>null</code> instance.
-	 */
-	protected IFormPage createDocumentationPage() {
-		return new DocumentationActivityExplorerPage(this);
-	}
-
-	/**
-	 * Get or create the main Overview page
-	 * 
-	 * @return a not <code>null</code> instance.
-	 */
-	@Deprecated
-	protected OverviewActivityExplorerPage getOrCreateOverviewActivityExplorerPage() {
-		List<CommonActivityExplorerPage> contributedPages = ActivityExplorerExtensionManager.getAllPages();
-		Collections.sort(contributedPages);
-		if (!contributedPages.isEmpty()) {
-			CommonActivityExplorerPage page = contributedPages.get(0);
-			if ((page instanceof OverviewActivityExplorerPage) && (page.getPosition() == 0)) {
-				page.initialize(this);
-				return (OverviewActivityExplorerPage) page;
-			}
-		}
-		return new OverviewActivityExplorerPage(this);
-	}
-
-	/**
-	 * @see org.eclipse.ui.forms.editor.FormEditor#dispose()
-	 */
-	@Override
-	public void dispose() {
-		ActivityExplorerManager.INSTANCE.removeActivityExplorerEditorListener(this);
-
-		// Dispose the editor from part listener
-		if (null != _partListener) {
-			((ActivityExplorerEditorPartListener) _partListener).dispose();
-		}
-
-		// If the editor is not initialized yet, the editorSite may be null
-		// (i.e, at restarting time)
-		IEditorSite editorSite = getEditorSite();
-		if (editorSite != null) {
-			// Dispose the property sheet page.
-			if (null != _propertySheetPage) {
-				_propertySheetPage.dispose();
-				_propertySheetPage = null;
-			}
-			// Unregister Sirius session listener.
-			unregisterSession();
-			// Remove part listener.
-			if (null != _partListener) {
-				editorSite.getPage().removePartListener(_partListener);
-				_partListener = null;
-				// Remove preference listener
-				ActivityExplorerActivator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
-
-				super.dispose();
-			}
-		}
-
-		if (null != getEditorInput()) {
-			getEditorInput().dispose();
-		}
-
-	}
-
-	/**
-	 * @see org.eclipse.ui.part.EditorPart#doSave(org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	@Override
-	public void doSave(IProgressMonitor monitor) {
-	  if (isDirty()) {
-        try {
-          Session session = getEditorInput().getSession();
-          // Instead of directly saving the Session, rely on the UISession to provide the Saveables.
-          IEditingSession uiSession = SessionUIManager.INSTANCE.getOrCreateUISession(session);
-          if(uiSession instanceof ISaveablesSource){
-            ISaveablesSource saveablesProvider = (ISaveablesSource) uiSession;
-    	    Saveable[] saveables = saveablesProvider.getActiveSaveables();
-    	    if(saveables.length == 1 && saveables[0] != null){
-    	    	try {
-    	    		saveables[0].doSave(monitor);
-    			} catch (CoreException ce) {
-    				StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(ce), ce.getMessage(), ce), StatusManager.BLOCK);
-    			}
-    	    } else{
-    	      // ISaveableSource returned 0 or more than 1 saveables.
-    		  throw new IllegalArgumentException(String.format(Messages.ActivityExplorerEditor_IEditingSessionRetrieval_WrongNumberOfSaveables, ISaveablesSource.class.getSimpleName(), uiSession.getClass().getSimpleName(), Saveable.class.getSimpleName(), saveables.length));
-    	    }
-    	  } else{
-    	    // IEditingSession instance does not implement ISaveablesSource.
-    	    throw new ClassCastException(String.format(Messages.ActivityExplorerEditor_IEditingSessionRetrieval_ShouldAlsoImplementISaveablesSource, IEditingSession.class.getSimpleName(), ISaveablesSource.class.getSimpleName()));
-    	  }
-        } catch (RuntimeException rte) {
-          StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(rte), rte.getMessage(), rte), StatusManager.BLOCK);
+                ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), e);
+            }
         }
-      }
-	}
-  
-	/**
-	 * @param obj
-	 * @return the bundle containing the object's class or the class's name if it's not contained in a bundle
-	 */
-  private String getBundleId(Object obj) {
-    Bundle bundle = FrameworkUtil.getBundle(obj.getClass());
+
+        // Add the overview page
+        if (overviewPage != null) {
+            overviewPage.initialize(this);
+        } else {
+            // default page
+            overviewPage = new OverviewActivityExplorerPage(this);
+        }
+
+        addPage(overviewPage);
+    }
+
+    /**
+     * Create a documentation page.
+     * 
+     * @return a not <code>null</code> instance.
+     */
+    protected IFormPage createDocumentationPage() {
+        return new DocumentationActivityExplorerPage(this);
+    }
+
+    /**
+     * Get or create the main Overview page
+     * 
+     * @return a not <code>null</code> instance.
+     */
+    @Deprecated
+    protected OverviewActivityExplorerPage getOrCreateOverviewActivityExplorerPage() {
+        List<CommonActivityExplorerPage> contributedPages = ActivityExplorerExtensionManager.getAllPages();
+        Collections.sort(contributedPages);
+        if (!contributedPages.isEmpty()) {
+            CommonActivityExplorerPage page = contributedPages.get(0);
+            if ((page instanceof OverviewActivityExplorerPage) && (page.getPosition() == 0)) {
+                page.initialize(this);
+                return (OverviewActivityExplorerPage) page;
+            }
+        }
+        return new OverviewActivityExplorerPage(this);
+    }
+
+    /**
+     * @see org.eclipse.ui.forms.editor.FormEditor#dispose()
+     */
+    @Override
+    public void dispose() {
+        ActivityExplorerManager.INSTANCE.removeActivityExplorerEditorListener(this);
+
+        // Dispose the editor from part listener
+        if (null != _partListener) {
+            ((ActivityExplorerEditorPartListener) _partListener).dispose();
+        }
+
+        // If the editor is not initialized yet, the editorSite may be null
+        // (i.e, at restarting time)
+        IEditorSite editorSite = getEditorSite();
+        if (editorSite != null) {
+            // Dispose the property sheet page.
+            if (null != _propertySheetPage) {
+                _propertySheetPage.dispose();
+                _propertySheetPage = null;
+            }
+            // Unregister Sirius session listener.
+            unregisterSession();
+            // Remove part listener.
+            if (null != _partListener) {
+                editorSite.getPage().removePartListener(_partListener);
+                _partListener = null;
+                // Remove preference listener
+                ActivityExplorerActivator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+
+                super.dispose();
+            }
+        }
+
+        if (null != getEditorInput()) {
+            getEditorInput().dispose();
+        }
+
+    }
+
+    /**
+     * @see org.eclipse.ui.part.EditorPart#doSave(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    @Override
+    public void doSave(IProgressMonitor monitor) {
+        if (isDirty()) {
+            try {
+                Saveable[] saveables = getSaveables();
+                if (saveables.length == 1 && saveables[0] != null) {
+                    try {
+                        saveables[0].doSave(monitor);
+                    } catch (CoreException ce) {
+                        StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(ce), ce.getMessage(), ce), StatusManager.BLOCK);
+                    }
+                } else {
+                    // ISaveableSource returned 0 or more than 1 saveables.
+                    throw new IllegalArgumentException(String.format(Messages.ActivityExplorerEditor_IEditingSessionRetrieval_WrongNumberOfSaveables, ISaveablesSource.class.getSimpleName(),
+                            SessionUIManager.INSTANCE.getOrCreateUISession(getEditorInput().getSession()).getClass().getSimpleName(), Saveable.class.getSimpleName(), saveables.length));
+                }
+            } catch (RuntimeException rte) {
+                StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(rte), rte.getMessage(), rte), StatusManager.BLOCK);
+            }
+        }
+    }
+
+    /**
+     * @param obj
+     * @return the bundle containing the object's class or the class's name if it's not contained in a bundle
+     */
+    private String getBundleId(Object obj) {
+        Bundle bundle = FrameworkUtil.getBundle(obj.getClass());
     if (bundle != null)
     {
-      return bundle.getSymbolicName();
+            return bundle.getSymbolicName();
+        }
+        return obj.getClass().getCanonicalName();
     }
-    return obj.getClass().getCanonicalName();
-  }
 
-	/**
-	 * @see org.eclipse.ui.part.EditorPart#doSaveAs()
-	 */
-	@Override
-	public void doSaveAs() {
-		// Do nothing.
-	}
+    /**
+     * @see org.eclipse.ui.part.EditorPart#doSaveAs()
+     */
+    @Override
+    public void doSaveAs() {
+        // Do nothing.
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings("rawtypes")
-	@Override
-	public Object getAdapter(Class adapter) {
-		if (IPropertySheetPage.class.equals(adapter)) {
-			return getOrCreatePropertySheetPage();
-		}
-		return super.getAdapter(adapter);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Object getAdapter(Class adapter) {
+        if (IPropertySheetPage.class.equals(adapter)) {
+            return getOrCreatePropertySheetPage();
+        }
+        return super.getAdapter(adapter);
+    }
 
-	public static final String PROPERTIES_CONTRIBUTOR = "org.eclipse.amalgam.explorer.activity.ui.editor.properties"; //$NON-NLS-1$
+    public static final String PROPERTIES_CONTRIBUTOR = "org.eclipse.amalgam.explorer.activity.ui.editor.properties"; //$NON-NLS-1$
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public String getContributorId() {
-		return getSite().getId();// PROPERTIES_CONTRIBUTOR;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public String getContributorId() {
+        return getSite().getId();// PROPERTIES_CONTRIBUTOR;
+    }
 
-	/**
-	 * @see org.eclipse.ui.part.EditorPart#getEditorInput()
-	 */
-	@Override
-	public ActivityExplorerEditorInput getEditorInput() {
-		return (ActivityExplorerEditorInput) super.getEditorInput();
-	}
+    /**
+     * @see org.eclipse.ui.part.EditorPart#getEditorInput()
+     */
+    @Override
+    public ActivityExplorerEditorInput getEditorInput() {
+        return (ActivityExplorerEditorInput) super.getEditorInput();
+    }
 
-	/**
-	 * Get or create (first call) the property sheet page.
-	 */
-	private IPropertySheetPage getOrCreatePropertySheetPage() {
-		if ((null == _propertySheetPage)) {
-			_propertySheetPage = new TabbedPropertySheetPage(this) {
-				/**
-				 * {@inheritDoc}
-				 */
-				@SuppressWarnings("synthetic-access")
-				@Override
-				public void dispose() {
-					super.dispose();
-					_propertySheetPage = null;
-				}
+    /**
+     * Get or create (first call) the property sheet page.
+     */
+    private IPropertySheetPage getOrCreatePropertySheetPage() {
+        if ((null == _propertySheetPage)) {
+            _propertySheetPage = new TabbedPropertySheetPage(this) {
+                /**
+                 * {@inheritDoc}
+                 */
+                @SuppressWarnings("synthetic-access")
+                @Override
+                public void dispose() {
+                    super.dispose();
+                    _propertySheetPage = null;
+                }
 
-				/**
-				 * {@inheritDoc}
-				 */
-				@Override
-				public void init(IPageSite pageSite) {
-					super.init(pageSite);
-					pageSite.setSelectionProvider(ActivityExplorerEditor.this.getEditorSite().getSelectionProvider());
-				}
-			};
-		}
-		return _propertySheetPage;
-	}
+                /**
+                 * {@inheritDoc}
+                 */
+                @Override
+                public void init(IPageSite pageSite) {
+                    super.init(pageSite);
+                    pageSite.setSelectionProvider(ActivityExplorerEditor.this.getEditorSite().getSelectionProvider());
+                }
+            };
+        }
+        return _propertySheetPage;
+    }
 
-	/**
-	 * @see org.eclipse.ui.part.WorkbenchPart#getPartName()
-	 */
-	@Override
-	public String getPartName() {
-		return getEditorInput().getName();
-	}
+    /**
+     * @see org.eclipse.ui.part.WorkbenchPart#getPartName()
+     */
+    @Override
+    public String getPartName() {
+        return getEditorInput().getName();
+    }
 
-	/**
-	 * Get property sheet page accessor.
-	 * 
-	 * @return <code>null</code> if the property sheet view is not displayed.
-	 */
-	public TabbedPropertySheetPage getPropertySheetPage() {
-		return _propertySheetPage;
-	}
+    /**
+     * Get property sheet page accessor.
+     * 
+     * @return <code>null</code> if the property sheet view is not displayed.
+     */
+    public TabbedPropertySheetPage getPropertySheetPage() {
+        return _propertySheetPage;
+    }
 
-	/**
+    /**
 	 * @see org.eclipse.ui.forms.editor.FormEditor#init(org.eclipse.ui.IEditorSite,
 	 *      org.eclipse.ui.IEditorInput)
-	 */
-	@Override
-	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+     */
+    @Override
+    public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 
-		/*
+        /*
 		 * TODO Delete
 		 *
 		IStatus status = ((ActivityExplorerEditorInput) input).getStatus();
 		if (!status.isOK()) {
 			throw new PartInitException(status);
 		}
-		*/
+         */
 
-		super.init(site, input);
+        super.init(site, input);
 
-		getEditorSite().getPage().addPartListener(_partListener);
+        getEditorSite().getPage().addPartListener(_partListener);
 
-	}
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isDirty() {
-		final Session session = getEditorInput().getSession();
-		if (null != session) {
-			return SessionStatus.DIRTY.equals(session.getStatus());
-		}
-		return false;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isDirty() {
+        final Session session = getEditorInput().getSession();
+        if (null != session) {
+            return SessionStatus.DIRTY.equals(session.getStatus());
+        }
+        return false;
+    }
 
-	/**
-	 * @see org.eclipse.ui.part.EditorPart#isSaveAsAllowed()
-	 */
-	@Override
-	public boolean isSaveAsAllowed() {
-		// Not applicable in this editor.
-		return false;
-	}
+    /**
+     * @see org.eclipse.ui.part.EditorPart#isSaveAsAllowed()
+     */
+    @Override
+    public boolean isSaveAsAllowed() {
+        // Not applicable in this editor.
+        return false;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isSaveOnCloseNeeded() {
-		// See with SBo, we don't want to save on close.
-		return false;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isSaveOnCloseNeeded() {
+        // See with SBo, we don't want to save on close.
+        return false;
+    }
 
-	/**
-	 * Unregister the session listener and set the session to <code>null</code>.
-	 */
-	private void unregisterSession() {
-		ActivityExplorerEditorInput editorInput = getEditorInput();
-		if (null != editorInput) {
-			Session session = editorInput.getSession();
-			if (null != session) {
-				session = null;
-			}
-		}
-	}
+    /**
+     * Unregister the session listener and set the session to <code>null</code>.
+     */
+    private void unregisterSession() {
+        ActivityExplorerEditorInput editorInput = getEditorInput();
+        if (null != editorInput) {
+            Session session = editorInput.getSession();
+            if (null != session) {
+                session = null;
+            }
+        }
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Image getTitleImage() {
-		ILabelDecorator decorator = PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator();
-		Image decoratedImage = decorator.decorateImage(super.getTitleImage(), getEditorInput().getSession());
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Image getTitleImage() {
+        ILabelDecorator decorator = PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator();
+        Image decoratedImage = decorator.decorateImage(super.getTitleImage(), getEditorInput().getSession());
 
-		return decoratedImage;
-	}
+        return decoratedImage;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void setTitleImage(Image titleImage) {
-		super.setTitleImage(titleImage);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void setTitleImage(Image titleImage) {
+        super.setTitleImage(titleImage);
+    }
 
-	private int addNewPage(IFormPage page) {
-		int index = 0;
+    private int addNewPage(IFormPage page) {
+        int index = 0;
 
-		page.initialize(this);
+        page.initialize(this);
 
-		try {
-			index = addPage(page);
-		} catch (PartInitException e) {
-			StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addNewPage(..) _ "); //$NON-NLS-1$
-			loggerMessage.append(e.getMessage());
+        try {
+            index = addPage(page);
+        } catch (PartInitException e) {
+            StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addNewPage(..) _ "); //$NON-NLS-1$
+            loggerMessage.append(e.getMessage());
 
-			ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), e);
-		}
-		return index;
-	}
+            ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), e);
+        }
+        return index;
+    }
 
-	/**
-	 * Get the previous page
-	 * 
-	 * @param current
-	 * @return the previous page or null
-	 */
-	@SuppressWarnings("unchecked")
-	public IFormPage getPreviousPage(IFormPage current) {
-		IFormPage previousPage = null;
-		int i = pages.indexOf(current);
-		if (i > -1) {
-			ListIterator<? extends Object> it = pages.listIterator(i);
-			if (it.hasPrevious()) {
-				Object prev = it.previous();
-				if (prev instanceof IFormPage) {
-					previousPage = (IFormPage) prev;
-				}
-			}
-		}
-		return previousPage;
-	}
+    /**
+     * Get the previous page
+     * 
+     * @param current
+     * @return the previous page or null
+     */
+    @SuppressWarnings("unchecked")
+    public IFormPage getPreviousPage(IFormPage current) {
+        IFormPage previousPage = null;
+        int i = pages.indexOf(current);
+        if (i > -1) {
+            ListIterator<? extends Object> it = pages.listIterator(i);
+            if (it.hasPrevious()) {
+                Object prev = it.previous();
+                if (prev instanceof IFormPage) {
+                    previousPage = (IFormPage) prev;
+                }
+            }
+        }
+        return previousPage;
+    }
 
-	/**
-	 * Get the next page
-	 * 
-	 * @param current
-	 * @return the next page or null
-	 */
-	@SuppressWarnings("unchecked")
-	public IFormPage getNextPage(IFormPage current) {
-		IFormPage nextPage = null;
-		int i = pages.indexOf(current);
-		if (i > -1) {
-			ListIterator<Object> it = pages.listIterator(i + 1);
-			if (it.hasNext()) {
-				Object obj = it.next();
-				if (obj instanceof IFormPage) {
-					nextPage = (IFormPage) obj;
-				}
-			}
+    /**
+     * Get the next page
+     * 
+     * @param current
+     * @return the next page or null
+     */
+    @SuppressWarnings("unchecked")
+    public IFormPage getNextPage(IFormPage current) {
+        IFormPage nextPage = null;
+        int i = pages.indexOf(current);
+        if (i > -1) {
+            ListIterator<Object> it = pages.listIterator(i + 1);
+            if (it.hasNext()) {
+                Object obj = it.next();
+                if (obj instanceof IFormPage) {
+                    nextPage = (IFormPage) obj;
+                }
+            }
 
-		}
-		return nextPage;
-	}
+        }
+        return nextPage;
+    }
 
-	/**
-	 * Update the editor Remove and Create pages
-	 */
-	@Deprecated
-	public void updateEditorPages(int activatedPage) {
-		updateEditorPages();
-	}
-	
-	protected void updateEditorPages() {
-		removeAllPages();
-		addPages();
-		if (backToActivePage > 0 && backToActivePage < this.getPageCount()) {
-			setActivePage(backToActivePage);
-		} else {
-			//Set active page if the backToActivePage is out of the range
-			setActivePage(0);
-		}
-		setPartName(getPartName());
-	}
+    /**
+     * Update the editor Remove and Create pages
+     */
+    @Deprecated
+    public void updateEditorPages(int activatedPage) {
+        updateEditorPages();
+    }
 
-	/**
-	 * Handle property change.<br>
-	 * 
-	 * @param event
-	 * @param value
-	 * @param property
-	 * @return boolean
-	 */
-	protected boolean doPropertyChange(PropertyChangeEvent event, boolean value, String property) {
-		boolean result = false;
-		if (ActivityExplorerExtensionManager.isPage(property)) {
-			this.updateEditorPages(0);
-			result = true;
-		}
-		return result;
-	}
+    protected void updateEditorPages() {
+        removeAllPages();
+        addPages();
+        if (backToActivePage > 0 && backToActivePage < this.getPageCount()) {
+            setActivePage(backToActivePage);
+        } else {
+            // Set active page if the backToActivePage is out of the range
+            setActivePage(0);
+        }
+        setPartName(getPartName());
+    }
 
-	@Override
-	public void propertyChange(org.eclipse.jface.util.PropertyChangeEvent event) {
-		String property = event.getProperty();
-		boolean value = (Boolean.valueOf(event.getNewValue().toString()));
-		if (doPropertyChange(event, value, property)) {
-			if (ActivityExplorerManager.INSTANCE.getEditor() != null) {
-				ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance().getManagedForm().reflow(true);
-			}
-		}
+    /**
+     * Handle property change.<br>
+     * 
+     * @param event
+     * @param value
+     * @param property
+     * @return boolean
+     */
+    protected boolean doPropertyChange(PropertyChangeEvent event, boolean value, String property) {
+        boolean result = false;
+        if (ActivityExplorerExtensionManager.isPage(property)) {
+            this.updateEditorPages(0);
+            result = true;
+        }
+        return result;
+    }
 
-	}
+    @Override
+    public void propertyChange(org.eclipse.jface.util.PropertyChangeEvent event) {
+        String property = event.getProperty();
+        boolean value = (Boolean.valueOf(event.getNewValue().toString()));
+        if (doPropertyChange(event, value, property)) {
+            if (ActivityExplorerManager.INSTANCE.getEditor() != null) {
+                ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance().getManagedForm().reflow(true);
+            }
+        }
 
-	@Override
-	public void executeRequest(int request, Session session) {
+    }
 
-		ActivityExplorerEditorInput editorInput = getEditorInput();
+    @Override
+    public void executeRequest(int request, Session session) {
 
-		if (editorInput != null) {
-			Session session2 = editorInput.getSession();
-			switch (request) {
-			case SessionListener.CLOSING:
-				if (session2 != null && session2.equals(session)) {
-					Runnable runnable = new Runnable() {
-						public void run() {
-							close(false);
+        ActivityExplorerEditorInput editorInput = getEditorInput();
+
+        if (editorInput != null) {
+            Session session2 = editorInput.getSession();
+            switch (request) {
+            case SessionListener.CLOSING:
+                if (session2 != null && session2.equals(session)) {
+                    Runnable runnable = new Runnable() {
+                        public void run() {
+                            close(false);
 							ActivityExplorerManager.INSTANCE
 									.removeActivityExplorerEditorListener(ActivityExplorerEditor.this);
-						}
-					};
-					run(runnable);
-				}
-				break;
-			case SessionListener.SELECTED_VIEWS_CHANGE_KIND:
-				if (session2 != null && session2.equals(session) && session.isOpen()) {
-					Runnable runnable = new Runnable() {
-						public void run() {
-							updateEditorPages();
-						}
-					};
-					run(runnable);
-				}
-				break;
-			case SessionListener.REPRESENTATION_CHANGE:
-				if (session2 != null && session2.equals(session) && session.isOpen()) {
-					_editorDirtyStateChanged();
-				}
-				break;
-			case SessionListener.OPENED:
-				break;
-			case SessionListener.DIRTY:
-			case SessionListener.SYNC:
-			case SessionListener.SEMANTIC_CHANGE: // Listening to changes to
-													// mark
-				if (session2 != null && session2.equals(session) && session.isOpen()) {
-					_editorDirtyStateChanged();
-				}
-				break;
-			case SessionListener.REPLACED:
-				if (session2 != null && session2.equals(session) && session.isOpen()) {
-					_editorDirtyStateChanged();
-				}
-				break;
-			}
-		} else {
-			// Remove the editors with no editor input
-			ActivityExplorerManager.INSTANCE.removeActivityExplorerEditorListener(this);
-		}
-	}
+                        }
+                    };
+                    run(runnable);
+                }
+                break;
+            case SessionListener.SELECTED_VIEWS_CHANGE_KIND:
+                if (session2 != null && session2.equals(session) && session.isOpen()) {
+                    Runnable runnable = new Runnable() {
+                        public void run() {
+                            updateEditorPages();
+                        }
+                    };
+                    run(runnable);
+                }
+                break;
+            case SessionListener.REPRESENTATION_CHANGE:
+                if (session2 != null && session2.equals(session) && session.isOpen()) {
+                    _editorDirtyStateChanged();
+                }
+                break;
+            case SessionListener.OPENED:
+                break;
+            case SessionListener.DIRTY:
+            case SessionListener.SYNC:
+            case SessionListener.SEMANTIC_CHANGE: // Listening to changes to
+                                                  // mark
+                if (session2 != null && session2.equals(session) && session.isOpen()) {
+                    _editorDirtyStateChanged();
+                }
+                break;
+            case SessionListener.REPLACED:
+                if (session2 != null && session2.equals(session) && session.isOpen()) {
+                    _editorDirtyStateChanged();
+                }
+                break;
+            }
+        } else {
+            // Remove the editors with no editor input
+            ActivityExplorerManager.INSTANCE.removeActivityExplorerEditorListener(this);
+        }
+    }
 
-	private void _editorDirtyStateChanged() {
-		Runnable runnable = new Runnable() {
-			public void run() {
-				IManagedForm headerForm = getHeaderForm();
-				if (headerForm != null)
-					headerForm.dirtyStateChanged();
-			}
-		};
-		run(runnable);
-	}
+    private void _editorDirtyStateChanged() {
+        Runnable runnable = new Runnable() {
+            public void run() {
+                IManagedForm headerForm = getHeaderForm();
+                if (headerForm != null)
+                    headerForm.dirtyStateChanged();
+            }
+        };
+        run(runnable);
+    }
 
-	protected void run(Runnable runnable) {
-		if (null != runnable) {
-			Display display = Display.getCurrent();
-			if (null == display) {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(runnable);
-			} else {
-				runnable.run();
-			}
-		}
-	}
+    protected void run(Runnable runnable) {
+        if (null != runnable) {
+            Display display = Display.getCurrent();
+            if (null == display) {
+                PlatformUI.getWorkbench().getDisplay().asyncExec(runnable);
+            } else {
+                runnable.run();
+            }
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.eclipse.ui.ISaveablesSource#getSaveables()
+     */
+    @Override
+    public Saveable[] getSaveables() {
+        ISaveablesSource saveSource = getSaveableSource();
+        if (saveSource != null) {
+            return saveSource.getSaveables();
+        }
+        return new Saveable[] {};
+    }
+
+    private ISaveablesSource getSaveableSource() {
+        final Session session = getEditorInput().getSession();
+        if (null != session) {
+            IEditingSession uiSession = SessionUIManager.INSTANCE.getOrCreateUISession(session);
+            if (uiSession instanceof ISaveablesSource) {
+                return (ISaveablesSource) uiSession;
+            } else {
+                // IEditingSession instance does not implement ISaveablesSource.
+                throw new ClassCastException(String.format(Messages.ActivityExplorerEditor_IEditingSessionRetrieval_ShouldAlsoImplementISaveablesSource, IEditingSession.class.getSimpleName(),
+                        ISaveablesSource.class.getSimpleName()));
+            }
+        }
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.eclipse.ui.ISaveablesSource#getActiveSaveables()
+     */
+    @Override
+    public Saveable[] getActiveSaveables() {
+        ISaveablesSource saveSource = getSaveableSource();
+        if (saveSource != null) {
+            return saveSource.getActiveSaveables();
+        }
+        return new Saveable[] {};
+    }
 }
