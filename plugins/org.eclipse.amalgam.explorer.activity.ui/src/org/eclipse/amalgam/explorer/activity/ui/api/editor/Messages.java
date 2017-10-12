@@ -20,6 +20,7 @@ public class Messages extends NLS {
   private static final String BUNDLE_NAME = "org.eclipse.amalgam.explorer.activity.ui.api.editor.messages"; //$NON-NLS-1$
   public static String ActivityExplorerEditor_1;
   public static String ActivityExplorerEditor_Error_Message;
+  public static String ActivityExplorerEditor_IEditingSessionRetrieval_ShouldAlsoImplementISaveablesSource;
 
   static {
     // initialize resource bundle
@@ -29,7 +30,4 @@ public class Messages extends NLS {
   private Messages() {
     // Private constructor.
   }
-  
-  public static String ActivityExplorerEditor_IEditingSessionRetrieval_ShouldAlsoImplementISaveablesSource;
-  public static String ActivityExplorerEditor_IEditingSessionRetrieval_WrongNumberOfSaveables;
 }

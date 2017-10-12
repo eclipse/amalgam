@@ -25,11 +25,8 @@ import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IActivityExplorerEditorSessionListener;
 import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
 import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ILabelDecorator;
@@ -53,7 +50,6 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.forms.editor.SharedHeaderFormEditor;
 import org.eclipse.ui.part.IPageSite;
-import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
@@ -355,24 +351,8 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      */
     @Override
     public void doSave(IProgressMonitor monitor) {
-        if (isDirty()) {
-            try {
-                Saveable[] saveables = getSaveables();
-                if (saveables.length == 1 && saveables[0] != null) {
-                    try {
-                        saveables[0].doSave(monitor);
-                    } catch (CoreException ce) {
-                        StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(ce), ce.getMessage(), ce), StatusManager.BLOCK);
-                    }
-                } else {
-                    // ISaveableSource returned 0 or more than 1 saveables.
-                    throw new IllegalArgumentException(String.format(Messages.ActivityExplorerEditor_IEditingSessionRetrieval_WrongNumberOfSaveables, ISaveablesSource.class.getSimpleName(),
-                            SessionUIManager.INSTANCE.getOrCreateUISession(getEditorInput().getSession()).getClass().getSimpleName(), Saveable.class.getSimpleName(), saveables.length));
-                }
-            } catch (RuntimeException rte) {
-                StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(rte), rte.getMessage(), rte), StatusManager.BLOCK);
-            }
-        }
+    	// Ignore. This method is not called because ActivityExplorerEditor implements ISaveablesSource.
+    	// All saves will go through the ISaveablesSource / Saveable protocol.
     }
 
     /**
@@ -498,11 +478,13 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      */
     @Override
     public boolean isDirty() {
-        final Session session = getEditorInput().getSession();
-        if (null != session) {
-            return SessionStatus.DIRTY.equals(session.getStatus());
-        }
-        return false;
+    	Saveable[] saveables = getSaveables();
+		for (Saveable saveable : saveables) {
+			if (saveable.isDirty()) {
+				return true;
+			}
+		}
+		return false;
     }
 
     /**
@@ -511,15 +493,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     @Override
     public boolean isSaveAsAllowed() {
         // Not applicable in this editor.
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isSaveOnCloseNeeded() {
-        // See with SBo, we don't want to save on close.
         return false;
     }
 
