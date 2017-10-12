@@ -48,7 +48,7 @@ export SHORT_VERSION=$(echo "$VERSION" | sed -r -e 's/^([0-9]+\.[0-9]+)\..*$/\1/
 
 # Converts the Hudson BUILD_ID (e.g. 2013-10-15_07-07-07) into the
 # syntax we want for our update-sites (e.g. 20131015-070707)
-#export BUILD_TIMESTAMP=$(echo "$BUILD_ID" | sed -e 's/-//g' -e 's/_/-/')
+export BUILD_TIMESTAMP=$(echo "${env.BUILD_TIMESTAMP}" | sed -e 's/-//g' -e 's/_/-/')
 
 # The timestamp in the p2 composite repos used to implement redirects
 export P2_TIMESTAMP=$(date +"%s000")
