@@ -478,11 +478,13 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      */
     @Override
     public boolean isDirty() {
-        final Session session = getEditorInput().getSession();
-        if (null != session) {
-            return SessionStatus.DIRTY.equals(session.getStatus());
-        }
-        return false;
+    	Saveable[] saveables = getSaveables();
+		for (Saveable saveable : saveables) {
+			if (saveable.isDirty()) {
+				return true;
+			}
+		}
+		return false;
     }
 
     /**
@@ -491,15 +493,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     @Override
     public boolean isSaveAsAllowed() {
         // Not applicable in this editor.
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isSaveOnCloseNeeded() {
-        // See with SBo, we don't want to save on close.
         return false;
     }
 
