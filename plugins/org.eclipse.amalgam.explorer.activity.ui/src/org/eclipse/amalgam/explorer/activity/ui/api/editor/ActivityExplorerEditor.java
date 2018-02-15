@@ -27,14 +27,14 @@ import org.eclipse.amalgam.explorer.activity.ui.internal.intf.IVisibility;
 import org.eclipse.amalgam.explorer.activity.ui.internal.util.ActivityExplorerLoggerService;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ILabelDecorator;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionListener;
 import org.eclipse.sirius.business.api.session.SessionStatus;
+import org.eclipse.sirius.ui.business.api.session.IEditingSession;
+import org.eclipse.sirius.ui.business.api.session.SessionUIManager;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Image;
@@ -42,13 +42,14 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.ISaveablesSource;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.Saveable;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.forms.editor.SharedHeaderFormEditor;
 import org.eclipse.ui.part.IPageSite;
-import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
@@ -59,7 +60,7 @@ import org.osgi.framework.FrameworkUtil;
  * Base class to implement Activity Explorer.
  */
 public class ActivityExplorerEditor extends SharedHeaderFormEditor implements ITabbedPropertySheetPageContributor,
-		IPropertyChangeListener, IActivityExplorerEditorSessionListener {
+		IPropertyChangeListener, IActivityExplorerEditorSessionListener, ISaveablesSource {
 
 	/**
 	 * Editor ID.
@@ -349,14 +350,9 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 * @see org.eclipse.ui.part.EditorPart#doSave(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
-	public void doSave(IProgressMonitor monitor) {
-	  if (isDirty()) {
-      try {
-        getEditorInput().getSession().save(new NullProgressMonitor());
-      } catch (RuntimeException ite) {
-        StatusManager.getManager().handle(new Status(IStatus.ERROR, getBundleId(ite), ite.getMessage(), ite), StatusManager.BLOCK);
-      }
-    }
+  public void doSave(IProgressMonitor monitor) {
+    // Ignore. This method is not called because ActivityExplorerEditor implements ISaveablesSource.
+    // All saves will go through the ISaveablesSource / Saveable protocol.
   }
   
 	/**
@@ -482,11 +478,13 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	 */
 	@Override
 	public boolean isDirty() {
-		final Session session = getEditorInput().getSession();
-		if (null != session) {
-			return SessionStatus.DIRTY.equals(session.getStatus());
-		}
-		return false;
+	    Saveable[] saveables = getSaveables();
+        for (Saveable saveable : saveables) {
+            if (saveable.isDirty()) {
+                return true;
+            }
+        }
+        return false;
 	}
 
 	/**
@@ -495,15 +493,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 	@Override
 	public boolean isSaveAsAllowed() {
 		// Not applicable in this editor.
-		return false;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isSaveOnCloseNeeded() {
-		// See with SBo, we don't want to save on close.
 		return false;
 	}
 
@@ -727,4 +716,46 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 			}
 		}
 	}
+	
+
+    /*
+     * (non-Javadoc)
+     * @see org.eclipse.ui.ISaveablesSource#getSaveables()
+     */
+    @Override
+    public Saveable[] getSaveables() {
+        ISaveablesSource saveSource = getSaveableSource();
+        if (saveSource != null) {
+            return saveSource.getSaveables();
+        }
+        return new Saveable[] {};
+    }
+
+    private ISaveablesSource getSaveableSource() {
+        final Session session = getEditorInput().getSession();
+        if (null != session) {
+            IEditingSession uiSession = SessionUIManager.INSTANCE.getOrCreateUISession(session);
+            if (uiSession instanceof ISaveablesSource) {
+                return (ISaveablesSource) uiSession;
+            } else {
+                // IEditingSession instance does not implement ISaveablesSource.
+                throw new ClassCastException(String.format(Messages.ActivityExplorerEditor_IEditingSessionRetrieval_ShouldAlsoImplementISaveablesSource, IEditingSession.class.getSimpleName(),
+                        ISaveablesSource.class.getSimpleName()));
+            }
+        }
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.eclipse.ui.ISaveablesSource#getActiveSaveables()
+     */
+    @Override
+    public Saveable[] getActiveSaveables() {
+        ISaveablesSource saveSource = getSaveableSource();
+        if (saveSource != null) {
+            return saveSource.getActiveSaveables();
+        }
+        return new Saveable[] {};
+    }
 }

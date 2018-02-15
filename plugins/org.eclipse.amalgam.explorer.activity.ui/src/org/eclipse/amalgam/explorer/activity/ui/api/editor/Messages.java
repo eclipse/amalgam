@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2018 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ public class Messages extends NLS {
   private static final String BUNDLE_NAME = "org.eclipse.amalgam.explorer.activity.ui.api.editor.messages"; //$NON-NLS-1$
   public static String ActivityExplorerEditor_1;
   public static String ActivityExplorerEditor_Error_Message;
+  public static String ActivityExplorerEditor_IEditingSessionRetrieval_ShouldAlsoImplementISaveablesSource;
 
   static {
     // initialize resource bundle
