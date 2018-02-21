@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2016 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2018 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -122,6 +122,10 @@ public class ActivityExplorerEditorInput extends FileEditorInput implements IEdi
 		EObject project = getRootSemanticElement();
 		if (null != project) {
 			result = EObjectLabelProviderHelper.getText(project);
+		}else if(getFile() != null){
+		  String fileExtension = getFile().getFileExtension();
+		  String fileName = getFile().getName();
+		  result = fileName.substring(0, fileName.indexOf(fileExtension)-1);
 		}
 		return result;
 	}
