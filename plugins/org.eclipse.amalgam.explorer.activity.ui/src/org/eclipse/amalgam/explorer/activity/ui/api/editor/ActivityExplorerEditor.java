@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006, 2017 THALES GLOBAL SERVICES.
+ * Copyright (c) 2006, 2018 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.input.ActivityExplorerEditorInput;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityExplorerPage;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.DocumentationActivityExplorerPage;
+import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.MessagePage;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.OverviewActivityExplorerPage;
 import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager;
 import org.eclipse.amalgam.explorer.activity.ui.internal.extension.point.manager.ActivityExplorerExtensionManager;
@@ -32,9 +33,10 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ILabelDecorator;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionListener;
-import org.eclipse.sirius.business.api.session.SessionStatus;
 import org.eclipse.sirius.ui.business.api.session.IEditingSession;
 import org.eclipse.sirius.ui.business.api.session.SessionUIManager;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Image;
@@ -81,6 +83,8 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      */
     private int backToActivePage = 0;
 
+    protected IFormPage messagePage;
+
     public ActivityExplorerEditor() {
         ActivityExplorerManager.INSTANCE.setEditor(this);
         ActivityExplorerManager.INSTANCE.addActivityExplorerEditorListener(this);
@@ -118,14 +122,12 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
             loggerMessage.append(exception.getMessage());
 
             ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, loggerMessage.toString(), exception);
-
         }
 
         // Add a control listener to force reflow
         getContainer().addControlListener(new ControlListener() {
             public void controlMoved(ControlEvent cevent) {
                 // Do nothing.
-
             }
 
             public void controlResized(ControlEvent cevent) {
@@ -133,7 +135,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
                 IManagedForm managedForm = activePageInstance.getManagedForm();
                 managedForm.reflow(true);
             }
-
         });
         // Refresh dirty state when the part is activated : open time for
         // instance.
@@ -150,7 +151,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      * 
      * @return Vector<AbstractActivityExplorerPage>
      */
-    @SuppressWarnings("unchecked")
     public Vector<CommonActivityExplorerPage> getPages() {
         Vector<CommonActivityExplorerPage> result = new Vector<CommonActivityExplorerPage>(pages.size());
         for (Object obj : pages) {
@@ -166,10 +166,10 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      */
     public void removeAllPages() {
         /*
-		 * Removing first active page leads to reactivate (i.e, create the content if it wasn't) the next active one
-		 * The next will be deleted. For performance reasons we don't allow recreating page content
-		 * that will be deleted just after. see the behavior of the editor in org.eclipse.ui.forms.editor.FormEditor.pageChange(int) when the current page change:
-		 * That fixe bug: 487226
+         * Removing first active page leads to reactivate (i.e, create the content if it wasn't) the next active one The
+         * next will be deleted. For performance reasons we don't allow recreating page content that will be deleted
+         * just after. see the behavior of the editor in org.eclipse.ui.forms.editor.FormEditor.pageChange(int) when the
+         * current page change: That fixe bug: 487226
          */
         backToActivePage = getActivePage();
         int count = super.getPageCount();
@@ -179,8 +179,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
             }
         }
         /*
-		 * As all page are removed before, the remaining is the first page
-		 * which it index is 0
+         * As all page are removed before, the remaining is the first page which it index is 0
          */
         this.removePage(0);
     }
@@ -197,17 +196,15 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
     private void addContributedPages(List<CommonActivityExplorerPage> contributedPages) {
         for (CommonActivityExplorerPage page : contributedPages) {
-            if ((page instanceof IVisibility) && !(page.getPosition() == 0)) {
+            if ((page instanceof IVisibility) && page.getPosition() != 0) {
                 try {
                     if (page.isVisible()) {
                         addNewPage(page);
                     }
-                } catch (Throwable e) {
+                } catch (Exception e) {
 
-					StringBuilder loggerMessage = new StringBuilder(
-							"ActivityExplorerEditor.addContributedPages(..) _ "); //$NON-NLS-1$
-					loggerMessage
-							.append("An error was occured at the evaluation of the predicat or the adding of page ") //$NON-NLS-1$
+                    StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addContributedPages(..) _ "); //$NON-NLS-1$
+                    loggerMessage.append("An error was occured at the evaluation of the predicat or the adding of page ") //$NON-NLS-1$
                             .append(page.getId());
                     loggerMessage.append(". Refer to the exception stack for more details"); //$NON-NLS-1$
 
@@ -240,14 +237,11 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
                         // Log visibile pages with index 0 which are not
                         // Overview pages
                         if (page.isVisible()) {
-							StringBuilder loggerMessage = new StringBuilder(
-									"ActivityExplorerEditor.addOverviewPage(..) _ "); //$NON-NLS-1$
+                            StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addOverviewPage(..) _ "); //$NON-NLS-1$
                             loggerMessage.append("Page ").append(page.getId()); //$NON-NLS-1$
-							loggerMessage
-									.append(" is not an overview page. Only overview pages are allowed to index 0"); //$NON-NLS-1$
+                            loggerMessage.append(" is not an overview page. Only overview pages are allowed to index 0"); //$NON-NLS-1$
 
-							ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, loggerMessage.toString(),
-									null);
+                            ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, loggerMessage.toString(), null);
                         }
                     }
                 } else {
@@ -256,26 +250,92 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
                     // different from 0, we stop.
                     break;
                 }
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 // Unknown errors from contributions
                 StringBuilder loggerMessage = new StringBuilder("ActivityExplorerEditor.addOverviewPage(..) _ "); //$NON-NLS-1$
                 loggerMessage.append("An error was occured at the evaluation of the predicat of page ") //$NON-NLS-1$
                         .append(page.getId());
                 loggerMessage.append(". Refer to the exception stack for more details"); //$NON-NLS-1$
-
                 ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, loggerMessage.toString(), e);
             }
         }
 
-        // Add the overview page
-        if (overviewPage != null) {
-            overviewPage.initialize(this);
-        } else {
-            // default page
-            overviewPage = new OverviewActivityExplorerPage(this);
+        if (overviewPage == null) {
+            Session session = getEditorInput().getSession();
+            if (session != null) {
+                overviewPage = new OverviewActivityExplorerPage(this);
+            } else {
+                setMessagePage(createNullSessionPage());
+            }
         }
 
-        addPage(overviewPage);
+        // Initialize and add the overview page
+        if (overviewPage != null) {
+            overviewPage.initialize(this);
+            addPage(overviewPage);
+        }
+    }
+
+    protected IFormPage createNullSessionPage() {
+        return new MessagePage(this, "Authentication failed!\nContent access has failed at session opening, you can try to open session.", "Message");
+    }
+
+    protected IFormPage getMessagePage() {
+        return messagePage;
+    }
+
+    protected void setMessagePage(IFormPage messagePage) {
+        if (!isDisposed()) {
+            // Remove old message page if present
+            if (this.messagePage != null) {
+                int pageIndex = this.messagePage.getIndex();
+                /*
+                 * !! Important Note !! Before removing the page, get it's selectable user interface and set page
+                 * control to null. The page control will not be disposed in MultiPageEditorPart#removePage(int).
+                 */
+                if (pageIndex >= 0 && pageIndex < pages.size()) {
+                    CTabItem item = ((CTabFolder) getContainer()).getItem(pageIndex);
+                    if (item != null) {
+                        item.setControl(null);
+                    }
+                }
+                // Call remove page
+                removePage(pageIndex);
+            }
+
+            // Add new message page if not null
+            if (messagePage != null) {
+                try {
+                    addPage(messagePage);
+                    if (getActivePage() == -1) {
+                        setActivePage(0);
+                    }
+                } catch (PartInitException ex) {
+                    ActivityExplorerLoggerService.getInstance().log(IStatus.ERROR, ex.getMessage(), ex);
+                }
+            }
+        }
+        this.messagePage = messagePage;
+    }
+
+    protected synchronized void finishCreatePages() {
+        if (!isDisposed() && getMessagePage() != null) {
+            // Remove previously displayed message page
+            setMessagePage(null);
+
+            // Try to create actual pages
+            createPages();
+
+            // Activate first page if no other page is already active
+            if (getActivePage() == -1) {
+                setActivePage(0);
+            }
+        }
+
+    }
+
+    protected boolean isDisposed() {
+        return pages == null;
     }
 
     /**
@@ -327,8 +387,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
                 _propertySheetPage.dispose();
                 _propertySheetPage = null;
             }
-            // Unregister Sirius session listener.
-            unregisterSession();
+
             // Remove part listener.
             if (null != _partListener) {
                 editorSite.getPage().removePartListener(_partListener);
@@ -343,7 +402,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
         if (null != getEditorInput()) {
             getEditorInput().dispose();
         }
-
     }
 
     /**
@@ -351,8 +409,8 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      */
     @Override
     public void doSave(IProgressMonitor monitor) {
-    	// Ignore. This method is not called because ActivityExplorerEditor implements ISaveablesSource.
-    	// All saves will go through the ISaveablesSource / Saveable protocol.
+        // Ignore. This method is not called because ActivityExplorerEditor implements ISaveablesSource.
+        // All saves will go through the ISaveablesSource / Saveable protocol.
     }
 
     /**
@@ -361,8 +419,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      */
     private String getBundleId(Object obj) {
         Bundle bundle = FrameworkUtil.getBundle(obj.getClass());
-    if (bundle != null)
-    {
+        if (bundle != null) {
             return bundle.getSymbolicName();
         }
         return obj.getClass().getCanonicalName();
@@ -394,7 +451,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      * {@inheritDoc}
      */
     public String getContributorId() {
-        return getSite().getId();// PROPERTIES_CONTRIBUTOR;
+        return getSite().getId();
     }
 
     /**
@@ -452,25 +509,12 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     }
 
     /**
-	 * @see org.eclipse.ui.forms.editor.FormEditor#init(org.eclipse.ui.IEditorSite,
-	 *      org.eclipse.ui.IEditorInput)
+     * @see org.eclipse.ui.forms.editor.FormEditor#init(org.eclipse.ui.IEditorSite, org.eclipse.ui.IEditorInput)
      */
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-
-        /*
-		 * TODO Delete
-		 *
-		IStatus status = ((ActivityExplorerEditorInput) input).getStatus();
-		if (!status.isOK()) {
-			throw new PartInitException(status);
-		}
-         */
-
         super.init(site, input);
-
         getEditorSite().getPage().addPartListener(_partListener);
-
     }
 
     /**
@@ -478,13 +522,13 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      */
     @Override
     public boolean isDirty() {
-    	Saveable[] saveables = getSaveables();
-		for (Saveable saveable : saveables) {
-			if (saveable.isDirty()) {
-				return true;
-			}
-		}
-		return false;
+        Saveable[] saveables = getSaveables();
+        for (Saveable saveable : saveables) {
+            if (saveable.isDirty()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -497,35 +541,12 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     }
 
     /**
-     * Unregister the session listener and set the session to <code>null</code>.
-     */
-    private void unregisterSession() {
-        ActivityExplorerEditorInput editorInput = getEditorInput();
-        if (null != editorInput) {
-            Session session = editorInput.getSession();
-            if (null != session) {
-                session = null;
-            }
-        }
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
     public Image getTitleImage() {
         ILabelDecorator decorator = PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator();
-        Image decoratedImage = decorator.decorateImage(super.getTitleImage(), getEditorInput().getSession());
-
-        return decoratedImage;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setTitleImage(Image titleImage) {
-        super.setTitleImage(titleImage);
+        return decorator.decorateImage(super.getTitleImage(), getEditorInput().getSession());
     }
 
     private int addNewPage(IFormPage page) {
@@ -550,7 +571,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      * @param current
      * @return the previous page or null
      */
-    @SuppressWarnings("unchecked")
     public IFormPage getPreviousPage(IFormPage current) {
         IFormPage previousPage = null;
         int i = pages.indexOf(current);
@@ -572,7 +592,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      * @param current
      * @return the next page or null
      */
-    @SuppressWarnings("unchecked")
     public IFormPage getNextPage(IFormPage current) {
         IFormPage nextPage = null;
         int i = pages.indexOf(current);
@@ -630,36 +649,33 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     public void propertyChange(org.eclipse.jface.util.PropertyChangeEvent event) {
         String property = event.getProperty();
         boolean value = (Boolean.valueOf(event.getNewValue().toString()));
-        if (doPropertyChange(event, value, property)) {
-            if (ActivityExplorerManager.INSTANCE.getEditor() != null) {
-                ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance().getManagedForm().reflow(true);
-            }
+        if (doPropertyChange(event, value, property) && ActivityExplorerManager.INSTANCE.getEditor() != null) {
+            ActivityExplorerManager.INSTANCE.getEditor().getActivePageInstance().getManagedForm().reflow(true);
         }
 
     }
 
     @Override
-    public void executeRequest(int request, Session session) {
+    public void executeRequest(int request, Session newSession) {
 
         ActivityExplorerEditorInput editorInput = getEditorInput();
 
         if (editorInput != null) {
-            Session session2 = editorInput.getSession();
+            Session session = editorInput.getSession();
             switch (request) {
             case SessionListener.CLOSING:
-                if (session2 != null && session2.equals(session)) {
+                if (session != null && session.equals(newSession)) {
                     Runnable runnable = new Runnable() {
                         public void run() {
                             close(false);
-							ActivityExplorerManager.INSTANCE
-									.removeActivityExplorerEditorListener(ActivityExplorerEditor.this);
+                            ActivityExplorerManager.INSTANCE.removeActivityExplorerEditorListener(ActivityExplorerEditor.this);
                         }
                     };
                     run(runnable);
                 }
                 break;
             case SessionListener.SELECTED_VIEWS_CHANGE_KIND:
-                if (session2 != null && session2.equals(session) && session.isOpen()) {
+                if (session != null && session.equals(newSession) && newSession.isOpen()) {
                     Runnable runnable = new Runnable() {
                         public void run() {
                             updateEditorPages();
@@ -669,22 +685,31 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
                 }
                 break;
             case SessionListener.REPRESENTATION_CHANGE:
-                if (session2 != null && session2.equals(session) && session.isOpen()) {
+                if (session != null && session.equals(newSession) && newSession.isOpen()) {
                     _editorDirtyStateChanged();
                 }
                 break;
             case SessionListener.OPENED:
+                if (newSession != null && newSession.equals(session)) {
+                    Runnable runnable = new Runnable() {
+                        public void run() {
+                            setPartName(getPartName());
+                            finishCreatePages();
+                        }
+                    };
+                    run(runnable);
+                }
                 break;
             case SessionListener.DIRTY:
             case SessionListener.SYNC:
             case SessionListener.SEMANTIC_CHANGE: // Listening to changes to
                                                   // mark
-                if (session2 != null && session2.equals(session) && session.isOpen()) {
+                if (session != null && session.equals(newSession) && newSession.isOpen()) {
                     _editorDirtyStateChanged();
                 }
                 break;
             case SessionListener.REPLACED:
-                if (session2 != null && session2.equals(session) && session.isOpen()) {
+                if (session != null && session.equals(newSession) && newSession.isOpen()) {
                     _editorDirtyStateChanged();
                 }
                 break;
@@ -736,11 +761,10 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
             IEditingSession uiSession = SessionUIManager.INSTANCE.getOrCreateUISession(session);
             if (uiSession instanceof ISaveablesSource) {
                 return (ISaveablesSource) uiSession;
-            } else {
-                // IEditingSession instance does not implement ISaveablesSource.
-                throw new ClassCastException(String.format(Messages.ActivityExplorerEditor_IEditingSessionRetrieval_ShouldAlsoImplementISaveablesSource, IEditingSession.class.getSimpleName(),
-                        ISaveablesSource.class.getSimpleName()));
             }
+            // IEditingSession instance does not implement ISaveablesSource.
+            throw new ClassCastException(String.format(Messages.ActivityExplorerEditor_IEditingSessionRetrieval_ShouldAlsoImplementISaveablesSource, IEditingSession.class.getSimpleName(),
+                    ISaveablesSource.class.getSimpleName()));
         }
         return null;
     }

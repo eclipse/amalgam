@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2016 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2018 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,203 +41,202 @@ import org.eclipse.ui.part.FileEditorInput;
  */
 public class ActivityExplorerEditorInput extends FileEditorInput implements IEditorInput, IPersistableElement {
 
-	/**
-	 * File linked to this activity explorer.
-	 */
-	private static final String ACTIVITY_EXPLORER_FILE = "activityExplorerFile"; //$NON-NLS-1$
-	
+    /**
+     * File linked to this activity explorer.
+     */
+    private static final String ACTIVITY_EXPLORER_FILE = "activityExplorerFile"; //$NON-NLS-1$
 
-	/**
-	 * status of the input FIXME why this is added here?
-	 */
-	@Deprecated
-	private IStatus _status;
-	
-	public ActivityExplorerEditorInput(IFile file) {
-		super(file);
-		loadState(getFile());
-	}
+    /**
+     * status of the input FIXME why this is added here?
+     */
+    @Deprecated
+    private IStatus _status;
 
-	@Deprecated
-	public ActivityExplorerEditorInput(Session session, EObject eObject) {
-		this(SessionHelper.getFirstAnalysisFile((DAnalysisSession) session));
-	}
-	
+    public ActivityExplorerEditorInput(IFile file) {
+        super(file);
+        loadState(getFile());
+    }
 
-	/**
-	 * Dispose.
-	 */
-	public void dispose() {
-		// Nothing to do
-	}
+    @Deprecated
+    public ActivityExplorerEditorInput(Session session, EObject eObject) {
+        this(SessionHelper.getFirstAnalysisFile((DAnalysisSession) session));
+    }
 
-	/**
-	 * @see org.eclipse.ui.IEditorInput#exists()
-	 */
-	@Override
-	public boolean exists() {
-		Session session = this.getSession();
-		return super.exists() && (session != null) && (session.isOpen());
-	}
+    /**
+     * Dispose.
+     */
+    public void dispose() {
+        // Nothing to do
+    }
 
-	/**
-	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
-	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Object getAdapter(Class adapter_p) {
-		if (adapter_p == Session.class) {
-			IPath path = getFile().getFullPath();
-			URI uri = URI.createPlatformResourceURI(path.toString(), true);
-			Session session = SessionManager.INSTANCE.getExistingSession(uri);
-			return session;
-		}
-		if ((null != _status) && (adapter_p == IStatus.class)) {
-			return _status;
-		}
-		return super.getAdapter(adapter_p);
-	}
+    /**
+     * @see org.eclipse.ui.IEditorInput#exists()
+     */
+    @Override
+    public boolean exists() {
+        Session session = this.getSession();
+        return super.exists() && (session != null) && (session.isOpen());
+    }
 
-	/**
-	 * @see org.eclipse.ui.IPersistableElement#getFactoryId()
-	 */
-	public String getFactoryId() {
-		return ActivityExplorerEditorInputFactory.ID;
-	}
+    /**
+     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public Object getAdapter(Class adapter_p) {
+        if (adapter_p == Session.class) {
+            IPath path = getFile().getFullPath();
+            URI uri = URI.createPlatformResourceURI(path.toString(), true);
+            Session session = SessionManager.INSTANCE.getExistingSession(uri);
+            return session;
+        }
+        if ((null != _status) && (adapter_p == IStatus.class)) {
+            return _status;
+        }
+        return super.getAdapter(adapter_p);
+    }
 
-	/**
-	 * @see org.eclipse.ui.IEditorInput#getImageDescriptor()
-	 */
-	public ImageDescriptor getImageDescriptor() {
-		return null;
-	}
+    /**
+     * @see org.eclipse.ui.IPersistableElement#getFactoryId()
+     */
+    public String getFactoryId() {
+        return ActivityExplorerEditorInputFactory.ID;
+    }
 
-	/**
-	 * Return the UI representation of current handled model.
-	 * 
-	 * @return
-	 */
-	@Deprecated
-	public String getModelUiName() {
-		String result = ""; //$NON-NLS-1$
-		EObject project = getRootSemanticElement();
-		if (null != project) {
-			result = EObjectLabelProviderHelper.getText(project);
-		}
-		return result;
-	}
+    /**
+     * @see org.eclipse.ui.IEditorInput#getImageDescriptor()
+     */
+    public ImageDescriptor getImageDescriptor() {
+        return null;
+    }
 
-	/**
-	 * Get the underlying project.
-	 * 
-	 * @return the project
-	 */
-	@Deprecated
-	public EObject getRootSemanticElement() {
-		EObject result = null;
-		String path = null;
-		try {
-			IFile file = getFile();
-			path = file.getFullPath().toString();
-			String defaultCharset = null;
-			defaultCharset = System.getProperty("file.encoding"); //$NON-NLS-1$
-			defaultCharset = defaultCharset != null && defaultCharset.isEmpty()? defaultCharset:"UTF-8"; //$NON-NLS-1$
-			path = URLDecoder.decode(path, defaultCharset);
-			URI uri = URI.createPlatformResourceURI(path, true);
-			Session session = SessionManager.INSTANCE.getExistingSession(uri);
-			result = getRootSemanticElement(session);
-		} catch (UnsupportedEncodingException e) {
-			ActivityExplorerLoggerService.getInstance().log(new Status(IStatus.ERROR, ActivityExplorerActivator.ID, 
-					"Could not find the resource " + path + ". See the error log for more details", e)); //$NON-NLS-1$
-		}
-		return result;
-	}
+    /**
+     * Return the UI representation of current handled model.
+     * 
+     * @return
+     */
+    @Deprecated
+    public String getModelUiName() {
+        String result = ""; //$NON-NLS-1$
+        EObject project = getRootSemanticElement();
+        if (null != project) {
+            result = EObjectLabelProviderHelper.getText(project);
+        } else if (getFile() != null) {
+            String fileExtension = getFile().getFileExtension();
+            String fileName = getFile().getName();
+            result = fileName.substring(0, fileName.indexOf(fileExtension) - 1);
+        }
+        return result;
+    }
 
-	/**
-	 * @see org.eclipse.ui.IEditorInput#getName()
-	 */
-	public String getName() {
-		return getModelUiName();
-	}
+    /**
+     * Get the underlying project.
+     * 
+     * @return the project
+     */
+    @Deprecated
+    public EObject getRootSemanticElement() {
+        EObject result = null;
+        String path = null;
+        try {
+            IFile file = getFile();
+            path = file.getFullPath().toString();
+            String defaultCharset = null;
+            defaultCharset = System.getProperty("file.encoding"); //$NON-NLS-1$
+            defaultCharset = defaultCharset != null && defaultCharset.isEmpty() ? defaultCharset : "UTF-8"; //$NON-NLS-1$
+            path = URLDecoder.decode(path, defaultCharset);
+            URI uri = URI.createPlatformResourceURI(path, true);
+            Session session = SessionManager.INSTANCE.getExistingSession(uri);
+            result = getRootSemanticElement(session);
+        } catch (UnsupportedEncodingException e) {
+            ActivityExplorerLoggerService.getInstance().log(new Status(IStatus.ERROR, ActivityExplorerActivator.ID, "Could not find the resource " + path + ". See the error log for more details", e)); //$NON-NLS-1$
+        }
+        return result;
+    }
 
-	/**
-	 * @see org.eclipse.ui.IEditorInput#getPersistable()
-	 */
-	public IPersistableElement getPersistable() {
-		return this;
-	}
+    /**
+     * @see org.eclipse.ui.IEditorInput#getName()
+     */
+    public String getName() {
+        return getModelUiName();
+    }
 
-	/**
-	 * Get the underlying session.
-	 * 
-	 * @return a not <code>null</code> instance.
-	 */
-	// TODO
-	@Deprecated
-	public Session getSession() {
-		return (Session) getAdapter(Session.class);
-	}
+    /**
+     * @see org.eclipse.ui.IEditorInput#getPersistable()
+     */
+    public IPersistableElement getPersistable() {
+        return this;
+    }
 
-	@Deprecated
-	public IStatus getStatus() {
-		return (IStatus) getAdapter(IStatus.class);
-	}
+    /**
+     * Get the underlying session.
+     * 
+     * @return a not <code>null</code> instance.
+     */
+    // TODO
+    @Deprecated
+    public Session getSession() {
+        return (Session) getAdapter(Session.class);
+    }
 
-	/**
-	 * @see org.eclipse.ui.IEditorInput#getToolTipText()
-	 */
-	public String getToolTipText() {
-		return getModelUiName();
-	}
+    @Deprecated
+    public IStatus getStatus() {
+        return (IStatus) getAdapter(IStatus.class);
+    }
 
-	// FIXME be contributive
-	private void loadState(IFile file) {
-		try {
-			Session session = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
-					.getSession(file);
+    /**
+     * @see org.eclipse.ui.IEditorInput#getToolTipText()
+     */
+    public String getToolTipText() {
+        return getModelUiName();
+    }
 
-			// don't open session if already opened (bad performance)
-			if (null == session) {
-				// Instantiate the action responsible for opening a session.
-				org.eclipse.amalgam.explorer.activity.ui.api.actions.OpenSessionAction openSessionAction = new org.eclipse.amalgam.explorer.activity.ui.api.actions.OpenSessionAction();
-				openSessionAction.setRunInProgressService(false);
-				openSessionAction.selectionChanged(new StructuredSelection(file));
+    // FIXME be contributive
+    private void loadState(IFile file) {
+        try {
+            Session session = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper.getSession(file);
 
-				// Open the session.
-				openSessionAction.run();
-				_status = openSessionAction.getStatus();
-				if (_status == null) {
-					_status = Status.OK_STATUS;
-				}
+            // don't open session if already opened (bad performance)
+            if (null == session) {
+                // Instantiate the action responsible for opening a session.
+                org.eclipse.amalgam.explorer.activity.ui.api.actions.OpenSessionAction openSessionAction = new org.eclipse.amalgam.explorer.activity.ui.api.actions.OpenSessionAction();
+                openSessionAction.setRunInProgressService(false);
+                openSessionAction.selectionChanged(new StructuredSelection(file));
 
-				if (_status.isOK()) {
-					session = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper
-							.getSession(file);
-				}
-			}
-			if (null == getRootSemanticElement()) {
-				_status = new Status(IStatus.WARNING, ActivityExplorerActivator.ID, Messages.ActivityExplorerEditor_1);
-			}
-		} catch (Exception e) {
-			_status = new Status(IStatus.ERROR, ActivityExplorerActivator.ID, e.getMessage(), e);
-		}
-	}
+                // Open the session.
+                openSessionAction.run();
+                _status = openSessionAction.getStatus();
+                if (_status == null) {
+                    _status = Status.OK_STATUS;
+                }
 
-	/**
-	 * @see org.eclipse.ui.IPersistable#saveState(org.eclipse.ui.IMemento)
-	 */
-	public void saveState(IMemento memento_p) {
-		memento_p.putString(ACTIVITY_EXPLORER_FILE, getFile().getFullPath().toString());
-	}
+                if (_status.isOK()) {
+                    session = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.SessionHelper.getSession(file);
+                }
+            }
+            if (null == getRootSemanticElement()) {
+                _status = new Status(IStatus.WARNING, ActivityExplorerActivator.ID, Messages.ActivityExplorerEditor_1);
+            }
+        } catch (Exception e) {
+            _status = new Status(IStatus.ERROR, ActivityExplorerActivator.ID, e.getMessage(), e);
+        }
+    }
 
-	/**
-	 * 
-	 * @param session_p
-	 * @return model root of the first semantic resource managed by session_p or null
-	 * 
-	 * @deprecated will be deteled
-	 */
-	@Deprecated
-	public EObject getRootSemanticElement(Session session_p) {
-		return SessionHelper.getRootSemanticModel(session_p);
-	}
+    /**
+     * @see org.eclipse.ui.IPersistable#saveState(org.eclipse.ui.IMemento)
+     */
+    public void saveState(IMemento memento_p) {
+        memento_p.putString(ACTIVITY_EXPLORER_FILE, getFile().getFullPath().toString());
+    }
+
+    /**
+     * 
+     * @param session_p
+     * @return model root of the first semantic resource managed by session_p or null
+     * 
+     * @deprecated will be deteled
+     */
+    @Deprecated
+    public EObject getRootSemanticElement(Session session_p) {
+        return SessionHelper.getRootSemanticModel(session_p);
+    }
 }
