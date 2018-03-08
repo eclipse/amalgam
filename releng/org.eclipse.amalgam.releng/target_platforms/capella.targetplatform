@@ -7,7 +7,7 @@ location "http://download.eclipse.org/releases/neon" {
 	org.junit lazy
 }
 
-location "http://download.eclipse.org/sirius/updates/milestones/5.1.0rc4/neon" {
+location "http://download.eclipse.org/sirius/updates/milestones/5.1.1rc4/neon" {
 	org.eclipse.sirius.runtime.feature.group lazy
 	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
 }
