@@ -10,6 +10,7 @@
       <editor
             class="org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerEditor"
             default="false"
+            matchingStrategy="org.eclipse.amalgam.explorer.activity.ui.api.editor.ActivityExplorerMatchingStrategy"
             icon="icons/full/obj16/menu-overview.gif"
             id="org.eclipse.amalgam.explorer.activity.ui.editor.activityExplorerEditor"
             name="%editor.name">

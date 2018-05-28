@@ -51,6 +51,7 @@ import org.eclipse.ui.Saveable;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.forms.editor.SharedHeaderFormEditor;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
@@ -459,7 +460,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      */
     @Override
     public ActivityExplorerEditorInput getEditorInput() {
-        return (ActivityExplorerEditorInput) super.getEditorInput();
+    	return (ActivityExplorerEditorInput) super.getEditorInput();
     }
 
     /**
@@ -513,7 +514,12 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      */
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-        super.init(site, input);
+    	IEditorInput usedInput = input;
+    	if (usedInput instanceof FileEditorInput && !(usedInput instanceof ActivityExplorerEditorInput) ) {
+    		usedInput = new ActivityExplorerEditorInput(((FileEditorInput)input).getFile());
+    	}
+    	
+        super.init(site, usedInput);
         getEditorSite().getPage().addPartListener(_partListener);
     }
 
