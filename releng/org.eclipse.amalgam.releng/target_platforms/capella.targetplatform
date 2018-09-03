@@ -1,13 +1,13 @@
 target "capella" with source, requirements
 
-location "http://download.eclipse.org/releases/neon" {
+location "http://download.eclipse.org/releases/oxygen" {
 	org.eclipse.platform.feature.group lazy
 	org.eclipse.emf.sdk.feature.group lazy
 	org.eclipse.gmf.feature.group lazy
 	org.junit lazy
 }
 
-location "http://download.eclipse.org/sirius/updates/stable/5.1.2-S20180518-120822/neon" {
+location "http://download.eclipse.org/sirius/updates/stable/6.1.0-S20180831-112606/oxygen" {
 	org.eclipse.sirius.runtime.feature.group lazy
 	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
 }
