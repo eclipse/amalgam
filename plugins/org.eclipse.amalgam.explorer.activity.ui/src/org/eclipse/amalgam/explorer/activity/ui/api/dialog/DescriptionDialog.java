@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2018 THALES GLOBAL SERVICES and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,10 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.dialog;
 
+import java.net.URL;
+import java.text.MessageFormat;
+
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -18,14 +22,20 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
+import org.eclipse.ui.forms.HyperlinkGroup;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
+import org.eclipse.ui.statushandlers.StatusManager;
 
 /**
  * Dialog that opens a popup dialog to display content in a {@link FormText}.
@@ -127,12 +137,36 @@ public class DescriptionDialog extends PopupDialog {
 
 		FormText richText = org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper.createRichText(
 				_toolkit, form.getBody(), _content, null);
+		configureHyperLinkSupport(richText, form);
 		TableWrapData layoutData = new TableWrapData();
 		layoutData.maxWidth = 400;
 		richText.setLayoutData(layoutData);
 		return _composite;
 	}
 
+	private void configureHyperLinkSupport(FormText richText, ScrolledForm form) {
+		Display disaply = form.getDisplay();
+		HyperlinkGroup group = new HyperlinkGroup(disaply);
+		group.setForeground(disaply.getSystemColor(SWT.COLOR_BLUE));
+		group.setActiveForeground(disaply.getSystemColor(SWT.COLOR_BLUE));
+		richText.setHyperlinkSettings(group);
+		richText.addHyperlinkListener(new HyperlinkAdapter() {
+			public void linkActivated(HyperlinkEvent e) {
+				String href = (String) e.getHref();
+				if (href.startsWith("http")) {
+					int browserStyle = IWorkbenchBrowserSupport.LOCATION_BAR | IWorkbenchBrowserSupport.AS_EXTERNAL | IWorkbenchBrowserSupport.STATUS | IWorkbenchBrowserSupport.NAVIGATION_BAR;
+					IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
+					try {
+						browserSupport.createBrowser(browserStyle, null, null, null).openURL(new URL(href));
+					} catch (Exception ex) {
+						Status status = new Status(Status.ERROR, null, MessageFormat.format(Messages.DescriptionDialog_exernal_browser_error, ex.getMessage()), ex);
+						StatusManager.getManager().handle(status, StatusManager.SHOW);
+					}
+				}
+			}
+		});
+	}
+    
 	/**
 	 * @see org.eclipse.jface.dialogs.PopupDialog#getFocusControl()
 	 */
