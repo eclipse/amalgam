@@ -88,7 +88,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
     public ActivityExplorerEditor() {
         ActivityExplorerManager.INSTANCE.setEditor(this);
-        ActivityExplorerManager.INSTANCE.addActivityExplorerEditorListener(this);
         _partListener = new ActivityExplorerEditorPartListener(this);
     }
 
@@ -513,15 +512,20 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      * @see org.eclipse.ui.forms.editor.FormEditor#init(org.eclipse.ui.IEditorSite, org.eclipse.ui.IEditorInput)
      */
     @Override
-    public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-    	IEditorInput usedInput = input;
-    	if (usedInput instanceof FileEditorInput && !(usedInput instanceof ActivityExplorerEditorInput) ) {
-    		usedInput = new ActivityExplorerEditorInput(((FileEditorInput)input).getFile());
-    	}
-    	
-        super.init(site, usedInput);
-        getEditorSite().getPage().addPartListener(_partListener);
-    }
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		IEditorInput usedInput = input;
+		if (usedInput instanceof FileEditorInput && !(usedInput instanceof ActivityExplorerEditorInput)) {
+			usedInput = new ActivityExplorerEditorInput(((FileEditorInput) input).getFile());
+		}
+
+		super.init(site, usedInput);
+		getEditorSite().getPage().addPartListener(_partListener);
+		
+		// Bug 539949: Activity Explorer session listener should be added here after the
+		// initialization of ActivityExplorerEditorInput. Otherwise, it can be removed
+		// by the method executeRequest() and the Editor is left without any listener.
+		ActivityExplorerManager.INSTANCE.addActivityExplorerEditorListener(this);
+	}
 
     /**
      * {@inheritDoc}
