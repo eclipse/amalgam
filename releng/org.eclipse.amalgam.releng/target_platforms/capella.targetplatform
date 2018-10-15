@@ -7,7 +7,7 @@ location "http://download.eclipse.org/releases/oxygen" {
 	org.junit lazy
 }
 
-location "http://download.eclipse.org/sirius/updates/milestones/6.1.0M4/oxygen" {
+location "http://download.eclipse.org/sirius/updates/milestones/6.1.0M5/oxygen" {
 	org.eclipse.sirius.runtime.feature.group lazy
 	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
 }
