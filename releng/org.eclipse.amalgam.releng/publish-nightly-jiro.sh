@@ -88,7 +88,7 @@ create_redirect() {
     FROM="$1"
     TO="$2"
 
-    mkdir -p "$FROM"
+    ssh "$SSH_ACCOUNT" mkdir -p "$FROM"
     cat > compositeArtifacts.xml <<EOF
 <?xml version='1.0' encoding='UTF-8'?>
 <?compositeArtifactRepository version='1.0.0'?>
