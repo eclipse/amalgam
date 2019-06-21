@@ -41,7 +41,7 @@ export BUILD_TYPE_PREFIX="N"
 export SSH_ACCOUNT="genie.amalgam@projects-storage.eclipse.org"
 
 # The root folder for all promoted udpate sites
-export SIRIUS_UPDATES_ROOT="/home/data/httpd/download.eclipse.org/modeling/amalgam/staging/"
+export SIRIUS_UPDATES_ROOT="/home/data/httpd/download.eclipse.org/modeling/amalgam/updates/"
 
 # Streams are of the form 1.0.x: only keep major and minor version number parts
 export STREAM=$(echo "$VERSION" | sed -r -e 's/^([0-9]+\.[0-9]+\.).*$/\1x/')
