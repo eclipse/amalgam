@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.internal.viewer.diagram.actions;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.ecore.EObject;
@@ -24,6 +27,9 @@ import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.common.tools.api.interpreter.EvaluationException;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreter;
 import org.eclipse.sirius.common.tools.api.util.StringUtil;
+import org.eclipse.sirius.diagram.DDiagram;
+import org.eclipse.sirius.diagram.description.Layer;
+import org.eclipse.sirius.diagram.description.filter.FilterDescription;
 import org.eclipse.sirius.table.metamodel.table.description.CrossTableDescription;
 import org.eclipse.sirius.table.metamodel.table.description.EditionTableDescription;
 import org.eclipse.sirius.table.metamodel.table.provider.TableUIPlugin;
@@ -50,6 +56,8 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 
 	protected boolean forceDefaultName;
 	protected boolean openRepresentation;
+  protected final Collection<Layer> extraLayers;
+  private Collection<FilterDescription> extraFilters;
 
 	/**
 	 * Constructs an action allowing to create new representations.
@@ -65,6 +73,11 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 		this(description, selectedEObject, session, false, true);
 	}
 
+	public NewRepresentationAction(RepresentationDescription description, EObject selectedEObject,
+      Session session, boolean forceDefaultName, boolean openRepresentation) {
+	  this(description, selectedEObject, session, forceDefaultName, openRepresentation, Collections.emptyList(), Collections.emptyList());
+	}
+	
 	/**
 	 * Constructs an action allowing to create new representations.
 	 * 
@@ -76,9 +89,11 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 	 *            The current session.
 	 * @param forceDefaultName
 	 * @param openRepresentation
+	 * @param extraLayers
+	 * @param extraFilters
 	 */
 	public NewRepresentationAction(RepresentationDescription description, EObject selectedEObject,
-			Session session, boolean forceDefaultName, boolean openRepresentation) {
+			Session session, boolean forceDefaultName, boolean openRepresentation, Collection<Layer> extraLayers, Collection<FilterDescription> extraFilters) {
 		super(description.getName());
 		String label = description.getLabel();
 		if ((null != label) && (label.length() > 1)) {
@@ -108,6 +123,8 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 		this.session = session;
 		this.forceDefaultName = forceDefaultName;
 		this.openRepresentation = openRepresentation;
+		this.extraLayers = extraLayers;
+		this.extraFilters = extraFilters;
 	}
 
 	/**
@@ -141,7 +158,7 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 		// Do not call ToggleCanonicalRefresh anymore since DoReMi 4.18.
 		// Executes the NewRepresentationCommand.
 		NewRepresentationCommand command = new NewRepresentationCommand(defaultName, selectedEObject, description,
-				session);
+				session, extraLayers, extraFilters);
 		TransactionUtil.getEditingDomain(selectedEObject).getCommandStack().execute(command);
 
 		if (null != command.getRepresentation()) {
@@ -188,6 +205,8 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 		private EObject eObject;
 		private RepresentationDescription repDescription;
 		private Session currentSession;
+    private Collection<Layer> extraLayers;
+    private Collection<FilterDescription> extraFilters;
 
 		/**
 		 * Constructs the command allowing to create a new representation.
@@ -200,14 +219,18 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 		 *            The current representation description.
 		 * @param session
 		 *            The current session.
+		 * @param extraLayers
+		 *            Extra layers to activate on the new representation
 		 */
 		public NewRepresentationCommand(String newName, EObject eObject,
-				RepresentationDescription repDescription, Session session) {
+				RepresentationDescription repDescription, Session session, Collection<Layer> extraLayers, Collection<FilterDescription> extraFilters) {
 			super(TransactionUtil.getEditingDomain(eObject));
 			this.newName = newName;
 			this.eObject = eObject;
 			this.repDescription = repDescription;
 			this.currentSession = session;
+			this.extraLayers = extraLayers;
+			this.extraFilters = extraFilters;
 		}
 
 		/**
@@ -249,6 +272,12 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 
 			representation = DialectManager.INSTANCE.createRepresentation(newName, eObject, repDescription,
 					currentSession, monitor);
+
+			if (representation instanceof DDiagram) {
+			  ((DDiagram) representation).getActivatedLayers().addAll(extraLayers);
+			  ((DDiagram) representation).getActivatedFilters().addAll(extraFilters);
+			}
+
 		}
 	}
 }

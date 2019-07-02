@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -23,6 +24,10 @@ import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.sirius.business.api.dialect.DialectManager;
 import org.eclipse.sirius.business.api.session.Session;
+import org.eclipse.sirius.diagram.business.api.componentization.DiagramComponentizationManager;
+import org.eclipse.sirius.diagram.description.DiagramDescription;
+import org.eclipse.sirius.diagram.description.Layer;
+import org.eclipse.sirius.diagram.description.filter.FilterDescription;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
@@ -58,12 +63,15 @@ public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperli
 					EObject modelElement = project;
 					RepresentationDescription diagramRepresentation = getDiagramRepresentation(session, modelElement);
 					// Preconditions
+
 					if ((null == diagramRepresentation)
 							|| !DialectManager.INSTANCE.canCreate(modelElement, diagramRepresentation)) {
 						flag[0] = false;
 					} else {
+					  Collection<Layer> layers = getExtraLayers(session, diagramRepresentation);
+					  Collection<FilterDescription> filters = getExtraFilters(session, diagramRepresentation);
 						NewRepresentationAction newDiagramAction = new NewRepresentationAction(diagramRepresentation,
-								modelElement, session);
+								modelElement, session, false, true, layers, filters);
 						newDiagramAction.run();
 					}
 				}
@@ -136,6 +144,46 @@ public abstract class AbstractNewDiagramHyperlinkAdapter extends AbstractHyperli
 	 * @return the representation name of the diagram created
 	 */
 	public abstract String getRepresentationName();
+
+	private Collection<Layer> getExtraLayers(Session session, RepresentationDescription desc){
+	  Collection<Layer> extra = new ArrayList<>();
+	  if (desc instanceof DiagramDescription)
+	    for (Layer l : new DiagramComponentizationManager().getAllLayers(session.getSelectedViewpoints(false), (DiagramDescription) desc)) {
+	      if(getExtraLayerNames().contains(l.getName())){
+	        extra.add(l);
+	      }
+	    }
+	  return extra;
+	}
+
+	private Collection<FilterDescription> getExtraFilters(Session session,
+	    RepresentationDescription desc) {
+	  Collection<FilterDescription> extra = new ArrayList<>();
+	  if (desc instanceof DiagramDescription) {
+	    for (FilterDescription d : ((DiagramDescription) desc).getFilters()) {
+	      if(getExtraFilterNames().contains(d.getName())){
+	        extra.add(d);
+	      }
+	    }
+	  }
+	  return extra;
+	}
+
+	/**
+	 * A collection of layer names that should be activated on the new diagram, in addition to the default layers.
+	 * @return
+	 */
+	protected Collection<String> getExtraLayerNames(){
+	  return Collections.emptyList();
+	}
+
+	/**
+   * A collection of filter names that should be activated on the new diagram, in addition to the default filters.
+   * @return
+   */
+	protected Collection<String> getExtraFilterNames(){
+	  return Collections.emptyList();
+	}
 
 	/**
 	 * @see org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter.IRepresentationProvider#getRepresentationNames()
