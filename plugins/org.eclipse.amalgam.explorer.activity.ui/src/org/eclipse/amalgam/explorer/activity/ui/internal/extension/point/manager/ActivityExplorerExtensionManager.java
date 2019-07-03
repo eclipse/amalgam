@@ -151,7 +151,7 @@ public class ActivityExplorerExtensionManager {
 		StringBuilder message = new StringBuilder();
 		message.append("ActivityExplorerExtensionManager.accept(...) _ "); //$NON-NLS-1$
 		message.append("The page "); //$NON-NLS-1$
-		message.append(page.getId()); //$NON-NLS-1$
+		message.append(page.getId());
 		message.append(" has negatif index. "); //$NON-NLS-1$
 		message.append("Only pages win an index upper or equal to zero are allowed"); //$NON-NLS-1$
 		
@@ -287,9 +287,9 @@ public class ActivityExplorerExtensionManager {
 	    	  
 	    	  StringBuilder message = new StringBuilder();
 			  message.append("ActivityExplorerExtensionManager.getAllPages(...) _ "); //$NON-NLS-1$
-			  message.append("Unknown error occurred from contribution ");
+			  message.append("Unknown error occurred from contribution "); //$NON-NLS-1$
 			  message.append(getId(page));
-		 	  message.append(". See the exception stack for more details");
+		 	  message.append(". See the exception stack for more details"); //$NON-NLS-1$
 		 	  
 		 	 ActivityExplorerLoggerService.getInstance().log(IStatus.WARNING, message.toString(), e);
 			  
@@ -339,12 +339,12 @@ public class ActivityExplorerExtensionManager {
     if (element.getName().equals(PAGE))
       att = ATT_TITLE;
     String name = element.getAttribute(att);
-    return name == null ? ActivityExplorerConstants.NO_NAME : name;
+    return name == null ? ActivityExplorerConstants.NO_NAME : Platform.getResourceString(Platform.getBundle(element.getContributor().getName()), name);
   }
 
   public static String getTitle(IConfigurationElement element) {
     String title = element.getAttribute(ATT_TITLE);
-    return title == null ? ActivityExplorerConstants.NO_TITLE : title;
+    return title == null ? ActivityExplorerConstants.NO_TITLE : Platform.getResourceString(Platform.getBundle(element.getContributor().getName()), title);
   }
 
   public static String getTabName(IConfigurationElement element) {
