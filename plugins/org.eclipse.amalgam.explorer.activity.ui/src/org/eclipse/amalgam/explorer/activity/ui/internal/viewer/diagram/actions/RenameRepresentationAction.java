@@ -20,7 +20,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.sirius.common.tools.api.util.StringUtil;
 import org.eclipse.sirius.common.ui.tools.api.dialog.RenameDialog;
-import org.eclipse.sirius.viewpoint.DRepresentation;
 import org.eclipse.sirius.viewpoint.DRepresentationDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -46,18 +45,17 @@ public class RenameRepresentationAction extends BaseSelectionListenerAction {
 	@Override
 	public void run() {
 		// Gets all the selected representations.
-		List<DRepresentation> representations = new ArrayList<DRepresentation>();
+		List<DRepresentationDescriptor> representations = new ArrayList<DRepresentationDescriptor>();
 		IStructuredSelection structuredSelection = getStructuredSelection();
 		for (Iterator<?> iterator = structuredSelection.iterator(); iterator.hasNext();) {
 			Object selectedObject = iterator.next();
 			if (selectedObject instanceof DRepresentationDescriptor) {
-				DRepresentation representation = ((DRepresentationDescriptor)selectedObject).getRepresentation();
-				representations.add((DRepresentation) representation);
+        representations.add((DRepresentationDescriptor) selectedObject);
 			}
 		}
 
 		// Parses the selected representations and rename them.
-		for (DRepresentation representation : representations) {
+		for (DRepresentationDescriptor representation : representations) {
 			final String oldName = (representation.getName() != null) ? representation.getName()
 					: StringUtil.EMPTY_STRING;
 			// To provide a title we need sub-classing the RenameDialog.
@@ -101,7 +99,7 @@ public class RenameRepresentationAction extends BaseSelectionListenerAction {
 		// The new name to apply.
 		private String _name;
 		// The selected representation.
-		private DRepresentation _representation;
+		private DRepresentationDescriptor _representation;
 
 		/**
 		 * Constructs the command allowing to rename the selected
@@ -112,7 +110,7 @@ public class RenameRepresentationAction extends BaseSelectionListenerAction {
 		 * @param name_p
 		 *            The new name to apply.
 		 */
-		public RenameRepresentationCommand(DRepresentation representation_p, String name_p) {
+		public RenameRepresentationCommand(DRepresentationDescriptor representation_p, String name_p) {
 			super(TransactionUtil.getEditingDomain(representation_p));
 			_name = name_p;
 			_representation = representation_p;
@@ -121,7 +119,6 @@ public class RenameRepresentationAction extends BaseSelectionListenerAction {
 		/**
 		 * @see java.lang.Runnable#run()
 		 */
-
 		@Override
 		protected void doExecute() {
 			_representation.setName(_name);
