@@ -7,7 +7,7 @@ location "http://download.eclipse.org/releases/2019-06/201906191000" {
 	org.junit lazy
 }
 
-location "http://download.eclipse.org/sirius/updates/stable/6.3.0-S20190715-160648/2019-06" {
+location "http://download.eclipse.org/sirius/updates/stable/6.3.0-S20190716-100145/2019-06" {
 	org.eclipse.sirius.runtime.feature.group lazy
 	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
 }
