@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2017 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2019 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,6 +35,8 @@ import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IPluginContribution;
+import org.eclipse.ui.activities.WorkbenchActivityHelper;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -45,7 +47,7 @@ import org.eclipse.ui.forms.widgets.Section;
  * 
  *
  */
-public class ActivityExplorerSection implements IVisibility, IOrdered, IPropertyChangeListener {
+public class ActivityExplorerSection implements IVisibility, IOrdered, IPropertyChangeListener, IPluginContribution {
 
 	private static final Pattern P_PATTERN = Pattern.compile("<p>.*</p>"); //$NON-NLS-1$
 
@@ -71,7 +73,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
         }
 		this.isFiltering = ActivityExplorerExtensionManager.getIsFiltering(contributor);
 		createActivities(contributor);
-
+		this.pluginId = contributor.getContributor().getName();
 	}
 
 	/**
@@ -194,6 +196,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	private String description;
 	private IAction[] toolbarActions;
 	private Section widget;
+	private String pluginId;
 
 	/**
 	 * Return true if the section is defined as expanded.
@@ -228,7 +231,8 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 
 	public boolean isVisible() {
 		return ActivityExplorerActivator.getDefault().getPreferenceStore().getBoolean(getId())
-				&& !getVisibleActivities().isEmpty();
+				&& !getVisibleActivities().isEmpty()
+		    && !WorkbenchActivityHelper.filterItem(this);
 	}
 
 	/**
@@ -411,4 +415,14 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 		}
 		// widget.getParent().layout(true, true);
 	}
+
+  @Override
+  public String getLocalId() {
+    return id;
+  }
+
+  @Override
+  public String getPluginId() {
+    return pluginId;
+  }
 }

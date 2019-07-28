@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2019 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,11 +20,13 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IPluginContribution;
+import org.eclipse.ui.activities.WorkbenchActivityHelper;
 import org.eclipse.ui.forms.events.IHyperlinkListener;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ImageHyperlink;
 
-public class ExplorerActivity implements IVisibility, IOrdered {
+public class ExplorerActivity implements IVisibility, IOrdered, IPluginContribution {
 
 	public ExplorerActivity(IConfigurationElement element_p) {
 		name = ActivityExplorerExtensionManager.getName(element_p);
@@ -36,6 +38,7 @@ public class ExplorerActivity implements IVisibility, IOrdered {
 		image = ActivityExplorerExtensionManager.getImage(element_p);
 		id = ActivityExplorerExtensionManager.getId(element_p);
 		predicate = ActivityExplorerExtensionManager.getPredicate(element_p);
+		pluginId = element_p.getContributor().getName();
 	}
 
 	public ExplorerActivity(String id, String name, IHyperlinkListener listener, IPredicate predicate, int index) {
@@ -60,6 +63,7 @@ public class ExplorerActivity implements IVisibility, IOrdered {
 		return listener;
 	}
 
+	private String pluginId;
 	private String id;
 	private String name;
 	private IHyperlinkListener listener;
@@ -85,6 +89,7 @@ public class ExplorerActivity implements IVisibility, IOrdered {
 		if (predicate != null) {
 			result &= predicate.isOk();
 		}
+		result &= !WorkbenchActivityHelper.filterItem(this);
 		return result;
 	}
 
@@ -125,4 +130,14 @@ public class ExplorerActivity implements IVisibility, IOrdered {
 		return new Integer(getPosition()).compareTo(new Integer(arg0.getPosition()));
 
 	}
+
+  @Override
+  public String getLocalId() {
+    return id;
+  }
+
+  @Override
+  public String getPluginId() {
+    return pluginId;
+  }
 }

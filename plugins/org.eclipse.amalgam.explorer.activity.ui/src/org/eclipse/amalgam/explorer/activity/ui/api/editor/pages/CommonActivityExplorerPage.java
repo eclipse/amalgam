@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2017 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2019 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,7 +23,9 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IPluginContribution;
 import org.eclipse.ui.IPropertyListener;
+import org.eclipse.ui.activities.WorkbenchActivityHelper;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -33,7 +35,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 /**
  * Base class to implement ActivityExplorer pages in an {@link ActivityExplorerEditor}.
  */
-public class CommonActivityExplorerPage extends FormPage implements IExecutableExtension, IOrdered, IVisibility, IPropertyListener {
+public class CommonActivityExplorerPage extends FormPage implements IExecutableExtension, IOrdered, IVisibility, IPropertyListener, IPluginContribution {
 
   private boolean overview;
   private Image overviewImageOff;
@@ -42,6 +44,7 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
   private String overviewImageOnPath;
   private String overviewImageOffPath;
   protected IPredicate predicate;
+  protected String pluginId;
 
   public static final int PROP_ACTIVE = 0x185;
 
@@ -118,6 +121,7 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
       setOverviewImageOn(ActivityExplorerActivator.getDefault().getImage(plugin_id, overviewImageOnPath));
 
       setOverViewText(ActivityExplorerExtensionManager.getOverviewDescription(cfig));
+      pluginId = cfig.getContributor().getName();
     }
 
     predicate = ActivityExplorerExtensionManager.getPredicate(cfig);
@@ -181,8 +185,9 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
    */
   @Override
   public boolean isVisible() {
-    boolean result = ActivityExplorerActivator.getDefault().getPreferenceStore().getBoolean(getId());
 
+    boolean result = ActivityExplorerActivator.getDefault().getPreferenceStore().getBoolean(getId());
+    result &= !WorkbenchActivityHelper.filterItem(this);
     if (predicate != null) {
       result &= predicate.isOk();
     }
@@ -243,6 +248,16 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
 
   public void markAsActive() {
     firePropertyChange(PROP_ACTIVE);
+  }
+
+  @Override
+  public String getLocalId() {
+    return getId();
+  }
+
+  @Override
+  public String getPluginId() {
+    return pluginId;
   }
 
 }

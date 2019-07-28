@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006, 2018 THALES GLOBAL SERVICES.
+ * Copyright (c) 2006, 2019 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -48,6 +48,8 @@ import org.eclipse.ui.ISaveablesSource;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.Saveable;
+import org.eclipse.ui.activities.ActivityManagerEvent;
+import org.eclipse.ui.activities.IActivityManagerListener;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.forms.editor.SharedHeaderFormEditor;
@@ -85,6 +87,19 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     private int backToActivePage = 0;
 
     protected IFormPage messagePage;
+
+    private ActivityManagerListener activityManagerListener;
+
+    class ActivityManagerListener
+      implements IActivityManagerListener {
+
+      public void activityManagerChanged(
+          ActivityManagerEvent activityManagerEvent) {
+        if (activityManagerEvent.haveEnabledActivityIdsChanged()) {
+          updateEditorPages();
+        }
+      }
+    }
 
     public ActivityExplorerEditor() {
         ActivityExplorerManager.INSTANCE.setEditor(this);
@@ -371,6 +386,10 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
      */
     @Override
     public void dispose() {
+      if (activityManagerListener != null) {
+        PlatformUI.getWorkbench().getActivitySupport().getActivityManager().removeActivityManagerListener(activityManagerListener);
+        activityManagerListener = null;
+      }
         ActivityExplorerManager.INSTANCE.removeActivityExplorerEditorListener(this);
 
         // Dispose the editor from part listener
@@ -402,6 +421,7 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
         if (null != getEditorInput()) {
             getEditorInput().dispose();
         }
+
     }
 
     /**
@@ -525,6 +545,9 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 		// initialization of ActivityExplorerEditorInput. Otherwise, it can be removed
 		// by the method executeRequest() and the Editor is left without any listener.
 		ActivityExplorerManager.INSTANCE.addActivityExplorerEditorListener(this);
+
+		activityManagerListener = new ActivityManagerListener();
+		PlatformUI.getWorkbench().getActivitySupport().getActivityManager().addActivityManagerListener(activityManagerListener);
 	}
 
     /**
