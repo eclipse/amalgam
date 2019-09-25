@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2016 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2019 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,35 +19,30 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.jface.dialogs.InputDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.sirius.business.api.dialect.DialectManager;
+import org.eclipse.sirius.business.api.query.IdentifiedElementQuery;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.common.tools.api.interpreter.EvaluationException;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreter;
+import org.eclipse.sirius.common.tools.api.util.MessageTranslator;
 import org.eclipse.sirius.common.tools.api.util.StringUtil;
 import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.description.Layer;
 import org.eclipse.sirius.diagram.description.filter.FilterDescription;
-import org.eclipse.sirius.table.metamodel.table.description.CrossTableDescription;
-import org.eclipse.sirius.table.metamodel.table.description.EditionTableDescription;
-import org.eclipse.sirius.table.metamodel.table.provider.TableUIPlugin;
 import org.eclipse.sirius.tools.api.interpreter.IInterpreterMessages;
 import org.eclipse.sirius.tools.api.interpreter.InterpreterUtil;
 import org.eclipse.sirius.ui.business.api.dialect.DialectUIManager;
 import org.eclipse.sirius.viewpoint.DRepresentation;
 import org.eclipse.sirius.viewpoint.SiriusPlugin;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
-import org.eclipse.sirius.viewpoint.provider.SiriusEditPlugin;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * The action allowing to create new representations.
- * 
  */
 public class NewRepresentationAction extends BaseSelectionListenerAction {
 	private EObject selectedEObject;
@@ -94,29 +89,8 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 	 */
 	public NewRepresentationAction(RepresentationDescription description, EObject selectedEObject,
 			Session session, boolean forceDefaultName, boolean openRepresentation, Collection<Layer> extraLayers, Collection<FilterDescription> extraFilters) {
-		super(description.getName());
-		String label = description.getLabel();
-		if ((null != label) && (label.length() > 1)) {
-			setText(label);
-		}
-		ImageDescriptor imageDescriptor = null;
-		// Handle specific diagrams : Table ones.
-		if (description instanceof CrossTableDescription) {
-			imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(TableUIPlugin.ID,
-					"/icons/full/obj16/CrossTableDescription.gif"); //$NON-NLS-1$
-		} else if (description instanceof EditionTableDescription) {
-			imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(TableUIPlugin.ID,
-					"/icons/full/obj16/DTable.gif"); //$NON-NLS-1$
-		} else {
-			// Standard diagram.
-			imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(SiriusEditPlugin.ID,
-					"/icons/full/obj16/DAnalysis.gif"); //$NON-NLS-1$
-		}
-		if (null == imageDescriptor) {
-			imageDescriptor = ImageDescriptor.getMissingImageDescriptor();
-		}
-		setImageDescriptor(imageDescriptor);
-
+	  super(description.getName());
+	  
 		// Registers local fields.
 		this.selectedEObject = selectedEObject;
 		this.description = description;
@@ -136,8 +110,8 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 		String defaultName = computeDefaultName(selectedEObject, description);
 
 		if (!forceDefaultName) {
+		  String label = MessageTranslator.INSTANCE.getMessage(description, new IdentifiedElementQuery(description).getLabel());
 		  
-		  String label = description.getLabel();
 		  if (label == null || label.isEmpty()) {
 	      label = description.getName();
 	    }
@@ -175,12 +149,7 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 		IInterpreter interpreter = InterpreterUtil.getInterpreter(eObject);
 
 		// Computes new representation name.
-		String newName = "New "; //$NON-NLS-1$
-		if (!StringUtil.isEmpty(repDescription.getLabel())) {
-			newName += repDescription.getLabel();
-		} else {
-			newName += repDescription.getName();
-		}
+		String newName = ""; //$NON-NLS-1$
 
 		String titleExpression = repDescription.getTitleExpression();
 		if (!StringUtil.isEmpty(titleExpression)) {
@@ -189,7 +158,11 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 			} catch (EvaluationException e) {
 				SiriusPlugin.getDefault().error(IInterpreterMessages.EVALUATION_ERROR_ON_MODEL_MODIFICATION, e);
 			}
-		}
+		} else if (!StringUtil.isEmpty(repDescription.getLabel())) {
+      newName = "New " + MessageTranslator.INSTANCE.getMessage(description, new IdentifiedElementQuery(repDescription).getLabel());
+    } else {
+      newName = "New " + repDescription.getName();
+    }
 
 		return newName;
 	}
@@ -259,16 +232,8 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 			return representation;
 		}
 
-		/**
-		 * {@inheritDoc}
-		 */
-		@SuppressWarnings("synthetic-access")
 		public void doExecute() {
 			NullProgressMonitor monitor = new NullProgressMonitor();
-			/*
-			 * if (selectedEObject instanceof Scenario) { Scenario scenario =
-			 * (Scenario) selectedEObject; scenario.setName(newName); }
-			 */
 
 			representation = DialectManager.INSTANCE.createRepresentation(newName, eObject, repDescription,
 					currentSession, monitor);
