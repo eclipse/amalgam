@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2017 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2020 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -379,7 +379,7 @@ public class ActivityExplorerPage extends CommonActivityExplorerPage implements 
   protected void handleContributedSectionsFor(IConfigurationElement contributor) {
 
 		  // create a Activity Explorer section
-		  ActivityExplorerSection section = new ActivityExplorerSection(contributor) {
+		  ActivityExplorerSection section = new ActivityExplorerSection(contributor, this) {
 			  @Override
 			  protected IAction[] getToolBarActions() {
 				  IAction[] toolbarActions = new IAction[] { new DescriptionAction(ActivityExplorerPage.this.getSite().getShell(), description)

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2019 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2020 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.activities.ExplorerActivity;
+import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.ActivityExplorerPage;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.FormHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.helper.HTMLHelper;
 import org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager;
@@ -56,7 +57,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 * 
 	 * @param contributor
 	 */
-	public ActivityExplorerSection(IConfigurationElement contributor) {
+	public ActivityExplorerSection(IConfigurationElement contributor, ActivityExplorerPage activityPage) {
 		this.id = ActivityExplorerExtensionManager.getId(contributor);
 		this.name = ActivityExplorerExtensionManager.getName(contributor);
 		this.isExpanded = ActivityExplorerExtensionManager.getIsExpanded(contributor);
@@ -74,6 +75,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 		this.isFiltering = ActivityExplorerExtensionManager.getIsFiltering(contributor);
 		createActivities(contributor);
 		this.pluginId = contributor.getContributor().getName();
+		this.activityPage = activityPage;
 	}
 
 	/**
@@ -88,7 +90,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	 */
 
 	public ActivityExplorerSection(String id, String name, int index, boolean isExpanded, boolean isFiltering,
-			String description, List<ExplorerActivity> activities) {
+			String description, List<ExplorerActivity> activities, ActivityExplorerPage activityPage) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -96,6 +98,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 		this.isExpanded = isExpanded;
 		this.isFiltering = isFiltering;
 		this.activities.addAll(activities);
+		this.activityPage = activityPage;
 	}
 
 	private TreeSet<ExplorerActivity> activities;
@@ -113,7 +116,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 		List<IConfigurationElement> activities = ActivityExplorerExtensionManager.getActivities(contributor);
 		for (IConfigurationElement element : activities) {
 			try {
-				this.activities.add(new ExplorerActivity(element));
+				this.activities.add(new ExplorerActivity(element, this));
 			} catch (NumberFormatException e){
 
 				StringBuilder message = new StringBuilder();
@@ -197,6 +200,7 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
 	private IAction[] toolbarActions;
 	private Section widget;
 	private String pluginId;
+	private ActivityExplorerPage activityPage;
 
 	/**
 	 * Return true if the section is defined as expanded.
@@ -424,5 +428,9 @@ public class ActivityExplorerSection implements IVisibility, IOrdered, IProperty
   @Override
   public String getPluginId() {
     return pluginId;
+  }
+  
+  public ActivityExplorerPage getActivityExplorerPage() {
+    return activityPage;
   }
 }
