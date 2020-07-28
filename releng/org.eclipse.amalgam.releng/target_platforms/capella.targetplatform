@@ -1,13 +1,13 @@
 target "capella" with source, requirements
 
-location "http://download.eclipse.org/releases/2019-06/201906191000" {
+location "http://download.eclipse.org/releases/2020-06" {
 	org.eclipse.platform.feature.group lazy
 	org.eclipse.emf.sdk.feature.group lazy
 	org.eclipse.gmf.feature.group lazy
 	org.junit lazy
 }
 
-location "http://download.eclipse.org/sirius/updates/stable/6.3.0-S20190716-100145/2019-06" {
+location "https://download.eclipse.org/sirius/updates/stable/6.4.0-S20200716-044517/2020-06" {
 	org.eclipse.sirius.runtime.feature.group lazy
 	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
 }
