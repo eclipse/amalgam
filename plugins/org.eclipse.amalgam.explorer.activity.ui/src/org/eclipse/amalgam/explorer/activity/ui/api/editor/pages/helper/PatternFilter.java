@@ -24,7 +24,7 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.ui.dialogs.FilteredTree;
-import org.eclipse.ui.internal.misc.StringMatcher;
+import org.eclipse.ui.dialogs.SearchPattern;
 
 /**
  * Copied from org.eclipse.ui.dialogs to export package methods.<br>
@@ -36,7 +36,7 @@ import org.eclipse.ui.internal.misc.StringMatcher;
  * @see FilteredTree
  * @since 3.2
  */
-@SuppressWarnings({ "unchecked", "rawtypes", "restriction" })
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class PatternFilter extends ViewerFilter {
 	/*
 	 * Cache of filtered elements in the tree
@@ -60,7 +60,7 @@ public class PatternFilter extends ViewerFilter {
 	 * The string pattern _matcher used for this pattern filter.
 	 */
 
-	private StringMatcher _matcher;
+	private SearchPattern _matcher;
 
 	private boolean _useEarlyReturnIfMatcherIsNull = true;
 
@@ -190,7 +190,8 @@ public class PatternFilter extends ViewerFilter {
 			if (_includeLeadingWildcard) {
 				pattern = "*" + pattern; //$NON-NLS-1$
 			}
-			_matcher = new StringMatcher(pattern, true, false);
+			_matcher = new SearchPattern();
+			_matcher.setPattern(pattern);
 		}
 	}
 
@@ -215,7 +216,7 @@ public class PatternFilter extends ViewerFilter {
 		if (_matcher == null) {
 			return true;
 		}
-		return _matcher.match(string_p);
+		return _matcher.matches(string_p);
 	}
 
 	/**
