@@ -20,3 +20,4 @@ Export-Package: org.eclipse.amalgam.explorer.contextual.core.ui,
  org.eclipse.amalgam.explorer.contextual.core.ui.model,
  org.eclipse.amalgam.explorer.contextual.core.ui.view,
  org.eclipse.amalgam.explorer.contextual.core.ui.view.ext
+Automatic-Module-Name: org.eclipse.amalgam.explorer.contextual.core.ui

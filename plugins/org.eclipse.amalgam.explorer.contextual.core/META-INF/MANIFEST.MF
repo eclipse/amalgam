@@ -26,3 +26,4 @@ Export-Package: org.eclipse.amalgam.explorer.contextual.core,
  org.eclipse.amalgam.explorer.contextual.core.util
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
+Automatic-Module-Name: org.eclipse.amalgam.explorer.contextual.core

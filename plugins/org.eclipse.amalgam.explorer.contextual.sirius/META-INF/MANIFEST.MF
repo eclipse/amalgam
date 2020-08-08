@@ -21,3 +21,4 @@ Bundle-Localization: plugin
 Export-Package: org.eclipse.amalgam.explorer.contextual.sirius,
  org.eclipse.amalgam.explorer.contextual.sirius.queries,
  org.eclipse.amalgam.explorer.contextual.sirius.selection
+Automatic-Module-Name: org.eclipse.amalgam.explorer.contextual.sirius

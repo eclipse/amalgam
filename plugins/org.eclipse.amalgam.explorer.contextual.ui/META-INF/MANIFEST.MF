@@ -21,3 +21,4 @@ Export-Package: org.eclipse.amalgam.explorer.contextual,
  org.eclipse.amalgam.explorer.contextual.view.focus,
  org.eclipse.amalgam.explorer.contextual.view.handlers
 Bundle-Vendor: %providerName
+Automatic-Module-Name: org.eclipse.amalgam.explorer.contextual.ui

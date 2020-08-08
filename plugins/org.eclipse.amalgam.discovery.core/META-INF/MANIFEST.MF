@@ -20,3 +20,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.equinox.p2.repository
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipse.amalgam.discovery.ModelingDiscoveryCoreActivator
+Automatic-Module-Name: org.eclipse.amalgam.discovery.core

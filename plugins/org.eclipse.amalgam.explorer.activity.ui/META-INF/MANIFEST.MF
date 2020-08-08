@@ -37,3 +37,4 @@ Export-Package: org.eclipse.amalgam.explorer.activity.ui,
  org.eclipse.amalgam.explorer.activity.ui.api.hyperlinkadapter,
  org.eclipse.amalgam.explorer.activity.ui.api.manager,
  org.eclipse.amalgam.explorer.activity.ui.api.preferences
+Automatic-Module-Name: org.eclipse.amalgam.explorer.activity.ui

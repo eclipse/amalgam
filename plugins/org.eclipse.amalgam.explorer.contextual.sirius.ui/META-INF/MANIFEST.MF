@@ -21,3 +21,4 @@ Export-Package: org.eclipse.amalgam.explorer.contextual.sirius.ui,
  org.eclipse.amalgam.explorer.contextual.sirius.ui.focus,
  org.eclipse.amalgam.explorer.contextual.sirius.ui.handlers
 Bundle-Vendor: %providerName
+Automatic-Module-Name: org.eclipse.amalgam.explorer.contextual.sirius.ui
