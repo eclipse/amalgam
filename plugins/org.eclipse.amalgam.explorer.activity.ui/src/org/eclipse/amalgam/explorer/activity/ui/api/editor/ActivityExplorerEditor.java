@@ -58,8 +58,6 @@ import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 
 /**
  * Base class to implement Activity Explorer.
@@ -431,18 +429,6 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
     public void doSave(IProgressMonitor monitor) {
         // Ignore. This method is not called because ActivityExplorerEditor implements ISaveablesSource.
         // All saves will go through the ISaveablesSource / Saveable protocol.
-    }
-
-    /**
-     * @param obj
-     * @return the bundle containing the object's class or the class's name if it's not contained in a bundle
-     */
-    private String getBundleId(Object obj) {
-        Bundle bundle = FrameworkUtil.getBundle(obj.getClass());
-        if (bundle != null) {
-            return bundle.getSymbolicName();
-        }
-        return obj.getClass().getCanonicalName();
     }
 
     /**

@@ -160,7 +160,7 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
 
 		final Form formWidget = managedForm.getForm().getForm();
 
-		final Session current = ((ActivityExplorerEditorInput) this.getEditorInput()).getSession();
+		((ActivityExplorerEditorInput) this.getEditorInput()).getSession();
 
 		// init
 		formWidget.getMenuManager().add(new Separator("empty-list")); //$NON-NLS-1$
