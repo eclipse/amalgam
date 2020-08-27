@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)  2006, 2015 THALES GLOBAL SERVICES.
+ * Copyright (c)  2006, 2020 THALES GLOBAL SERVICES.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.business.api.session.danalysis.DAnalysisSession;
+import org.eclipse.sirius.common.tools.api.query.IllegalStateExceptionQuery;
 
 public class SessionHelper {
 
@@ -49,25 +50,33 @@ public class SessionHelper {
    * @param session_p
    * @return model root of the first semantic resource managed by session_p or null
    * 
-   * @deprecated will be removed. Do not base client code by calling this method or calling {@link
-   *             org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager.getRootSemanticModel()}
+   * @deprecated will be removed. Do not base client code by calling this method or calling
+   *             {@link org.eclipse.amalgam.explorer.activity.ui.api.manager.ActivityExplorerManager.getRootSemanticModel()}
    * 
    */
   @Deprecated
   public static EObject getRootSemanticModel(Session session_p) {
 
     EObject result = null;
-    if (null != session_p) {
-      Iterator<Resource> semanticResources = session_p.getSemanticResources().iterator();
-      // Iterate over semantic resources to search for a project.
-      while (semanticResources.hasNext()) {
-        Resource semanticResource = semanticResources.next();
-        String fileExtension = semanticResource.getURI().fileExtension();
-        if (fileExtension == null || fileExtension.isEmpty() || AFM_EXTENSION.equals(fileExtension)) {
-          continue;
+    try {
+      if (null != session_p) {
+        Iterator<Resource> semanticResources = session_p.getSemanticResources().iterator();
+        // Iterate over semantic resources to search for a project.
+        while (semanticResources.hasNext()) {
+          Resource semanticResource = semanticResources.next();
+          String fileExtension = semanticResource.getURI().fileExtension();
+          if (fileExtension == null || fileExtension.isEmpty() || AFM_EXTENSION.equals(fileExtension)) {
+            continue;
+          }
+          result = semanticResource.getContents().get(0);
+          break;
         }
-        result = semanticResource.getContents().get(0);
-        break;
+      }
+    } catch (IllegalStateException e) {
+      if (new IllegalStateExceptionQuery(e).isAConnectionLostException()) {
+        // Do nothing, just return null.
+      } else {
+        throw e;
       }
     }
     return result;
