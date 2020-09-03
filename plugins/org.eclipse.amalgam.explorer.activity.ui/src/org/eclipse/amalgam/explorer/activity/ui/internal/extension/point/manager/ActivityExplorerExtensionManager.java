@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.activity.InvalidActivityException;
-
 import org.eclipse.amalgam.explorer.activity.ui.ActivityExplorerActivator;
 import org.eclipse.amalgam.explorer.activity.ui.IImageKeys;
 import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityExplorerPage;
@@ -130,7 +128,6 @@ public class ActivityExplorerExtensionManager {
    * check if the page is valid
    * @param page
    * @return the page, otherways, launch an exception
-   * @throws InvalidActivityException
    */
   private static CommonActivityExplorerPage accept(CommonActivityExplorerPage page, IConfigurationElement element) 
 		  throws InvalidActivityExplorerIndexException {
