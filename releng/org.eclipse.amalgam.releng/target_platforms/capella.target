@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="capella" sequenceNumber="1563277401">
+<target name="capella" sequenceNumber="1563277402">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
@@ -13,7 +13,7 @@
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.sirius.runtime.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="0.0.0"/>
-      <repository location="http://download.eclipse.org/sirius/updates/stable/6.3.0-S20190716-100145/2019-06"/>
+      <repository location="http://download.eclipse.org/sirius/updates/releases/6.3.0/2019-06"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.license.feature.group" version="0.0.0"/>
