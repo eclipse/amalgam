@@ -262,7 +262,7 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
 		// By default all Overview page are visible (cf. bug 485652)
 		boolean result = true;
 		if (predicate != null) {
-			result &= predicate.isOk();
+			result &= predicate.isPageOk(this);
 		}
 		return result;
 	}

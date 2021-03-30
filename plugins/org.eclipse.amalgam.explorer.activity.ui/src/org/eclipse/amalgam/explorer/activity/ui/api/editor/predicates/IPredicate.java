@@ -16,14 +16,14 @@ import org.eclipse.amalgam.explorer.activity.ui.api.editor.pages.CommonActivityE
 public interface IPredicate {
 
   public default boolean isOk() {
-    return true;
+    return false;
   }
-  
-	public default boolean isActivityOk(ExplorerActivity activity) {
-	  return true;
-	}
 
-	public default boolean isPageOk(CommonActivityExplorerPage page) {
-    return true;
+  public default boolean isActivityOk(ExplorerActivity activity) {
+    return isOk();
+  }
+
+  public default boolean isPageOk(CommonActivityExplorerPage page) {
+    return isOk();
   }
 }

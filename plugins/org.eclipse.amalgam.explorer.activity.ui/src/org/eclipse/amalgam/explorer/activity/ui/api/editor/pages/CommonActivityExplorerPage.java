@@ -189,7 +189,7 @@ public class CommonActivityExplorerPage extends FormPage implements IExecutableE
     boolean result = ActivityExplorerActivator.getDefault().getPreferenceStore().getBoolean(getId());
     result &= !WorkbenchActivityHelper.filterItem(this);
     if (predicate != null) {
-      result &= predicate.isOk();
+      result &= predicate.isPageOk(this);
     }
     return result;
   }
