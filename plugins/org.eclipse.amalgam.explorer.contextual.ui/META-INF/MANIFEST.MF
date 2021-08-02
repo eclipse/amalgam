@@ -6,15 +6,15 @@ Bundle-Version: 1.12.1.qualifier
 Bundle-Activator: org.eclipse.amalgam.explorer.contextual.Activator
 Require-Bundle: org.eclipse.amalgam.explorer.contextual.core.ui,
  org.eclipse.amalgam.explorer.contextual.core,
- org.eclipse.sirius,
  org.eclipse.core.expressions,
  org.eclipse.osgi,
  org.eclipse.core.runtime,
  org.eclipse.jface,
  org.eclipse.ui,
- org.eclipse.ui.views.properties.tabbed
+ org.eclipse.ui.views.properties.tabbed,
+ org.eclipse.emf.ecore
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Localization: plugin
 Export-Package: org.eclipse.amalgam.explorer.contextual,
  org.eclipse.amalgam.explorer.contextual.view,
