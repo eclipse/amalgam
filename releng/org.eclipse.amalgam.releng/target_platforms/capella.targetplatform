@@ -1,17 +1,8 @@
 target "capella" with source, requirements
 
-location "http://download.eclipse.org/releases/2020-06" {
-	org.eclipse.platform.feature.group lazy
-	org.eclipse.emf.sdk.feature.group lazy
-	org.eclipse.gmf.feature.group lazy
-	org.junit lazy
-}
+include "https://download.eclipse.org/sirius/updates/stable/7.0.0-S20210722-123507/2021-06/targets/sirius_2021-06.targetplatform"
 
-location "https://download.eclipse.org/sirius/updates/releases/6.4.0/2020-06" {
+location "https://download.eclipse.org/sirius/updates/stable/7.0.0-S20210722-123507/2021-06" {
 	org.eclipse.sirius.runtime.feature.group lazy
 	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
-}
-
-location "http://download.eclipse.org/cbi/updates/license" {
-	org.eclipse.license.feature.group lazy
 }
