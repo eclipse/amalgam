@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.amalgam.explorer.contextual.core,
  org.eclipse.emf.edit,
  org.eclipse.sirius
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.amalgam.explorer.contextual.core.ui,
  org.eclipse.amalgam.explorer.contextual.core.ui.action,
  org.eclipse.amalgam.explorer.contextual.core.ui.internal,
