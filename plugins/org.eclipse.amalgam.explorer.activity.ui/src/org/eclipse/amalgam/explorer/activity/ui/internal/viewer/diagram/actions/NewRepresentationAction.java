@@ -21,6 +21,7 @@ import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.sirius.business.api.dialect.DialectManager;
+import org.eclipse.sirius.business.api.logger.RuntimeLoggerManager;
 import org.eclipse.sirius.business.api.query.IdentifiedElementQuery;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionManager;
@@ -31,11 +32,10 @@ import org.eclipse.sirius.common.tools.api.util.StringUtil;
 import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.description.Layer;
 import org.eclipse.sirius.diagram.description.filter.FilterDescription;
-import org.eclipse.sirius.tools.api.SiriusPlugin;
-import org.eclipse.sirius.tools.api.interpreter.IInterpreterMessages;
 import org.eclipse.sirius.tools.api.interpreter.InterpreterUtil;
 import org.eclipse.sirius.ui.business.api.dialect.DialectUIManager;
 import org.eclipse.sirius.viewpoint.DRepresentation;
+import org.eclipse.sirius.viewpoint.description.DescriptionPackage;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -156,7 +156,7 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 			try {
 				newName = interpreter.evaluateString(eObject, titleExpression);
 			} catch (EvaluationException e) {
-				SiriusPlugin.getDefault().error(IInterpreterMessages.EVALUATION_ERROR_ON_MODEL_MODIFICATION, e);
+				RuntimeLoggerManager.INSTANCE.error(description, DescriptionPackage.eINSTANCE.getRepresentationDescription_TitleExpression(), e);
 			}
 		} else if (!StringUtil.isEmpty(repDescription.getLabel())) {
       newName = "New " + MessageTranslator.INSTANCE.getMessage(description, new IdentifiedElementQuery(repDescription).getLabel());
