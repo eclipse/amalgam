@@ -11,7 +11,7 @@ location "https://download.eclipse.org/cbi/updates/license" {
 	org.eclipse.license.feature.group lazy
 }
 
-location "https://download.eclipse.org/sirius/updates/stable/7.0.0-S20210722-123507/2021-06" {
+location "https://download.eclipse.org/sirius/updates/stable/7.0.0-S20210908-102403/2021-06" {
 	org.eclipse.sirius.runtime.feature.group lazy
 	org.eclipse.sirius.runtime.ide.ui.feature.group lazy
 }

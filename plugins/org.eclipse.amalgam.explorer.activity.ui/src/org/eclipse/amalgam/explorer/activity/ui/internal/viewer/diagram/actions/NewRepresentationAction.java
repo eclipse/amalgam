@@ -31,11 +31,11 @@ import org.eclipse.sirius.common.tools.api.util.StringUtil;
 import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.description.Layer;
 import org.eclipse.sirius.diagram.description.filter.FilterDescription;
+import org.eclipse.sirius.tools.api.SiriusPlugin;
 import org.eclipse.sirius.tools.api.interpreter.IInterpreterMessages;
 import org.eclipse.sirius.tools.api.interpreter.InterpreterUtil;
 import org.eclipse.sirius.ui.business.api.dialect.DialectUIManager;
 import org.eclipse.sirius.viewpoint.DRepresentation;
-import org.eclipse.sirius.viewpoint.SiriusPlugin;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -232,7 +232,8 @@ public class NewRepresentationAction extends BaseSelectionListenerAction {
 			return representation;
 		}
 
-		public void doExecute() {
+		@Override
+        public void doExecute() {
 			NullProgressMonitor monitor = new NullProgressMonitor();
 
 			representation = DialectManager.INSTANCE.createRepresentation(newName, eObject, repDescription,
