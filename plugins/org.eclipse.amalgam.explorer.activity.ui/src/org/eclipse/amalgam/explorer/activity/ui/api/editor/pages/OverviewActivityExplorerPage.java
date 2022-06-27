@@ -25,11 +25,13 @@ import org.eclipse.amalgam.explorer.activity.ui.internal.actions.util.FormTextPa
 import org.eclipse.jface.action.IMenuListener2;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionManager;
-import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
@@ -37,9 +39,6 @@ import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
-import org.eclipse.ui.forms.widgets.ScrolledFormText;
-import org.eclipse.ui.forms.widgets.TableWrapData;
-import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 /**
  * Overview page that behaves as a Activity Explorer. That displays navigable
@@ -143,23 +142,14 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
 		ScrolledForm form = managedForm.getForm();
 		form.setText(getHeaderTitle());
 		// Install a default layout.
-		TableWrapLayout layout = new TableWrapLayout();
-
-		layout.leftMargin = 0;
-		layout.rightMargin = 0;
-		layout.topMargin = 20;
-		layout.bottomMargin = 0;
-		layout.horizontalSpacing = 0;
-		layout.verticalSpacing = 0;
-		layout.numColumns = 2;
+		GridLayout layout = GridLayoutFactory.swtDefaults().extendedMargins(36, 36, 24, 24).spacing(24, 24).numColumns(2).create();
 
 		Composite body = form.getBody();
 		body.setLayout(layout);
 
-		// add Session Manager On Fly
-
 		final Form formWidget = managedForm.getForm().getForm();
 
+	  // add Session Manager On Fly
 		((ActivityExplorerEditorInput) this.getEditorInput()).getSession();
 
 		// init
@@ -169,16 +159,12 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
 		formWidget.getMenuManager().addMenuListener(listener);
 
 		// Create the overview content.
-
-		// Set image HREF.
-		// FormText richText = null;
-
 		for (CommonActivityExplorerPage page : getContributedPages()) {
 
 			createSubForm(managedForm, body, page);
 
 		}
-
+		
 		form.reflow(true);
 	}
 
@@ -194,9 +180,6 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
 		return Messages.OverviewActivityExplorerPage_2 + ((ActivityExplorerEditorInput) getEditorInput()).getName();
 	}
 
-	// public Map<String, Composite> contents = new HashMap<String,
-	// Composite>();
-
 	public Composite createSubForm(IManagedForm managedForm, Composite body, CommonActivityExplorerPage page) {
 
 		Composite composite = body;
@@ -204,58 +187,31 @@ public class OverviewActivityExplorerPage extends CommonActivityExplorerPage {
 		FormText richText = null;
 
 		if (page.isVisible()) {
+		  
 			// image
-
 			String txt = HTMLHelper.imageLinkForm(page);
 			if (!(txt == null || txt.isEmpty())) {
-
 				richText = FormHelper.createRichText(managedForm.getToolkit(), composite, txt,
 						new OverviewPageLinkAdapter(getEditor()));
 				richText.setHyperlinkSettings(managedForm.getToolkit().getHyperlinkGroup());
 				richText.setImage(page.getId(), page.getOverviewImageOff());
-
-				richText.marginHeight = 0;
-				richText.marginWidth = 0;
-				TableWrapData layoutData = new TableWrapData();
-				layoutData.align = TableWrapData.CENTER;
-				layoutData.valign = TableWrapData.MIDDLE;
-				richText.setLayoutData(layoutData);
-
-				txt = HTMLHelper.overviewDescForm(page);
-
-				// Set Layout data.
-
-			}
-			// text
-
-			if (!(txt == null || txt.isEmpty())) {
-				ScrolledFormText descriptionForm = new ScrolledFormText(composite, true);
-
-				descriptionForm.setBackground(new Color(PlatformUI.getWorkbench().getDisplay(), 255, 255, 255));
-
-				descriptionForm.setText(txt);
-
-				descriptionForm.setMinWidth(600);
-				TableWrapData layoutData2 = new TableWrapData();
-
-				layoutData2.maxHeight = 100;
-				layoutData2.maxWidth = 600;
-				layoutData2.align = TableWrapData.CENTER;
-				layoutData2.valign = TableWrapData.MIDDLE;
-				descriptionForm.setLayoutData(layoutData2);
 				
-				descriptionForm.pack(false);
+				GridData data = GridDataFactory.swtDefaults().align(GridData.BEGINNING, GridData.CENTER).grab(false, false).create();
+				richText.setLayoutData(data);
+        
+				txt = HTMLHelper.overviewDescForm(page);
+			}
+			
+			// text
+			if (!(txt == null || txt.isEmpty())) {
+			  FormText descriptionForm = FormHelper.createRichText(managedForm.getToolkit(), composite, txt, null);
+				GridData layoutData2 = GridDataFactory.swtDefaults().align(GridData.BEGINNING, GridData.CENTER).grab(false, false).create();
+				descriptionForm.setLayoutData(layoutData2);
 			}
 
-			richText.marginHeight = 0;
-			richText.marginWidth = 40;
 		}
 		return composite;
 	}
-
-	// public Composite getSubFormComposite(final String id) {
-	// return contents.get(id);
-	// }
 
 	@Override
 	public boolean isVisible() {
