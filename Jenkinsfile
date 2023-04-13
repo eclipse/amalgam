@@ -2,7 +2,7 @@ pipeline {
   agent { label 'migration' }
   tools {
         maven 'apache-maven-latest'
-        jdk 'openjdk-jdk14-latest'
+        jdk 'openjdk-jdk11-latest'
   }
   parameters { 
     choice(name: 'PLATFORM', choices: ['capella', 'oxygen'], description: 'Platform to use')
