@@ -145,8 +145,10 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
 
             public void controlResized(ControlEvent cevent) {
                 IFormPage activePageInstance = ActivityExplorerEditor.this.getActivePageInstance();
-                IManagedForm managedForm = activePageInstance.getManagedForm();
-                managedForm.reflow(true);
+                if(activePageInstance != null) {
+                    IManagedForm managedForm = activePageInstance.getManagedForm();
+                    managedForm.reflow(true);
+                }               
             }
         });
         // Refresh dirty state when the part is activated : open time for
@@ -313,7 +315,9 @@ public class ActivityExplorerEditor extends SharedHeaderFormEditor implements IT
                     }
                 }
                 // Call remove page
-                removePage(pageIndex);
+                if(pages.size() != 0) {
+                	removePage(pageIndex);
+                }                
             }
 
             // Add new message page if not null
