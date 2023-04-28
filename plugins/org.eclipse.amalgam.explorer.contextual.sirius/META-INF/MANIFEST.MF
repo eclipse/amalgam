@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.gef,
  org.eclipse.osgi,
  org.eclipse.core.runtime 
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.amalgam.explorer.contextual.sirius,
