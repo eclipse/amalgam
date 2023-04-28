@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.amalgam.discovery.DiscoveryUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.amalgam.discovery.ui.common.internal;x-int
  ernal:=true,org.eclipse.amalgam.discovery.ui.viewer,org.eclipse.amalg
  am.discovery.ui.viewer.internal;x-internal:=true,org.eclipse.amalgam.
