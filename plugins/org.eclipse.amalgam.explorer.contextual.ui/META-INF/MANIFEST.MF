@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.amalgam.explorer.contextual.core.ui,
  org.eclipse.ui.views.properties.tabbed,
  org.eclipse.emf.ecore
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Localization: plugin
 Export-Package: org.eclipse.amalgam.explorer.contextual,
  org.eclipse.amalgam.explorer.contextual.view,

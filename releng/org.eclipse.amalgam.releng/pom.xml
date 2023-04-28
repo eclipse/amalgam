@@ -79,12 +79,14 @@
                 <artifactId>target-platform-configuration</artifactId>
                 <version>${tycho-version}</version>
                 <configuration>
+                    <resolver>p2</resolver>
                     <ignoreTychoRepositories>true</ignoreTychoRepositories>
 					<targetDefinitionIncludeSource>force</targetDefinitionIncludeSource>
 					<resolver>p2</resolver>
 					<dependency-resolution>
 						<optionalDependencies>ignore</optionalDependencies>
 					</dependency-resolution>
+					<executionEnvironment>JavaSE-17</executionEnvironment>
                     <target>
                         <artifact>
                             <groupId>org.eclipse.amalgam</groupId>
