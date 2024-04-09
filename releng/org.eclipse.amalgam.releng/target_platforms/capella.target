@@ -5,12 +5,12 @@
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.gmf.runtime.notation.sdk.feature.group" version="0.0.0"/>
-      <repository id="GMF-Notation-1.13.1" location="https://download.eclipse.org/modeling/gmp/gmf-notation/updates/releases/R202211151334"/>
+      <repository id="GMF-Notation" location="https://download.eclipse.org/modeling/gmp/gmf-notation/updates/releases/R202211151334"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.gmf.runtime.sdk.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.gmf.runtime.thirdparty.feature.group" version="0.0.0"/>
-      <repository id="GMF-Runtime-1.15.3" location="https://download.eclipse.org/modeling/gmp/gmf-runtime/updates/releases/R202211041032/"/>
+      <repository id="GMF-Runtime" location="https://download.eclipse.org/modeling/gmp/gmf-runtime/updates/milestones/S202401081627"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
@@ -25,7 +25,7 @@
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.sirius.runtime.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="0.0.0"/>
-      <repository location="https://download.eclipse.org/sirius/updates/stable/7.2.0-S20230411-075209/2023-03"/>
+      <repository location="https://download.eclipse.org/sirius/updates/stable/7.4.1-S20240408-053509/2023-03"/>
     </location>
   </locations>
 </target>
